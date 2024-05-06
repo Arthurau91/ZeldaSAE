@@ -3,7 +3,6 @@ package com.example.zeldasae.controller;
 import com.example.zeldasae.modele.Monde;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.geometry.Pos;
 import javafx.scene.layout.TilePane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
@@ -25,6 +24,7 @@ public class Controller implements Initializable {
         afficherMap();
     }
 
+
     public void afficherMap() {
 
         int[][] m = this.map.getMap();
@@ -33,7 +33,8 @@ public class Controller implements Initializable {
             for (int y = 0 ; y < m[x].length ; y++) {
                 Rectangle rectangle = new Rectangle(30, 30);
                 switch (m[x][y]) {
-                    case 0 -> rectangle.setFill(Color.RED);
+                    case 0 -> rectangle.setFill(Color.GREEN);
+                    case 1 -> rectangle.setFill(Color.GRAY);
                 }
                 mapPane.getChildren().add(rectangle);
             }
