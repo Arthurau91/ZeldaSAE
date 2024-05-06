@@ -12,7 +12,7 @@ public class Joueur {
     public Joueur(int x, int y) {
         this.xProperty.setValue(x);
         this.yProperty.setValue(y);
-        this.id = "j1";
+//        this.id = "j1";
     }
 
     public int getX() {

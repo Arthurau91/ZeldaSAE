@@ -8,6 +8,9 @@
 
 <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.zeldasae.controller.Controller">
    <children>
-      <TilePane fx:id="mapPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefColumns="30" prefHeight="900.0" prefRows="30" prefTileHeight="30.0" prefTileWidth="30.0" prefWidth="900.0" />
+      <TilePane fx:id="mapPane" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefColumns="30" prefHeight="900.0" prefRows="30" prefTileHeight="30.0" prefTileWidth="30.0" prefWidth="900.0">
+         <children>
+            <Pane fx:id="paneEntites" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="900.0" prefWidth="900.0" TilePane.alignment="CENTER" />
+         </children></TilePane>
    </children>
 </VBox>

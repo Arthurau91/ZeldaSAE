@@ -4,14 +4,19 @@ import com.example.zeldasae.modele.Monde;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Pos;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.TilePane;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
 
 import java.net.URL;
 import java.util.ResourceBundle;
 
 public class Controller implements Initializable {
+
+    @FXML
+    private Pane paneEntites;
 
     @FXML
     private TilePane mapPane;
@@ -38,6 +43,7 @@ public class Controller implements Initializable {
                 mapPane.getChildren().add(rectangle);
             }
         }
+//        paneEntites.getChildren().add(new Circle(3));
     }
 
 }
