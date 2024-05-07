@@ -6,6 +6,7 @@ import javafx.fxml.Initializable;
 import javafx.geometry.Pos;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.TilePane;
+import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
@@ -43,7 +44,11 @@ public class Controller implements Initializable {
                 mapPane.getChildren().add(rectangle);
             }
         }
-//        paneEntites.getChildren().add(new Circle(3));
+        Circle circle = new Circle(20);
+        circle.setTranslateX(20);
+        paneEntites.getChildren().add(circle);
+
+
     }
 
 }
