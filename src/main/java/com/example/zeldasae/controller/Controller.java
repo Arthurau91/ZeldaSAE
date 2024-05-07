@@ -47,6 +47,7 @@ public class Controller implements Initializable {
                         break;
                 }
 
+
                 this.mapPane.getChildren().add(imageView);
 
             }
