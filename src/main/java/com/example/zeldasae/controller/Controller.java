@@ -1,9 +1,14 @@
 package com.example.zeldasae.controller;
 
+import com.example.zeldasae.modele.Joueur;
 import com.example.zeldasae.modele.Monde;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Scene;
 import javafx.geometry.Pos;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.TilePane;
 import javafx.scene.layout.VBox;
@@ -14,7 +19,7 @@ import javafx.scene.shape.Rectangle;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class Controller implements Initializable {
+public class Controller implements Initializable, EventHandler<KeyEvent> {
 
     @FXML
     private Pane paneEntites;
@@ -26,7 +31,8 @@ public class Controller implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        this.map = new Monde();
+        this.map = new Monde(new Joueur(20, 20));
+        KeyHandler touche = new KeyHandler(this.map);
 
         afficherMap();
     }
@@ -44,11 +50,42 @@ public class Controller implements Initializable {
                 mapPane.getChildren().add(rectangle);
             }
         }
-        Circle circle = new Circle(20);
-        circle.setTranslateX(20);
-        paneEntites.getChildren().add(circle);
+        creerSpriteJoueur(this.map.getJoueur());
 
+    }
+
+
+
+    public void creerSpriteJoueur(Joueur j) {
+        Circle c = new Circle(20);
+        c.setId(j.getId());
+        c.translateXProperty().bind(j.xProperty());
+        c.translateYProperty().bind(j.yProperty());
+        paneEntites.getChildren().add(c);
+
+    }
+
+    @Override
+    public void handle(KeyEvent keyEvent) {
+
+        System.out.println("ici");
+        switch (keyEvent.getText()) {
+            case "z", "Z":
+                map.getJoueur().deplacementZQSD('z');
+                break;
+            case "q", "Q":
+                map.getJoueur().deplacementZQSD('q');
+                break;
+            case "s", "S":
+                map.getJoueur().deplacementZQSD('s');
+                break;
+            case "d", "D":
+                map.getJoueur().deplacementZQSD('d');
+                break;
+        }
 
     }
 
 }
+
+
