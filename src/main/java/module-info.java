@@ -9,4 +9,6 @@ module com.example.zeldasae {
     exports com.example.zeldasae;
     exports com.example.zeldasae.controller;
     opens com.example.zeldasae.controller to javafx.fxml;
+    exports com.example.zeldasae.modele;
+    opens com.example.zeldasae.modele to javafx.fxml;
 }

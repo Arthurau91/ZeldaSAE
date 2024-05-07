@@ -3,7 +3,7 @@ package com.example.zeldasae.controller;
 import com.example.zeldasae.modele.Monde;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.geometry.Pos;
+
 import javafx.scene.layout.TilePane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
