@@ -7,13 +7,20 @@ import org.controlsfx.tools.Utils;
 public class Monde {
 
     private int[][] map;
+    private Joueur joueur;
 
-    public Monde() {
+    public Monde(Joueur j) {
         this.map = new int[30][30];
+        this.joueur = j;
     }
-
 
     public int[][] getMap() {
         return map;
     }
+
+    public Joueur getJoueur() {
+        return this.joueur;
+    }
+
+
 }

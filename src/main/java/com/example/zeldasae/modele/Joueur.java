@@ -5,14 +5,14 @@ import javafx.beans.property.SimpleIntegerProperty;
 
 public class Joueur {
 
-    private IntegerProperty xProperty = new SimpleIntegerProperty();
-    private IntegerProperty yProperty = new SimpleIntegerProperty();
+    private IntegerProperty xProperty;
+    private IntegerProperty yProperty;
     private String id;
 
     public Joueur(int x, int y) {
-        this.xProperty.setValue(x);
-        this.yProperty.setValue(y);
-//        this.id = "j1";
+        this.xProperty = new SimpleIntegerProperty(x);
+        this.yProperty = new SimpleIntegerProperty(y);
+        this.id = "j1";
     }
 
     public int getX() {
@@ -28,6 +28,14 @@ public class Joueur {
     }
 
 
+    public int getY() {
+        return yProperty.getValue();
+    }
+
+    public void setY(int y) {
+        this.yProperty.setValue(y);
+    }
+
 
     public IntegerProperty yProperty() {
         return yProperty;
@@ -35,5 +43,22 @@ public class Joueur {
 
     public String getId() {
         return id;
+    }
+
+    public void deplacementZQSD(char touche) {
+        switch (touche) {
+            case 'z':
+                this.setY(this.getY()-30);
+                break;
+            case 'q':
+                this.setX(this.getX()-30);
+                break;
+            case 's':
+                this.setY(this.getY()+30);
+                break;
+            case 'd':
+                this.setX(this.getX()+30);
+                break;
+        }
     }
 }
