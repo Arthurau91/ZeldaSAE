@@ -42,7 +42,7 @@ public class Controller implements Initializable {
                 ImageView imageView = new ImageView();
                 switch (m.get(x)) {
                     case 0:
-                        Image image = new Image("file:/home/etudiants/info/fcannan/IdeaProjects/ZeldaSAE2.1/src/main/resources/com/example/zeldasae/img/grass.jpg");
+                        Image image = new Image("file:src/main/resources/com/example/zeldasae/img/grass.jpg");
                         imageView.setImage(image);
                         break;
                 }
