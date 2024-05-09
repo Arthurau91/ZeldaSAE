@@ -45,19 +45,30 @@ public class Joueur {
         return id;
     }
 
+    public Joueur getJoueur() {
+        return this;
+    }
+
+
+
+
     public void deplacementZQSD(char touche) {
         switch (touche) {
             case 'z':
                 this.setY(this.getY()-30);
+                System.out.println("Déplacement en Z effectué");
                 break;
             case 'q':
                 this.setX(this.getX()-30);
+                System.out.println("Déplacement en Q effectué");
                 break;
             case 's':
                 this.setY(this.getY()+30);
+                System.out.println("Déplacement en S effectué");
                 break;
             case 'd':
                 this.setX(this.getX()+30);
+                System.out.println("Déplacement en D effectué");
                 break;
         }
     }

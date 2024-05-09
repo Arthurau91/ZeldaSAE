@@ -1,14 +1,22 @@
 package com.example.zeldasae.controller;
 
+import com.example.zeldasae.Main;
+import com.example.zeldasae.modele.Joueur;
 import com.example.zeldasae.modele.Monde;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyEvent;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.TilePane;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
 
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 public class Controller implements Initializable {
@@ -20,13 +28,16 @@ public class Controller implements Initializable {
     private TilePane mapPane;
 
     private Monde map;
+    public Joueur joueur;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        this.map = new Monde(new Joueur(20, 20));
-
+        this.joueur = new Joueur(20, 20);
+        this.map = new Monde(this.joueur);
+        creerSpriteJoueur(this.map.getJoueur());
         afficherMap();
     }
+
 
     public void afficherMap() {
 
@@ -57,7 +68,8 @@ public class Controller implements Initializable {
 
     }
 
-    @Override
+
+    @FXML
     public void handle(KeyEvent keyEvent) {
 
         System.out.println("ici");

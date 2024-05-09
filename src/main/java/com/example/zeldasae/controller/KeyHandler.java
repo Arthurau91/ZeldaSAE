@@ -15,57 +15,25 @@ public class KeyHandler implements EventHandler<KeyEvent> {
         this.map = map;
     }
 
-//    public void keyPressed(KeyEvent e) {
-//        int code = e.;
-//
-//        if (code == KeyEvent.VK_Z){
-//            upPressed = true;
-//        }
-//        if (code == KeyEvent.VK_S){
-//            downPressed = true;
-//        }
-//        if (code == KeyEvent.VK_Q){
-//            leftPressed = true;
-//        }
-//        if (code == KeyEvent.VK_D){
-//            rightPressed = true;
-//        }
-//    }
-//
-//    public void keyReleased(KeyEvent e) {
-//
-//        int code = e.getKeyCode();
-//
-//        if (code == KeyEvent.VK_Z){
-//            upPressed = false;
-//        }
-//        if (code == KeyEvent.VK_S){
-//            downPressed = false;
-//        }
-//        if (code == KeyEvent.VK_Q){
-//            leftPressed = false;
-//        }
-//        if (code == KeyEvent.VK_D){
-//            rightPressed = false;
-//        }
-//
-//    }
 
     @Override
     public void handle(KeyEvent keyEvent) {
 
-        System.out.println("ici");
         switch (keyEvent.getText()) {
             case "z", "Z":
+                System.out.println("z");
                 map.getJoueur().deplacementZQSD('z');
                 break;
             case "q", "Q":
+                System.out.println("q");
                 map.getJoueur().deplacementZQSD('q');
                 break;
             case "s", "S":
+                System.out.println("s");
                 map.getJoueur().deplacementZQSD('s');
                 break;
             case "d", "D":
+                System.out.println("d");
                 map.getJoueur().deplacementZQSD('d');
                 break;
         }

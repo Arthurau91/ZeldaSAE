@@ -1,6 +1,9 @@
 package com.example.zeldasae;
 
+import com.example.zeldasae.controller.Controller;
 import com.example.zeldasae.controller.KeyHandler;
+import com.example.zeldasae.modele.Joueur;
+import com.example.zeldasae.modele.Monde;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -14,9 +17,10 @@ public class Main extends Application {
     @Override
     public void start(Stage stage) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("vue.fxml"));
-        Scene scene = new Scene(fxmlLoader.load(), 1920, 1080);
+        Scene scene = new Scene(fxmlLoader.load(), 1200, 800);
         stage.setTitle("Zelda!");
-        scene.addEventHandler(KeyEvent.KEY_PRESSED, fxmlLoader.getController());
+        Controller controller = fxmlLoader.getController();
+        scene.addEventHandler(KeyEvent.KEY_PRESSED, new KeyHandler(new Monde(controller.joueur.getJoueur())));
         stage.setScene(scene);
         stage.show();
     }
