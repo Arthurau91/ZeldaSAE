@@ -10,6 +10,8 @@ import javafx.scene.Scene;
 import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
 
+
+
 import java.io.IOException;
 
 public class Main extends Application {
@@ -20,7 +22,7 @@ public class Main extends Application {
         Scene scene = new Scene(fxmlLoader.load(), 1200, 800);
         stage.setTitle("Zelda!");
         Controller controller = fxmlLoader.getController();
-        scene.addEventHandler(KeyEvent.KEY_PRESSED, new KeyHandler(new Monde(controller.joueur.getJoueur())));
+        scene.addEventHandler(KeyEvent.KEY_PRESSED, controller.getKeyHandler());
         stage.setScene(scene);
         stage.show();
     }

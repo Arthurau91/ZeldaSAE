@@ -28,12 +28,14 @@ public class Controller implements Initializable {
     private TilePane mapPane;
 
     private Monde map;
-    public Joueur joueur;
+    private Joueur joueur;
+    private KeyHandler keyHandler;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         this.joueur = new Joueur(20, 20);
         this.map = new Monde(this.joueur);
+        this.keyHandler = new KeyHandler(this.map);
         creerSpriteJoueur(this.map.getJoueur());
         afficherMap();
     }
@@ -47,7 +49,7 @@ public class Controller implements Initializable {
             ImageView imageView = new ImageView();
             switch (m.get(x)) {
                 case 0:
-                    Image image = new Image("file:src/main/resources/com/example/zeldasae/img/grass.jpg");
+                    Image image = new Image("file:src/main/resources/com/example/zeldasae/assets/grass.jpg");
                     imageView.setImage(image);
                     break;
             }
@@ -66,6 +68,10 @@ public class Controller implements Initializable {
         c.translateYProperty().bind(j.yProperty());
         paneEntites.getChildren().add(c);
 
+    }
+
+    public KeyHandler getKeyHandler() {
+        return this.keyHandler;
     }
 
 
