@@ -1,19 +1,14 @@
 package com.example.zeldasae.controller;
 
-import com.example.zeldasae.Main;
 import com.example.zeldasae.modele.Joueur;
 import com.example.zeldasae.modele.Monde;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.TilePane;
-import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
-import javafx.scene.shape.Rectangle;
 
 import java.net.URL;
 import java.util.ArrayList;
@@ -30,6 +25,8 @@ public class Controller implements Initializable {
     private Monde map;
     private Joueur joueur;
     private KeyHandler keyHandler;
+    public static final int WIDTH = 1920;
+    public static final int HEIGHT = 1080;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -74,26 +71,5 @@ public class Controller implements Initializable {
         return this.keyHandler;
     }
 
-
-    @FXML
-    public void handle(KeyEvent keyEvent) {
-
-        System.out.println("ici");
-        switch (keyEvent.getText()) {
-            case "z", "Z":
-                map.getJoueur().deplacementZQSD('z');
-                break;
-            case "q", "Q":
-                map.getJoueur().deplacementZQSD('q');
-                break;
-            case "s", "S":
-                map.getJoueur().deplacementZQSD('s');
-                break;
-            case "d", "D":
-                map.getJoueur().deplacementZQSD('d');
-                break;
-        }
-
-    }
 
 }

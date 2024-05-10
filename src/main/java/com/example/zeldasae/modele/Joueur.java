@@ -1,5 +1,6 @@
 package com.example.zeldasae.modele;
 
+import com.example.zeldasae.controller.Controller;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 
@@ -49,26 +50,47 @@ public class Joueur {
         return this;
     }
 
+    private boolean deplacementPossible(double x, double y) {
+        return x >= 0 && x < Controller.WIDTH && y >= 0 && y < Controller.HEIGHT;
+    }
+
 
 
 
     public void deplacementZQSD(char touche) {
         switch (touche) {
             case 'z':
-                this.setY(this.getY()-30);
-                System.out.println("Déplacement en Z effectué");
+                if (deplacementPossible(getX(), getY() - 30)) {
+                    setY(getY() - 30);
+                    System.out.println("Déplacement en Q effectué");
+                } else {
+                    System.out.println("Déplacement bloqué !");
+                }
                 break;
             case 'q':
-                this.setX(this.getX()-30);
-                System.out.println("Déplacement en Q effectué");
+                if (deplacementPossible(getX() - 30, getY())) {
+                    setX(getX() - 30);
+                    System.out.println("Déplacement en Q effectué");
+                } else {
+                    System.out.println("Déplacement bloqué !");
+                }
+
                 break;
             case 's':
-                this.setY(this.getY()+30);
-                System.out.println("Déplacement en S effectué");
+                if (deplacementPossible(getX(), getY() + 30)) {
+                    setY(getY() + 30);
+                    System.out.println("Déplacement en S effectué");
+                } else {
+                    System.out.println("Déplacement bloqué !");
+                }
                 break;
             case 'd':
-                this.setX(this.getX()+30);
-                System.out.println("Déplacement en D effectué");
+                if (deplacementPossible(getX() + 30, getY())) {
+                    setX(getX() + 30);
+                    System.out.println("Déplacement en D effectué");
+                } else {
+                    System.out.println("Déplacement bloqué !");
+                }
                 break;
         }
     }

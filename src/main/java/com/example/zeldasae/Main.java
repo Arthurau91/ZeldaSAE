@@ -1,9 +1,6 @@
 package com.example.zeldasae;
 
 import com.example.zeldasae.controller.Controller;
-import com.example.zeldasae.controller.KeyHandler;
-import com.example.zeldasae.modele.Joueur;
-import com.example.zeldasae.modele.Monde;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -11,10 +8,12 @@ import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
 
 
-
 import java.io.IOException;
 
+
 public class Main extends Application {
+
+
 
     @Override
     public void start(Stage stage) throws IOException {
