@@ -1,19 +1,19 @@
 package com.example.zeldasae.controller;
 
-import com.example.zeldasae.modele.Ennemi;
-import com.example.zeldasae.modele.Entite;
-import com.example.zeldasae.modele.Joueur;
-import com.example.zeldasae.modele.Monde;
+import com.example.zeldasae.modele.*;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 
+import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.TilePane;
+import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
+import javafx.util.converter.NumberStringConverter;
 
 import java.net.URL;
 import java.util.ArrayList;
@@ -25,15 +25,25 @@ public class Controller implements Initializable {
     private Pane paneEntites;
     @FXML
     private TilePane mapPane;
+    @FXML
+    private Label FPSLabel;
     private Monde map;
+    private GameLoop gameLoop;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        this.map = new Monde(new Joueur(20, 20));
+        this.map = new Monde(new Joueur(20, 20, mapPane));
         creerSprite(this.map.getJoueur());
         afficherMap();
-        paneEntites.addEventHandler(KeyEvent.KEY_PRESSED, new KeyHandler(this.map, mapPane));
-        creerSprite(new Ennemi(90, 90, "#1"));
+        paneEntites.addEventHandler(KeyEvent.KEY_PRESSED, new KeyHandler(this.map));
+        Ennemi ennemi = new Ennemi(90, 90, "#1", mapPane);
+        this.map.addEnnemi(ennemi);
+        creerSprite(ennemi);
+        this.gameLoop = new GameLoop(map);
+        FPSLabel.textProperty().bindBidirectional(gameLoop.FPSProperty(), new NumberStringConverter("FPS: "));
+        FPSLabel.setTextFill(Color.WHITE);
+        this.gameLoop.start();
+
     }
 
     public void afficherMap() {

@@ -7,6 +7,7 @@ public class Monde {
 
     private Terrain terrain;
     private Joueur joueur;
+    private ArrayList<Ennemi> listeEnnemis;
 
 
     /**
@@ -17,6 +18,7 @@ public class Monde {
 
         this.joueur = joueur;
         this.terrain = new Terrain();
+        this.listeEnnemis = new ArrayList<>();
     }
 
     public Terrain getTerrain() {
@@ -27,5 +29,13 @@ public class Monde {
         return this.joueur;
     }
 
+    public void addEnnemi(Ennemi ennemi) {
+        this.listeEnnemis.add(ennemi);
+    }
 
+    public void deplacementEnnemi(){
+        for (Ennemi ennemi : this.listeEnnemis) {
+            ennemi.deplacement(this);
+        }
+    }
 }
