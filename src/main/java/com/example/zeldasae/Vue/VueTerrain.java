@@ -17,6 +17,7 @@ public class VueTerrain {
         this.mapPane = mapPane;
     }
 
+
     public void afficherMap() {
 
         ArrayList<Integer> m = this.map.getMap();

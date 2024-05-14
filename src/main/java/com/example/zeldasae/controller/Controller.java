@@ -44,10 +44,6 @@ public class Controller implements Initializable {
     }
 
 
-
-
-
-
     public void persoFocus(MouseEvent mouseEvent){
         paneEntites.requestFocus();
     }

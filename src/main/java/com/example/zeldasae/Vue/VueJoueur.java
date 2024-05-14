@@ -14,6 +14,7 @@ public class VueJoueur {
         this.paneEntites = paneEntites;
     }
 
+
     public void creerSpriteJoueur(Joueur j) {
         Circle c = new Circle(20);
         c.setId(j.getId());
