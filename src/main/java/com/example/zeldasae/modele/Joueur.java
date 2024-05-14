@@ -107,7 +107,7 @@ public class Joueur {
             System.out.println(position);
                 switch (direction) {
                     case 'z':
-                        if (position >= 0 && position <= t.getPrefColumns()){
+                        if (position >= 0 && position < t.getPrefColumns()){
                             return false;
                         }
                         break;

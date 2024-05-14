@@ -28,8 +28,8 @@ public class Controller implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        this.map = new Monde(new Joueur(20, 20));
-        this.keyHandler = new KeyHandler(this.map);
+        this.map = new Monde(new Joueur(15, 15));
+        this.keyHandler = new KeyHandler(this.map, mapPane);
         creerSpriteJoueur(this.map.getJoueur());
         afficherMap();
         paneEntites.addEventHandler(KeyEvent.KEY_PRESSED, this.keyHandler);
