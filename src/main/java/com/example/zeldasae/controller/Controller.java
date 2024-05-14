@@ -57,7 +57,7 @@ public class Controller implements Initializable {
     }
 
     public void creerSpriteJoueur(Joueur j) {
-        Circle c = new Circle(20);
+        Circle c = new Circle(15);
         c.setId(j.getId());
         c.translateXProperty().bind(j.xProperty());
         c.translateYProperty().bind(j.yProperty());
