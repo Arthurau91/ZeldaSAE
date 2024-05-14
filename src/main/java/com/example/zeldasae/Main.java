@@ -1,5 +1,6 @@
 package com.example.zeldasae;
 
+import com.example.zeldasae.controller.Controller;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
