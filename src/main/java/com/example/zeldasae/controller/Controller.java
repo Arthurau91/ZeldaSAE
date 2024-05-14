@@ -1,7 +1,5 @@
 package com.example.zeldasae.controller;
 
-import com.example.zeldasae.Vue.VueJoueur;
-import com.example.zeldasae.Vue.VueTerrain;
 import com.example.zeldasae.modele.Joueur;
 import com.example.zeldasae.modele.Monde;
 import javafx.fxml.FXML;
