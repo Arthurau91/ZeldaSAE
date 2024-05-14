@@ -19,7 +19,7 @@ public class Main extends Application {
     @Override
     public void start(Stage stage) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("vue.fxml"));
-        Scene scene = new Scene(fxmlLoader.load(), 1200, 800);
+        Scene scene = new Scene(fxmlLoader.load(), 1200, 1200);
         stage.setTitle("Zelda!");
         Controller controller = fxmlLoader.getController();
         scene.addEventHandler(KeyEvent.KEY_PRESSED, controller.getKeyHandler());

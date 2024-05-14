@@ -33,9 +33,9 @@ public class Controller implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        this.joueur = new Joueur(20, 20);
+        this.joueur = new Joueur(15, 15);
         this.map = new Monde(this.joueur);
-        this.keyHandler = new KeyHandler(this.map);
+        this.keyHandler = new KeyHandler(this.map, this.mapPane);
         creerSpriteJoueur(this.map.getJoueur());
         afficherMap();
     }
@@ -49,7 +49,7 @@ public class Controller implements Initializable {
             ImageView imageView = new ImageView();
             switch (m.get(x)) {
                 case 0:
-                    Image image = new Image("file:src/main/resources/com/example/zeldasae/assets/grass.jpg");
+                    Image image = new Image("file:src/main/resources/com/example/zeldasae/img/grass.jpg");
                     imageView.setImage(image);
                     break;
             }
@@ -62,7 +62,7 @@ public class Controller implements Initializable {
     }
 
     public void creerSpriteJoueur(Joueur j) {
-        Circle c = new Circle(20);
+        Circle c = new Circle(15);
         c.setId(j.getId());
         c.translateXProperty().bind(j.xProperty());
         c.translateYProperty().bind(j.yProperty());
@@ -81,16 +81,16 @@ public class Controller implements Initializable {
         System.out.println("ici");
         switch (keyEvent.getText()) {
             case "z", "Z":
-                map.getJoueur().deplacementZQSD('z');
+                map.getJoueur().deplacementZQSD('z', mapPane, map);
                 break;
             case "q", "Q":
-                map.getJoueur().deplacementZQSD('q');
+                map.getJoueur().deplacementZQSD('q', mapPane, map);
                 break;
             case "s", "S":
-                map.getJoueur().deplacementZQSD('s');
+                map.getJoueur().deplacementZQSD('s', mapPane, map);
                 break;
             case "d", "D":
-                map.getJoueur().deplacementZQSD('d');
+                map.getJoueur().deplacementZQSD('d', mapPane, map);
                 break;
         }
 
