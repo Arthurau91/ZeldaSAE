@@ -51,7 +51,7 @@ public class Joueur {
     }
 
     private boolean deplacementPossible(double x, double y) {
-        return x >= 0 && x < Controller.WIDTH && y >= 0 && y < Controller.HEIGHT;
+        return x >= 0 && x < Controller.getWIDTH() && y >= 0 && y < Controller.getHEIGHT();
     }
 
 

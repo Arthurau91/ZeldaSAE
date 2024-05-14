@@ -25,8 +25,8 @@ public class Controller implements Initializable {
     private Monde map;
     private Joueur joueur;
     private KeyHandler keyHandler;
-    public static final int WIDTH = 1920;
-    public static final int HEIGHT = 1080;
+    private static final int WIDTH = 1920;
+    private static final int HEIGHT = 1030;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -71,5 +71,11 @@ public class Controller implements Initializable {
         return this.keyHandler;
     }
 
+    public static int getHEIGHT() {
+        return HEIGHT;
+    }
 
+    public static int getWIDTH() {
+        return WIDTH;
+    }
 }
