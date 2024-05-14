@@ -1,6 +1,5 @@
 package com.example.zeldasae.modele;
 
-import com.example.zeldasae.controller.Controller;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 
@@ -55,43 +54,79 @@ public class Joueur {
     }
 
 
-
-
-    public void deplacementZQSD(char touche) {
-        switch (touche) {
+    public void deplacementZQSD(char direction, TilePane t, Monde m) {
+        int vitesse = 30;
+        switch (direction) {
             case 'z':
-                if (deplacementPossible(getX(), getY() - 30)) {
-                    setY(getY() - 30);
-                    System.out.println("Déplacement en Q effectué");
-                } else {
-                    System.out.println("Déplacement bloqué !");
+                if (checkDeplacement(t, 0, -vitesse, m) && checkBord(direction, t)) {
+                    this.setY(this.getY() - vitesse);
                 }
+                System.out.println("Déplacement en Z effectué");
                 break;
             case 'q':
-                if (deplacementPossible(getX() - 30, getY())) {
-                    setX(getX() - 30);
-                    System.out.println("Déplacement en Q effectué");
-                } else {
-                    System.out.println("Déplacement bloqué !");
+                if(checkDeplacement(t, -vitesse, 0, m) && checkBord(direction, t)) {
+                    this.setX(this.getX()-vitesse);
                 }
-
+                System.out.println("Déplacement en Q effectué");
                 break;
             case 's':
-                if (deplacementPossible(getX(), getY() + 30)) {
-                    setY(getY() + 30);
-                    System.out.println("Déplacement en S effectué");
-                } else {
-                    System.out.println("Déplacement bloqué !");
-                }
+                if (checkDeplacement(t, 0, vitesse, m) && checkBord(direction, t))
+                    this.setY(this.getY()+vitesse);
+                System.out.println("Déplacement en S effectué");
                 break;
             case 'd':
-                if (deplacementPossible(getX() + 30, getY())) {
-                    setX(getX() + 30);
-                    System.out.println("Déplacement en D effectué");
-                } else {
-                    System.out.println("Déplacement bloqué !");
-                }
+                if (checkDeplacement(t, vitesse, 0, m) && checkBord(direction, t))
+                    this.setX(this.getX()+vitesse);
+                System.out.println("Déplacement en D effectué");
                 break;
         }
     }
+
+    //remet en boolean une fois que t'as bien testé
+
+    /**
+     *
+     * @param t
+     * @param vitesseX
+     * @param vitesseY
+     * @param m
+     * @return
+     */
+        public boolean checkDeplacement(TilePane t, int vitesseX, int vitesseY, Monde m) {
+            int nouvCoListe;
+            nouvCoListe = ((this.getX()+vitesseX) / (int) t.getTileWidth()) + ((this.getY() + vitesseY)/ (int) t.getTileHeight() * t.getPrefColumns());
+
+
+            if (nouvCoListe < 0 || nouvCoListe >= m.getMap().size() || m.getMap().get(nouvCoListe) != 0) {
+                System.out.println("donc : " + nouvCoListe);
+//                System.out.println("ça vloque");
+                return false;
+            }
+            return true;
+        }
+
+        public boolean checkBord(char direction, TilePane t){
+            int position = (this.getX() / (int) t.getTileWidth()) + (this.getY()/ (int) t.getTileHeight() * t.getPrefColumns());
+            System.out.println(position);
+                switch (direction) {
+                    case 'z':
+                        if (position >= 0 && position < t.getPrefColumns()){
+                            return false;
+                        }
+                        break;
+                    case 'q':
+                        if (position%30 == 0){
+                            return false;
+                        }
+                        break;
+                    case 'd':
+                        if ((position+1)%30 == 0){
+                            return false;
+                        }
+                        break;
+                    //case 's' n'existe pas, car déjà pris en compte dans les tests précédents (checkDeplacement)
+                }
+
+            return true;
+        }
 }

@@ -1,6 +1,5 @@
 package com.example.zeldasae.controller;
 
-import com.example.zeldasae.Main;
 import com.example.zeldasae.modele.Joueur;
 import com.example.zeldasae.modele.Monde;
 import javafx.fxml.FXML;
@@ -12,9 +11,7 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.TilePane;
-import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
-import javafx.scene.shape.Rectangle;
 
 import java.net.URL;
 import java.util.ArrayList;
@@ -28,57 +25,23 @@ public class Controller implements Initializable {
     private TilePane mapPane;
     private Monde map;
     private KeyHandler keyHandler;
-    private static final int WIDTH = 1920;
-    private static final int HEIGHT = 1030;
+    private Joueur joueur;
+    private VueJoueur vueJoueur;
+    private VueTerrain vueTerrain;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        this.map = new Monde(new Joueur(20, 20));
-        this.keyHandler = new KeyHandler(this.map);
-        creerSpriteJoueur(this.map.getJoueur());
-        afficherMap();
-        paneEntites.addEventHandler(KeyEvent.KEY_PRESSED, this.keyHandler);
-    }
-
-
-    public void afficherMap() {
-
-        ArrayList<Integer> m = this.map.getMap();
-
-        for (int x = 0 ; x < m.size() ; x++) {
-            ImageView imageView = new ImageView();
-            switch (m.get(x)) {
-                case 0:
-                    Image image = new Image("file:src/main/resources/com/example/zeldasae/img/grass.jpg");
-                    imageView.setImage(image);
-                    break;
-            }
-
-
-            this.mapPane.getChildren().add(imageView);
-
-        }
-
-    }
-
-    public void creerSpriteJoueur(Joueur j) {
-        Circle c = new Circle(20);
-        c.setId(j.getId());
-        c.translateXProperty().bind(j.xProperty());
-        c.translateYProperty().bind(j.yProperty());
-        paneEntites.getChildren().add(c);
-
+        this.joueur = new Joueur(20, 20);
+        this.map = new Monde(this.joueur);
+        this.vueJoueur = new VueJoueur(this.joueur, this.paneEntites);
+        this.vueTerrain = new VueTerrain(this.map, this.mapPane);
+        this.vueJoueur.creerSpriteJoueur(this.joueur);
+        this.vueTerrain.afficherMap();
+        paneEntites.addEventHandler(KeyEvent.KEY_PRESSED, new KeyHandler(map, mapPane));
     }
 
     public void persoFocus(MouseEvent mouseEvent){
         paneEntites.requestFocus();
     }
 
-    public static int getHEIGHT() {
-        return HEIGHT;
-    }
-
-    public static int getWIDTH() {
-        return WIDTH;
-    }
 }
