@@ -4,7 +4,6 @@ import com.example.zeldasae.controller.Controller;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
-import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
 
 
@@ -20,8 +19,6 @@ public class Main extends Application {
         FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("vue.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), Controller.getWIDTH(), Controller.getHEIGHT());
         stage.setTitle("Zelda!");
-        Controller controller = fxmlLoader.getController();
-        scene.addEventHandler(KeyEvent.KEY_PRESSED, controller.getKeyHandler());
         stage.setScene(scene);
         stage.show();
     }
