@@ -1,5 +1,7 @@
 package com.example.zeldasae.controller;
 
+import com.example.zeldasae.Vue.VueJoueur;
+import com.example.zeldasae.Vue.VueTerrain;
 import com.example.zeldasae.modele.Joueur;
 import com.example.zeldasae.modele.Monde;
 import javafx.fxml.FXML;
@@ -33,12 +35,11 @@ public class Controller implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         this.joueur = new Joueur(20, 20);
         this.map = new Monde(this.joueur);
-        this.keyHandler = new KeyHandler(this.map);
         this.vueJoueur = new VueJoueur(this.joueur, this.paneEntites);
         this.vueTerrain = new VueTerrain(this.map, this.mapPane);
         this.vueJoueur.creerSpriteJoueur(this.joueur);
         this.vueTerrain.afficherMap();
-        paneEntites.addEventHandler(KeyEvent.KEY_PRESSED, this.keyHandler);
+        paneEntites.addEventHandler(KeyEvent.KEY_PRESSED, new KeyHandler(map, mapPane));
     }
 
 
