@@ -1,9 +1,5 @@
 package com.example.zeldasae.modele;
 
-import javafx.scene.layout.Pane;
-import javafx.scene.layout.TilePane;
-import org.controlsfx.tools.Utils;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 
