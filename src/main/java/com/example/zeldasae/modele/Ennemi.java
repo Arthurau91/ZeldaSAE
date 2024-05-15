@@ -8,8 +8,8 @@ import java.util.Random;
 
 public class Ennemi extends Entite{
 
-    public Ennemi(int x, int y, String id, TilePane t) {
-        super(x, y, id, t);
+    public Ennemi(int x, int y, String id, int width, int height, int column) {
+        super(x, y, id, width, height, column);
     }
 
     public boolean deplacement(Monde m) {

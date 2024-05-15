@@ -4,22 +4,22 @@ import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.scene.layout.TilePane;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Random;
-
 public abstract class Entite {
 
     private IntegerProperty xProperty;
     private IntegerProperty yProperty;
     private String id;
-    private TilePane t;
+    private int width;
+    private int height;
+    private int column;
 
-    public Entite(int x, int y, String id, TilePane t) {
+    public Entite(int x, int y, String id, int width, int height, int column) {
         this.xProperty = new SimpleIntegerProperty(x);
         this.yProperty = new SimpleIntegerProperty(y);
         this.id = id;
-        this.t = t;
+        this.width = width;
+        this.height = height;
+        this.column = column;
     }
 
     public int getX() {
@@ -52,28 +52,28 @@ public abstract class Entite {
         int vitesse = 30;
         switch (direction) {
             case 'z':
-                if (checkDeplacement(t, 0, -vitesse, m) && checkBord(direction, t)) {
+                if (checkDeplacement(0, -vitesse, m) && checkBord(direction)) {
                     this.setY(this.getY() - vitesse);
 //                    System.out.println("Déplacement en Z effectué");
                     return true;
                 }
                 else return false;
             case 'q':
-                if(checkDeplacement(t, -vitesse, 0, m) && checkBord(direction, t)) {
+                if(checkDeplacement(-vitesse, 0, m) && checkBord(direction)) {
                     this.setX(this.getX()-vitesse);
 //                    System.out.println("Déplacement en Q effectué");
                     return true;
                 }
                 else return false;
             case 's':
-                if (checkDeplacement(t, 0, vitesse, m) && checkBord(direction, t)){
+                if (checkDeplacement(0, vitesse, m) && checkBord(direction)){
                     this.setY(this.getY()+vitesse);
 //                    System.out.println("Déplacement en S effectué");
                     return true;
                 }
                 else return false;
             case 'd':
-                if (checkDeplacement(t, vitesse, 0, m) && checkBord(direction, t)){
+                if (checkDeplacement(vitesse, 0, m) && checkBord(direction)){
                     this.setX(this.getX()+vitesse);
 //                    System.out.println("Déplacement en D effectué");
                     return true;
@@ -85,30 +85,29 @@ public abstract class Entite {
 
     /**
      *
-     * @param t
      * @param vitesseX
      * @param vitesseY
      * @param m
      * @return
      */
-    public boolean checkDeplacement(TilePane t, int vitesseX, int vitesseY, Monde m) {
+    public boolean checkDeplacement(int vitesseX, int vitesseY, Monde m) {
         int nouvCoListe;
-        nouvCoListe = ((this.getX()+vitesseX) / (int) t.getTileWidth()) + ((this.getY() + vitesseY)/ (int) t.getTileHeight() * t.getPrefColumns());
+        nouvCoListe = ((this.getX()+vitesseX) /  this.width) + ((this.getY() + vitesseY)/ this.height * this.column);
 
 
         if (nouvCoListe < 0 || nouvCoListe >= m.getTerrain().getMap().size() || m.getTerrain().getMap().get(nouvCoListe) != 0) {
-//            System.out.println("donc : " + nouvCoListe);
+            System.out.println("donc : " + nouvCoListe);
             return false;
         }
         return true;
     }
 
-    public boolean checkBord(char direction, TilePane t){
-        int position = (this.getX() / (int) t.getTileWidth()) + (this.getY()/ (int) t.getTileHeight() * t.getPrefColumns());
-//        System.out.println(position);
+    public boolean checkBord(char direction){
+        int position = (this.getX() / this.width) + (this.getY()/ this.height * this.column);
+        System.out.println(position);
         switch (direction) {
             case 'z':
-                if (position >= 0 && position < t.getPrefColumns()){
+                if (position >= 0 && position < this.column){
                     return false;
                 }
                 break;

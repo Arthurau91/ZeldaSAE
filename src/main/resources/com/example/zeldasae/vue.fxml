@@ -8,6 +8,5 @@
    <children>
       <TilePane fx:id="mapPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefColumns="30" prefHeight="900.0" prefRows="30" prefTileHeight="30.0" prefTileWidth="30.0" prefWidth="900.0" />
       <Pane fx:id="paneEntites" prefHeight="900.0" prefWidth="900.0" />
-      <Label fx:id="FPSLabel" text="0" />
    </children>
 </Pane>
