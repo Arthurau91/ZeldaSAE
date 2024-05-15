@@ -1,17 +1,23 @@
 package com.example.zeldasae.controller;
 import com.example.zeldasae.modele.Monde;
+import com.example.zeldasae.controller.Controller;
 import javafx.event.EventHandler;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.TilePane;
+
+import javax.swing.plaf.PanelUI;
 
 public class KeyHandler implements EventHandler<KeyEvent> {
 
     private Monde map;
     private TilePane t;
+    private VueInventaire v;
 
-    public KeyHandler(Monde map, TilePane t) {
+
+    public KeyHandler(Monde map, TilePane t, VueInventaire v) {
         this.map = map;
         this.t = t;
+        this.v = v;
     }
 
 
@@ -35,8 +41,12 @@ public class KeyHandler implements EventHandler<KeyEvent> {
                 System.out.println("d");
                 map.getJoueur().deplacementZQSD('d', this.t, this.map);
                 break;
+            case E:
+                System.out.println("e");
+                v.toggleAffichageInventaire();
         }
     }
+
 
 
 }

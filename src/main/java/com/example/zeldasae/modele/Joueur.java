@@ -9,11 +9,14 @@ public class Joueur {
     private IntegerProperty xProperty;
     private IntegerProperty yProperty;
     private String id;
+    private Inventaire inv;
 
     public Joueur(int x, int y) {
         this.xProperty = new SimpleIntegerProperty(x);
         this.yProperty = new SimpleIntegerProperty(y);
         this.id = "j1";
+        this.inv = new Inventaire();
+        // à modifier
     }
 
     public int getX() {
@@ -52,27 +55,27 @@ public class Joueur {
 
 
     public void deplacementZQSD(char direction, TilePane t, Monde m) {
-        int vitesse = 30;
+        int vitesse = 5;
         switch (direction) {
             case 'z':
-                if (checkDeplacement(t, 0, -vitesse, m) && checkBord(direction, t)) {
+                if (checkDeplacement(t, 0, -vitesse, m) && checkBord(direction, t, 0, -vitesse)) {
                     this.setY(this.getY() - vitesse);
                 }
                 System.out.println("Déplacement en Z effectué");
                 break;
             case 'q':
-                if(checkDeplacement(t, -vitesse, 0, m) && checkBord(direction, t)) {
+                if(checkDeplacement(t, -vitesse, 0, m) && checkBord(direction, t, -vitesse, 0)) {
                     this.setX(this.getX()-vitesse);
                 }
                 System.out.println("Déplacement en Q effectué");
                 break;
             case 's':
-                if (checkDeplacement(t, 0, vitesse, m) && checkBord(direction, t))
+                if (checkDeplacement(t, 0, vitesse, m))
                     this.setY(this.getY()+vitesse);
                 System.out.println("Déplacement en S effectué");
                 break;
             case 'd':
-                if (checkDeplacement(t, vitesse, 0, m) && checkBord(direction, t))
+                if (checkDeplacement(t, vitesse, 0, m) && checkBord(direction, t, vitesse, 0))
                     this.setX(this.getX()+vitesse);
                 System.out.println("Déplacement en D effectué");
                 break;
@@ -102,22 +105,27 @@ public class Joueur {
             return true;
         }
 
-        public boolean checkBord(char direction, TilePane t){
+        public boolean checkBord(char direction, TilePane t, int vitesseX, int vitesseY) {
             int position = (this.getX() / (int) t.getTileWidth()) + (this.getY()/ (int) t.getTileHeight() * t.getPrefColumns());
+            int prochainePosition = ((this.getX()+vitesseX) / (int) t.getTileWidth()) + ((this.getY() + vitesseY)/ (int) t.getTileHeight() * t.getPrefColumns());
+
             System.out.println(position);
                 switch (direction) {
                     case 'z':
                         if (position >= 0 && position < t.getPrefColumns()){
-                            return false;
+                            if (position != prochainePosition)
+                                return false;
                         }
                         break;
                     case 'q':
                         if (position%30 == 0){
+                            if (position != prochainePosition)
                             return false;
                         }
                         break;
                     case 'd':
                         if ((position+1)%30 == 0){
+                            if (position != prochainePosition)
                             return false;
                         }
                         break;

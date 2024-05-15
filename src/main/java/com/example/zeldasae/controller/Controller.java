@@ -9,9 +9,12 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.TilePane;
+import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
+import javafx.scene.shape.Rectangle;
 
 import java.net.URL;
 import java.util.ArrayList;
@@ -20,19 +23,24 @@ import java.util.ResourceBundle;
 public class Controller implements Initializable {
 
     @FXML
+    private HBox boxInventaire;
+    @FXML
     private Pane paneEntites;
     @FXML
     private TilePane mapPane;
     private Monde map;
     private KeyHandler keyHandler;
+    private VueInventaire vueInv;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         this.map = new Monde(new Joueur(15, 15));
-        this.keyHandler = new KeyHandler(this.map, mapPane);
+        this.vueInv = new VueInventaire(this.boxInventaire);
+        this.keyHandler = new KeyHandler(this.map, mapPane, this.vueInv);
         creerSpriteJoueur(this.map.getJoueur());
         afficherMap();
         paneEntites.addEventHandler(KeyEvent.KEY_PRESSED, this.keyHandler);
+        vueInv.creerBoxInventaire();
     }
 
 
@@ -64,6 +72,7 @@ public class Controller implements Initializable {
         paneEntites.getChildren().add(c);
 
     }
+
 
     public void persoFocus(MouseEvent mouseEvent){
         paneEntites.requestFocus();
