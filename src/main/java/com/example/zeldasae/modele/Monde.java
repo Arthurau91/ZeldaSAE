@@ -29,6 +29,10 @@ public class Monde {
         return this.joueur;
     }
 
+    public ArrayList<Ennemi> getListeEnnemis() {
+        return listeEnnemis;
+    }
+
     public void addEnnemi(Ennemi ennemi) {
         this.listeEnnemis.add(ennemi);
     }

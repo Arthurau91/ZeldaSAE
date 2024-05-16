@@ -15,12 +15,13 @@ public class VueTerrain {
     public VueTerrain(Monde map, TilePane mapPane) {
         this.map = map;
         this.mapPane = mapPane;
+        afficherMap();
     }
 
 
     public void afficherMap() {
 
-        ArrayList<Integer> m = this.map.getMap();
+        ArrayList<Integer> m = this.map.getTerrain().getMap();
 
         for (int x = 0 ; x < m.size() ; x++) {
             ImageView imageView = new ImageView();
