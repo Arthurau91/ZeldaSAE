@@ -1,5 +1,7 @@
 package com.example.zeldasae.controller;
 
+import com.example.zeldasae.Main;
+import com.example.zeldasae.modele.Item;
 import javafx.fxml.FXML;
 import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
@@ -40,5 +42,7 @@ public class VueInventaire {
     public void setAfficheInventaire(boolean b) {
         this.afficheInventaire = b;
     }
+
+
 
 }

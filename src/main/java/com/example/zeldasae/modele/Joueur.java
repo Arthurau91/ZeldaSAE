@@ -53,6 +53,10 @@ public class Joueur {
         return this;
     }
 
+    public Inventaire getInv() {
+        return this.inv;
+    }
+
 
     public void deplacementZQSD(char direction, TilePane t, Monde m) {
         int vitesse = 5;

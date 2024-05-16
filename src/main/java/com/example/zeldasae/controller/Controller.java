@@ -40,7 +40,8 @@ public class Controller implements Initializable {
         creerSpriteJoueur(this.map.getJoueur());
         afficherMap();
         paneEntites.addEventHandler(KeyEvent.KEY_PRESSED, this.keyHandler);
-        vueInv.creerBoxInventaire();
+        this.vueInv.creerBoxInventaire();
+        this.map.getJoueur().getInv().getListeItems().addListener(new ObservateurItems(this.boxInventaire));
     }
 
 
