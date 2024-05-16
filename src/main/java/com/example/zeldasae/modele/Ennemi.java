@@ -12,13 +12,17 @@ public class Ennemi extends Entite{
         super(x, y, id, width, height, column);
     }
 
-    public boolean deplacement(Monde m) {
+    /**
+     * Méthode qui gère le déplacement d'un Ennemi sur la map en se reposant sur la méthode déplacement() d'Entite
+     * @param m le monde contenant le terrain, le joueur et la liste d'ennemis qui est passé en paramètre à la méthode
+     *          déplacement() d'Entite
+     */
+    public void deplacement(Monde m) {
         ArrayList<Character> directions = new ArrayList<>(Arrays.asList('z','q','s','d'));
         char direction;
         Random random = new Random();
         do {
             direction = directions.get(random.nextInt(4));
         }while (!super.deplacement(direction,m));
-        return true;
     }
 }

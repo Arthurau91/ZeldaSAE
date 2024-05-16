@@ -48,6 +48,14 @@ public abstract class Entite {
         return id;
     }
 
+    /**
+     * Méthode qui gère le déplacement d'une Entite sur le pane
+     * @param direction un char contenant la direction vers laquelle le déplacement a été lancé sous forme :
+     *                  'z' = haut, 'q' = gauche, 's' = bas, 'd' = droite
+     * @param m le monde contenant le terrain, le joueur et la liste d'ennemis qui est passé en paramètre à la méthode
+     *          checkDeplacement()
+     * @return true si le déplacement a été effectué sinon false
+     */
     public boolean deplacement(char direction, Monde m) {
         int vitesse = 30;
         switch (direction) {
@@ -84,11 +92,11 @@ public abstract class Entite {
     }
 
     /**
-     *
-     * @param vitesseX
-     * @param vitesseY
-     * @param m
-     * @return
+     * Méthode qui regarde si le déplacement est possible
+     * @param vitesseX le nombre de pixels que le déplacement va faire en horizontal
+     * @param vitesseY le nombre de pixels que le déplacement va faire en vertical
+     * @param m le monde contenant le terrain, le joueur et la liste d'ennemis
+     * @return true si le déplacement est possible sinon false
      */
     public boolean checkDeplacement(int vitesseX, int vitesseY, Monde m) {
         int nouvCoListe;
@@ -102,6 +110,12 @@ public abstract class Entite {
         return true;
     }
 
+    /**
+     * Méthode qui regarde si le mouvement prévu ne va pas sortir de la map
+     * @param direction un char contenant la direction vers laquelle le déplacement a été lancé sous forme
+     *                  'z' = haut, 'q' = gauche, 's' = bas, 'd' = droite
+     * @return false si le déplacement comporte un risque de sortir sinon true
+     */
     public boolean checkBord(char direction){
         int position = (this.getX() / this.width) + (this.getY()/ this.height * this.column);
         System.out.println(position);

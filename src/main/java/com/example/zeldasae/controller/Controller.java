@@ -70,6 +70,10 @@ public class Controller implements Initializable {
         gameLoop.getKeyFrames().add(kf);
     }
 
+    /**
+     * Méthode permettant de mettre le focus sur le pane des entitées pour pouvoir faire des actions avec les touches
+     * @param mouseEvent l'event du clic
+     */
     public void persoFocus(MouseEvent mouseEvent){
         paneEntites.requestFocus();
 

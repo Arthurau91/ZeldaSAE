@@ -15,7 +15,10 @@ public class VueEntite {
         creerSpriteEntite(entite);
     }
 
-
+    /**
+     * Méthode qui crée un sprite sur le pane pour l'entite
+     * @param e Entite pour laquelle on va s'occuper de créer un sprite
+     */
     public void creerSpriteEntite(Entite e) {
         Circle c = new Circle(20);
         c.setId(e.getId());

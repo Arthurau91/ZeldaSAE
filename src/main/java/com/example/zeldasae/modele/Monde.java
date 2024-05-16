@@ -1,7 +1,6 @@
 package com.example.zeldasae.modele;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 
 public class Monde {
 
@@ -13,7 +12,6 @@ public class Monde {
     /**
      * Constructeur de la classe Monde
      */
-
     public Monde(Joueur joueur) {
 
         this.joueur = joueur;
@@ -22,7 +20,7 @@ public class Monde {
     }
 
     public Terrain getTerrain() {
-        return terrain;
+        return this.terrain;
     }
 
     public Joueur getJoueur() {
@@ -30,13 +28,20 @@ public class Monde {
     }
 
     public ArrayList<Ennemi> getListeEnnemis() {
-        return listeEnnemis;
+        return this.listeEnnemis;
     }
 
+    /**
+     * Méthode qui ajoute un ennemi à la liste d'ennemis du monde
+     * @param ennemi ennemi qui va être rajouté à la liste d'ennemis du monde
+     */
     public void addEnnemi(Ennemi ennemi) {
         this.listeEnnemis.add(ennemi);
     }
 
+    /**
+     * Méthode qui lance le déplacement de tous les ennemis du monde
+     */
     public void deplacementEnnemi(){
         for (Ennemi ennemi : this.listeEnnemis) {
             ennemi.deplacement(this);
