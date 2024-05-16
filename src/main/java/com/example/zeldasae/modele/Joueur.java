@@ -2,6 +2,7 @@ package com.example.zeldasae.modele;
 
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
+import javafx.scene.layout.TilePane;
 
 public class Joueur {
 
@@ -49,10 +50,6 @@ public class Joueur {
         return this;
     }
 
-    private boolean deplacementPossible(double x, double y) {
-        return x >= 0 && x < Controller.getWIDTH() && y >= 0 && y < Controller.getHEIGHT();
-    }
-
 
     public void deplacementZQSD(char direction, TilePane t, Monde m) {
         int vitesse = 30;
@@ -80,9 +77,8 @@ public class Joueur {
                 System.out.println("Déplacement en D effectué");
                 break;
         }
-    }
 
-    //remet en boolean une fois que t'as bien testé
+    }
 
     /**
      *
@@ -97,7 +93,8 @@ public class Joueur {
             nouvCoListe = ((this.getX()+vitesseX) / (int) t.getTileWidth()) + ((this.getY() + vitesseY)/ (int) t.getTileHeight() * t.getPrefColumns());
 
 
-            if (nouvCoListe < 0 || nouvCoListe >= m.getMap().size() || m.getMap().get(nouvCoListe) != 0) {
+            if (nouvCoListe < 0 || nouvCoListe >= m.getMap().size() || m.getMap().get(nouvCoListe) != 232) {
+                System.out.println(m.getMap().size());
                 System.out.println("donc : " + nouvCoListe);
 //                System.out.println("ça vloque");
                 return false;
@@ -108,22 +105,24 @@ public class Joueur {
         public boolean checkBord(char direction, TilePane t){
             int position = (this.getX() / (int) t.getTileWidth()) + (this.getY()/ (int) t.getTileHeight() * t.getPrefColumns());
             System.out.println(position);
+            System.out.println(position%t.getPrefColumns());
                 switch (direction) {
                     case 'z':
-                        if (position >= 0 && position < t.getPrefColumns()){
+                        if (position >= 0 && position < t.getPrefRows()){
                             return false;
                         }
                         break;
                     case 'q':
-                        if (position%30 == 0){
+                        if (position%t.getPrefColumns() == 0){
                             return false;
                         }
                         break;
                     case 'd':
-                        if ((position+1)%30 == 0){
+                        if ((position+1)%t.getPrefColumns() == 0){
                             return false;
                         }
                         break;
+
                     //case 's' n'existe pas, car déjà pris en compte dans les tests précédents (checkDeplacement)
                 }
 
