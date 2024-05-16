@@ -11,4 +11,6 @@ public abstract class Item {
         this.quantite_max = quantite_max;
         this.nom = nom;
     }
+
+
 }

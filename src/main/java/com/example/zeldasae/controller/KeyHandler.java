@@ -1,4 +1,6 @@
 package com.example.zeldasae.controller;
+import com.example.zeldasae.modele.Armure;
+import com.example.zeldasae.modele.Item;
 import com.example.zeldasae.modele.Monde;
 import com.example.zeldasae.controller.Controller;
 import javafx.event.EventHandler;
@@ -23,7 +25,6 @@ public class KeyHandler implements EventHandler<KeyEvent> {
 
     @Override
     public void handle(KeyEvent keyEvent) {
-
         switch (keyEvent.getCode()) {
             case Z:
                 System.out.println("z");
@@ -43,7 +44,12 @@ public class KeyHandler implements EventHandler<KeyEvent> {
                 break;
             case E:
                 System.out.println("e");
-                v.toggleAffichageInventaire();
+                this.v.toggleAffichageInventaire();
+                break;
+            case X:
+                this.map.getJoueur().getInv().ajouterItem(new Armure(0,0, 500,"René"));
+                System.out.println(this.map.getJoueur().getInv().getListeItems().size());
+                break;
         }
     }
 

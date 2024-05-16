@@ -1,29 +1,35 @@
 package com.example.zeldasae.modele;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+
 import java.util.ArrayList;
 
 public class Inventaire {
 
-    private ArrayList<Item> listeItems;
+    private ObservableList<Item> listeItems;
     private Armure armureActuelle;
     private Arme armeActuelle;
 
     public Inventaire() {
-        listeItems = new ArrayList<>();
+        listeItems = FXCollections.observableArrayList();
     }
 
-    private void ajouterItem(Item i) {
+    public void ajouterItem(Item i) {
         this.listeItems.add(i);
     }
 
-    private void changerArme(Arme a) {
+    public void changerArme(Arme a) {
         this.armeActuelle = a;
     }
 
-    private void changerArmure(Armure a) {
+    public void changerArmure(Armure a) {
         this.armureActuelle = a;
     }
 
-    
+    public ObservableList<Item> getListeItems() {
+        return this.listeItems;
+    }
+
 
 }
