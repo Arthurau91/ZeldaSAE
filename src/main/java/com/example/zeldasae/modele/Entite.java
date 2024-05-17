@@ -103,7 +103,7 @@ public abstract class Entite {
         nouvCoListe = ((this.getX()+vitesseX) /  this.width) + ((this.getY() + vitesseY)/ this.height * this.column);
 
 
-        if (nouvCoListe < 0 || nouvCoListe >= m.getTerrain().getMap().size() || m.getTerrain().getMap().get(nouvCoListe) != 0) {
+        if (nouvCoListe < 0 || nouvCoListe >= m.getTerrain().getMap().size() || m.getTerrain().getMap().get(nouvCoListe) != 232) {
             System.out.println("donc : " + nouvCoListe);
             return false;
         }
@@ -126,12 +126,12 @@ public abstract class Entite {
                 }
                 break;
             case 'q':
-                if (position%30 == 0){
+                if (position%column == 0){
                     return false;
                 }
                 break;
             case 'd':
-                if ((position+1)%30 == 0){
+                if ((position+1)%column == 0){
                     return false;
                 }
                 break;
