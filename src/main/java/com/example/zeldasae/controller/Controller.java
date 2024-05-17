@@ -41,6 +41,7 @@ public class Controller implements Initializable {
     private Timeline gameLoop;
     private int temps;
 
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         this.mapPane.setPrefColumns(40);
@@ -49,12 +50,12 @@ public class Controller implements Initializable {
         this.mapPane.setPrefHeight(this.mapPane.getPrefTileHeight()*this.mapPane.getPrefRows());
 
         this.map = new Monde(new Joueur(20, 20, (int)mapPane.getPrefTileWidth(), (int)mapPane.getPrefTileHeight(), mapPane.getPrefColumns()));
-//        Ennemi ennemi = new Ennemi(90, 90, "#1", (int)mapPane.getPrefTileWidth(), (int)mapPane.getPrefTileHeight(), mapPane.getPrefColumns());
-//        this.map.addEnnemi(ennemi);
+        Ennemi ennemi = new Ennemi(20, 20, "#1", (int)mapPane.getPrefTileWidth(), (int)mapPane.getPrefTileHeight(), mapPane.getPrefColumns());
+        this.map.addEnnemi(ennemi);
 
         VueEntite vueJoueur = new VueEntite(this.map.getJoueur(), this.paneEntites);
         VueTerrain vueTerrain = new VueTerrain(this.map, this.mapPane);
-//        VueEntite vueEnnemi = new VueEntite(ennemi,paneEntites);
+        VueEntite vueEnnemi = new VueEntite(ennemi,paneEntites);
 
         paneEntites.addEventHandler(KeyEvent.KEY_PRESSED, new KeyHandler(this.map));
         initAnimation();
@@ -79,7 +80,15 @@ public class Controller implements Initializable {
 //                    else
                     if (temps%5==0){
 //                        System.out.println("un tour");
-                        this.map.deplacementEnnemi();
+                        Joueur joueur = this.map.getJoueur();
+                        List<Ennemi> listeEnnemis = this.map.getListeEnnemis();
+
+                        for (Ennemi ennemi : listeEnnemis) {
+                            if (joueur.getX() == ennemi.getX() && joueur.getY() == ennemi.getY()) {
+                                ennemi.attaqueEntite(joueur);
+                            }
+                        }
+//                        this.map.deplacementEnnemi();
                     }
                     temps++;
                 })

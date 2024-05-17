@@ -12,6 +12,8 @@ public abstract class Entite {
     private int width;
     private int height;
     private int column;
+    private int pv;
+    private int degats;
 
     public Entite(int x, int y, String id, int width, int height, int column) {
         this.xProperty = new SimpleIntegerProperty(x);
@@ -20,6 +22,8 @@ public abstract class Entite {
         this.width = width;
         this.height = height;
         this.column = column;
+        this.pv = 5;
+        this.degats = 1;
     }
 
     public int getX() {
@@ -47,6 +51,39 @@ public abstract class Entite {
     public String getId() {
         return id;
     }
+
+    public int getPv() {
+        return pv;
+    }
+
+    public void setPv(int pv) {
+        this.pv = pv;
+    }
+
+    public int getDegats() {
+        return degats;
+    }
+
+    public void setDegats(int degats) {
+        this.degats = degats;
+    }
+
+
+    public void attaqueEntite(Entite entite) {
+        if (verifVivant()) {
+            this.setPv(this.getPv() - entite.getDegats());
+            System.out.println("L'entité avec l'id " + this.getId() + " s'est pris " + entite.getDegats() + " dégats. Pv " + this.getPv());
+        } else {
+            System.out.println("Mort!");
+        }
+
+    }
+
+
+    public boolean verifVivant() {
+        return this.getPv() >= 2;
+    }
+
 
     /**
      * Méthode qui gère le déplacement d'une Entite sur le pane
@@ -98,6 +135,8 @@ public abstract class Entite {
      * @param m le monde contenant le terrain, le joueur et la liste d'ennemis
      * @return true si le déplacement est possible sinon false
      */
+
+
     public boolean checkDeplacement(int vitesseX, int vitesseY, Monde m) {
         int nouvCoListe;
         nouvCoListe = ((this.getX()+vitesseX) /  this.width) + ((this.getY() + vitesseY)/ this.height * this.column);
@@ -109,6 +148,8 @@ public abstract class Entite {
         }
         return true;
     }
+
+
 
     /**
      * Méthode qui regarde si le mouvement prévu ne va pas sortir de la map

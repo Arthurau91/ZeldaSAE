@@ -27,4 +27,8 @@ public class VueEntite {
         this.paneEntites.getChildren().add(c);
 
     }
+
+    public Entite getEntite() {
+        return entite;
+    }
 }
