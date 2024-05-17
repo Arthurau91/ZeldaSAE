@@ -15,13 +15,11 @@ public class KeyHandler implements EventHandler<KeyEvent> {
     private TilePane t;
     private VueInventaire v;
 
-
     public KeyHandler(Monde map, TilePane t, VueInventaire v) {
         this.map = map;
         this.t = t;
         this.v = v;
     }
-
 
     @Override
     public void handle(KeyEvent keyEvent) {
@@ -47,12 +45,9 @@ public class KeyHandler implements EventHandler<KeyEvent> {
                 this.v.toggleAffichageInventaire();
                 break;
             case X:
-                this.map.getJoueur().getInv().ajouterItem(new Armure(0,0, 500,"René"));
-                System.out.println(this.map.getJoueur().getInv().getListeItems().size());
+                this.map.getJoueur().getInv().ajouterItem(new Armure(0,0, 500,"Item"));
                 break;
         }
     }
-
-
 
 }

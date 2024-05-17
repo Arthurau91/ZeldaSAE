@@ -23,7 +23,7 @@ import java.util.ResourceBundle;
 public class Controller implements Initializable {
 
     @FXML
-    private HBox boxInventaire;
+    private Pane boxInventaire;
     @FXML
     private Pane paneEntites;
     @FXML
@@ -40,8 +40,7 @@ public class Controller implements Initializable {
         creerSpriteJoueur(this.map.getJoueur());
         afficherMap();
         paneEntites.addEventHandler(KeyEvent.KEY_PRESSED, this.keyHandler);
-        this.vueInv.creerBoxInventaire();
-        this.map.getJoueur().getInv().getListeItems().addListener(new ObservateurItems(this.boxInventaire));
+        this.map.getJoueur().getInv().getListeItems().addListener(new ObservateurItems(this.boxInventaire, this.paneEntites));
     }
 
 

@@ -9,6 +9,6 @@
    <children>
       <TilePane fx:id="mapPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefColumns="30" prefHeight="900.0" prefRows="30" prefTileHeight="30.0" prefTileWidth="30.0" prefWidth="900.0" />
       <Pane fx:id="paneEntites" prefHeight="900.0" prefWidth="900.0" />
-      <HBox fx:id="boxInventaire" prefHeight="549.0" prefWidth="900.0" visible="false" />
+      <Pane fx:id="boxInventaire" maxHeight="500.0" maxWidth="900.0" minHeight="500.0" minWidth="900.0" prefHeight="500.0" prefWidth="900.0" />
    </children>
 </Pane>
