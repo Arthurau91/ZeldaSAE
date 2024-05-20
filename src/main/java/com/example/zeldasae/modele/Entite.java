@@ -12,14 +12,16 @@ public abstract class Entite {
     private int width;
     private int height;
     private int column;
+    private int rows;
 
-    public Entite(int x, int y, String id, int width, int height, int column) {
+    public Entite(int x, int y, String id, int width, int height, int column, int rows) {
         this.xProperty = new SimpleIntegerProperty(x);
         this.yProperty = new SimpleIntegerProperty(y);
         this.id = id;
         this.width = width;
         this.height = height;
         this.column = column;
+        this.rows = rows;
     }
 
     public int getX() {
@@ -46,6 +48,18 @@ public abstract class Entite {
 
     public String getId() {
         return id;
+    }
+    public int getWidth() {
+        return width;
+    }
+    public int getHeight() {
+        return height;
+    }
+    public int getColumn() {
+        return column;
+    }
+    public int getRows() {
+        return rows;
     }
 
     /**
@@ -102,11 +116,8 @@ public abstract class Entite {
         int nouvCoListe;
         nouvCoListe = ((this.getX()+vitesseX) /  this.width) + ((this.getY() + vitesseY)/ this.height * this.column);
 
-
-        if (nouvCoListe < 0 || nouvCoListe >= m.getTerrain().getMap().size() || m.getTerrain().getMap().get(nouvCoListe) != 232) {
-            System.out.println("donc : " + nouvCoListe);
+        if (nouvCoListe < 0 || nouvCoListe >= m.getTerrain().getMap().size() || m.getTerrain().getMap().get(nouvCoListe) != 232)
             return false;
-        }
         return true;
     }
 
@@ -117,8 +128,8 @@ public abstract class Entite {
      * @return false si le déplacement comporte un risque de sortir sinon true
      */
     public boolean checkBord(char direction){
-        int position = (this.getX() / this.width) + (this.getY()/ this.height * this.column);
-        System.out.println(position);
+        int position = (this.getX() / this.width) + (this.getY()/ this.height * this.rows);
+        System.out.println("X : "+(this.getX()/this.width)%(this.width*this.column)+"; Y : "+(this.getY()/this.height)%(this.height*this.getRows()));
         switch (direction) {
             case 'z':
                 if (position >= 0 && position < this.column){

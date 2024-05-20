@@ -20,7 +20,7 @@ public class VueEntite {
      * @param e Entite pour laquelle on va s'occuper de créer un sprite
      */
     public void creerSpriteEntite(Entite e) {
-        Circle c = new Circle(20);
+        Circle c = new Circle(15);
         c.setId(e.getId());
         c.translateXProperty().bind(e.xProperty());
         c.translateYProperty().bind(e.yProperty());
