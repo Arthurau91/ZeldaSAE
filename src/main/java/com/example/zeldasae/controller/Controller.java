@@ -2,33 +2,21 @@ package com.example.zeldasae.controller;
 
 import com.example.zeldasae.Vue.VueEntite;
 import com.example.zeldasae.Vue.VueTerrain;
+import com.example.zeldasae.modele.Ennemi;
 import com.example.zeldasae.modele.Joueur;
 import com.example.zeldasae.modele.Monde;
-import com.example.zeldasae.modele.*;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.TilePane;
 import javafx.util.Duration;
-import javafx.scene.shape.Circle;
-import org.json.JSONArray;
-import org.json.JSONObject;
 
-import java.io.BufferedReader;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
 import java.net.URL;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 import java.util.ResourceBundle;
 
 public class Controller implements Initializable {
@@ -60,6 +48,10 @@ public class Controller implements Initializable {
         paneEntites.addEventHandler(KeyEvent.KEY_PRESSED, new KeyHandler(this.map));
         initAnimation();
         gameLoop.play();
+
+        paneEntites.getChildren().add(this.map.getJoueur().getBarreDeVie());
+        this.map.getJoueur().getBarreDeVie().setLayoutX(10);
+        this.map.getJoueur().getBarreDeVie().setLayoutY(10);
     }
 
     private void initAnimation() {
@@ -88,8 +80,10 @@ public class Controller implements Initializable {
                                 ennemi.attaqueEntite(joueur);
                             }
                         }
-//                        this.map.deplacementEnnemi();
+                        this.map.deplacementEnnemi();
                     }
+                    this.map.getJoueur().getBarreDeVie().setPourcentageVie((double) this.map.getJoueur().getPv() / this.map.getJoueur().getPvDebut() * 100);
+
                     temps++;
                 })
         );
