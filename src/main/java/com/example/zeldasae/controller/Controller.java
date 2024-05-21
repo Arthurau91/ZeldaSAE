@@ -9,6 +9,9 @@ import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
@@ -21,12 +24,15 @@ import java.util.ResourceBundle;
 public class Controller implements Initializable {
 
     @FXML
+    private Pane boxInventaire;
+    @FXML
     private Pane paneEntites;
     @FXML
     private TilePane mapPane;
     private Monde map;
     private Timeline gameLoop;
     private int temps;
+    private VueInventaire vueInv;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -41,12 +47,12 @@ public class Controller implements Initializable {
         VueEntite vueJoueur = new VueEntite(this.map.getJoueur(), this.paneEntites);
         VueTerrain vueTerrain = new VueTerrain(this.map, this.mapPane);
         VueEntite vueEnnemi = new VueEntite(ennemi,paneEntites);
-
+        this.vueInv = new VueInventaire(this.boxInventaire);
+        this.map.getJoueur().getInv().getListeItems().addListener(new ObservateurItems(this.boxInventaire, this.paneEntites));
         paneEntites.addEventHandler(KeyEvent.KEY_PRESSED, new KeyHandler(this.map));
         initAnimation();
         gameLoop.play();
     }
-
     private void initAnimation() {
         gameLoop = new Timeline();
         temps=0;
