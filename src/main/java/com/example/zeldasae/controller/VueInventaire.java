@@ -1,12 +1,6 @@
 package com.example.zeldasae.controller;
 
-import com.example.zeldasae.Main;
-import com.example.zeldasae.modele.Item;
-import javafx.fxml.FXML;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
-import javafx.scene.paint.Color;
-import javafx.scene.shape.Rectangle;
 
 public class VueInventaire {
 
@@ -16,13 +10,6 @@ public class VueInventaire {
     public VueInventaire(Pane h) {
         this.boxInventaire = h;
         afficheInventaire = false;
-    }
-
-    public void testBoxInventaire() {
-//        Rectangle r = new Rectangle(15, 15, Color.HOTPINK);
-//        r.setTranslateX(50);
-//        r.setTranslateY(50);
-//        boxInventaire.getChildren().add(r);
     }
 
     public void toggleAffichageInventaire() {

@@ -3,39 +3,19 @@ package com.example.zeldasae.controller;
 import com.example.zeldasae.modele.Item;
 import javafx.collections.ListChangeListener;
 import javafx.scene.layout.Pane;
-import javafx.scene.paint.Color;
-import javafx.scene.shape.Rectangle;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
 public class ObservateurItems implements ListChangeListener<Item> {
 
+    public final int nbItemLigne = 5;
+    public final int nbItemColonne = 10;
+
     private Pane boxInv;
     private Pane map;
-    private double xItem;
-    private double yItem;
-
     public ObservateurItems(Pane boxInv, Pane map) {
         this.boxInv = boxInv;
         this.map = map;
-        this.xItem = 0;
-        this.yItem = 0;
-    }
-
-    public double getxItem() {
-        return this.xItem;
-    }
-
-    public void setxItem(double n) {
-        this.xItem = n;
-    }
-
-    public double getyItem() {
-        return this.yItem;
-    }
-
-    public void setyItem(double n) {
-        this.yItem = n;
     }
 
     @Override
@@ -53,15 +33,13 @@ public class ObservateurItems implements ListChangeListener<Item> {
     public void ajouterItem(Item i) {
         Image img = new Image("file:src/main/resources/com/example/zeldasae/img/test.png");
         ImageView imageView = new ImageView(img);
-        imageView.setTranslateX(this.xItem);
-        imageView.setTranslateY(this.yItem);
-        setxItem(getxItem() + img.getWidth());
-        this.boxInv.getChildren().add(imageView);
 
-        if (this.xItem > this.map.getPrefWidth() - 15) {
-            setxItem(0);
-            setyItem(this.yItem + img.getHeight());
-        }
+        int x, y;
+        x = (i.getPosSlotItems() - 1)%this.nbItemLigne * ((int) boxInv.getWidth()/this.nbItemLigne);
+        y = (i.getPosSlotItems() - 1)/this.nbItemLigne * ((int) boxInv.getHeight()/this.nbItemColonne);
+        imageView.setTranslateX(x);
+        imageView.setTranslateY(y);
+        this.boxInv.getChildren().add(imageView);
     }
 
 
