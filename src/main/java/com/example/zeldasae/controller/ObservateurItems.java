@@ -2,11 +2,11 @@ package com.example.zeldasae.controller;
 
 import com.example.zeldasae.modele.Item;
 import javafx.collections.ListChangeListener;
-import javafx.scene.SubScene;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 
 public class ObservateurItems implements ListChangeListener<Item> {
 
@@ -51,15 +51,20 @@ public class ObservateurItems implements ListChangeListener<Item> {
     }
 
     public void ajouterItem(Item i) {
-        Rectangle r = new Rectangle(15, 15, Color.rgb((int) (Math.random() * 255), (int) (Math.random() * 255), (int) (Math.random() * 255)));
-        r.setTranslateX(this.xItem);
-        setxItem(getxItem() + 15);
-        r.setTranslateY(this.yItem);
-        this.boxInv.getChildren().add(r);
+        Image img = new Image("file:src/main/resources/com/example/zeldasae/img/test.png");
+        ImageView imageView = new ImageView(img);
+        imageView.setTranslateX(this.xItem);
+        imageView.setTranslateY(this.yItem);
+
+//        Rectangle r = new Rectangle(15, 15, Color.rgb((int) (Math.random() * 255), (int) (Math.random() * 255), (int) (Math.random() * 255)));
+//        r.setTranslateX(this.xItem);
+        setxItem(getxItem() + img.getWidth());
+//        r.setTranslateY(this.yItem);
+        this.boxInv.getChildren().add(imageView);
 
         if (this.xItem > this.map.getPrefWidth() - 15) {
             setxItem(0);
-            setyItem(this.yItem + 30);
+            setyItem(this.yItem + img.getHeight());
         }
     }
 

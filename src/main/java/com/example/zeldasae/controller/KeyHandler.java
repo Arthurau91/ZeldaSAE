@@ -1,13 +1,9 @@
 package com.example.zeldasae.controller;
 import com.example.zeldasae.modele.Armure;
-import com.example.zeldasae.modele.Item;
 import com.example.zeldasae.modele.Monde;
-import com.example.zeldasae.controller.Controller;
 import javafx.event.EventHandler;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.TilePane;
-
-import javax.swing.plaf.PanelUI;
 
 public class KeyHandler implements EventHandler<KeyEvent> {
 
