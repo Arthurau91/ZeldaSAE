@@ -37,8 +37,8 @@ public class Controller implements Initializable {
         this.mapPane.setPrefWidth(this.mapPane.getPrefTileWidth()*this.mapPane.getPrefColumns());
         this.mapPane.setPrefHeight(this.mapPane.getPrefTileHeight()*this.mapPane.getPrefRows());
 
-        this.map = new Monde(new Joueur(15, 15, (int)mapPane.getPrefTileWidth(), (int)mapPane.getPrefTileHeight(), mapPane.getPrefColumns(), mapPane.getPrefRows()));
-        Ennemi ennemi = new Ennemi(135, 135, "#1", (int)mapPane.getPrefTileWidth(), (int)mapPane.getPrefTileHeight(), mapPane.getPrefColumns(),  mapPane.getPrefRows());
+        this.map = new Monde(new Joueur(0, 0, (int)mapPane.getPrefTileWidth(), (int)mapPane.getPrefTileHeight(), mapPane.getPrefColumns(), mapPane.getPrefRows()));
+        Ennemi ennemi = new Ennemi(120, 120, "#1", (int)mapPane.getPrefTileWidth(), (int)mapPane.getPrefTileHeight(), mapPane.getPrefColumns(),  mapPane.getPrefRows());
         this.map.addEnnemi(ennemi);
         VueEntite vueJoueur = new VueEntite(this.map.getJoueur(), this.paneEntites);
         VueTerrain vueTerrain = new VueTerrain(this.map, this.mapPane);

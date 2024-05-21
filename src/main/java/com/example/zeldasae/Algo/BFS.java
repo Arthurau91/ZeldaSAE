@@ -39,10 +39,10 @@ public class BFS {
 
                 // Vérifier si le voisin est dans les limites du tableau et non visité
                 if (nx >= 0 && nx < ligne && ny >= 0 && ny < colonne && !visite[nx][ny] && grille[nx][ny] == 232) {
-                    Point neighbor = new Point(nx, ny);
-                    queue.add(neighbor);
+                    Point voisin = new Point(nx, ny);
+                    queue.add(voisin);
                     visite[nx][ny] = true;
-                    parentMap.put(neighbor, actuel);
+                    parentMap.put(voisin, actuel);
                 }
             }
         }
@@ -53,11 +53,11 @@ public class BFS {
 
     // Méthode pour reconstruire le chemin à partir de la destination en utilisant le parentMap
     private static List<Point> constructChemin(Map<Point, Point> parentMap, Point dest) {
-        LinkedList<Point> path = new LinkedList<>();
+        LinkedList<Point> chemin = new LinkedList<>();
         for (Point actuel = dest; actuel != null; actuel = parentMap.get(actuel)) {
-            path.add(0, actuel);
+            chemin.add(0, actuel);
         }
-        return path;
+        return chemin;
     }
 
     private static int[][] convertListTo2DArray(ArrayList<Integer> liste, int ligne, int colonne) {

@@ -81,25 +81,21 @@ public abstract class Entite {
      *          checkDeplacement()
      * @return true si le déplacement a été effectué sinon false
      */
-    public boolean deplacement(Monde m) {
+    public void deplacement(Monde m) {
         int dx = 0;
         int dy = 0;
 
         if (this.direction.contains("up") && checkDeplacement(0, -vitesse, m) && checkBord('z'))
             dy -= vitesse;
-        if (this.direction.contains("down") && checkDeplacement(-vitesse, 0, m) && checkBord('s'))
+        if (this.direction.contains("down") && checkDeplacement(0, vitesse, m) && checkBord('s'))
             dy += vitesse;
-        if (this.direction.contains("left") && checkDeplacement(0, vitesse, m) && checkBord('q'))
+        if (this.direction.contains("left") && checkDeplacement(-vitesse, 0, m) && checkBord('q'))
             dx -= vitesse;
         if (this.direction.contains("right") && checkDeplacement(vitesse, 0, m) && checkBord('d'))
             dx += vitesse;
 
-        int x = getX();
-        int y = getY();
         setX(getX() + dx);
         setY(getY() + dy);
-
-        return x != dx || y != dy;
     }
 
     /**
@@ -131,18 +127,15 @@ public abstract class Entite {
             case 'z':
                 if (position >= 0 && position < this.column){
                     return false;
-                }
-                break;
+                }break;
             case 'q':
                 if (position%column == 0){
                     return false;
-                }
-                break;
+                }break;
             case 'd':
                 if ((position+1)%column == 0){
                     return false;
-                }
-                break;
+                }break;
             //case 's' n'existe pas, car déjà pris en compte dans les tests précédents (checkDeplacement)
         }
 
