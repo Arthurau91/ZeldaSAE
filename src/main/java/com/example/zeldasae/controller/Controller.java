@@ -37,7 +37,7 @@ public class Controller implements Initializable {
         this.mapPane.setPrefWidth(this.mapPane.getPrefTileWidth()*this.mapPane.getPrefColumns());
         this.mapPane.setPrefHeight(this.mapPane.getPrefTileHeight()*this.mapPane.getPrefRows());
 
-        this.map = new Monde(new Joueur(0, 0, (int)mapPane.getPrefTileWidth(), (int)mapPane.getPrefTileHeight(), mapPane.getPrefColumns(), mapPane.getPrefRows()));
+        this.map = new Monde(new Joueur((int)mapPane.getPrefWidth()/2, (int)mapPane.getPrefHeight()/2, (int)mapPane.getPrefTileWidth(), (int)mapPane.getPrefTileHeight(), mapPane.getPrefColumns(), mapPane.getPrefRows()));
         Ennemi ennemi = new Ennemi(120, 120, "#1", (int)mapPane.getPrefTileWidth(), (int)mapPane.getPrefTileHeight(), mapPane.getPrefColumns(),  mapPane.getPrefRows());
         this.map.addEnnemi(ennemi);
         VueEntite vueJoueur = new VueEntite(this.map.getJoueur(), this.paneEntites);
@@ -62,7 +62,13 @@ public class Controller implements Initializable {
                 Duration.seconds(0.040),
                 // on définit ce qui se passe à chaque frame
                 (ev ->{
+                    int x1 = map.getJoueur().getX(), y1 = map.getJoueur().getY();
                     this.map.getJoueur().deplacement(map);
+                    int depx = map.getJoueur().getX() -x1, depy = map.getJoueur().getY() - y1;
+                    mapPane.setTranslateY(mapPane.getTranslateY()-depy);
+                    mapPane.setTranslateX(mapPane.getTranslateX()-depx);
+                    paneEntites.setTranslateY(paneEntites.getTranslateY()-depy);
+                    paneEntites.setTranslateX(paneEntites.getTranslateX()-depx);
                     if (temps%2==0)
                         this.map.deplacementEnnemi();
                     temps++;
