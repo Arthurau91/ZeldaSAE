@@ -78,7 +78,7 @@ public class BFS {
     }
 
     public static int[] prochainMouvement(ArrayList<Integer> terrain, int lignes, int colonnes, int[] src, int[] dest){
-        int[][] grille = convertListTo2DArray(terrain, lignes, colonnes);
+        int[][] grille = convertListTo2DArray(terrain, colonnes, lignes);
         List<Point> chemin = bfs2D(grille, new Point(src[0],src[1]), new Point(dest[0], dest[1]));
         if (chemin.size() > 1)
             return new int[] {chemin.get(chemin.size()-2).getX(), chemin.get(chemin.size()-2).getY()};

@@ -60,7 +60,7 @@ public class VueTerrain {
             String ligne;
             int cmpt = 0;
 
-            while ((ligne = lecteurAvecBuffer.readLine()) != null && cmpt < 38) {
+            while ((ligne = lecteurAvecBuffer.readLine()) != null && cmpt < 40) {
 
                 String[] elementsLigne = ligne.split(",");
 
