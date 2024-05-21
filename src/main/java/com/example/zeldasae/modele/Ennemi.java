@@ -16,18 +16,23 @@ public class Ennemi extends Entite{
     public void deplacement(Monde m, int xj, int yj) {
         int x = (this.getX()/this.getWidth())%(this.getWidth()*this.getColumn());
         int y = (this.getY()/this.getHeight())%(this.getHeight()*this.getRows());
+
         int[] src = {x, y};
         int[] dest = {(xj/this.getWidth())%(this.getWidth()*this.getColumn()), (yj/this.getHeight())%(this.getHeight()*this.getRows())};
+
         int[] pdeplacement = prochainMouvement(m.getTerrain().getMap(), m.getTerrain().getMap().size()/getColumn(), getColumn(), src, dest);
         if (pdeplacement != null) {
+            String direction = "";
             if (pdeplacement[0] > x)
-                super.deplacement('d', m);
-            else if (pdeplacement[0] < x)
-                super.deplacement('q', m);
-            else if (pdeplacement[1] > y)
-                super.deplacement('s', m);
-            else if (pdeplacement[1] < y)
-                super.deplacement('z', m);
+                direction += "right";
+            if (pdeplacement[0] < x)
+                direction += "left";
+            if (pdeplacement[1] > y)
+                direction += "down";
+            if (pdeplacement[1] < y)
+                direction += "up";
+            this.setDirection(direction);
+            super.deplacement(m);
         }
     }
 }

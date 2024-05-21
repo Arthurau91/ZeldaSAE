@@ -9,9 +9,6 @@ import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
@@ -32,7 +29,6 @@ public class Controller implements Initializable {
     private Monde map;
     private Timeline gameLoop;
     private int temps;
-    private VueInventaire vueInv;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -47,32 +43,28 @@ public class Controller implements Initializable {
         VueEntite vueJoueur = new VueEntite(this.map.getJoueur(), this.paneEntites);
         VueTerrain vueTerrain = new VueTerrain(this.map, this.mapPane);
         VueEntite vueEnnemi = new VueEntite(ennemi,paneEntites);
-        this.vueInv = new VueInventaire(this.boxInventaire);
+        VueInventaire vueInv = new VueInventaire(this.boxInventaire);
         this.map.getJoueur().getInv().getListeItems().addListener(new ObservateurItems(this.boxInventaire, this.paneEntites));
-        paneEntites.addEventHandler(KeyEvent.KEY_PRESSED, new KeyHandler(this.map, this.vueInv));
+
+        KeyHandler keyHandler = new KeyHandler(this.map, vueInv);
+        paneEntites.addEventHandler(KeyEvent.KEY_PRESSED, keyHandler);
+        paneEntites.addEventHandler(KeyEvent.KEY_RELEASED, keyHandler);
         initAnimation();
         gameLoop.play();
     }
     private void initAnimation() {
         gameLoop = new Timeline();
-        temps=0;
+        temps = 0;
         gameLoop.setCycleCount(Timeline.INDEFINITE);
 
         KeyFrame kf = new KeyFrame(
                 // on définit le FPS (nbre de frame par seconde)
-                Duration.seconds(0.017),
+                Duration.seconds(0.040),
                 // on définit ce qui se passe à chaque frame
-                // c'est un eventHandler d'où le lambda
                 (ev ->{
-//                    if(temps==100){//temps à 100 à changer pour faire un exemple plus long
-//                        System.out.println("fini");
-//                        gameLoop.stop();
-//                    }
-//                    else
-                    if (temps%5==0){
-//                        System.out.println("un tour");
+                    this.map.getJoueur().deplacement(map);
+                    if (temps%2==0)
                         this.map.deplacementEnnemi();
-                    }
                     temps++;
                 })
         );

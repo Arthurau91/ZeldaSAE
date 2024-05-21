@@ -3,17 +3,24 @@ import com.example.zeldasae.modele.Armure;
 import com.example.zeldasae.modele.Item;
 import com.example.zeldasae.modele.Monde;
 import javafx.event.EventHandler;
+import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
-import javafx.scene.layout.TilePane;
+
+import java.util.HashSet;
+import java.util.Set;
+
+import static javafx.scene.input.KeyCode.*;
 
 public class KeyHandler implements EventHandler<KeyEvent> {
 
     private Monde map;
     private VueInventaire vueInv;
+    private final Set<KeyCode> pressedKeys;
 
     public KeyHandler(Monde map, VueInventaire vueInv) {
         this.map = map;
         this.vueInv = vueInv;
+        this.pressedKeys = new HashSet<>();
     }
     private Item itemTest = new Armure(0,0, 500,"Item", 1); //à retirer, sert uniquement pour les tests
     private Item itemTest2 = new Armure(0,0, 500,"Item", 5);
@@ -23,23 +30,24 @@ public class KeyHandler implements EventHandler<KeyEvent> {
 
     @Override
     public void handle(KeyEvent keyEvent) {
+
+        if (keyEvent.getEventType() == KeyEvent.KEY_PRESSED)
+            this.pressedKeys.add(keyEvent.getCode());
+        else if (keyEvent.getEventType() == KeyEvent.KEY_RELEASED)
+            this.pressedKeys.remove(keyEvent.getCode());
+
+        String direction = "";
+
+        if (pressedKeys.contains(Z))
+            direction += "up";
+        if (pressedKeys.contains(S))
+            direction += "down";
+        if (pressedKeys.contains(Q))
+            direction += "left";
+        if (pressedKeys.contains(D))
+            direction += "right";
+
         switch (keyEvent.getCode()) {
-            case Z:
-//                System.out.println("z");
-                map.getJoueur().deplacement('z', this.map);
-                break;
-            case Q:
-//                System.out.println("q");
-                map.getJoueur().deplacement('q', this.map);
-                break;
-            case S:
-//                System.out.println("s");
-                map.getJoueur().deplacement('s', this.map);
-                break;
-            case D:
-//                System.out.println("d");
-                map.getJoueur().deplacement('d', this.map);
-                break;
             case E:
 //                System.out.println("e");
                 this.vueInv.toggleAffichageInventaire();
@@ -57,6 +65,8 @@ public class KeyHandler implements EventHandler<KeyEvent> {
                 itemTest.setPosSlotItems(itemTest.getPosSlotItems()-1);
                 break;
         }
+
+        this.map.getJoueur().setDirection(direction);
     }
 
 }

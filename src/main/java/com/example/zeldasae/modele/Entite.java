@@ -13,6 +13,8 @@ public abstract class Entite {
     private int height;
     private int column;
     private int rows;
+    private String direction;
+    private int vitesse;
 
     public Entite(int x, int y, String id, int width, int height, int column, int rows) {
         this.xProperty = new SimpleIntegerProperty(x);
@@ -22,6 +24,8 @@ public abstract class Entite {
         this.height = height;
         this.column = column;
         this.rows = rows;
+        this.direction = "null";
+        this.vitesse = 30;
     }
 
     public int getX() {
@@ -61,48 +65,41 @@ public abstract class Entite {
     public int getRows() {
         return rows;
     }
+    public void setDirection(String direction) {
+        this.direction = direction;
+    }
+    public String getDirection() {
+        return direction;
+    }
+    public void setVitesse(int vitesse) {
+        this.vitesse = vitesse;
+    }
 
     /**
      * Méthode qui gère le déplacement d'une Entite sur le pane
-     * @param direction un char contenant la direction vers laquelle le déplacement a été lancé sous forme :
-     *                  'z' = haut, 'q' = gauche, 's' = bas, 'd' = droite
      * @param m le monde contenant le terrain, le joueur et la liste d'ennemis qui est passé en paramètre à la méthode
      *          checkDeplacement()
      * @return true si le déplacement a été effectué sinon false
      */
-    public boolean deplacement(char direction, Monde m) {
-        int vitesse = 30;
-        switch (direction) {
-            case 'z':
-                if (checkDeplacement(0, -vitesse, m) && checkBord(direction)) {
-                    this.setY(this.getY() - vitesse);
-//                    System.out.println("Déplacement en Z effectué");
-                    return true;
-                }
-                else return false;
-            case 'q':
-                if(checkDeplacement(-vitesse, 0, m) && checkBord(direction)) {
-                    this.setX(this.getX()-vitesse);
-//                    System.out.println("Déplacement en Q effectué");
-                    return true;
-                }
-                else return false;
-            case 's':
-                if (checkDeplacement(0, vitesse, m) && checkBord(direction)){
-                    this.setY(this.getY()+vitesse);
-//                    System.out.println("Déplacement en S effectué");
-                    return true;
-                }
-                else return false;
-            case 'd':
-                if (checkDeplacement(vitesse, 0, m) && checkBord(direction)){
-                    this.setX(this.getX()+vitesse);
-//                    System.out.println("Déplacement en D effectué");
-                    return true;
-                }
-                else return false;
-        }
-        return false;
+    public boolean deplacement(Monde m) {
+        int dx = 0;
+        int dy = 0;
+
+        if (this.direction.contains("up") && checkDeplacement(0, -vitesse, m) && checkBord('z'))
+            dy -= vitesse;
+        if (this.direction.contains("down") && checkDeplacement(-vitesse, 0, m) && checkBord('s'))
+            dy += vitesse;
+        if (this.direction.contains("left") && checkDeplacement(0, vitesse, m) && checkBord('q'))
+            dx -= vitesse;
+        if (this.direction.contains("right") && checkDeplacement(vitesse, 0, m) && checkBord('d'))
+            dx += vitesse;
+
+        int x = getX();
+        int y = getY();
+        setX(getX() + dx);
+        setY(getY() + dy);
+
+        return x != dx || y != dy;
     }
 
     /**
