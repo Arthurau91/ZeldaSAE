@@ -50,7 +50,6 @@ public class Controller implements Initializable {
         paneEntites.addEventHandler(KeyEvent.KEY_PRESSED, keyHandler);
         paneEntites.addEventHandler(KeyEvent.KEY_RELEASED, keyHandler);
         initAnimation();
-        gameLoop.play();
     }
     private void initAnimation() {
         gameLoop = new Timeline();
@@ -83,7 +82,7 @@ public class Controller implements Initializable {
      */
     public void persoFocus(MouseEvent mouseEvent){
         paneEntites.requestFocus();
-
+        gameLoop.play();
     }
 
 }
