@@ -31,7 +31,7 @@ public class ObservateurItems implements ListChangeListener<Item> {
     }
 
     public void ajouterItem(Item i) {
-        Image img = new Image("file:src/main/resources/com/example/zeldasae/img/test.png");
+        Image img = new Image("file:src/main/resources/com/example/zeldasae/assets/test.png");
         ImageView imageView = new ImageView(img);
 
         int x, y;

@@ -11,8 +11,7 @@ public class Joueur extends Entite{
         this.inv = new Inventaire();
     }
 
-}
-
     public Inventaire getInv() {
         return this.inv;
     }
+}

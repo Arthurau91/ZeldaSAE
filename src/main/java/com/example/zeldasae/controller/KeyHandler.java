@@ -9,9 +9,11 @@ import javafx.scene.layout.TilePane;
 public class KeyHandler implements EventHandler<KeyEvent> {
 
     private Monde map;
+    private VueInventaire vueInv;
 
-    public KeyHandler(Monde map) {
+    public KeyHandler(Monde map, VueInventaire vueInv) {
         this.map = map;
+        this.vueInv = vueInv;
     }
     private Item itemTest = new Armure(0,0, 500,"Item", 1); //à retirer, sert uniquement pour les tests
     private Item itemTest2 = new Armure(0,0, 500,"Item", 5);
@@ -39,8 +41,8 @@ public class KeyHandler implements EventHandler<KeyEvent> {
                 map.getJoueur().deplacement('d', this.map);
                 break;
             case E:
-                System.out.println("e");
-                this.v.toggleAffichageInventaire();
+//                System.out.println("e");
+                this.vueInv.toggleAffichageInventaire();
                 break;
             case X: //à retirer, sert uniquement pour les tests
                 this.map.getJoueur().getInv().ajouterItem(itemTest);

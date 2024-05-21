@@ -49,7 +49,7 @@ public class Controller implements Initializable {
         VueEntite vueEnnemi = new VueEntite(ennemi,paneEntites);
         this.vueInv = new VueInventaire(this.boxInventaire);
         this.map.getJoueur().getInv().getListeItems().addListener(new ObservateurItems(this.boxInventaire, this.paneEntites));
-        paneEntites.addEventHandler(KeyEvent.KEY_PRESSED, new KeyHandler(this.map));
+        paneEntites.addEventHandler(KeyEvent.KEY_PRESSED, new KeyHandler(this.map, this.vueInv));
         initAnimation();
         gameLoop.play();
     }

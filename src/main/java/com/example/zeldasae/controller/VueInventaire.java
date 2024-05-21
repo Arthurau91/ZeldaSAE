@@ -1,24 +1,25 @@
 package com.example.zeldasae.controller;
 
 import javafx.scene.layout.Pane;
+import javafx.scene.shape.Rectangle;
 
 public class VueInventaire {
 
     private Pane boxInventaire;
     private boolean afficheInventaire;
 
-    public VueInventaire(Pane h) {
-        this.boxInventaire = h;
+    public VueInventaire(Pane boxInv) {
+        this.boxInventaire = boxInv;
         afficheInventaire = false;
     }
 
     public void toggleAffichageInventaire() {
         if (getAfficheInventaire()) {
-            boxInventaire.setVisible(false);
+            this.boxInventaire.setVisible(false);
             setAfficheInventaire(false);
         }
         else {
-            boxInventaire.setVisible(true);
+            this.boxInventaire.setVisible(true);
             setAfficheInventaire(true);
         }
     }
