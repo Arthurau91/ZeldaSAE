@@ -55,11 +55,7 @@ public class ObservateurItems implements ListChangeListener<Item> {
         ImageView imageView = new ImageView(img);
         imageView.setTranslateX(this.xItem);
         imageView.setTranslateY(this.yItem);
-
-//        Rectangle r = new Rectangle(15, 15, Color.rgb((int) (Math.random() * 255), (int) (Math.random() * 255), (int) (Math.random() * 255)));
-//        r.setTranslateX(this.xItem);
         setxItem(getxItem() + img.getWidth());
-//        r.setTranslateY(this.yItem);
         this.boxInv.getChildren().add(imageView);
 
         if (this.xItem > this.map.getPrefWidth() - 15) {
