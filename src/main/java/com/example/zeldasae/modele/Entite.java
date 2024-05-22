@@ -1,7 +1,10 @@
 package com.example.zeldasae.modele;
 
+import com.example.zeldasae.controller.ObservateurVie;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 
 public abstract class Entite {
 
@@ -16,10 +19,10 @@ public abstract class Entite {
     private int vitesse;
     private HitBox hitBox;
     private static int n = 0;
-    private int pv;
+    private IntegerProperty pv;
     private int pvDebut;
     private int degats;
-    private BarreDeVie barreDeVie;
+    private ObservableList<BarreDeVie> barreDeVies;
 
     public Entite(int x, int y, int width, int height, int column, int rows) {
         this.xProperty = new SimpleIntegerProperty(x);
@@ -33,10 +36,13 @@ public abstract class Entite {
         this.vitesse = 10;
         this.hitBox = new HitBox(this.width, this.height);
         this.pvDebut = 5;
-        this.pv = 5;
+        this.pv = new SimpleIntegerProperty(this.pvDebut);
         this.degats = 1;
-        this.barreDeVie = new BarreDeVie(100, 20);
-        mettreAJourBarreDeVie();
+        this.barreDeVies = FXCollections.observableArrayList();
+        BarreDeVie barreDeVie = new BarreDeVie(100, 20);
+        this.barreDeVies.add(barreDeVie);
+        this.barreDeVies.addListener(new ObservateurVie());
+
     }
 
     public Entite(int x, int y, String id, int width, int height, int column, int rows) {
@@ -95,7 +101,7 @@ public abstract class Entite {
     }
 
     public int getPv() {
-        return pv;
+        return pv.getValue();
     }
 
     public int getPvDebut() {
@@ -103,7 +109,11 @@ public abstract class Entite {
     }
 
     public void setPv(int pv) {
-        this.pv = pv;
+        this.pv.setValue(pv);
+    }
+
+    public IntegerProperty pv() {
+        return this.pv;
     }
 
     public int getDegats() {
@@ -114,21 +124,27 @@ public abstract class Entite {
         this.degats = degats;
     }
 
-    public BarreDeVie getBarreDeVie() {
-        return barreDeVie;
+    public ObservableList<BarreDeVie> getBarreDeVies() {
+        return barreDeVies;
     }
 
-    private void mettreAJourBarreDeVie() {
-        double pourcentage = ((double) this.pv / this.pvDebut) * 100;
-        this.barreDeVie.setPourcentageVie(pourcentage);
+    public BarreDeVie getBarreDeVie() {
+        return barreDeVies.isEmpty() ? null : barreDeVies.get(0);
     }
 
     public void perdreVie(int degats) {
         setPv(this.getPv() - degats);
-        if (this.pv <= 0) {
-            this.pv = 0;
+        if (this.getPv() <= 0) {
+            setPv(0);
         }
+
         mettreAJourBarreDeVie();
+
+    }
+
+    private void mettreAJourBarreDeVie() {
+        double pourcentage = ((double) this.getPv() / this.pvDebut) * 100;
+        this.getBarreDeVie().setPourcentageVie(pourcentage);
     }
 
 
@@ -144,7 +160,7 @@ public abstract class Entite {
 
 
     public boolean verifVivant() {
-        return this.pv > 0;
+        return this.getPv() > 0;
     }
 
 

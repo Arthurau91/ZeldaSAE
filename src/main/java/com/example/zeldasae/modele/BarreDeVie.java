@@ -11,13 +11,11 @@ public class BarreDeVie extends Pane {
     public BarreDeVie(double largeur, double hauteur) {
         this.barreApresPerte = new Rectangle(largeur, hauteur);
         this.barreApresPerte.setFill(Color.GRAY);
-
         this.barreAvantPerte = new Rectangle(largeur, hauteur);
         this.barreAvantPerte.setFill(Color.GREEN);
-
         getChildren().addAll(this.barreApresPerte, this.barreAvantPerte);
-    }
 
+    }
 
     public void setPourcentageVie(double pourcentage) {
         if (pourcentage < 0) {
@@ -33,4 +31,11 @@ public class BarreDeVie extends Pane {
     }
 
 
+    public double getPourcentageVie() {
+        return (this.barreAvantPerte.getWidth() / this.barreApresPerte.getWidth()) * 100;
+    }
+
+    public void setFill(Color color) {
+        this.barreAvantPerte.setFill(color);
+    }
 }
