@@ -31,7 +31,7 @@ public abstract class Entite {
         this.rows = rows;
         this.direction = "null";
         this.vitesse = 10;
-        this.hitBox = new HitBox(this.width, this.height);
+        this.hitBox = new HitBox(this.width, this.height, this.xProperty, this.yProperty);
         this.pvDebut = 5;
         this.pv = 5;
         this.degats = 1;
@@ -53,8 +53,6 @@ public abstract class Entite {
     public IntegerProperty xProperty() {
         return xProperty;
     }
-
-
     public int getY() {
         return yProperty.getValue();
     }
@@ -64,7 +62,6 @@ public abstract class Entite {
     public IntegerProperty yProperty() {
         return yProperty;
     }
-
 
     public String getId() {
         return id;
@@ -93,29 +90,26 @@ public abstract class Entite {
     private void setId(String id) {
         this.id = id;
     }
-
     public int getPv() {
         return pv;
     }
-
     public int getPvDebut() {
         return pvDebut;
     }
-
     public void setPv(int pv) {
         this.pv = pv;
     }
-
     public int getDegats() {
         return degats;
     }
-
     public void setDegats(int degats) {
         this.degats = degats;
     }
-
     public BarreDeVie getBarreDeVie() {
         return barreDeVie;
+    }
+    public HitBox getHitBox() {
+        return hitBox;
     }
 
     private void mettreAJourBarreDeVie() {
@@ -161,13 +155,17 @@ public abstract class Entite {
             int dy = 0;
 
             if (this.direction.contains("up") && checkHitBox("up", m.getTerrain()))
-                dy -= vitesse;
+                if (checkColisionEntite(m, getX(), getY() - vitesse))
+                    dy -= vitesse;
             if (this.direction.contains("down") && checkHitBox("down", m.getTerrain()))
-                dy += vitesse;
+                if (checkColisionEntite(m, getX(), getY()+vitesse))
+                    dy += vitesse;
             if (this.direction.contains("left") && checkHitBox("left", m.getTerrain()))
-                dx -= vitesse;
+                if (checkColisionEntite(m, getX()-vitesse, getY()))
+                    dx -= vitesse;
             if (this.direction.contains("right") && checkHitBox("right", m.getTerrain()))
-                dx += vitesse;
+                if (checkColisionEntite(m, getX()+vitesse, getY()))
+                    dx += vitesse;
 
             setX(getX() + dx);
             setY(getY() + dy);
@@ -175,8 +173,19 @@ public abstract class Entite {
     }
 
     private boolean checkHitBox(String direction, Terrain terrain){
-        return hitBox.checkColision(this.getX(),this.getY(), direction,this.rows, terrain) &&
-                hitBox.checkBord(direction,this.getX(),this.getY(),this.column,this.rows,this.vitesse);
+        return hitBox.checkColision(direction, this.rows, terrain) &&
+                hitBox.checkBord(direction, this.column, this.rows, this.vitesse);
+    }
+
+    private boolean checkColisionEntite(Monde m, int x, int y){
+        if (this instanceof Ennemi)
+            if (m.getJoueur().getHitBox().estDedans(x,y))
+                return false;
+        for (Ennemi ennemi : m.getListeEnnemis()){
+            if (this != ennemi && ennemi.getHitBox().estDedans(x,y))
+                return false;
+        }
+        return true;
     }
 
 }

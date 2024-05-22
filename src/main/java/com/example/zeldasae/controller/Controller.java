@@ -87,7 +87,6 @@ public class Controller implements Initializable {
                                 ennemi.attaqueEntite(joueur);
                             }
                         }
-                        this.map.deplacementEnnemi();
                     }
                     this.map.getJoueur().getBarreDeVie().setPourcentageVie((double) this.map.getJoueur().getPv() / this.map.getJoueur().getPvDebut() * 100);
 
