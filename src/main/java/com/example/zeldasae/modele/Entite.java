@@ -157,20 +157,22 @@ public abstract class Entite {
      */
     public void deplacement(Monde m) {
 //        System.out.println("X : "+(this.getX()/this.width)%(this.width*this.column)+"; Y : "+(this.getY()/this.height)%(this.height*this.getRows()));
-        int dx = 0;
-        int dy = 0;
+        if (verifVivant()) {
+            int dx = 0;
+            int dy = 0;
 
-        if (this.direction.contains("up") && checkHitBox("up",m.getTerrain()))
-            dy -= vitesse;
-        if (this.direction.contains("down") && checkHitBox("down",m.getTerrain()))
-            dy += vitesse;
-        if (this.direction.contains("left") && checkHitBox("left",m.getTerrain()))
-            dx -= vitesse;
-        if (this.direction.contains("right") && checkHitBox("right",m.getTerrain()))
-            dx += vitesse;
+            if (this.direction.contains("up") && checkHitBox("up", m.getTerrain()))
+                dy -= vitesse;
+            if (this.direction.contains("down") && checkHitBox("down", m.getTerrain()))
+                dy += vitesse;
+            if (this.direction.contains("left") && checkHitBox("left", m.getTerrain()))
+                dx -= vitesse;
+            if (this.direction.contains("right") && checkHitBox("right", m.getTerrain()))
+                dx += vitesse;
 
-        setX(getX() + dx);
-        setY(getY() + dy);
+            setX(getX() + dx);
+            setY(getY() + dy);
+        }
     }
 
     private boolean checkHitBox(String direction, Terrain terrain){

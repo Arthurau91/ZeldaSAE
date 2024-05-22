@@ -77,6 +77,8 @@ public class Controller implements Initializable {
                     mapPane.setTranslateX(mapPane.getTranslateX()-depx);
                     paneEntites.setTranslateY(paneEntites.getTranslateY()-depy);
                     paneEntites.setTranslateX(paneEntites.getTranslateX()-depx);
+                    map.getJoueur().getBarreDeVie().setTranslateX(map.getJoueur().getBarreDeVie().getTranslateX()+depx);
+                    map.getJoueur().getBarreDeVie().setTranslateY(map.getJoueur().getBarreDeVie().getTranslateY()+depy);
                     if (temps%2==0) {
                         this.map.deplacementEnnemi();
                         List<Ennemi> listeEnnemis = this.map.getListeEnnemis();
