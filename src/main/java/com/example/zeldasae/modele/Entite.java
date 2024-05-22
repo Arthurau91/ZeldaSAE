@@ -30,6 +30,7 @@ public abstract class Entite {
         mettreAJourBarreDeVie();
     }
 
+
     public int getX() {
         return this.xProperty.getValue();
     }

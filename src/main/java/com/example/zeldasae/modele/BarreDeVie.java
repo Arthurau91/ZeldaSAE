@@ -18,6 +18,7 @@ public class BarreDeVie extends Pane {
         getChildren().addAll(this.barreApresPerte, this.barreAvantPerte);
     }
 
+
     public void setPourcentageVie(double pourcentage) {
         if (pourcentage < 0) {
             pourcentage = 0;

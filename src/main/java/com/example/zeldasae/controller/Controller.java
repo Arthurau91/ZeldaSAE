@@ -52,6 +52,7 @@ public class Controller implements Initializable {
         paneEntites.getChildren().add(this.map.getJoueur().getBarreDeVie());
         this.map.getJoueur().getBarreDeVie().setLayoutX(1050);
         this.map.getJoueur().getBarreDeVie().setLayoutY(10);
+
     }
 
     private void initAnimation() {
