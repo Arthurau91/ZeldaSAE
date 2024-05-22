@@ -3,14 +3,12 @@ package com.example.zeldasae.controller;
 import com.example.zeldasae.Vue.VueEntite;
 import com.example.zeldasae.Vue.VueTerrain;
 import com.example.zeldasae.modele.Ennemi;
-import com.example.zeldasae.modele.Entite;
 import com.example.zeldasae.modele.Joueur;
 import com.example.zeldasae.modele.Monde;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
@@ -18,7 +16,7 @@ import javafx.scene.layout.TilePane;
 import javafx.util.Duration;
 
 import java.net.URL;
-import java.util.List;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 public class Controller implements Initializable {
@@ -81,7 +79,7 @@ public class Controller implements Initializable {
                     map.getJoueur().getBarreDeVie().setTranslateY(map.getJoueur().getBarreDeVie().getTranslateY()+depy);
                     if (temps%2==0) {
                         this.map.deplacementEnnemi();
-                        List<Ennemi> listeEnnemis = this.map.getListeEnnemis();
+                        ArrayList<Ennemi> listeEnnemis = this.map.getListeEnnemis();
                         Joueur joueur = this.map.getJoueur();
 
                         for (Ennemi ennemi : listeEnnemis) {

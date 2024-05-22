@@ -1,6 +1,5 @@
 package com.example.zeldasae.Vue;
 
-import com.example.zeldasae.controller.Controller;
 import com.example.zeldasae.modele.Monde;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;

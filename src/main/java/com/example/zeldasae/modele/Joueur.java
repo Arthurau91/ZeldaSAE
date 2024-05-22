@@ -1,7 +1,5 @@
 package com.example.zeldasae.modele;
 
-import javafx.scene.layout.TilePane;
-
 public class Joueur extends Entite{
 
     private Inventaire inv;

@@ -1,7 +1,6 @@
 package com.example.zeldasae.controller;
 
 import javafx.scene.layout.Pane;
-import javafx.scene.shape.Rectangle;
 
 public class VueInventaire {
 

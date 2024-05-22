@@ -2,7 +2,6 @@ package com.example.zeldasae.modele;
 
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
-import javafx.scene.layout.TilePane;
 
 public abstract class Entite {
 
