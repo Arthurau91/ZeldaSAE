@@ -25,5 +25,11 @@ public class BarreDeVie extends Pane {
             pourcentage = 100;
         }
         this.barreAvantPerte.setWidth(this.barreApresPerte.getWidth() * (pourcentage / 100));
+
+        if (this.barreAvantPerte.getWidth() < 25) {
+            this.barreAvantPerte.setFill(Color.RED);
+        }
     }
+
+
 }

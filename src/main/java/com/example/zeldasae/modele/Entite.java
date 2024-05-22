@@ -106,7 +106,7 @@ public abstract class Entite {
 
 
     public boolean verifVivant() {
-        return this.getPv() > 0 ;
+        return this.pv > 0;
     }
 
 
@@ -164,6 +164,9 @@ public abstract class Entite {
 
     public boolean checkDeplacement(int vitesseX, int vitesseY, Monde m) {
         int nouvCoListe;
+        if (!verifVivant()) {
+            return false;
+        }
         nouvCoListe = ((this.getX()+vitesseX) /  this.width) + ((this.getY() + vitesseY)/ this.height * this.column);
 
 

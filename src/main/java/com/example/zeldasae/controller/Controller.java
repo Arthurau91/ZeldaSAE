@@ -50,7 +50,7 @@ public class Controller implements Initializable {
         gameLoop.play();
 
         paneEntites.getChildren().add(this.map.getJoueur().getBarreDeVie());
-        this.map.getJoueur().getBarreDeVie().setLayoutX(10);
+        this.map.getJoueur().getBarreDeVie().setLayoutX(1050);
         this.map.getJoueur().getBarreDeVie().setLayoutY(10);
     }
 
