@@ -48,6 +48,11 @@ public class Terrain {
     public ArrayList<Integer> getMap() {
         return map;
     }
+    public boolean testCoo(int coo){
+        if (coo < map.size() && coo >=0)
+            return this.map.get(coo) == 232;
+        return false;
+    }
 
     public void setMap(ArrayList<Integer> map) {
         this.map = map;

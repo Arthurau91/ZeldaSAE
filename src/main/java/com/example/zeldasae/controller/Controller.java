@@ -3,12 +3,14 @@ package com.example.zeldasae.controller;
 import com.example.zeldasae.Vue.VueEntite;
 import com.example.zeldasae.Vue.VueTerrain;
 import com.example.zeldasae.modele.Ennemi;
+import com.example.zeldasae.modele.Entite;
 import com.example.zeldasae.modele.Joueur;
 import com.example.zeldasae.modele.Monde;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
@@ -38,7 +40,7 @@ public class Controller implements Initializable {
         this.mapPane.setPrefHeight(this.mapPane.getPrefTileHeight()*this.mapPane.getPrefRows());
 
         this.map = new Monde(new Joueur((int)mapPane.getPrefWidth()/2, (int)mapPane.getPrefHeight()/2, (int)mapPane.getPrefTileWidth(), (int)mapPane.getPrefTileHeight(), mapPane.getPrefColumns(), mapPane.getPrefRows()));
-        Ennemi ennemi = new Ennemi(120, 120, "#1", (int)mapPane.getPrefTileWidth(), (int)mapPane.getPrefTileHeight(), mapPane.getPrefColumns(),  mapPane.getPrefRows());
+        Ennemi ennemi = new Ennemi(120, 120, (int)mapPane.getPrefTileWidth(), (int)mapPane.getPrefTileHeight(), mapPane.getPrefColumns(),  mapPane.getPrefRows());
         this.map.addEnnemi(ennemi);
         VueEntite vueJoueur = new VueEntite(this.map.getJoueur(), this.paneEntites);
         VueTerrain vueTerrain = new VueTerrain(this.map, this.mapPane);
@@ -51,6 +53,7 @@ public class Controller implements Initializable {
         paneEntites.addEventHandler(KeyEvent.KEY_RELEASED, keyHandler);
         initAnimation();
     }
+
     private void initAnimation() {
         gameLoop = new Timeline();
         temps = 0;

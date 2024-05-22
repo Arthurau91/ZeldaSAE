@@ -15,17 +15,25 @@ public abstract class Entite {
     private int rows;
     private String direction;
     private int vitesse;
+    private HitBox hitBox;
+    private static int n = 0;
 
-    public Entite(int x, int y, String id, int width, int height, int column, int rows) {
+    public Entite(int x, int y, int width, int height, int column, int rows) {
         this.xProperty = new SimpleIntegerProperty(x);
         this.yProperty = new SimpleIntegerProperty(y);
-        this.id = id;
+        this.id = ""+n++;
         this.width = width;
         this.height = height;
         this.column = column;
         this.rows = rows;
         this.direction = "null";
-        this.vitesse = 30;
+        this.vitesse = 10;
+        this.hitBox = new HitBox(this.width, this.height);
+    }
+
+    public Entite(int x, int y, String id, int width, int height, int column, int rows) {
+        this(x, y, width, height, column, rows);
+        this.setId(id);
     }
 
     public int getX() {
@@ -74,6 +82,9 @@ public abstract class Entite {
     public void setVitesse(int vitesse) {
         this.vitesse = vitesse;
     }
+    private void setId(String id) {
+        this.id = id;
+    }
 
     /**
      * Méthode qui gère le déplacement d'une Entite sur le pane
@@ -82,63 +93,26 @@ public abstract class Entite {
      * @return true si le déplacement a été effectué sinon false
      */
     public void deplacement(Monde m) {
+//        System.out.println("X : "+(this.getX()/this.width)%(this.width*this.column)+"; Y : "+(this.getY()/this.height)%(this.height*this.getRows()));
         int dx = 0;
         int dy = 0;
 
-        if (this.direction.contains("up") && checkDeplacement(0, -vitesse, m) && checkBord('z'))
+        if (this.direction.contains("up") && checkHitBox("up",m.getTerrain()))
             dy -= vitesse;
-        if (this.direction.contains("down") && checkDeplacement(0, vitesse, m) && checkBord('s'))
+        if (this.direction.contains("down") && checkHitBox("down",m.getTerrain()))
             dy += vitesse;
-        if (this.direction.contains("left") && checkDeplacement(-vitesse, 0, m) && checkBord('q'))
+        if (this.direction.contains("left") && checkHitBox("left",m.getTerrain()))
             dx -= vitesse;
-        if (this.direction.contains("right") && checkDeplacement(vitesse, 0, m) && checkBord('d'))
+        if (this.direction.contains("right") && checkHitBox("right",m.getTerrain()))
             dx += vitesse;
 
         setX(getX() + dx);
         setY(getY() + dy);
     }
 
-    /**
-     * Méthode qui regarde si le déplacement est possible
-     * @param vitesseX le nombre de pixels que le déplacement va faire en horizontal
-     * @param vitesseY le nombre de pixels que le déplacement va faire en vertical
-     * @param m le monde contenant le terrain, le joueur et la liste d'ennemis
-     * @return true si le déplacement est possible sinon false
-     */
-    public boolean checkDeplacement(int vitesseX, int vitesseY, Monde m) {
-        int nouvCoListe;
-        nouvCoListe = ((this.getX()+vitesseX) /  this.width) + ((this.getY() + vitesseY)/ this.height * this.column);
-
-        if (nouvCoListe < 0 || nouvCoListe >= m.getTerrain().getMap().size() || m.getTerrain().getMap().get(nouvCoListe) != 232)
-            return false;
-        return true;
+    private boolean checkHitBox(String direction, Terrain terrain){
+        return hitBox.checkColision(this.getX(),this.getY(), direction,this.rows, terrain) &&
+                hitBox.checkBord(direction,this.getX(),this.getY(),this.column,this.rows,this.vitesse);
     }
 
-    /**
-     * Méthode qui regarde si le mouvement prévu ne va pas sortir de la map
-     * @param direction un char contenant la direction vers laquelle le déplacement a été lancé sous forme
-     *                  'z' = haut, 'q' = gauche, 's' = bas, 'd' = droite
-     * @return false si le déplacement comporte un risque de sortir sinon true
-     */
-    public boolean checkBord(char direction){
-        int position = (this.getX() / this.width) + (this.getY()/ this.height * this.rows);
-        System.out.println("X : "+(this.getX()/this.width)%(this.width*this.column)+"; Y : "+(this.getY()/this.height)%(this.height*this.getRows()));
-        switch (direction) {
-            case 'z':
-                if (position >= 0 && position < this.column){
-                    return false;
-                }break;
-            case 'q':
-                if (position%column == 0){
-                    return false;
-                }break;
-            case 'd':
-                if ((position+1)%column == 0){
-                    return false;
-                }break;
-            //case 's' n'existe pas, car déjà pris en compte dans les tests précédents (checkDeplacement)
-        }
-
-        return true;
-    }
 }

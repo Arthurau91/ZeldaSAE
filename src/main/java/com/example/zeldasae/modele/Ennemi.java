@@ -4,8 +4,8 @@ import static com.example.zeldasae.Algo.BFS.*;
 
 public class Ennemi extends Entite{
 
-    public Ennemi(int x, int y, String id, int width, int height, int column, int rows) {
-        super(x, y, id, width, height, column, rows);
+    public Ennemi(int x, int y, int width, int height, int column, int rows) {
+        super(x, y, width, height, column, rows);
     }
 
     /**
