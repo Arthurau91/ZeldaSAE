@@ -10,7 +10,7 @@ import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.Node;
+
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
@@ -18,6 +18,7 @@ import javafx.scene.layout.TilePane;
 import javafx.util.Duration;
 
 import java.net.URL;
+import java.util.List;
 import java.util.ResourceBundle;
 
 public class Controller implements Initializable {
@@ -52,6 +53,11 @@ public class Controller implements Initializable {
         paneEntites.addEventHandler(KeyEvent.KEY_PRESSED, keyHandler);
         paneEntites.addEventHandler(KeyEvent.KEY_RELEASED, keyHandler);
         initAnimation();
+
+        paneEntites.getChildren().add(this.map.getJoueur().getBarreDeVie());
+        this.map.getJoueur().getBarreDeVie().setLayoutX(1050);
+        this.map.getJoueur().getBarreDeVie().setLayoutY(10);
+
     }
 
     private void initAnimation() {
@@ -71,8 +77,20 @@ public class Controller implements Initializable {
                     mapPane.setTranslateX(mapPane.getTranslateX()-depx);
                     paneEntites.setTranslateY(paneEntites.getTranslateY()-depy);
                     paneEntites.setTranslateX(paneEntites.getTranslateX()-depx);
-                    if (temps%2==0)
+                    if (temps%2==0) {
                         this.map.deplacementEnnemi();
+                        List<Ennemi> listeEnnemis = this.map.getListeEnnemis();
+                        Joueur joueur = this.map.getJoueur();
+
+                        for (Ennemi ennemi : listeEnnemis) {
+                            if (joueur.getX() == ennemi.getX() && joueur.getY() == ennemi.getY()) {
+                                ennemi.attaqueEntite(joueur);
+                            }
+                        }
+                        this.map.deplacementEnnemi();
+                    }
+                    this.map.getJoueur().getBarreDeVie().setPourcentageVie((double) this.map.getJoueur().getPv() / this.map.getJoueur().getPvDebut() * 100);
+
                     temps++;
                 })
         );

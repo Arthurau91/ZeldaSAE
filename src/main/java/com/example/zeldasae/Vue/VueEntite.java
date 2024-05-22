@@ -47,4 +47,8 @@ public class VueEntite {
 
         this.paneEntites.getChildren().add(imgJoueur);
     }
+
+    public Entite getEntite() {
+        return entite;
+    }
 }

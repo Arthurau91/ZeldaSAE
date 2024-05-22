@@ -17,6 +17,10 @@ public abstract class Entite {
     private int vitesse;
     private HitBox hitBox;
     private static int n = 0;
+    private int pv;
+    private int pvDebut;
+    private int degats;
+    private BarreDeVie barreDeVie;
 
     public Entite(int x, int y, int width, int height, int column, int rows) {
         this.xProperty = new SimpleIntegerProperty(x);
@@ -29,6 +33,11 @@ public abstract class Entite {
         this.direction = "null";
         this.vitesse = 10;
         this.hitBox = new HitBox(this.width, this.height);
+        this.pvDebut = 5;
+        this.pv = 5;
+        this.degats = 1;
+        this.barreDeVie = new BarreDeVie(100, 20);
+        mettreAJourBarreDeVie();
     }
 
     public Entite(int x, int y, String id, int width, int height, int column, int rows) {
@@ -85,6 +94,60 @@ public abstract class Entite {
     private void setId(String id) {
         this.id = id;
     }
+
+    public int getPv() {
+        return pv;
+    }
+
+    public int getPvDebut() {
+        return pvDebut;
+    }
+
+    public void setPv(int pv) {
+        this.pv = pv;
+    }
+
+    public int getDegats() {
+        return degats;
+    }
+
+    public void setDegats(int degats) {
+        this.degats = degats;
+    }
+
+    public BarreDeVie getBarreDeVie() {
+        return barreDeVie;
+    }
+
+    private void mettreAJourBarreDeVie() {
+        double pourcentage = ((double) this.pv / this.pvDebut) * 100;
+        this.barreDeVie.setPourcentageVie(pourcentage);
+    }
+
+    public void perdreVie(int degats) {
+        setPv(this.getPv() - degats);
+        if (this.pv <= 0) {
+            this.pv = 0;
+        }
+        mettreAJourBarreDeVie();
+    }
+
+
+
+    public void attaqueEntite(Entite entite) {
+        if (verifVivant()) {
+            entite.perdreVie(this.getDegats());
+//            System.out.println("L'entité avec l'id " + entite.getId() + " s'est pris " + this.getDegats() + " dégats. Pv restants: " + entite.getPv());
+        } else {
+//            System.out.println("Mort!");
+        }
+    }
+
+
+    public boolean verifVivant() {
+        return this.pv > 0;
+    }
+
 
     /**
      * Méthode qui gère le déplacement d'une Entite sur le pane
