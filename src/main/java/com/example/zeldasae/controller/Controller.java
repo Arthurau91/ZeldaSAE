@@ -43,8 +43,8 @@ public class Controller implements Initializable {
         VueEntite vueJoueur = new VueEntite(this.map.getJoueur(), this.paneEntites);
         VueTerrain vueTerrain = new VueTerrain(this.map, this.mapPane);
         VueEntite vueEnnemi = new VueEntite(ennemi,paneEntites);
-        VueInventaire vueInv = new VueInventaire(this.boxInventaire);
-        this.map.getJoueur().getInv().getListeItems().addListener(new ObservateurItems(this.boxInventaire, this.paneEntites));
+        VueInventaire vueInv = new VueInventaire(this.boxInventaire, this.map.getJoueur());
+        this.map.getJoueur().getInv().getListeItems().addListener(new ObservateurItems(vueInv, this.paneEntites));
 
         KeyHandler keyHandler = new KeyHandler(this.map, vueInv);
         paneEntites.addEventHandler(KeyEvent.KEY_PRESSED, keyHandler);

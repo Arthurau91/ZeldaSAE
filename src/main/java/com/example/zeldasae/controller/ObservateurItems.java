@@ -8,13 +8,10 @@ import javafx.scene.image.ImageView;
 
 public class ObservateurItems implements ListChangeListener<Item> {
 
-    public final int nbItemLigne = 5;
-    public final int nbItemColonne = 10;
-
-    private Pane boxInv;
+    private VueInventaire vueInv;
     private Pane map;
-    public ObservateurItems(Pane boxInv, Pane map) {
-        this.boxInv = boxInv;
+    public ObservateurItems(VueInventaire vueInv, Pane map) {
+        this.vueInv = vueInv;
         this.map = map;
     }
 
@@ -22,7 +19,7 @@ public class ObservateurItems implements ListChangeListener<Item> {
     public void onChanged(Change<? extends Item> change) {
         while (change.next()) {
             for (Item i : change.getAddedSubList()) {
-                ajouterItem(i);
+                this.vueInv.ajouterItem(i);
             }
 //            for (Item i : change.getRemoved()) {
 //                méthode pour retirer un item côté vue (si besoin)
@@ -30,17 +27,6 @@ public class ObservateurItems implements ListChangeListener<Item> {
         }
     }
 
-    public void ajouterItem(Item i) {
-        Image img = new Image("file:src/main/resources/com/example/zeldasae/assets/test.png");
-        ImageView imageView = new ImageView(img);
-
-        int x, y;
-        x = (i.getPosSlotItems() - 1)%this.nbItemLigne * ((int) boxInv.getWidth()/this.nbItemLigne);
-        y = (i.getPosSlotItems() - 1)/this.nbItemLigne * ((int) boxInv.getHeight()/this.nbItemColonne);
-        imageView.setTranslateX(x);
-        imageView.setTranslateY(y);
-        this.boxInv.getChildren().add(imageView);
-    }
 
 
 

@@ -31,5 +31,21 @@ public class Inventaire {
         return this.listeItems;
     }
 
+    public Item getItemParID(int posItem) {
+        for (Item i : listeItems) {
+            if (i.getPosSlotItems() == posItem) {
+                return i;
+            }
+        }
+        return null;
+    }
+
+    public Arme getArmeActuelle() {
+        return this.armeActuelle;
+    }
+
+    public Armure getArmureActuelle() {
+        return this.armureActuelle;
+    }
 
 }

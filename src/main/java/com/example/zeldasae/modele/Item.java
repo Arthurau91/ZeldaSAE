@@ -18,6 +18,10 @@ public abstract class Item {
         return this.posSlotItems;
     }
 
+    public String getNom() {
+        return this.nom;
+    }
+
     public void setPosSlotItems(int posSlotItems) {
         this.posSlotItems = posSlotItems;
     }

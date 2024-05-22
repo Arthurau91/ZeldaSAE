@@ -1,4 +1,5 @@
 package com.example.zeldasae.controller;
+import com.example.zeldasae.modele.Arme;
 import com.example.zeldasae.modele.Armure;
 import com.example.zeldasae.modele.Item;
 import com.example.zeldasae.modele.Monde;
@@ -22,10 +23,10 @@ public class KeyHandler implements EventHandler<KeyEvent> {
         this.vueInv = vueInv;
         this.pressedKeys = new HashSet<>();
     }
-    private Item itemTest = new Armure(0,0, 500,"Item", 1); //à retirer, sert uniquement pour les tests
-    private Item itemTest2 = new Armure(0,0, 500,"Item", 5);
-    private Item itemTest3 = new Armure(0,0, 500,"Item", 6);
-    private Item itemTest4 = new Armure(0,0, 500,"Item", 19);
+    private Item itemTest = new Arme(0,0, "Arme 1" ,500, 1); //à retirer, sert uniquement pour les tests
+    private Item itemTest2 = new Arme(0,0, "Arme 2",2, 5);
+    private Item itemTest3 = new Armure(0,0, 500,"Armure 3", 6);
+    private Item itemTest4 = new Armure(0,0, 500,"Armure 4", 19);
 
 
     @Override
@@ -50,7 +51,7 @@ public class KeyHandler implements EventHandler<KeyEvent> {
         switch (keyEvent.getCode()) {
             case E:
 //                System.out.println("e");
-                this.vueInv.toggleAffichageInventaire();
+                this.vueInv.toggleAffichageInventaire(keyEvent);
                 break;
             case X: //à retirer, sert uniquement pour les tests
                 this.map.getJoueur().getInv().ajouterItem(itemTest);
@@ -59,11 +60,9 @@ public class KeyHandler implements EventHandler<KeyEvent> {
                 this.map.getJoueur().getInv().ajouterItem(itemTest4);
                 break;
             case C: //à retirer, sert uniquement pour les tests
-                itemTest.setPosSlotItems(itemTest.getPosSlotItems()+1);
+                System.out.println("Arme : " + this.map.getJoueur().getInv().getArmeActuelle().getNom() + " Armure : " + this.map.getJoueur().getInv().getArmureActuelle().getNom());
                 break;
-            case V: //à retirer, sert uniquement pour les tests
-                itemTest.setPosSlotItems(itemTest.getPosSlotItems()-1);
-                break;
+
         }
 
         this.map.getJoueur().setDirection(direction);
