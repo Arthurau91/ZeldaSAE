@@ -154,16 +154,16 @@ public abstract class Entite {
             int dy = 0;
 
             if (this.direction.contains("up") && checkHitBox("up", m.getTerrain()))
-                if (checkUp(m))
+                if (checkUp(m, vitesse))
                     dy -= vitesse;
             if (this.direction.contains("down") && checkHitBox("down", m.getTerrain()))
-                if (checkDown(m))
+                if (checkDown(m, vitesse))
                     dy += vitesse;
             if (this.direction.contains("left") && checkHitBox("left", m.getTerrain()))
-                if (checkLeft(m))
+                if (checkLeft(m, vitesse))
                     dx -= vitesse;
             if (this.direction.contains("right") && checkHitBox("right", m.getTerrain()))
-                if (checkRight(m))
+                if (checkRight(m, vitesse))
                     dx += vitesse;
 
             setX(getX() + dx);
@@ -176,10 +176,7 @@ public abstract class Entite {
                 hitBox.checkBord(direction, this.column, this.rows, this.vitesse);
     }
 
-    private boolean checkColisionEntite(Monde m, int x, int y){
-        if (this instanceof Ennemi)
-            if (m.getJoueur().getHitBox().estDedans(x,y))
-                return false;
+    public boolean checkColisionEntite(Monde m, int x, int y){
         for (Ennemi ennemi : m.getListeEnnemis()){
             if (this != ennemi && ennemi.getHitBox().estDedans(x,y))
                 return false;
@@ -187,30 +184,30 @@ public abstract class Entite {
         return true;
     }
 
-    private boolean checkUp(Monde m){
+    private boolean checkUp(Monde m, int decalages){
         for (int i = 0; i <= width; i++){
-            if (!checkColisionEntite(m, getX() + i, getY() - vitesse))
+            if (!checkColisionEntite(m, getX() + i, getY() - decalages))
                 return false;
         }
         return true;
     }
-    private boolean checkDown(Monde m){
+    private boolean checkDown(Monde m, int decalages){
         for (int i = 0; i <= width; i++){
-            if (!checkColisionEntite(m, getX() + i, getY() + height + vitesse))
+            if (!checkColisionEntite(m, getX() + i, getY() + height + decalages))
                 return false;
         }
         return true;
     }
-    private boolean checkRight(Monde m){
+    private boolean checkRight(Monde m, int decalages){
         for (int i = 0; i <= height; i++){
-            if (!checkColisionEntite(m, getX() + width + vitesse, getY() + i))
+            if (!checkColisionEntite(m, getX() + width + decalages, getY() + i))
                 return false;
         }
         return true;
     }
-    private boolean checkLeft(Monde m){
+    private boolean checkLeft(Monde m, int decalages){
         for (int i = 0; i <= height; i++){
-            if (!checkColisionEntite(m, getX()-vitesse, getY() + i))
+            if (!checkColisionEntite(m, getX()-decalages, getY() + i))
                 return false;
         }
         return true;
