@@ -136,7 +136,6 @@ public abstract class Entite {
         }
     }
 
-
     public boolean verifVivant() {
         return this.pv > 0;
     }
@@ -155,16 +154,16 @@ public abstract class Entite {
             int dy = 0;
 
             if (this.direction.contains("up") && checkHitBox("up", m.getTerrain()))
-                if (checkColisionEntite(m, getX(), getY() - vitesse))
+                if (checkUp(m))
                     dy -= vitesse;
             if (this.direction.contains("down") && checkHitBox("down", m.getTerrain()))
-                if (checkColisionEntite(m, getX(), getY()+vitesse))
+                if (checkDown(m))
                     dy += vitesse;
             if (this.direction.contains("left") && checkHitBox("left", m.getTerrain()))
-                if (checkColisionEntite(m, getX()-vitesse, getY()))
+                if (checkLeft(m))
                     dx -= vitesse;
             if (this.direction.contains("right") && checkHitBox("right", m.getTerrain()))
-                if (checkColisionEntite(m, getX()+vitesse, getY()))
+                if (checkRight(m))
                     dx += vitesse;
 
             setX(getX() + dx);
@@ -183,6 +182,35 @@ public abstract class Entite {
                 return false;
         for (Ennemi ennemi : m.getListeEnnemis()){
             if (this != ennemi && ennemi.getHitBox().estDedans(x,y))
+                return false;
+        }
+        return true;
+    }
+
+    private boolean checkUp(Monde m){
+        for (int i = 0; i <= width; i++){
+            if (!checkColisionEntite(m, getX() + i, getY() - vitesse))
+                return false;
+        }
+        return true;
+    }
+    private boolean checkDown(Monde m){
+        for (int i = 0; i <= width; i++){
+            if (!checkColisionEntite(m, getX() + i, getY() + height + vitesse))
+                return false;
+        }
+        return true;
+    }
+    private boolean checkRight(Monde m){
+        for (int i = 0; i <= height; i++){
+            if (!checkColisionEntite(m, getX() + width + vitesse, getY() + i))
+                return false;
+        }
+        return true;
+    }
+    private boolean checkLeft(Monde m){
+        for (int i = 0; i <= height; i++){
+            if (!checkColisionEntite(m, getX()-vitesse, getY() + i))
                 return false;
         }
         return true;
