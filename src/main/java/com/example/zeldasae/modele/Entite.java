@@ -3,8 +3,6 @@ package com.example.zeldasae.modele;
 import com.example.zeldasae.controller.ObservateurVie;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 
 public abstract class Entite {
 
@@ -22,7 +20,7 @@ public abstract class Entite {
     private IntegerProperty pv;
     private int pvDebut;
     private int degats;
-    private ObservableList<BarreDeVie> barreDeVies;
+    private BarreDeVie barreDeVie;
 
     public Entite(int x, int y, int width, int height, int column, int rows) {
         this.xProperty = new SimpleIntegerProperty(x);
@@ -38,10 +36,9 @@ public abstract class Entite {
         this.pvDebut = 5;
         this.pv = new SimpleIntegerProperty(this.pvDebut);
         this.degats = 1;
-        this.barreDeVies = FXCollections.observableArrayList();
-        BarreDeVie barreDeVie = new BarreDeVie(100, 20);
-        this.barreDeVies.add(barreDeVie);
-        this.barreDeVies.addListener(new ObservateurVie());
+        this.barreDeVie = new BarreDeVie(100, 10);
+        this.pv.addListener(new ObservateurVie(this));
+
 
     }
 
@@ -49,6 +46,7 @@ public abstract class Entite {
         this(x, y, width, height, column, rows);
         this.setId(id);
     }
+
 
     public int getX() {
         return this.xProperty.getValue();
@@ -124,12 +122,8 @@ public abstract class Entite {
         this.degats = degats;
     }
 
-    public ObservableList<BarreDeVie> getBarreDeVies() {
-        return barreDeVies;
-    }
-
     public BarreDeVie getBarreDeVie() {
-        return barreDeVies.isEmpty() ? null : barreDeVies.get(0);
+        return this.barreDeVie;
     }
 
     public void perdreVie(int degats) {
@@ -138,15 +132,13 @@ public abstract class Entite {
             setPv(0);
         }
 
-        mettreAJourBarreDeVie();
-
     }
 
-    private void mettreAJourBarreDeVie() {
-        double pourcentage = ((double) this.getPv() / this.pvDebut) * 100;
-        this.getBarreDeVie().setPourcentageVie(pourcentage);
+    public void updatePosition() {
+        double barreX = this.getX() + (this.getWidth() - this.barreDeVie.getWidth()) / 2;
+        this.barreDeVie.setLayoutX(barreX);
+        this.barreDeVie.setLayoutY(this.getY() - this.barreDeVie.getHeight());
     }
-
 
 
     public void attaqueEntite(Entite entite) {
