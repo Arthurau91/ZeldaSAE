@@ -47,14 +47,14 @@ public class Controller implements Initializable {
         VueInventaire vueInv = new VueInventaire(this.boxInventaire);
         this.map.getJoueur().getInv().getListeItems().addListener(new ObservateurItems(this.boxInventaire, this.paneEntites));
 
+        this.map.getJoueur().getBarreDeVie().setLayoutX(1050);
+        this.map.getJoueur().getBarreDeVie().setLayoutY(10);
+
         KeyHandler keyHandler = new KeyHandler(this.map, vueInv);
         paneEntites.addEventHandler(KeyEvent.KEY_PRESSED, keyHandler);
         paneEntites.addEventHandler(KeyEvent.KEY_RELEASED, keyHandler);
         initAnimation();
-
         paneEntites.getChildren().add(this.map.getJoueur().getBarreDeVie());
-        afficheBarreDeVieEnnemi();
-
     }
 
     private void initAnimation() {
@@ -74,6 +74,8 @@ public class Controller implements Initializable {
                     mapPane.setTranslateX(mapPane.getTranslateX()-depx);
                     paneEntites.setTranslateY(paneEntites.getTranslateY()-depy);
                     paneEntites.setTranslateX(paneEntites.getTranslateX()-depx);
+                    map.getJoueur().getBarreDeVie().setTranslateX(map.getJoueur().getBarreDeVie().getTranslateX()+depx);
+                    map.getJoueur().getBarreDeVie().setTranslateY(map.getJoueur().getBarreDeVie().getTranslateY()+depy);
                     if (temps%2==0) {
                         this.map.deplacementEnnemi();
                         ArrayList<Ennemi> listeEnnemis = this.map.getListeEnnemis();
@@ -86,7 +88,7 @@ public class Controller implements Initializable {
                         }
                         this.map.deplacementEnnemi();
                     }
-                    this.map.getJoueur().updatePosition();
+                    afficheBarreDeVieEnnemi();
                     actualisePositionEnnemi();
                     temps++;
                 })
@@ -97,13 +99,16 @@ public class Controller implements Initializable {
 
     public void actualisePositionEnnemi() {
         for (Ennemi ennemi : this.map.getListeEnnemis()) {
-            ennemi.updatePosition();
+            ennemi.updatePositionBarreDeVie();
         }
     }
 
     public void afficheBarreDeVieEnnemi() {
         for (Ennemi ennemi : this.map.getListeEnnemis()) {
-            this.paneEntites.getChildren().add(ennemi.getBarreDeVie());
+            if (!this.paneEntites.getChildren().contains(ennemi.getBarreDeVie())) {
+                this.paneEntites.getChildren().add(ennemi.getBarreDeVie());
+            }
+
         }
     }
 

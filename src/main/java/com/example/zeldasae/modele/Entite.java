@@ -36,9 +36,14 @@ public abstract class Entite {
         this.pvDebut = 5;
         this.pv = new SimpleIntegerProperty(this.pvDebut);
         this.degats = 1;
-        this.barreDeVie = new BarreDeVie(100, 10);
-        this.pv.addListener(new ObservateurVie(this));
 
+        if (this instanceof Joueur) {
+            this.barreDeVie = new BarreDeVie(100, 20);
+        } else {
+            this.barreDeVie = new BarreDeVie(90, 10);
+        }
+
+        this.pv.addListener(new ObservateurVie(this));
 
     }
 
@@ -134,7 +139,7 @@ public abstract class Entite {
 
     }
 
-    public void updatePosition() {
+    public void updatePositionBarreDeVie() {
         double barreX = this.getX() + (this.getWidth() - this.barreDeVie.getWidth()) / 2;
         this.barreDeVie.setLayoutX(barreX);
         this.barreDeVie.setLayoutY(this.getY() - this.barreDeVie.getHeight());
@@ -144,9 +149,6 @@ public abstract class Entite {
     public void attaqueEntite(Entite entite) {
         if (verifVivant()) {
             entite.perdreVie(this.getDegats());
-//            System.out.println("L'entité avec l'id " + entite.getId() + " s'est pris " + this.getDegats() + " dégats. Pv restants: " + entite.getPv());
-        } else {
-//            System.out.println("Mort!");
         }
     }
 
