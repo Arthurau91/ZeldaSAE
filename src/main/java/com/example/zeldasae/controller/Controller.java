@@ -1,6 +1,7 @@
 package com.example.zeldasae.controller;
 
 import com.example.zeldasae.Vue.VueEntite;
+import com.example.zeldasae.Vue.VueInventaire;
 import com.example.zeldasae.Vue.VueTerrain;
 import com.example.zeldasae.modele.Ennemi;
 import com.example.zeldasae.modele.Joueur;
@@ -44,8 +45,8 @@ public class Controller implements Initializable {
         VueEntite vueJoueur = new VueEntite(this.map.getJoueur(), this.paneEntites);
         VueTerrain vueTerrain = new VueTerrain(this.map, this.mapPane);
         VueEntite vueEnnemi = new VueEntite(ennemi,paneEntites);
-        VueInventaire vueInv = new VueInventaire(this.boxInventaire);
-        this.map.getJoueur().getInv().getListeItems().addListener(new ObservateurItems(this.boxInventaire, this.paneEntites));
+        VueInventaire vueInv = new VueInventaire(this.boxInventaire, this.map.getJoueur());
+        this.map.getJoueur().getInv().getListeItems().addListener(new ObservateurItems(vueInv, this.paneEntites));
 
         this.map.getJoueur().getBarreDeVie().setLayoutX(1050);
         this.map.getJoueur().getBarreDeVie().setLayoutY(10);

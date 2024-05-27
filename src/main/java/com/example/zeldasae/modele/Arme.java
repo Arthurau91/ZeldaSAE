@@ -1,6 +1,7 @@
 package com.example.zeldasae.modele;
 
-public abstract class Arme extends Item{
+//A REMETTRE ABSTRACT
+public class Arme extends Item{
 
     private int degats;
 
