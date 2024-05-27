@@ -1,6 +1,7 @@
 package com.example.zeldasae.controller;
 
 import com.example.zeldasae.Vue.VueEntite;
+import com.example.zeldasae.Vue.VueInventaire;
 import com.example.zeldasae.Vue.VueTerrain;
 import com.example.zeldasae.modele.Ennemi;
 import com.example.zeldasae.modele.Joueur;

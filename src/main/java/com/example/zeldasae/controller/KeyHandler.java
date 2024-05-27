@@ -1,4 +1,5 @@
 package com.example.zeldasae.controller;
+import com.example.zeldasae.Vue.VueInventaire;
 import com.example.zeldasae.modele.Arme;
 import com.example.zeldasae.modele.Armure;
 import com.example.zeldasae.modele.Item;
@@ -9,7 +10,6 @@ import javafx.scene.input.KeyEvent;
 
 import java.util.HashSet;
 import java.util.Set;
-
 import static javafx.scene.input.KeyCode.*;
 
 public class KeyHandler implements EventHandler<KeyEvent> {
@@ -23,7 +23,7 @@ public class KeyHandler implements EventHandler<KeyEvent> {
         this.vueInv = vueInv;
         this.pressedKeys = new HashSet<>();
     }
-    private Item itemTest = new Arme(0,0, "Arme 1" ,500, 1); //à retirer, sert uniquement pour les tests
+    private Item itemTest = new Arme(0,0, "Arme 1" ,500, 3); //à retirer, sert uniquement pour les tests
     private Item itemTest2 = new Arme(0,0, "Arme 2",2, 5);
     private Item itemTest3 = new Armure(0,0, 500,"Armure 3", 6);
     private Item itemTest4 = new Armure(0,0, 500,"Armure 4", 19);

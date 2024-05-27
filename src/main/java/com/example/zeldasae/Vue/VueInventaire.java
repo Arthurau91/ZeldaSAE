@@ -1,20 +1,12 @@
-package com.example.zeldasae.controller;
+package com.example.zeldasae.Vue;
 
-import com.example.zeldasae.modele.Inventaire;
+import com.example.zeldasae.controller.ClickHandlerInventaire;
 import com.example.zeldasae.modele.Item;
 import com.example.zeldasae.modele.Joueur;
-import javafx.beans.property.IntegerProperty;
-import javafx.beans.property.SimpleIntegerProperty;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
-import javafx.scene.paint.Color;
-import javafx.scene.shape.Rectangle;
 
-import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 
 public class VueInventaire {
@@ -29,6 +21,8 @@ public class VueInventaire {
 
     public VueInventaire(Pane boxInv, Joueur joueur) {
         this.boxInventaire = boxInv;
+        this.boxInventaire.setStyle("-fx-background-color: black;");
+        this.boxInventaire.setVisible(false);
         this.afficheInventaire = false;
         this.joueur = joueur;
         this.clickHandler = new ClickHandlerInventaire(boxInv, this.joueur);
@@ -50,12 +44,12 @@ public class VueInventaire {
     }
 
     public void ajouterItem(Item i) {
-        Image img = new Image("file:src/main/resources/com/example/zeldasae/assets/test.png");
+        Image img = switchImageItem(i);
         ImageView imageView = new ImageView(img);
 
         int x, y;
         x = (i.getPosSlotItems() - 1)%this.nbItemLigne * ((int) this.boxInventaire.getWidth()/this.nbItemLigne);
-        y = (i.getPosSlotItems() - 1)/this.nbItemLigne * ((int) this.boxInventaire.getHeight()/this.nbItemColonne);
+        y = (i.getPosSlotItems() - 1)/this.nbItemLigne * ((int) this.boxInventaire.getHeight()/this.nbItemColonne) + 100;
         imageView.setTranslateX(x);
         imageView.setTranslateY(y);
         imageView.setId("" + i.getPosSlotItems());
@@ -63,5 +57,9 @@ public class VueInventaire {
         this.boxInventaire.getChildren().add(imageView);
     }
 
+    public Image switchImageItem(Item i) {
+        Image img = new Image("file:src/main/resources/com/example/zeldasae/assets/" + i.getNom() + ".png");
+        return img;
+    }
 
 }
