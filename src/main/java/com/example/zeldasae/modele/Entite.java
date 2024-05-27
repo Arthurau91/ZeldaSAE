@@ -1,5 +1,6 @@
 package com.example.zeldasae.modele;
 
+import com.example.zeldasae.controller.ObservateurVie;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 
@@ -16,7 +17,7 @@ public abstract class Entite {
     private int vitesse;
     private HitBox hitBox;
     private static int n = 0;
-    private int pv;
+    private IntegerProperty pv;
     private int pvDebut;
     private int degats;
     private BarreDeVie barreDeVie;
@@ -33,16 +34,24 @@ public abstract class Entite {
         this.vitesse = 10;
         this.hitBox = new HitBox(this.width, this.height, this.xProperty, this.yProperty);
         this.pvDebut = 5;
-        this.pv = 5;
+        this.pv = new SimpleIntegerProperty(this.pvDebut);
         this.degats = 1;
-        this.barreDeVie = new BarreDeVie(100, 20);
-        mettreAJourBarreDeVie();
+
+        if (this instanceof Joueur) {
+            this.barreDeVie = new BarreDeVie(100, 20);
+        } else {
+            this.barreDeVie = new BarreDeVie(90, 10);
+        }
+
+        this.pv.addListener(new ObservateurVie(this));
+
     }
 
     public Entite(int x, int y, String id, int width, int height, int column, int rows) {
         this(x, y, width, height, column, rows);
         this.setId(id);
     }
+
 
     public int getX() {
         return this.xProperty.getValue();
@@ -91,13 +100,17 @@ public abstract class Entite {
         this.id = id;
     }
     public int getPv() {
-        return pv;
+        return pv.getValue();
     }
     public int getPvDebut() {
         return pvDebut;
     }
     public void setPv(int pv) {
-        this.pv = pv;
+        this.pv.setValue(pv);
+    }
+
+    public IntegerProperty pv() {
+        return this.pv;
     }
     public int getDegats() {
         return degats;
@@ -106,7 +119,7 @@ public abstract class Entite {
         this.degats = degats;
     }
     public BarreDeVie getBarreDeVie() {
-        return barreDeVie;
+        return this.barreDeVie;
     }
     public HitBox getHitBox() {
         return hitBox;
@@ -119,25 +132,26 @@ public abstract class Entite {
 
     public void perdreVie(int degats) {
         setPv(this.getPv() - degats);
-        if (this.pv <= 0) {
-            this.pv = 0;
+        if (this.getPv() <= 0) {
+            setPv(0);
         }
-        mettreAJourBarreDeVie();
     }
 
+    public void updatePositionBarreDeVie() {
+        double barreX = this.getX() + (this.getWidth() - this.barreDeVie.getWidth()) / 2;
+        this.barreDeVie.setLayoutX(barreX);
+        this.barreDeVie.setLayoutY(this.getY() - this.barreDeVie.getHeight());
+    }
 
 
     public void attaqueEntite(Entite entite) {
         if (verifVivant()) {
             entite.perdreVie(this.getDegats());
-//            System.out.println("L'entité avec l'id " + entite.getId() + " s'est pris " + this.getDegats() + " dégats. Pv restants: " + entite.getPv());
-        } else {
-//            System.out.println("Mort!");
         }
     }
 
     public boolean verifVivant() {
-        return this.pv > 0;
+        return this.getPv() > 0;
     }
 
 

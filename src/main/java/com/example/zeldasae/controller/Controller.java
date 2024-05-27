@@ -47,15 +47,14 @@ public class Controller implements Initializable {
         VueInventaire vueInv = new VueInventaire(this.boxInventaire);
         this.map.getJoueur().getInv().getListeItems().addListener(new ObservateurItems(this.boxInventaire, this.paneEntites));
 
+        this.map.getJoueur().getBarreDeVie().setLayoutX(1050);
+        this.map.getJoueur().getBarreDeVie().setLayoutY(10);
+
         KeyHandler keyHandler = new KeyHandler(this.map, vueInv);
         paneEntites.addEventHandler(KeyEvent.KEY_PRESSED, keyHandler);
         paneEntites.addEventHandler(KeyEvent.KEY_RELEASED, keyHandler);
         initAnimation();
-
         paneEntites.getChildren().add(this.map.getJoueur().getBarreDeVie());
-        this.map.getJoueur().getBarreDeVie().setLayoutX(1050);
-        this.map.getJoueur().getBarreDeVie().setLayoutY(10);
-
     }
 
     private void initAnimation() {
@@ -81,13 +80,31 @@ public class Controller implements Initializable {
 
                     if (temps%2==0)
                         this.map.deplacementEnnemi();
-                    this.map.getJoueur().getBarreDeVie().setPourcentageVie((double) this.map.getJoueur().getPv() / this.map.getJoueur().getPvDebut() * 100);
-
+                    }
+                    afficheBarreDeVieEnnemi();
+                    actualisePositionEnnemi();
                     temps++;
                 })
         );
         gameLoop.getKeyFrames().add(kf);
     }
+
+
+    public void actualisePositionEnnemi() {
+        for (Ennemi ennemi : this.map.getListeEnnemis()) {
+            ennemi.updatePositionBarreDeVie();
+        }
+    }
+
+    public void afficheBarreDeVieEnnemi() {
+        for (Ennemi ennemi : this.map.getListeEnnemis()) {
+            if (!this.paneEntites.getChildren().contains(ennemi.getBarreDeVie())) {
+                this.paneEntites.getChildren().add(ennemi.getBarreDeVie());
+            }
+
+        }
+    }
+
 
     /**
      * Méthode permettant de mettre le focus sur le pane des entitées pour pouvoir faire des actions avec les touches
