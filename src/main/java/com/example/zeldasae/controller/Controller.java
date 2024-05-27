@@ -80,7 +80,7 @@ public class Controller implements Initializable {
 
                     if (temps%2==0)
                         this.map.deplacementEnnemi();
-                    }
+
                     afficheBarreDeVieEnnemi();
                     actualisePositionEnnemi();
                     temps++;

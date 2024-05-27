@@ -126,7 +126,7 @@ public abstract class Entite {
     }
 
     private void mettreAJourBarreDeVie() {
-        double pourcentage = ((double) this.pv / this.pvDebut) * 100;
+        double pourcentage = ((double) this.getPv() / this.getPvDebut()) * 100;
         this.barreDeVie.setPourcentageVie(pourcentage);
     }
 
