@@ -77,9 +77,6 @@ public class HitBox {
     }
 
     public boolean estDedans(int x, int y){
-//        System.out.println(x+" "+y);
-//        System.out.println(getX()+" "+getY());
-//        System.out.println((getX())+" "+(getX()+large)+" "+(getY())+" "+(getY()+haut));
         return getX() < x && getX()+large > x && getY() < y && getY()+haut > y;
     }
 }

@@ -71,23 +71,16 @@ public class Controller implements Initializable {
                     int x1 = map.getJoueur().getX(), y1 = map.getJoueur().getY();
                     this.map.getJoueur().deplacement(map);
                     int depx = map.getJoueur().getX() -x1, depy = map.getJoueur().getY() - y1;
+
                     mapPane.setTranslateY(mapPane.getTranslateY()-depy);
                     mapPane.setTranslateX(mapPane.getTranslateX()-depx);
                     paneEntites.setTranslateY(paneEntites.getTranslateY()-depy);
                     paneEntites.setTranslateX(paneEntites.getTranslateX()-depx);
                     map.getJoueur().getBarreDeVie().setTranslateX(map.getJoueur().getBarreDeVie().getTranslateX()+depx);
                     map.getJoueur().getBarreDeVie().setTranslateY(map.getJoueur().getBarreDeVie().getTranslateY()+depy);
-                    if (temps%2==0) {
-                        this.map.deplacementEnnemi();
-                        ArrayList<Ennemi> listeEnnemis = this.map.getListeEnnemis();
-                        Joueur joueur = this.map.getJoueur();
 
-                        for (Ennemi ennemi : listeEnnemis) {
-                            if (joueur.getX() == ennemi.getX() && joueur.getY() == ennemi.getY()) {
-                                ennemi.attaqueEntite(joueur);
-                            }
-                        }
-                    }
+                    if (temps%2==0)
+                        this.map.deplacementEnnemi();
                     this.map.getJoueur().getBarreDeVie().setPourcentageVie((double) this.map.getJoueur().getPv() / this.map.getJoueur().getPvDebut() * 100);
 
                     temps++;

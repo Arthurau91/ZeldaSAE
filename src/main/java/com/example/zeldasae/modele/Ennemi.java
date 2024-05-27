@@ -36,9 +36,11 @@ public class Ennemi extends Entite{
         }
     }
 
-    public boolean checkColisionEntite(Monde m, int x, int y){
-        if (m.getJoueur().getHitBox().estDedans(x,y))
+    public boolean checkColisionEntite(Monde m, int x, int y) {
+        if (m.getJoueur().getHitBox().estDedans(x, y)){
+            this.attaqueEntite(m.getJoueur());
             return false;
+        }
         return super.checkColisionEntite(m,x,y);
     }
 }
