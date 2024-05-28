@@ -1,5 +1,7 @@
 package com.example.zeldasae.modele;
 
+import com.example.zeldasae.Vue.VueBarreDeVie;
+import com.example.zeldasae.Vue.VueEntite;
 import com.example.zeldasae.controller.ObservateurVie;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
@@ -20,7 +22,7 @@ public abstract class Entite {
     private IntegerProperty pv;
     private int pvDebut;
     private int degats;
-    private BarreDeVie barreDeVie;
+    private VueBarreDeVie vueBarreDeVie;
 
     public Entite(int x, int y, int width, int height, int column, int rows) {
         this.xProperty = new SimpleIntegerProperty(x);
@@ -33,14 +35,14 @@ public abstract class Entite {
         this.direction = "null";
         this.vitesse = 10;
         this.hitBox = new HitBox(this.width, this.height, this.xProperty, this.yProperty);
-        this.pvDebut = 5;
+        this.pvDebut = 10;
         this.pv = new SimpleIntegerProperty(this.pvDebut);
         this.degats = 1;
 
         if (this instanceof Joueur) {
-            this.barreDeVie = new BarreDeVie(100, 20);
+            this.vueBarreDeVie = new VueBarreDeVie(100, 20);
         } else {
-            this.barreDeVie = new BarreDeVie(90, 10);
+            this.vueBarreDeVie = new VueBarreDeVie(90, 10);
         }
 
         this.pv.addListener(new ObservateurVie(this));
@@ -118,17 +120,14 @@ public abstract class Entite {
     public void setDegats(int degats) {
         this.degats = degats;
     }
-    public BarreDeVie getBarreDeVie() {
-        return this.barreDeVie;
+    public VueBarreDeVie getVueBarreDeVie() {
+        return this.vueBarreDeVie;
     }
     public HitBox getHitBox() {
         return hitBox;
     }
 
-    private void mettreAJourBarreDeVie() {
-        double pourcentage = ((double) this.getPv() / this.getPvDebut()) * 100;
-        this.barreDeVie.setPourcentageVie(pourcentage);
-    }
+
 
     public void perdreVie(int degats) {
         setPv(this.getPv() - degats);
@@ -138,9 +137,9 @@ public abstract class Entite {
     }
 
     public void updatePositionBarreDeVie() {
-        double barreX = this.getX() + (this.getWidth() - this.barreDeVie.getWidth()) / 2;
-        this.barreDeVie.setLayoutX(barreX);
-        this.barreDeVie.setLayoutY(this.getY() - this.barreDeVie.getHeight());
+        double barreX = this.getX() + (this.getWidth() - this.vueBarreDeVie.getWidth()) / 2;
+        this.vueBarreDeVie.setLayoutX(barreX);
+        this.vueBarreDeVie.setLayoutY(this.getY() - this.vueBarreDeVie.getHeight());
     }
 
 

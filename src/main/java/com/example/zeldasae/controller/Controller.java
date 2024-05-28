@@ -1,5 +1,6 @@
 package com.example.zeldasae.controller;
 
+import com.example.zeldasae.Vue.VueBarreDeVie;
 import com.example.zeldasae.Vue.VueEntite;
 import com.example.zeldasae.Vue.VueInventaire;
 import com.example.zeldasae.Vue.VueTerrain;
@@ -48,14 +49,17 @@ public class Controller implements Initializable {
         VueInventaire vueInv = new VueInventaire(this.boxInventaire, this.map.getJoueur());
         this.map.getJoueur().getInv().getListeItems().addListener(new ObservateurItems(vueInv, this.paneEntites));
 
-        this.map.getJoueur().getBarreDeVie().setLayoutX(1050);
-        this.map.getJoueur().getBarreDeVie().setLayoutY(10);
+        ObservateurMouvement observateurMouvement = new ObservateurMouvement(this.map, this.mapPane, this.paneEntites);
+
+        this.map.getJoueur().xProperty().addListener(observateurMouvement);
+        this.map.getJoueur().yProperty().addListener(observateurMouvement);
 
         KeyHandler keyHandler = new KeyHandler(this.map, vueInv);
         paneEntites.addEventHandler(KeyEvent.KEY_PRESSED, keyHandler);
         paneEntites.addEventHandler(KeyEvent.KEY_RELEASED, keyHandler);
         initAnimation();
-        paneEntites.getChildren().add(this.map.getJoueur().getBarreDeVie());
+        paneEntites.getChildren().add(this.map.getJoueur().getVueBarreDeVie());
+
     }
 
     private void initAnimation() {
@@ -68,42 +72,14 @@ public class Controller implements Initializable {
                 Duration.seconds(0.040),
                 // on définit ce qui se passe à chaque frame
                 (ev ->{
-                    int x1 = map.getJoueur().getX(), y1 = map.getJoueur().getY();
                     this.map.getJoueur().deplacement(map);
-                    int depx = map.getJoueur().getX() -x1, depy = map.getJoueur().getY() - y1;
-
-                    mapPane.setTranslateY(mapPane.getTranslateY()-depy);
-                    mapPane.setTranslateX(mapPane.getTranslateX()-depx);
-                    paneEntites.setTranslateY(paneEntites.getTranslateY()-depy);
-                    paneEntites.setTranslateX(paneEntites.getTranslateX()-depx);
-                    map.getJoueur().getBarreDeVie().setTranslateX(map.getJoueur().getBarreDeVie().getTranslateX()+depx);
-                    map.getJoueur().getBarreDeVie().setTranslateY(map.getJoueur().getBarreDeVie().getTranslateY()+depy);
 
                     if (temps%2==0)
                         this.map.deplacementEnnemi();
-
-                    afficheBarreDeVieEnnemi();
-                    actualisePositionEnnemi();
                     temps++;
                 })
         );
         gameLoop.getKeyFrames().add(kf);
-    }
-
-
-    public void actualisePositionEnnemi() {
-        for (Ennemi ennemi : this.map.getListeEnnemis()) {
-            ennemi.updatePositionBarreDeVie();
-        }
-    }
-
-    public void afficheBarreDeVieEnnemi() {
-        for (Ennemi ennemi : this.map.getListeEnnemis()) {
-            if (!this.paneEntites.getChildren().contains(ennemi.getBarreDeVie())) {
-                this.paneEntites.getChildren().add(ennemi.getBarreDeVie());
-            }
-
-        }
     }
 
 
