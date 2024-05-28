@@ -1,9 +1,6 @@
 package com.example.zeldasae.controller;
 import com.example.zeldasae.Vue.VueInventaire;
-import com.example.zeldasae.modele.Arme;
-import com.example.zeldasae.modele.Armure;
-import com.example.zeldasae.modele.Item;
-import com.example.zeldasae.modele.Monde;
+import com.example.zeldasae.modele.*;
 import javafx.event.EventHandler;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
@@ -24,10 +21,10 @@ public class KeyHandler implements EventHandler<KeyEvent> {
         this.pressedKeys = new HashSet<>();
     }
     private Item itemTest = new Arme(0,0, "Arme 1" ,500, 3); //à retirer, sert uniquement pour les tests
-    private Item itemTest2 = new Arme(0,0, "Arme 2",2, 5);
-    private Item itemTest3 = new Armure(0,0, 500,"Armure 3", 6);
+    private Item itemTest2 = new Arme(0,0, "Arme 2",2, 6);
+    private Item itemTest3 = new Armure(0,0, 500,"Armure 3", 9);
     private Item itemTest4 = new Armure(0,0, 500,"Armure 4", 19);
-
+    private Item collectibleTest = new Collectible(0, 10, "CollectibleTest", 5);
 
     @Override
     public void handle(KeyEvent keyEvent) {
@@ -58,11 +55,17 @@ public class KeyHandler implements EventHandler<KeyEvent> {
                 this.map.getJoueur().getInv().ajouterItem(itemTest2);
                 this.map.getJoueur().getInv().ajouterItem(itemTest3);
                 this.map.getJoueur().getInv().ajouterItem(itemTest4);
+                this.map.getJoueur().getInv().ajouterItem(collectibleTest);
                 break;
             case C: //à retirer, sert uniquement pour les tests
                 System.out.println("Arme : " + this.map.getJoueur().getInv().getArmeActuelle().getNom() + " Armure : " + this.map.getJoueur().getInv().getArmureActuelle().getNom());
                 break;
-
+            case A:
+                if (keyEvent.getEventType() != KeyEvent.KEY_RELEASED) {
+                    collectibleTest.ajouter(1);
+                    System.out.println("quantite de CollectibleTest : " + collectibleTest.getQuantite());
+                }
+                break;
         }
 
         this.map.getJoueur().setDirection(direction);
