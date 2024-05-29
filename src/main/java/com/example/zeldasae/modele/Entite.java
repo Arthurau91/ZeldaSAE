@@ -1,7 +1,6 @@
 package com.example.zeldasae.modele;
 
 import com.example.zeldasae.Vue.VueBarreDeVie;
-import com.example.zeldasae.Vue.VueEntite;
 import com.example.zeldasae.controller.ObservateurVie;
 import javafx.beans.binding.Bindings;
 import javafx.beans.binding.DoubleBinding;
@@ -217,36 +216,36 @@ public abstract class Entite {
 
     public boolean checkColisionEntite(Monde m, int x, int y){
         for (Ennemi ennemi : m.getListeEnnemis()){
-            if (this != ennemi && ennemi.getHitBox().estDedans(x,y))
-                return false;
+            if (this != ennemi && ennemi.getHitBox().contient(x,y))
+                return true;
         }
-        return true;
+        return false;
     }
 
     private boolean checkUp(Monde m, int decalages){
         for (int i = 0; i <= width; i++){
-            if (!checkColisionEntite(m, getX() + i, getY() - decalages))
+            if (checkColisionEntite(m, getX() + i, getY() - decalages))
                 return false;
         }
         return true;
     }
     private boolean checkDown(Monde m, int decalages){
         for (int i = 0; i <= width; i++){
-            if (!checkColisionEntite(m, getX() + i, getY() + height + decalages))
+            if (checkColisionEntite(m, getX() + i, getY() + height + decalages))
                 return false;
         }
         return true;
     }
     private boolean checkRight(Monde m, int decalages){
         for (int i = 0; i <= height; i++){
-            if (!checkColisionEntite(m, getX() + width + decalages, getY() + i))
+            if (checkColisionEntite(m, getX() + width + decalages, getY() + i))
                 return false;
         }
         return true;
     }
     private boolean checkLeft(Monde m, int decalages){
         for (int i = 0; i <= height; i++){
-            if (!checkColisionEntite(m, getX()-decalages, getY() + i))
+            if (checkColisionEntite(m, getX() - decalages, getY() + i))
                 return false;
         }
         return true;

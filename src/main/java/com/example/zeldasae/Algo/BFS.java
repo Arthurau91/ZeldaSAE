@@ -30,11 +30,20 @@ public class BFS {
             Point actuel = queue.poll();
             int x = actuel.getX();
             int y = actuel.getY();
+            ArrayList<Integer> directionAleatoire = new ArrayList<>();
+            directionAleatoire.add(0);
+            directionAleatoire.add(1);
+            directionAleatoire.add(2);
+            directionAleatoire.add(3);
 
             // Exploration des voisins
             for (int i = 0; i < 4; i++) {
-                int nx = x + dLigne[i];
-                int ny = y + dColonne[i];
+                Random random = new Random();
+                int nr = random.nextInt(directionAleatoire.size());
+                int d = directionAleatoire.get(nr);
+                directionAleatoire.remove(nr);
+                int nx = x + dLigne[d];
+                int ny = y + dColonne[d];
 
                 // Vérifier si le voisin est dans les limites du tableau et non visité
                 if (nx >= 0 && nx < ligne && ny >= 0 && ny < colonne && !visite[nx][ny] && grille[nx][ny] == 232) {
@@ -62,9 +71,9 @@ public class BFS {
         int[][] tab = new int[ligne][colonne];
         int index = 0;
 
-        for (int i = 0; i < colonne; i++) {
-            for (int j = 0; j < ligne; j++) {
-                tab[j][i] = liste.get(index++);
+        for (int j = 0; j < colonne; j++) {
+            for (int i = 0; i < ligne; i++) {
+                tab[i][j] = liste.get(index++);
             }
         }
 

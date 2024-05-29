@@ -29,9 +29,9 @@ public class VueTerrain {
         ArrayList<Integer> m = loadMap("src/main/resources/com/example/zeldasae/assets/map.json");
         this.map.setMap(m);
 
-        for (int x = 0 ; x < m.size() ; x++) {
+        for (Integer integer : m) {
             ImageView imageView = new ImageView();
-            switch (m.get(x)) {
+            switch (integer) {
                 case 232:
                     Image image = new Image("file:src/main/resources/com/example/zeldasae/assets/grass.jpg");
                     imageView.setImage(image);
