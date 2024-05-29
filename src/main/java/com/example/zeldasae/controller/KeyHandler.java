@@ -1,12 +1,11 @@
 package com.example.zeldasae.controller;
+import com.example.zeldasae.Vue.VueArme;
 import com.example.zeldasae.Vue.VueInventaire;
-import com.example.zeldasae.modele.Arme;
-import com.example.zeldasae.modele.Armure;
-import com.example.zeldasae.modele.Item;
-import com.example.zeldasae.modele.Monde;
+import com.example.zeldasae.modele.*;
 import javafx.event.EventHandler;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.shape.Rectangle;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -16,18 +15,22 @@ public class KeyHandler implements EventHandler<KeyEvent> {
 
     private Monde map;
     private VueInventaire vueInv;
+    private VueArme vueArme;
     private final Set<KeyCode> pressedKeys;
 
-    public KeyHandler(Monde map, VueInventaire vueInv) {
+    public KeyHandler(Monde map, VueInventaire vueInv, VueArme vueArme) {
         this.map = map;
         this.vueInv = vueInv;
+        this.vueArme = vueArme;
         this.pressedKeys = new HashSet<>();
     }
-    private Item itemTest = new Arme(0,0, "Arme 1" ,500, 3); //à retirer, sert uniquement pour les tests
-    private Item itemTest2 = new Arme(0,0, "Arme 2",2, 5);
+
+    //à retirer, sert uniquement pour les tests
+    private Item itemTest = new Arme(0,0, "Arme 1" ,1, 3, 150, 15, 0, 0);
+    private Item itemTest2 = new Arme(0,0, "Arme 2",2, 5, 100, 100, 0, 0);
     private Item itemTest3 = new Armure(0,0, 500,"Armure 3", 6);
     private Item itemTest4 = new Armure(0,0, 500,"Armure 4", 19);
-
+    private Item collectibleTest = new Collectible(0, 10, "CollectibleTest", 5);
 
     @Override
     public void handle(KeyEvent keyEvent) {
@@ -58,11 +61,24 @@ public class KeyHandler implements EventHandler<KeyEvent> {
                 this.map.getJoueur().getInv().ajouterItem(itemTest2);
                 this.map.getJoueur().getInv().ajouterItem(itemTest3);
                 this.map.getJoueur().getInv().ajouterItem(itemTest4);
+                this.map.getJoueur().getInv().ajouterItem(collectibleTest);
                 break;
             case C: //à retirer, sert uniquement pour les tests
                 System.out.println("Arme : " + this.map.getJoueur().getInv().getArmeActuelle().getNom() + " Armure : " + this.map.getJoueur().getInv().getArmureActuelle().getNom());
                 break;
-
+            case A:
+                if (keyEvent.getEventType() != KeyEvent.KEY_RELEASED) {
+                    collectibleTest.ajouter(1);
+                    System.out.println("quantite de CollectibleTest : " + collectibleTest.getQuantite());
+                }
+                break;
+            case LEFT:
+                if (keyEvent.getEventType() != KeyEvent.KEY_RELEASED) {
+                    this.map.getJoueur().getInv().getArmeActuelle().setPosMap(this.map.getJoueur().getX(), this.map.getJoueur().getY());
+                    this.vueArme.donnerCoup(this.map.getJoueur().getInv().getArmeActuelle().getX(), this.map.getJoueur().getInv().getArmeActuelle().getY());
+                    this.map.getJoueur().getInv().getArmeActuelle().checkCoupTouche(this.map.getListeEnnemis());
+                }
+                break;
         }
 
         this.map.getJoueur().setDirection(direction);

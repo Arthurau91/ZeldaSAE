@@ -8,7 +8,6 @@ public class Monde {
     private Joueur joueur;
     private ArrayList<Ennemi> listeEnnemis;
 
-
     /**
      * Constructeur de la classe Monde
      */

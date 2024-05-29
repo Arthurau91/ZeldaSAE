@@ -1,5 +1,6 @@
 package com.example.zeldasae.controller;
 
+import com.example.zeldasae.Vue.VueArme;
 import com.example.zeldasae.Vue.VueEntite;
 import com.example.zeldasae.Vue.VueInventaire;
 import com.example.zeldasae.Vue.VueTerrain;
@@ -40,18 +41,19 @@ public class Controller implements Initializable {
         this.mapPane.setPrefHeight(this.mapPane.getPrefTileHeight()*this.mapPane.getPrefRows());
 
         this.map = new Monde(new Joueur((int)mapPane.getPrefWidth()/2, (int)mapPane.getPrefHeight()/2, (int)mapPane.getPrefTileWidth(), (int)mapPane.getPrefTileHeight(), mapPane.getPrefColumns(), mapPane.getPrefRows()));
-        Ennemi ennemi = new Ennemi(120, 120, (int)mapPane.getPrefTileWidth(), (int)mapPane.getPrefTileHeight(), mapPane.getPrefColumns(),  mapPane.getPrefRows());
+        Ennemi ennemi = new Ennemi(150, 120, (int)mapPane.getPrefTileWidth(), (int)mapPane.getPrefTileHeight(), mapPane.getPrefColumns(),  mapPane.getPrefRows());
         this.map.addEnnemi(ennemi);
         VueEntite vueJoueur = new VueEntite(this.map.getJoueur(), this.paneEntites);
         VueTerrain vueTerrain = new VueTerrain(this.map, this.mapPane);
         VueEntite vueEnnemi = new VueEntite(ennemi,paneEntites);
         VueInventaire vueInv = new VueInventaire(this.boxInventaire, this.map.getJoueur());
         this.map.getJoueur().getInv().getListeItems().addListener(new ObservateurItems(vueInv, this.paneEntites));
+        VueArme vueArme = new VueArme(this.map.getJoueur(), this.paneEntites);
 
         this.map.getJoueur().getBarreDeVie().setLayoutX(1050);
         this.map.getJoueur().getBarreDeVie().setLayoutY(10);
 
-        KeyHandler keyHandler = new KeyHandler(this.map, vueInv);
+        KeyHandler keyHandler = new KeyHandler(this.map, vueInv, vueArme);
         paneEntites.addEventHandler(KeyEvent.KEY_PRESSED, keyHandler);
         paneEntites.addEventHandler(KeyEvent.KEY_RELEASED, keyHandler);
         initAnimation();
@@ -102,7 +104,6 @@ public class Controller implements Initializable {
             if (!this.paneEntites.getChildren().contains(ennemi.getBarreDeVie())) {
                 this.paneEntites.getChildren().add(ennemi.getBarreDeVie());
             }
-
         }
     }
 

@@ -2,6 +2,10 @@ package com.example.zeldasae.modele;
 
 import javafx.beans.property.IntegerProperty;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 public class HitBox {
 
     private int large;
@@ -24,6 +28,18 @@ public class HitBox {
     }
     public int getX() {
         return x.getValue();
+    }
+    public void setX(int x) {
+        this.x.set(x);
+    }
+    public void setY(int y) {
+        this.y.set(y);
+    }
+    public int getLarge() {
+        return large;
+    }
+    public int getHaut() {
+        return haut;
     }
 
     public boolean checkColision(String direction, int rows, Terrain terrain){
@@ -79,4 +95,53 @@ public class HitBox {
     public boolean estDedans(int x, int y){
         return getX() < x && getX()+large > x && getY() < y && getY()+haut > y;
     }
+
+    public boolean estDedansEgal(int x, int y){
+        return getX() <= x && getX()+large >= x && getY() <= y && getY()+haut >= y;
+    }
+
+    public boolean estDedansHitbox(HitBox h) {
+        System.out.println("largeur : " + this.large + " hauteur : " + this.haut);
+//        boolean check = (h.estDedansEgal(this.getX(), this.getY()) || h.estDedansEgal(this.getX()+this.large, this.getY()) || h.estDedansEgal(this.getX(), this.getY()+this.haut) || h.estDedansEgal(this.getX()+this.large, this.getY()+this.haut));
+        boolean check = (this.checkUp(h) || this.checkDown(h) || this.checkLeft(h) || this.checkRight(h));
+        return(check);
+    }
+
+    public boolean checkUp(HitBox h) {
+        for (int i = 0; i < this.large; i++) {
+            if (h.estDedansEgal(this.getX()+i, this.getY())) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public boolean checkDown(HitBox h) {
+        for (int i = 0; i < this.large; i++) {
+            if (h.estDedansEgal(this.getX()+i, this.getY()+this.haut)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public boolean checkLeft(HitBox h) {
+        for (int i = 0; i < this.haut; i++) {
+            if (h.estDedansEgal(this.getX(), this.getY()+i)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public boolean checkRight(HitBox h) {
+        for (int i = 0; i < this.haut; i++) {
+            if (h.estDedansEgal(this.getX()+this.large, this.getY()+i)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+
 }

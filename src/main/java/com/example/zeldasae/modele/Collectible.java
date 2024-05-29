@@ -6,7 +6,4 @@ public class Collectible extends Item{
         super(quantite, quantite_max, nom, posSlotItems);
     }
 
-    public void ajouter(){
-
-    }
 }

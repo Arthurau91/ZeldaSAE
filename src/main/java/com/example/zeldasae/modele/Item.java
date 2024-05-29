@@ -25,4 +25,12 @@ public abstract class Item {
     public void setPosSlotItems(int posSlotItems) {
         this.posSlotItems = posSlotItems;
     }
+
+    public int getQuantite() {
+        return this.quantite;
+    }
+
+    public void ajouter(int n) {
+        this.quantite = this.quantite + n;
+    }
 }

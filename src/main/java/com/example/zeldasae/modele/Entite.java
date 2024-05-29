@@ -198,28 +198,28 @@ public abstract class Entite {
         return true;
     }
 
-    private boolean checkUp(Monde m, int decalages){
+    public boolean checkUp(Monde m, int decalages){
         for (int i = 0; i <= width; i++){
             if (!checkColisionEntite(m, getX() + i, getY() - decalages))
                 return false;
         }
         return true;
     }
-    private boolean checkDown(Monde m, int decalages){
+    public boolean checkDown(Monde m, int decalages){
         for (int i = 0; i <= width; i++){
             if (!checkColisionEntite(m, getX() + i, getY() + height + decalages))
                 return false;
         }
         return true;
     }
-    private boolean checkRight(Monde m, int decalages){
+    public boolean checkRight(Monde m, int decalages){
         for (int i = 0; i <= height; i++){
             if (!checkColisionEntite(m, getX() + width + decalages, getY() + i))
                 return false;
         }
         return true;
     }
-    private boolean checkLeft(Monde m, int decalages){
+    public boolean checkLeft(Monde m, int decalages){
         for (int i = 0; i <= height; i++){
             if (!checkColisionEntite(m, getX()-decalages, getY() + i))
                 return false;
