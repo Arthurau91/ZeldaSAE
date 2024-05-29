@@ -9,9 +9,9 @@ import javafx.scene.layout.TilePane;
 
 public class ObservateurMouvement implements ChangeListener<Number> {
 
-    private final Monde map;
-    private final TilePane mapPane;
-    private final Pane paneEntites;
+    private Monde map;
+    private TilePane mapPane;
+    private  Pane paneEntites;
 
     public ObservateurMouvement(Monde map, TilePane mapPane, Pane paneEntites) {
         this.map = map;
@@ -21,6 +21,7 @@ public class ObservateurMouvement implements ChangeListener<Number> {
 
     @Override
     public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
+        this.map.getBfs().lanceAlgo(map, mapPane.getPrefColumns(), mapPane.getPrefRows());
         if (observable == this.map.getJoueur().xProperty()) {
             int deltaX = newValue.intValue() - oldValue.intValue();
             miseAJourDeplacement(deltaX, 0);

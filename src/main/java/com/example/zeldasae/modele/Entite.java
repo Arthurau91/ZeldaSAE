@@ -182,11 +182,13 @@ public abstract class Entite {
      *          checkDeplacement()
      * @return true si le déplacement a été effectué sinon false
      */
-    public void deplacement(Monde m) {
+    public boolean deplacement(Monde m) {
 //        System.out.println("X : "+(this.getX()/this.width)%(this.width*this.column)+"; Y : "+(this.getY()/this.height)%(this.height*this.getRows()));
         if (verifVivant()) {
             int dx = 0;
             int dy = 0;
+            int x = getX();
+            int y = getY();
 
             if (this.direction.contains("up") && checkHitBox("up", m.getTerrain()))
                 if (checkUp(m, vitesse))
@@ -203,7 +205,9 @@ public abstract class Entite {
 
             setX(getX() + dx);
             setY(getY() + dy);
+            return x != getX() || y != getY();
         }
+        return false;
     }
 
     private boolean checkHitBox(String direction, Terrain terrain){

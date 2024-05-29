@@ -1,13 +1,17 @@
 package com.example.zeldasae.Algo;
 
+import com.example.zeldasae.modele.Monde;
+
 import java.util.*;
 
 public class BFS {
 
+    private Map<Point, Point> parentMap;
+
     private static final int[] dLigne = {-1, 1, 0, 0};
     private static final int[] dColonne = {0, 0, -1, 1};
 
-    public static List<Point> bfs2D(int[][] grille, Point src, Point dest) {
+    public void bfs2D(int[][] grille, Point src) {
         int ligne = grille.length;
         int colonne = grille[0].length;
         boolean[][] visite = new boolean[ligne][colonne];
@@ -27,12 +31,6 @@ public class BFS {
             int x = actuel.getX();
             int y = actuel.getY();
 
-            // Vérifier si nous avons atteint la position de destination
-            // STOP l'algo pour retourner seulement le chemin vers un point
-            if (actuel.equals(dest)) {
-                return constructChemin(parentMap, dest);
-            }
-
             // Exploration des voisins
             for (int i = 0; i < 4; i++) {
                 int nx = x + dLigne[i];
@@ -48,12 +46,11 @@ public class BFS {
             }
         }
 
-        // Retourner une liste vide si aucun chemin n'est trouvé
-        return new ArrayList<>();
+        this.parentMap = parentMap;
     }
 
     // Méthode pour reconstruire le chemin à partir de la destination en utilisant le parentMap
-    private static List<Point> constructChemin(Map<Point, Point> parentMap, Point dest) {
+    private List<Point> constructChemin(Point dest) {
         LinkedList<Point> chemin = new LinkedList<>();
         for (Point actuel = dest; actuel != null; actuel = parentMap.get(actuel)) {
             chemin.add(0, actuel);
@@ -61,28 +58,31 @@ public class BFS {
         return chemin;
     }
 
-    private static int[][] convertListTo2DArray(ArrayList<Integer> liste, int ligne, int colonne) {
-        if (liste.size() != ligne * colonne) {
-            throw new IllegalArgumentException("La taille de la liste ne correspond pas aux dimensions du tableau 2D.");
-        }
-
+    private int[][] convertListTo2DArray(ArrayList<Integer> liste, int ligne, int colonne) {
         int[][] tab = new int[ligne][colonne];
         int index = 0;
 
         for (int i = 0; i < ligne; i++) {
             for (int j = 0; j < colonne; j++) {
-                tab[i][j] = liste.get(index++);
+                tab[j][i] = liste.get(index++);
             }
         }
 
         return tab;
     }
 
-    public static int[] prochainMouvement(ArrayList<Integer> terrain, int lignes, int colonnes, int[] src, int[] dest){
-        int[][] grille = convertListTo2DArray(terrain, colonnes, lignes);
-        List<Point> chemin = bfs2D(grille, new Point(src[0],src[1]), new Point(dest[0], dest[1]));
-        if (chemin.size() == 2)
-            return new int[] {chemin.get(1).getX(), chemin.get(1).getY()};
+    public void lanceAlgo(Monde monde, int colonnes, int lignes){
+        int[][] grille = convertListTo2DArray(monde.getTerrain().getMap(), colonnes, lignes);
+        int x = (monde.getJoueur().getX()/30)%(30*40);
+        int y = (monde.getJoueur().getY()/30)%(30*40);
+        bfs2D(grille, new Point(x, y));
+    }
+
+    public int[] prochainMouvement(int[] src){
+        List<Point> chemin = constructChemin(new Point(src[0], src[1]));
+        System.out.println(chemin);
+//        if (chemin.size() == 2)
+//            return new int[] {chemin.get(1).getX(), chemin.get(1).getY()};
         if (chemin.size() > 1)
             return new int[] {chemin.get(chemin.size()-2).getX(), chemin.get(chemin.size()-2).getY()};
         return null;
