@@ -62,8 +62,8 @@ public class BFS {
         int[][] tab = new int[ligne][colonne];
         int index = 0;
 
-        for (int i = 0; i < ligne; i++) {
-            for (int j = 0; j < colonne; j++) {
+        for (int i = 0; i < colonne; i++) {
+            for (int j = 0; j < ligne; j++) {
                 tab[j][i] = liste.get(index++);
             }
         }
@@ -73,8 +73,8 @@ public class BFS {
 
     public void lanceAlgo(Monde monde, int colonnes, int lignes){
         int[][] grille = convertListTo2DArray(monde.getTerrain().getMap(), colonnes, lignes);
-        int x = (monde.getJoueur().getX()/30)%(30*40);
-        int y = (monde.getJoueur().getY()/30)%(30*40);
+        int x = (monde.getJoueur().getX()/30)%(30*lignes);
+        int y = (monde.getJoueur().getY()/30)%(30*colonnes);
         bfs2D(grille, new Point(x, y));
     }
 
