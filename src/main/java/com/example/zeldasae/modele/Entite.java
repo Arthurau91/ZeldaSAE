@@ -3,6 +3,8 @@ package com.example.zeldasae.modele;
 import com.example.zeldasae.Vue.VueBarreDeVie;
 import com.example.zeldasae.Vue.VueEntite;
 import com.example.zeldasae.controller.ObservateurVie;
+import javafx.beans.binding.Bindings;
+import javafx.beans.binding.DoubleBinding;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 
@@ -13,6 +15,7 @@ public abstract class Entite {
     private String id;
     private int width;
     private int height;
+    private IntegerProperty widthProperty;
     private int column;
     private int rows;
     private String direction;
@@ -30,6 +33,7 @@ public abstract class Entite {
         this.id = ""+n++;
         this.width = width;
         this.height = height;
+        this.widthProperty = new SimpleIntegerProperty(this.width);
         this.column = column;
         this.rows = rows;
         this.direction = "null";
@@ -41,11 +45,15 @@ public abstract class Entite {
 
         if (this instanceof Joueur) {
             this.vueBarreDeVie = new VueBarreDeVie(100, 20);
+            this.getVueBarreDeVie().setLayoutX(1050);
+            this.getVueBarreDeVie().setLayoutY(10);
         } else {
             this.vueBarreDeVie = new VueBarreDeVie(90, 10);
+            bindBarreDeViePosition();
         }
 
         this.pv.addListener(new ObservateurVie(this));
+
 
     }
 
@@ -78,7 +86,7 @@ public abstract class Entite {
         return id;
     }
     public int getWidth() {
-        return width;
+        return this.widthProperty.getValue();
     }
     public int getHeight() {
         return height;
@@ -136,12 +144,6 @@ public abstract class Entite {
         }
     }
 
-    public void updatePositionBarreDeVie() {
-        double barreX = this.getX() + (this.getWidth() - this.vueBarreDeVie.getWidth()) / 2;
-        this.vueBarreDeVie.setLayoutX(barreX);
-        this.vueBarreDeVie.setLayoutY(this.getY() - this.vueBarreDeVie.getHeight());
-    }
-
 
     public void attaqueEntite(Entite entite) {
         if (verifVivant()) {
@@ -151,6 +153,26 @@ public abstract class Entite {
 
     public boolean verifVivant() {
         return this.getPv() > 0;
+    }
+
+
+    private void bindBarreDeViePosition() {
+
+        DoubleBinding barreXBinding = Bindings.createDoubleBinding(() ->
+                        this.getX() + (this.getWidth() - this.vueBarreDeVie.getWidth()) / 2,
+                this.xProperty, this.widthProperty(), this.vueBarreDeVie.widthProperty());
+
+        DoubleBinding barreYBinding = Bindings.createDoubleBinding(() ->
+                        this.getY() - this.vueBarreDeVie.getHeight(),
+                this.yProperty, this.vueBarreDeVie.heightProperty());
+
+        this.vueBarreDeVie.layoutXProperty().bind(barreXBinding);
+        this.vueBarreDeVie.layoutYProperty().bind(barreYBinding);
+
+    }
+
+    private IntegerProperty widthProperty() {
+        return this.widthProperty;
     }
 
 

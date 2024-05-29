@@ -12,59 +12,60 @@ public class ObservateurMouvement implements ChangeListener<Number> {
     private final Monde map;
     private final TilePane mapPane;
     private final Pane paneEntites;
-    private int positionPrecedenteX;
-    private int positionPrecedenteY;
 
     public ObservateurMouvement(Monde map, TilePane mapPane, Pane paneEntites) {
         this.map = map;
         this.mapPane = mapPane;
         this.paneEntites = paneEntites;
-
-        this.positionPrecedenteX = map.getJoueur().getX();
-        this.positionPrecedenteY = map.getJoueur().getY();
     }
 
     @Override
     public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
-        int currentX = map.getJoueur().getX();
-        int currentY = map.getJoueur().getY();
-        int deltaX = currentX - positionPrecedenteX;
-        int deltaY = currentY - positionPrecedenteY;
+        if (observable == this.map.getJoueur().xProperty()) {
+            int deltaX = newValue.intValue() - oldValue.intValue();
+            miseAJourDeplacement(deltaX, 0);
+        } else {
+            int deltaY = newValue.intValue() - oldValue.intValue();
+            miseAJourDeplacement(0, deltaY);
+        }
 
-        this.map.getJoueur().getVueBarreDeVie().setLayoutX(1050);
-        this.map.getJoueur().getVueBarreDeVie().setLayoutY(10);
+        actualiserEnnemi();
+    }
+
+
+    private void miseAJourDeplacement(int deltaX, int deltaY) {
 
         if (deltaX != 0 || deltaY != 0) {
+            scrollMap(deltaX, deltaY);
+            mettreAJourPositionBarreDeVieJoueur(deltaX, deltaY);
+        }
 
-            mapPane.setTranslateX(mapPane.getTranslateX() - deltaX);
-            mapPane.setTranslateY(mapPane.getTranslateY() - deltaY);
-            paneEntites.setTranslateX(paneEntites.getTranslateX() - deltaX);
-            paneEntites.setTranslateY(paneEntites.getTranslateY() - deltaY);
+    }
 
-            map.getJoueur().getVueBarreDeVie().setTranslateX(map.getJoueur().getVueBarreDeVie().getTranslateX() + deltaX);
-            map.getJoueur().getVueBarreDeVie().setTranslateY(map.getJoueur().getVueBarreDeVie().getTranslateY() + deltaY);
+    private void scrollMap(int deltaX, int deltaY) {
+        this.mapPane.setTranslateX(mapPane.getTranslateX() - deltaX);
+        this.mapPane.setTranslateY(mapPane.getTranslateY() - deltaY);
+        this.paneEntites.setTranslateX(paneEntites.getTranslateX() - deltaX);
+        this.paneEntites.setTranslateY(paneEntites.getTranslateY() - deltaY);
+    }
 
-            positionPrecedenteX = currentX;
-            positionPrecedenteY = currentY;
+    private void mettreAJourPositionBarreDeVieJoueur(int deltaX, int deltaY) {
+        this.map.getJoueur().getVueBarreDeVie().setTranslateX(map.getJoueur().getVueBarreDeVie().getTranslateX() + deltaX);
+        this.map.getJoueur().getVueBarreDeVie().setTranslateY(map.getJoueur().getVueBarreDeVie().getTranslateY() + deltaY);
+    }
 
-            afficheBarreDeVieEnnemi();
-            actualisePositionEnnemi();
-
+    private void actualiserEnnemi() {
+        for (Ennemi ennemi : map.getListeEnnemis()) {
+            ajouterBarreDeVieEnnemiAuPane(ennemi);
         }
     }
 
-    public void actualisePositionEnnemi() {
-        for (Ennemi ennemi : this.map.getListeEnnemis()) {
-            ennemi.updatePositionBarreDeVie();
+    private void ajouterBarreDeVieEnnemiAuPane(Ennemi ennemi) {
+        if (!paneEntites.getChildren().contains(ennemi.getVueBarreDeVie())) {
+            paneEntites.getChildren().add(ennemi.getVueBarreDeVie());
         }
     }
 
-    public void afficheBarreDeVieEnnemi() {
-        for (Ennemi ennemi : this.map.getListeEnnemis()) {
-            if (!this.paneEntites.getChildren().contains(ennemi.getVueBarreDeVie())) {
-                this.paneEntites.getChildren().add(ennemi.getVueBarreDeVie());
-            }
 
-        }
-    }
+
 }
