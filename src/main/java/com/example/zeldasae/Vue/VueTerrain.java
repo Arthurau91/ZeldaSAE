@@ -4,6 +4,7 @@ import com.example.zeldasae.modele.Monde;
 
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.image.WritableImage;
 import javafx.scene.layout.TilePane;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -18,10 +19,26 @@ public class VueTerrain {
 
     private Monde map;
     private TilePane mapPane;
+    private Image tileset;
+    private Image[] tiles;
 
     public VueTerrain(Monde map, TilePane mapPane) {
         this.map = map;
         this.mapPane = mapPane;
+
+        this.tileset = new Image("file:src/main/resources/com/example/zeldasae/assets/tiles.png");
+
+        int tileWidth = 32;
+        int tileHeight = 32;
+        int colonne = (int) (tileset.getWidth() / tileWidth);
+        int ligne = (int) (tileset.getHeight() / tileHeight);
+        tiles = new Image[colonne * ligne];
+
+        for (int y = 0; y < ligne; y++) {
+            for (int x = 0; x < colonne; x++) {
+                tiles[y * colonne + x] = new WritableImage(tileset.getPixelReader(), x * tileWidth, y * tileHeight, tileWidth, tileHeight);
+            }
+        }
         afficherMap();
     }
 
@@ -29,22 +46,43 @@ public class VueTerrain {
         ArrayList<Integer> m = loadMap("src/main/resources/com/example/zeldasae/assets/map2.json");
         this.map.setMap(m);
 
-        for (int x = 0; x < m.size(); x++) {
+//        for (int x = 0; x < m.size(); x++) {
+//            ImageView imageView = new ImageView();
+//            Image image;
+//            switch (m.get(x)) {
+//                case 100:
+//                    image = new Image("file:src/main/resources/com/example/zeldasae/assets/mur3.png");
+//                    imageView.setImage(image);
+//                    break;
+//                case 26:
+//                    image = new Image("file:src/main/resources/com/example/zeldasae/assets/sol.png");
+//                    imageView.setImage(image);
+//                    break;
+//                case 1:
+//                    image = new Image("file:src/main/resources/com/example/zeldasae/assets/grass.jpg");
+//                    imageView.setImage(image);
+//                    break;
+//                case 103:
+//                    image = new Image("file:src/main/resources/com/example/zeldasae/assets/grass.jpg");
+//                    imageView.setImage(image);
+//                    break;
+//                case 102:
+//                    image = new Image("file:src/main/resources/com/example/zeldasae/assets/grass.jpg");
+//                    imageView.setImage(image);
+//                    break;
+//                case 101:
+//                    image = new Image("file:src/main/resources/com/example/zeldasae/assets/grass.jpg");
+//                    imageView.setImage(image);
+//                    break;
+//            }
+//            this.mapPane.getChildren().add(imageView);
+//        }
+
+        for (int i = 0; i < m.size(); i++) {
             ImageView imageView = new ImageView();
-            Image image;
-            switch (m.get(x)) {
-                case 100:
-                    image = new Image("file:src/main/resources/com/example/zeldasae/assets/mur2.png");
-                    imageView.setImage(image);
-                    break;
-                case 26:
-                    image = new Image("file:src/main/resources/com/example/zeldasae/assets/sol.png");
-                    imageView.setImage(image);
-                    break;
-                case 1:
-                    image = new Image("file:src/main/resources/com/example/zeldasae/assets/grass.jpg");
-                    imageView.setImage(image);
-                    break;
+            int tileIndex = m.get(i);
+            if (tileIndex >= 1 && tileIndex <= tiles.length) { // Assurez-vous que tileIndex est dans les limites
+                imageView.setImage(tiles[tileIndex - 1]);
             }
             this.mapPane.getChildren().add(imageView);
         }
@@ -69,4 +107,7 @@ public class VueTerrain {
 
         return elementsMap;
     }
+
+
+
 }
