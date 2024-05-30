@@ -42,12 +42,12 @@ public class Controller implements Initializable {
         this.mapPane.setPrefHeight(this.mapPane.getPrefTileHeight()*this.mapPane.getPrefRows());
 
         BFS bfs =new BFS();
-        this.map = new Monde(new Joueur((int)mapPane.getPrefWidth()/2, (int)mapPane.getPrefHeight()/2, (int)mapPane.getPrefTileWidth(), (int)mapPane.getPrefTileHeight(), mapPane.getPrefColumns(), mapPane.getPrefRows()), bfs);
+        this.map = new Monde(new Joueur(600, 500, (int)mapPane.getPrefTileWidth(), (int)mapPane.getPrefTileHeight(), mapPane.getPrefColumns(), mapPane.getPrefRows()), bfs);
         Ennemi ennemi = new Ennemi(120, 120, (int)mapPane.getPrefTileWidth(), (int)mapPane.getPrefTileHeight(), mapPane.getPrefColumns(),  mapPane.getPrefRows(), bfs);
         this.map.addEnnemi(ennemi);
-        VueEntite vueJoueur = new VueEntite(this.map.getJoueur(), this.paneEntites);
-        VueTerrain vueTerrain = new VueTerrain(this.map, this.mapPane);
-        VueEntite vueEnnemi = new VueEntite(ennemi,paneEntites);
+        new VueEntite(this.map.getJoueur(), this.paneEntites);
+        new VueTerrain(this.map, this.mapPane);
+        new VueEntite(ennemi,paneEntites);
         VueInventaire vueInv = new VueInventaire(this.boxInventaire, this.map.getJoueur());
         this.map.getJoueur().getInv().getListeItems().addListener(new ObservateurItems(vueInv, this.paneEntites));
         bfs.lanceAlgo(map, mapPane.getPrefColumns(), mapPane.getPrefRows());
