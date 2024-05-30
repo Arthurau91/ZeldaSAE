@@ -11,6 +11,11 @@ public class BFS {
     private static final int[] dLigne = {-1, 1, 0, 0};
     private static final int[] dColonne = {0, 0, -1, 1};
 
+    /**
+     * Algo BFS
+     * @param grille Grille contenant la map (murs, endroits pratiquables...)
+     * @param src tableau avec les coordonnées du joueur
+     */
     public void bfs2D(int[][] grille, Point src) {
         int ligne = grille.length;
         int colonne = grille[0].length;
@@ -58,7 +63,11 @@ public class BFS {
         this.parentMap = parentMap;
     }
 
-    // Méthode pour reconstruire le chemin à partir de la destination en utilisant le parentMap
+    /**
+     * Méthode pour reconstruire le chemin à partir de la destination en utilisant le parentMap
+     * @param dest Le point à atteindre à la fin du chemin
+     * @return Liste de Points du chemin
+     */
     private List<Point> constructChemin(Point dest) {
         LinkedList<Point> chemin = new LinkedList<>();
         for (Point actuel = dest; actuel != null; actuel = parentMap.get(actuel)) {
@@ -67,6 +76,13 @@ public class BFS {
         return chemin;
     }
 
+    /**
+     * Méthode qui converti les ArrayList<Integer> en tableau de int à 2 dimensions
+     * @param liste Liste d'origine
+     * @param ligne nombre de lignes
+     * @param colonne nombre de colonnes
+     * @return tableau de int à 2 dimensions
+     */
     private int[][] convertListTo2DArray(ArrayList<Integer> liste, int ligne, int colonne) {
         int[][] tab = new int[ligne][colonne];
         int index = 0;
@@ -80,6 +96,12 @@ public class BFS {
         return tab;
     }
 
+    /**
+     * Méthode qui lance le BFS pour mettre à jour la Map
+     * @param monde Monde du jeu
+     * @param colonnes nombre de colonnes
+     * @param lignes nombre de lignes
+     */
     public void lanceAlgo(Monde monde, int colonnes, int lignes){
         int[][] grille = convertListTo2DArray(monde.getTerrain().getMap(), colonnes, lignes);
         int x = (monde.getJoueur().getX()/30)%(30*lignes);
@@ -87,11 +109,13 @@ public class BFS {
         bfs2D(grille, new Point(x, y));
     }
 
+    /**
+     * Méthode qui retourne un tableau avec les coordonées du prochain mouvement de l'ennemi sous forme {x, y}
+     * @param src tableau avec les coordonnées de l'ennemi
+     * @return tableau avec les coordonées de la prochaine destination de l'ennemi sous forme {x, y}
+     */
     public int[] prochainMouvement(int[] src){
         List<Point> chemin = constructChemin(new Point(src[0], src[1]));
-        System.out.println(chemin);
-//        if (chemin.size() == 2)
-//            return new int[] {chemin.get(1).getX(), chemin.get(1).getY()};
         if (chemin.size() > 1)
             return new int[] {chemin.get(chemin.size()-2).getX(), chemin.get(chemin.size()-2).getY()};
         return null;

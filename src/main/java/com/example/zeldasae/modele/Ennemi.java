@@ -21,12 +21,9 @@ public class Ennemi extends Entite{
     public boolean deplacement(Monde m) {
         int x = (this.getX()/this.getWidth())%(this.getWidth()*this.getColumn());
         int y = (this.getY()/this.getHeight())%(this.getHeight()*this.getRows());
-
         int[] src = {x, y};
-//        int[] dest = {(xj/this.getWidth())%(this.getWidth()*this.getColumn()), (yj/this.getHeight())%(this.getHeight()*this.getRows())};
 
         int[] pdeplacement = bfs.prochainMouvement(src);
-        System.out.println(Arrays.toString(pdeplacement));
         if (pdeplacement != null) {
             String direction = "";
             donneDirection(x, y, pdeplacement, direction);
