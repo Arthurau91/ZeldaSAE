@@ -4,6 +4,7 @@ module com.example.zeldasae {
 
     requires org.controlsfx.controls;
     requires java.desktop;
+    requires json.simple;
 
     opens com.example.zeldasae to javafx.fxml;
     exports com.example.zeldasae;
