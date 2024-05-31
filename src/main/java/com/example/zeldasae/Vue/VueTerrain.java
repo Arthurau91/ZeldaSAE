@@ -46,38 +46,6 @@ public class VueTerrain {
         ArrayList<Integer> m = loadMap("src/main/resources/com/example/zeldasae/assets/map2.json");
         this.map.setMap(m);
 
-//        for (int x = 0; x < m.size(); x++) {
-//            ImageView imageView = new ImageView();
-//            Image image;
-//            switch (m.get(x)) {
-//                case 100:
-//                    image = new Image("file:src/main/resources/com/example/zeldasae/assets/mur3.png");
-//                    imageView.setImage(image);
-//                    break;
-//                case 26:
-//                    image = new Image("file:src/main/resources/com/example/zeldasae/assets/sol.png");
-//                    imageView.setImage(image);
-//                    break;
-//                case 1:
-//                    image = new Image("file:src/main/resources/com/example/zeldasae/assets/grass.jpg");
-//                    imageView.setImage(image);
-//                    break;
-//                case 103:
-//                    image = new Image("file:src/main/resources/com/example/zeldasae/assets/grass.jpg");
-//                    imageView.setImage(image);
-//                    break;
-//                case 102:
-//                    image = new Image("file:src/main/resources/com/example/zeldasae/assets/grass.jpg");
-//                    imageView.setImage(image);
-//                    break;
-//                case 101:
-//                    image = new Image("file:src/main/resources/com/example/zeldasae/assets/grass.jpg");
-//                    imageView.setImage(image);
-//                    break;
-//            }
-//            this.mapPane.getChildren().add(imageView);
-//        }
-
         for (int i = 0; i < m.size(); i++) {
             ImageView imageView = new ImageView();
             int tileIndex = m.get(i);
