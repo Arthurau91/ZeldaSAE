@@ -36,8 +36,9 @@ public class Controller implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        this.mapPane.setPrefColumns(40);
-        this.mapPane.setPrefRows(40);
+
+        this.mapPane.setPrefColumns(100);
+        this.mapPane.setPrefRows(100);
         this.mapPane.setPrefWidth(this.mapPane.getPrefTileWidth()*this.mapPane.getPrefColumns());
         this.mapPane.setPrefHeight(this.mapPane.getPrefTileHeight()*this.mapPane.getPrefRows());
 
