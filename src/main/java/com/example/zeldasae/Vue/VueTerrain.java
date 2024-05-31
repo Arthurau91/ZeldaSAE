@@ -43,7 +43,7 @@ public class VueTerrain {
     }
 
     public void afficherMap() {
-        ArrayList<Integer> m = loadMap("src/main/resources/com/example/zeldasae/assets/map2.json");
+        ArrayList<Integer> m = loadMap("src/main/resources/com/example/zeldasae/assets/map.json");
         this.map.setMap(m);
 
         for (int i = 0; i < m.size(); i++) {

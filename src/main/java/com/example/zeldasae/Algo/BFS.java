@@ -51,7 +51,7 @@ public class BFS {
                 int ny = y + dColonne[d];
 
                 // Vérifier si le voisin est dans les limites du tableau et non visité
-                if (nx >= 0 && nx < ligne && ny >= 0 && ny < colonne && !visite[nx][ny] && grille[nx][ny] == 232) {
+                if (nx >= 0 && nx < ligne && ny >= 0 && ny < colonne && !visite[nx][ny] && vide(grille[nx][ny])) {
                     Point voisin = new Point(nx, ny);
                     queue.add(voisin);
                     visite[nx][ny] = true;
@@ -61,6 +61,15 @@ public class BFS {
         }
 
         this.parentMap = parentMap;
+    }
+
+    private boolean vide(int valeur){
+        int[] casesVides = {57, 1152};
+        for (int i = 0; i < casesVides.length; i++){
+            if (valeur == casesVides[i])
+                return true;
+        }
+        return false;
     }
 
     /**
