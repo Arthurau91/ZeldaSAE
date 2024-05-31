@@ -28,12 +28,12 @@ public class VueInventaire {
         this.clickHandler = new ClickHandlerInventaire(boxInv, this.joueur);
     }
 
-    public void toggleAffichageInventaire(KeyEvent keyEvent) {
-        if (!this.afficheInventaire && keyEvent.getEventType() != KeyEvent.KEY_RELEASED) {
+    public void toggleAffichageInventaire() {
+        if (!this.afficheInventaire) {
             this.boxInventaire.setVisible(true);
             setAfficheInventaire(true);
         }
-        else if(keyEvent.getEventType() != KeyEvent.KEY_RELEASED) {
+        else {
             this.boxInventaire.setVisible(false);
             setAfficheInventaire(false);
         }

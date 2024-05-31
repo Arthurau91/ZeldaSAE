@@ -15,10 +15,16 @@ public class VueArme {
 
     private Joueur joueur;
     private Pane paneEntites;
+    private boolean peutDonnerCoup;
 
     public VueArme (Joueur joueur, Pane paneEntites) {
         this.joueur = joueur;
         this.paneEntites = paneEntites;
+        this.peutDonnerCoup = true;
+    }
+
+    public boolean isPeutDonnerCoup() {
+        return this.peutDonnerCoup;
     }
 
     public void donnerCoup(int x, int y) {
@@ -31,9 +37,14 @@ public class VueArme {
         imageView.setFitHeight(joueur.getInv().getArmeActuelle().getHitBox().getHaut());
 
         paneEntites.getChildren().add(imageView);
-        PauseTransition pause = new PauseTransition(Duration.seconds(0.5));
-        pause.setOnFinished(event -> paneEntites.getChildren().remove(imageView));
+        this.peutDonnerCoup = false;
+        PauseTransition pause = new PauseTransition(Duration.seconds(joueur.getInv().getArmeActuelle().getDelaiRecuperation()));
+        pause.setOnFinished(event -> gererCooldown(imageView));
         pause.play();
     }
 
+    public void gererCooldown(ImageView imageView) {
+        paneEntites.getChildren().remove(imageView);
+        this.peutDonnerCoup = true;
+    }
 }

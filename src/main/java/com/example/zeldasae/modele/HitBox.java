@@ -12,6 +12,7 @@ public class HitBox {
     private int haut;
     private IntegerProperty x;
     private IntegerProperty y;
+    private boolean estPivote;
     private static final int[] dLigne = {0, 1, 0, 0};
     private static final int[] dColonne = {0, 0, 0, 1};
     private static final int[] decalage = {-1, 1, -1, 1};
@@ -21,6 +22,7 @@ public class HitBox {
         this.haut = h;
         this.x = x;
         this.y = y;
+        this.estPivote = false;
     }
 
     public int getY() {
@@ -143,5 +145,17 @@ public class HitBox {
         return false;
     }
 
+    public void pivote() {
+        int pivot;
+        pivot = this.large;
+        this.large = this.haut;
+        this.haut = pivot;
+        if (this.estPivote) {
+            this.estPivote = false;
+        }
+        else {
+            this.estPivote = true;
+        }
+    }
 
 }
