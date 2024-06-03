@@ -12,6 +12,7 @@ import javafx.animation.Timeline;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
+import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
@@ -21,11 +22,12 @@ import javafx.scene.layout.TilePane;
 import javafx.util.Duration;
 
 import java.net.URL;
-import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 public class Controller implements Initializable {
 
+    @FXML
+    private Pane fenetre;
     @FXML
     private Pane boxInventaire;
     @FXML
@@ -35,10 +37,24 @@ public class Controller implements Initializable {
     private Monde map;
     private Timeline gameLoop;
     private int temps;
+    private Button resetButton;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        resetButton = new Button();
+        resetButton.setOnAction(actionEvent -> {
+            relanceJeu();
+            stopfreeze();
+        });
+        resetButton.setTranslateX(600);
+        resetButton.setTranslateY(500);
+        resetButton.setText("Lancer");
+        resetButton.setDisable(false);
+        resetButton.setVisible(true);
+        fenetre.getChildren().add(resetButton);
+    }
 
+    private void lancementJeu(){
         LoadJSON loadJSON = new LoadJSON("src/main/resources/com/example/zeldasae/assets/map.json");
         this.mapPane.setPrefColumns(loadJSON.getPrefColumns());
         this.mapPane.setPrefRows(loadJSON.getPrefRows());
@@ -47,8 +63,7 @@ public class Controller implements Initializable {
 
         BFS bfs =new BFS();
         this.map = new Monde(new Joueur(600, 510, (int)mapPane.getPrefTileWidth(), (int)mapPane.getPrefTileHeight(), mapPane.getPrefColumns(), mapPane.getPrefRows(), paneEntites), bfs);
-        Ennemi ennemi = new Ennemi(120, 120, (int)mapPane.getPrefTileWidth(), (int)mapPane.getPrefTileHeight(), mapPane.getPrefColumns(),  mapPane.getPrefRows(), bfs, paneEntites);
-        this.map.addEnnemi(ennemi);
+        this.map.addEnnemi(new Ennemi(120, 120, (int)mapPane.getPrefTileWidth(), (int)mapPane.getPrefTileHeight(), mapPane.getPrefColumns(),  mapPane.getPrefRows(), bfs, paneEntites));
         new VueTerrain(this.map, this.mapPane, loadJSON.getMap());
         VueInventaire vueInv = new VueInventaire(this.boxInventaire, this.map.getJoueur());
         this.map.getJoueur().getInv().getListeItems().addListener(new ObservateurItems(vueInv, this.paneEntites));
@@ -64,7 +79,22 @@ public class Controller implements Initializable {
         paneEntites.addEventHandler(KeyEvent.KEY_RELEASED, keyHandler);
         initAnimation();
         paneEntites.getChildren().add(this.map.getJoueur().getVueBarreDeVie());
+    }
 
+    private void relanceJeu(){
+        paneEntites.getChildren().clear();
+        paneEntites.setTranslateX(0);
+        paneEntites.setTranslateY(0);
+        mapPane.getChildren().clear();
+        mapPane.setTranslateX(0);
+        mapPane.setTranslateY(0);
+        boxInventaire.getChildren().clear();
+        boxInventaire.setTranslateX(0);
+        boxInventaire.setTranslateY(0);
+        this.map = null;
+        resetButton.setDisable(true);
+        resetButton.setVisible(false);
+        lancementJeu();
     }
 
     private void initAnimation() {
@@ -81,18 +111,19 @@ public class Controller implements Initializable {
 
                     if (temps%2==0)
                         this.map.deplacementEnnemi();
+
                     temps++;
+                    if (!map.getJoueur().verifVivant()) {
+                        resetButton.setDisable(false);
+                        resetButton.setVisible(true);
+                        gameLoop.stop();
+                    }
                 })
         );
         gameLoop.getKeyFrames().add(kf);
     }
 
-
-    /**
-     * Méthode permettant de mettre le focus sur le pane des entitées pour pouvoir faire des actions avec les touches
-     * @param mouseEvent l'event du clic
-     */
-    public void persoFocus(MouseEvent mouseEvent){
+    private void stopfreeze(){
         paneEntites.requestFocus();
         gameLoop.play();
     }
