@@ -64,7 +64,7 @@ public class BFS {
     }
 
     private boolean vide(int valeur){
-        int[] casesVides = {114, 408, 130};
+        int[] casesVides = {57, 1152};
         for (int i = 0; i < casesVides.length; i++){
             if (valeur == casesVides[i])
                 return true;

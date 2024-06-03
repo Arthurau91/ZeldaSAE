@@ -20,7 +20,7 @@ public class Terrain {
     }
 
     private boolean vide(int coo){
-        int[] casesVides = {114, 408, 130};
+        int[] casesVides = {57, 1152};
         for (int i = 0; i < casesVides.length; i++){
             if (this.map.get(coo) == casesVides[i])
                 return true;

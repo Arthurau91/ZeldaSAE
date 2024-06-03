@@ -32,12 +32,16 @@ public class VueEntite {
         }
         imgEntite.setImage(image);
 
-        imgEntite.setId(entite.getId());
         imgEntite.translateXProperty().bind(entite.xProperty());
         imgEntite.translateYProperty().bind(entite.yProperty());
 
         this.paneEntites.getChildren().add(imgEntite);
     }
+
+    public void supprimerImageEntite() {
+        imgEntite.setId(entite.getId());
+        this.paneEntites.getChildren().remove(this.paneEntites.lookup("#" + entite.getId()));}
+
 
     public void changeImage(){
         if (this.entite instanceof Joueur) {
