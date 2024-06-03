@@ -23,12 +23,14 @@ public class ObservateurMouvement implements ChangeListener<Number> {
     public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
         this.map.getBfs().lanceAlgo(map, mapPane.getPrefColumns(), mapPane.getPrefRows());
         if (observable == this.map.getJoueur().xProperty()) {
-            if (oldValue.intValue() > 600 && oldValue.intValue() <= 600 + (mapPane.getPrefColumns()*mapPane.getPrefTileWidth() - 1200)) {
+            if (oldValue.intValue() > 600 && newValue.intValue() > 600 &&
+                    oldValue.intValue() <= 610 + (mapPane.getPrefColumns()*mapPane.getPrefTileWidth() - 1200) && newValue.intValue() <= 610 + (mapPane.getPrefColumns()*mapPane.getPrefTileWidth() - 1200)) {
                 int deltaX = newValue.intValue() - oldValue.intValue();
                 miseAJourDeplacement(deltaX, 0);
             }
         } else {
-            if (oldValue.intValue() > 500 && oldValue.intValue() <= 500 + (mapPane.getPrefRows()*mapPane.getPrefTileHeight() - 1000)) {
+            if (oldValue.intValue() > 500 && newValue.intValue() > 500 &&
+                    oldValue.intValue() <= 510 + (mapPane.getPrefRows()*mapPane.getPrefTileHeight() - 1000) && newValue.intValue() <= 510 + (mapPane.getPrefRows()*mapPane.getPrefTileHeight() - 1000)) {
                 int deltaY = newValue.intValue() - oldValue.intValue();
                 miseAJourDeplacement(0, deltaY);
             }
