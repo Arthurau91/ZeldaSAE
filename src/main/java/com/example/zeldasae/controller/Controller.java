@@ -4,9 +4,7 @@ import com.example.zeldasae.Algo.BFS;
 import com.example.zeldasae.Vue.VueEntite;
 import com.example.zeldasae.Vue.VueInventaire;
 import com.example.zeldasae.Vue.VueTerrain;
-import com.example.zeldasae.modele.Ennemi;
-import com.example.zeldasae.modele.Joueur;
-import com.example.zeldasae.modele.Monde;
+import com.example.zeldasae.modele.*;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.fxml.FXML;
@@ -63,7 +61,8 @@ public class Controller implements Initializable {
 
         BFS bfs =new BFS();
         this.map = new Monde(new Joueur(600, 510, (int)mapPane.getPrefTileWidth(), (int)mapPane.getPrefTileHeight(), mapPane.getPrefColumns(), mapPane.getPrefRows(), paneEntites), bfs);
-        this.map.addEnnemi(new Ennemi(120, 120, (int)mapPane.getPrefTileWidth(), (int)mapPane.getPrefTileHeight(), mapPane.getPrefColumns(),  mapPane.getPrefRows(), bfs, paneEntites));
+        this.map.addEnnemi(new Pursuer(120, 120, (int)mapPane.getPrefTileWidth(), (int)mapPane.getPrefTileHeight(), mapPane.getPrefColumns(),  mapPane.getPrefRows(), bfs, paneEntites));
+//        this.map.addEnnemi(new Boss(810, 900, (int)mapPane.getPrefTileWidth()*3, (int)mapPane.getPrefTileHeight()*3, mapPane.getPrefColumns(),  mapPane.getPrefRows(), bfs, paneEntites));
         new VueTerrain(this.map, this.mapPane, loadJSON.getMap());
         VueInventaire vueInv = new VueInventaire(this.boxInventaire, this.map.getJoueur());
         this.map.getJoueur().getInv().getListeItems().addListener(new ObservateurItems(vueInv, this.paneEntites));
@@ -88,9 +87,6 @@ public class Controller implements Initializable {
         mapPane.getChildren().clear();
         mapPane.setTranslateX(0);
         mapPane.setTranslateY(0);
-        boxInventaire.getChildren().clear();
-        boxInventaire.setTranslateX(0);
-        boxInventaire.setTranslateY(0);
         this.map = null;
         resetButton.setDisable(true);
         resetButton.setVisible(false);

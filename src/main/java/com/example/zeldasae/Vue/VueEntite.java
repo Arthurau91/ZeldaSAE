@@ -2,6 +2,7 @@ package com.example.zeldasae.Vue;
 
 import com.example.zeldasae.modele.Entite;
 import com.example.zeldasae.modele.Joueur;
+import com.example.zeldasae.modele.Pursuer;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
@@ -27,8 +28,11 @@ public class VueEntite {
         Image image;
         if (this.entite instanceof Joueur) {
             image = new Image("file:src/main/resources/com/example/zeldasae/assets/chevalier/chevalierdroite.png");
-        } else {
+        } else if (this.entite instanceof Pursuer){
             image = new Image("file:src/main/resources/com/example/zeldasae/assets/monstre/monstredroite.png");
+        }
+        else {
+            image = new Image("file:src/main/resources/com/example/zeldasae/assets/boss.png");
         }
         imgEntite.setImage(image);
 
@@ -50,7 +54,7 @@ public class VueEntite {
             if (entite.getDirection().contains("left"))
                 imgEntite.setImage(new Image("file:src/main/resources/com/example/zeldasae/assets/chevalier/chevaliergauche.png"));
         }
-        else {
+        else if (this.entite instanceof Pursuer){
             if (entite.getDirection().contains("up"))
                 imgEntite.setImage(new Image("file:src/main/resources/com/example/zeldasae/assets/monstre/monstrebas.png"));
             if (entite.getDirection().contains("down"))

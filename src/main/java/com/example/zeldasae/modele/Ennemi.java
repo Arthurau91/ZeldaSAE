@@ -5,7 +5,7 @@ import javafx.scene.layout.Pane;
 
 import java.util.Arrays;
 
-public class Ennemi extends Entite{
+public abstract class Ennemi extends Entite{
 
     private BFS bfs;
 
@@ -20,8 +20,8 @@ public class Ennemi extends Entite{
      *          déplacement() d'Entite
      */
     public boolean deplacement(Monde m) {
-        int x = (this.getX()/this.getWidth())%(this.getWidth()*this.getColumn());
-        int y = (this.getY()/this.getHeight())%(this.getHeight()*this.getRows());
+        int x = (this.getX()/30)%(30*this.getColumn());
+        int y = (this.getY()/30)%(30*this.getRows());
         int[] src = {x, y};
 
         int[] pdeplacement = bfs.prochainMouvement(src);
@@ -29,8 +29,8 @@ public class Ennemi extends Entite{
             String direction = "";
             donneDirection(x, y, pdeplacement, direction);
             if(!super.deplacement(m)){
-                x = ((this.getX()+this.getWidth()-1)/this.getWidth())%(this.getWidth()*this.getColumn());
-                y = ((this.getY()+this.getHeight()-1)/this.getHeight())%(this.getHeight()*this.getRows());
+                x = ((this.getX()+this.getWidth()-1)/30)%(30*this.getColumn());
+                y = ((this.getY()+this.getHeight()-1)/30)%(30*this.getRows());
                 src = new int[]{x, y};
                 pdeplacement = bfs.prochainMouvement(src);
                 if (pdeplacement != null) {
@@ -39,6 +39,7 @@ public class Ennemi extends Entite{
                     return super.deplacement(m);
                 }
             }
+            else return true;
         }
         this.getVueEntite().changeImage();
         return false;
