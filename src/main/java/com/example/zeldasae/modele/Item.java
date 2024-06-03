@@ -2,14 +2,10 @@ package com.example.zeldasae.modele;
 
 public abstract class Item {
 
-    private int quantite;
-    private int quantite_max;
     private String nom;
     private int posSlotItems;
 
-    public Item(int quantite, int quantite_max, String nom, int posSlotItems){
-        this.quantite = quantite;
-        this.quantite_max = quantite_max;
+    public Item(String nom, int posSlotItems){
         this.nom = nom;
         this.posSlotItems = posSlotItems;
     }
@@ -26,11 +22,5 @@ public abstract class Item {
         this.posSlotItems = posSlotItems;
     }
 
-    public int getQuantite() {
-        return this.quantite;
-    }
 
-    public void ajouter(int n) {
-        this.quantite = this.quantite + n;
-    }
 }

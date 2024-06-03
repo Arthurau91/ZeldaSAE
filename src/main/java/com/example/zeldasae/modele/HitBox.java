@@ -43,6 +43,12 @@ public class HitBox {
     public int getHaut() {
         return haut;
     }
+    public IntegerProperty xProperty() {
+        return x;
+    }
+    public IntegerProperty yProperty() {
+        return y;
+    }
 
     public boolean checkColision(String direction, int rows, Terrain terrain){
         String[] dString = {"left","right","up","down"};
@@ -104,7 +110,6 @@ public class HitBox {
 
     public boolean estDedansHitbox(HitBox h) {
         System.out.println("largeur : " + this.large + " hauteur : " + this.haut);
-//        boolean check = (h.estDedansEgal(this.getX(), this.getY()) || h.estDedansEgal(this.getX()+this.large, this.getY()) || h.estDedansEgal(this.getX(), this.getY()+this.haut) || h.estDedansEgal(this.getX()+this.large, this.getY()+this.haut));
         boolean check = (this.checkUp(h) || this.checkDown(h) || this.checkLeft(h) || this.checkRight(h));
         return(check);
     }
@@ -157,5 +162,7 @@ public class HitBox {
             this.estPivote = true;
         }
     }
+
+
 
 }

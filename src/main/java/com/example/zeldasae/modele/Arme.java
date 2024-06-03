@@ -3,6 +3,7 @@ package com.example.zeldasae.modele;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.scene.input.KeyEvent;
 
+import javax.swing.*;
 import javax.swing.plaf.PanelUI;
 import java.util.ArrayList;
 
@@ -14,8 +15,8 @@ public class Arme extends Item{
     private double delaiRecuperation;
 
     //POUR PLUS TARD : DONNER UNE HITBOX SPECIALE A LA CREATION D'UNE ARME AU LIEU DE METTRE int large, int haut, int x, int y
-    public Arme(int quantite, int quantite_max, String nom, int degats, int posSlotItems, double delaiRecuperation, int large, int haut, int x, int y) {
-        super(1, 1, nom, posSlotItems);
+    public Arme(String nom, int degats, int posSlotItems, double delaiRecuperation, int large, int haut, int x, int y) {
+        super(nom, posSlotItems);
         this.degats = degats;
         this.hitBox = new HitBox(large, haut, new SimpleIntegerProperty(x), new SimpleIntegerProperty(y));
         this.delaiRecuperation = delaiRecuperation;
@@ -69,4 +70,12 @@ public class Arme extends Item{
        }
     }
 
+    public void deplacerProjectile(ArrayList<Ennemi> ennemis) {
+        this.getHitBox().setX(this.getX() + 15);
+        checkCoupTouche(ennemis);
+    }
+
+    public int getDegats() {
+        return this.degats;
+    }
 }

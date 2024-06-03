@@ -2,6 +2,7 @@ package com.example.zeldasae.controller;
 import com.example.zeldasae.Vue.VueArme;
 import com.example.zeldasae.Vue.VueInventaire;
 import com.example.zeldasae.modele.*;
+import com.example.zeldasae.modele.armes.Arc;
 import javafx.event.EventHandler;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
@@ -26,11 +27,12 @@ public class KeyHandler implements EventHandler<KeyEvent> {
     }
 
     //à retirer, sert uniquement pour les tests
-    private Item itemTest = new Arme(0,0, "Arme 1" ,1, 3,0.5, 150, 15, 0, 0);
-    private Item itemTest2 = new Arme(0,0, "Arme 2",2, 5, 2, 100, 100, 0, 0);
-    private Item itemTest3 = new Armure(0,0, 500,"Armure 3", 6);
-    private Item itemTest4 = new Armure(0,0, 500,"Armure 4", 19);
-    private Item collectibleTest = new Collectible(0, 10, "CollectibleTest", 5);
+    private Item itemTest = new Arme("Arme 1" ,1, 3,0.5, 150, 15, 0, 0);
+    private Item itemTest2 = new Arme("Arme 2",2, 5, 2, 100, 100, 0, 0);
+    private Item itemTest3 = new Armure(500,"Armure 3", 6);
+    private Item itemTest4 = new Armure(500,"Armure 4", 19);
+    private Collectible collectibleTest = new Collectible(0, 10, "CollectibleTest", 5);
+    private Arc arcTest = new Arc(10, 10, 10, 40);
 
     @Override
     public void handle(KeyEvent keyEvent) {
@@ -64,12 +66,10 @@ public class KeyHandler implements EventHandler<KeyEvent> {
                     this.map.getJoueur().getInv().ajouterItem(itemTest4);
                     this.map.getJoueur().getInv().ajouterItem(collectibleTest);
                     break;
-                case C: //à retirer, sert uniquement pour les tests
-                    System.out.println("Arme : " + this.map.getJoueur().getInv().getArmeActuelle().getNom() + " Armure : " + this.map.getJoueur().getInv().getArmureActuelle().getNom());
-                    break;
                 case A:
                         collectibleTest.ajouter(1);
                         System.out.println("quantite de CollectibleTest : " + collectibleTest.getQuantite());
+                        this.map.getJoueur().getInv().changerArme(arcTest);
                     break;
                 case LEFT, RIGHT, UP, DOWN:
                     if (this.vueArme.isPeutDonnerCoup()) {
@@ -81,6 +81,12 @@ public class KeyHandler implements EventHandler<KeyEvent> {
                         }
                     }
                     break;
+                case P:
+                    if(this.vueArme.isPeutDonnerCoup() && this.map.getJoueur().getInv().getArmeActuelle() instanceof Arc) {
+                        Projectile p = ((Arc) this.map.getJoueur().getInv().getArmeActuelle()).creerProjectile();
+                        this.vueArme.creerProjectile(p);
+                        this.vueArme.gererDelaiProjectile(p);
+                    }
             }
         }
 
