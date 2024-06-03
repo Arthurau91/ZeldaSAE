@@ -6,13 +6,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.image.WritableImage;
 import javafx.scene.layout.TilePane;
-import org.json.simple.JSONArray;
-import org.json.simple.JSONObject;
-import org.json.simple.parser.JSONParser;
-import org.json.simple.parser.ParseException;
 
-import java.io.FileReader;
-import java.io.IOException;
 import java.util.ArrayList;
 
 public class VueTerrain {
@@ -22,7 +16,7 @@ public class VueTerrain {
     private Image tileset;
     private Image[] tiles;
 
-    public VueTerrain(Monde map, TilePane mapPane) {
+    public VueTerrain(Monde map, TilePane mapPane ,ArrayList<Integer> m) {
         this.map = map;
         this.mapPane = mapPane;
 
@@ -36,14 +30,13 @@ public class VueTerrain {
 
         for (int y = 0; y < ligne; y++) {
             for (int x = 0; x < colonne; x++) {
-                tiles[y * colonne + x] = new WritableImage(tileset.getPixelReader(), x * tileWidth, y * tileHeight, tileWidth, tileHeight);
+                tiles[y * colonne + x] = new WritableImage(tileset.getPixelReader(), (x * tileWidth)+1, (y * tileHeight)+1, tileWidth-2, tileHeight-2);
             }
         }
-        afficherMap();
+        afficherMap(m);
     }
 
-    public void afficherMap() {
-        ArrayList<Integer> m = loadMap("src/main/resources/com/example/zeldasae/assets/map.json");
+    public void afficherMap(ArrayList<Integer> m) {
         this.map.setMap(m);
 
         for (int i = 0; i < m.size(); i++) {
@@ -55,27 +48,4 @@ public class VueTerrain {
             this.mapPane.getChildren().add(imageView);
         }
     }
-
-    public ArrayList<Integer> loadMap(String filename) {
-        ArrayList<Integer> elementsMap = new ArrayList<>();
-        JSONParser parser = new JSONParser();
-
-        try (FileReader reader = new FileReader(filename)) {
-            JSONObject jsonObject = (JSONObject) parser.parse(reader);
-            JSONArray layersArray = (JSONArray) jsonObject.get("layers");
-            JSONObject firstLayer = (JSONObject) layersArray.get(0);
-            JSONArray dataArray = (JSONArray) firstLayer.get("data");
-
-            for (Object data : dataArray) {
-                elementsMap.add(Math.toIntExact((Long) data));
-            }
-        } catch (IOException | ParseException e) {
-            e.printStackTrace();
-        }
-
-        return elementsMap;
-    }
-
-
-
 }

@@ -37,8 +37,9 @@ public class Controller implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
-        this.mapPane.setPrefColumns(100);
-        this.mapPane.setPrefRows(100);
+        LoadJSON loadJSON = new LoadJSON("src/main/resources/com/example/zeldasae/assets/map.json");
+        this.mapPane.setPrefColumns(loadJSON.getPrefColumns());
+        this.mapPane.setPrefRows(loadJSON.getPrefRows());
         this.mapPane.setPrefWidth(this.mapPane.getPrefTileWidth()*this.mapPane.getPrefColumns());
         this.mapPane.setPrefHeight(this.mapPane.getPrefTileHeight()*this.mapPane.getPrefRows());
 
@@ -47,7 +48,7 @@ public class Controller implements Initializable {
         Ennemi ennemi = new Ennemi(120, 120, (int)mapPane.getPrefTileWidth(), (int)mapPane.getPrefTileHeight(), mapPane.getPrefColumns(),  mapPane.getPrefRows(), bfs);
         this.map.addEnnemi(ennemi);
         new VueEntite(this.map.getJoueur(), this.paneEntites);
-        new VueTerrain(this.map, this.mapPane);
+        new VueTerrain(this.map, this.mapPane, loadJSON.getMap());
         new VueEntite(ennemi,paneEntites);
         VueInventaire vueInv = new VueInventaire(this.boxInventaire, this.map.getJoueur());
         this.map.getJoueur().getInv().getListeItems().addListener(new ObservateurItems(vueInv, this.paneEntites));
