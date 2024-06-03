@@ -1,6 +1,7 @@
 package com.example.zeldasae.modele;
 
 import com.example.zeldasae.Algo.BFS;
+import javafx.scene.layout.Pane;
 
 import java.util.Arrays;
 
@@ -8,8 +9,8 @@ public class Ennemi extends Entite{
 
     private BFS bfs;
 
-    public Ennemi(int x, int y, int width, int height, int column, int rows ,BFS bfs) {
-        super(x, y, width, height, column, rows);
+    public Ennemi(int x, int y, int width, int height, int column, int rows ,BFS bfs, Pane paneEntite) {
+        super(x, y, width, height, column, rows, paneEntite);
         this.bfs = bfs;
     }
 
@@ -39,6 +40,7 @@ public class Ennemi extends Entite{
                 }
             }
         }
+        this.getVueEntite().changeImage();
         return false;
     }
 

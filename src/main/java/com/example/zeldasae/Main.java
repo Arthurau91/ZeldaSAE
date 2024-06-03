@@ -16,6 +16,8 @@ public class Main extends Application {
     public void start(Stage stage) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("vue.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 1200, 1000);
+        stage.setMaxHeight(1000);
+        stage.setMaxWidth(1200);
         stage.setTitle("Zelda!");
         stage.setScene(scene);
         stage.show();
