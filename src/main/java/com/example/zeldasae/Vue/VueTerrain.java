@@ -41,6 +41,7 @@ public class VueTerrain {
 
         for (int i = 0; i < m.size(); i++) {
             ImageView imageView = new ImageView();
+            imageView.setId(""+i);
             int tileIndex = m.get(i);
             if (tileIndex >= 1 && tileIndex <= tiles.length) { // Assurez-vous que tileIndex est dans les limites
                 imageView.setImage(tiles[tileIndex - 1]);
