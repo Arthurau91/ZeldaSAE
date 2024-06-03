@@ -1,11 +1,13 @@
 package com.example.zeldasae.modele;
 
 import com.example.zeldasae.Vue.VueBarreDeVie;
+import com.example.zeldasae.Vue.VueEntite;
 import com.example.zeldasae.controller.ObservateurVie;
 import javafx.beans.binding.Bindings;
 import javafx.beans.binding.DoubleBinding;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
+import javafx.scene.layout.Pane;
 
 public abstract class Entite {
 
@@ -25,8 +27,9 @@ public abstract class Entite {
     private int pvDebut;
     private int degats;
     private VueBarreDeVie vueBarreDeVie;
+    private VueEntite vueEntite;
 
-    public Entite(int x, int y, int width, int height, int column, int rows) {
+    public Entite(int x, int y, int width, int height, int column, int rows, Pane paneEntite) {
         this.xProperty = new SimpleIntegerProperty(x);
         this.yProperty = new SimpleIntegerProperty(y);
         this.id = ""+n++;
@@ -52,12 +55,11 @@ public abstract class Entite {
         }
 
         this.pv.addListener(new ObservateurVie(this));
-
-
+        this.vueEntite = new VueEntite(this, paneEntite);
     }
 
-    public Entite(int x, int y, String id, int width, int height, int column, int rows) {
-        this(x, y, width, height, column, rows);
+    public Entite(int x, int y, String id, int width, int height, int column, int rows, Pane paneEntite) {
+        this(x, y, width, height, column, rows, paneEntite);
         this.setId(id);
     }
 
@@ -117,7 +119,6 @@ public abstract class Entite {
     public void setPv(int pv) {
         this.pv.setValue(pv);
     }
-
     public IntegerProperty pv() {
         return this.pv;
     }
@@ -133,8 +134,9 @@ public abstract class Entite {
     public HitBox getHitBox() {
         return hitBox;
     }
-
-
+    public VueEntite getVueEntite() {
+        return vueEntite;
+    }
 
     public void perdreVie(int degats) {
         setPv(this.getPv() - degats);
