@@ -1,6 +1,6 @@
 package com.example.zeldasae.controller;
 
-import com.example.zeldasae.modele.BarreDeVie;
+import com.example.zeldasae.Vue.VueBarreDeVie;
 import com.example.zeldasae.modele.Entite;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -17,14 +17,14 @@ public class ObservateurVie implements ChangeListener<Number> {
     @Override
     public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
         double pourcentage = ((double) newValue.intValue() / entite.getPvDebut()) * 100;
-        BarreDeVie barreDeVie = entite.getBarreDeVie();
-        if (barreDeVie != null) {
-            barreDeVie.setPourcentageVie(pourcentage);
-            mettreAJourBarreDeVie(barreDeVie);
+        VueBarreDeVie vueBarreDeVie = entite.getVueBarreDeVie();
+        if (vueBarreDeVie != null) {
+            vueBarreDeVie.setPourcentageVie(pourcentage);
+            mettreAJourBarreDeVie(vueBarreDeVie);
         }
     }
 
-    public void mettreAJourBarreDeVie(BarreDeVie barreDeVie) {
+    public void mettreAJourBarreDeVie(VueBarreDeVie barreDeVie) {
         double pourcentageVie = barreDeVie.getPourcentageVie();
         if (pourcentageVie < 25) {
             barreDeVie.setFill(Color.RED);

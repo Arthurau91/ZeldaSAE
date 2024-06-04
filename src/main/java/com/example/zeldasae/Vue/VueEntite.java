@@ -11,6 +11,8 @@ public class VueEntite {
     private Entite entite;
     private Pane paneEntites;
 
+    private ImageView imgEntite;
+
     public VueEntite(Entite entite, Pane paneEntites) {
         this.entite = entite;
         this.paneEntites = paneEntites;
@@ -21,12 +23,12 @@ public class VueEntite {
      * Méthode qui crée un sprite sur le pane pour l'entite
      */
     public void creerImageEntite() {
-        ImageView imgEntite = new ImageView();
+        imgEntite = new ImageView();
         Image image;
         if (this.entite instanceof Joueur) {
-            image = new Image("file:src/main/resources/com/example/zeldasae/assets/chevalier.png");
+            image = new Image("file:src/main/resources/com/example/zeldasae/assets/chevalier/chevalierdroite.png");
         } else {
-            image = new Image("file:src/main/resources/com/example/zeldasae/assets/monstre.png");
+            image = new Image("file:src/main/resources/com/example/zeldasae/assets/monstre/monstredroite.png");
         }
         imgEntite.setImage(image);
 
@@ -37,8 +39,26 @@ public class VueEntite {
         this.paneEntites.getChildren().add(imgEntite);
     }
 
-    public Entite getEntite() {
-        return entite;
+    public void changeImage(){
+        if (this.entite instanceof Joueur) {
+            if (entite.getDirection().contains("up"))
+                imgEntite.setImage(new Image("file:src/main/resources/com/example/zeldasae/assets/chevalier/chevalierhaut.png"));
+            if (entite.getDirection().contains("down"))
+                imgEntite.setImage(new Image("file:src/main/resources/com/example/zeldasae/assets/chevalier/chevalierbas.png"));
+            if (entite.getDirection().contains("right"))
+                imgEntite.setImage(new Image("file:src/main/resources/com/example/zeldasae/assets/chevalier/chevalierdroite.png"));
+            if (entite.getDirection().contains("left"))
+                imgEntite.setImage(new Image("file:src/main/resources/com/example/zeldasae/assets/chevalier/chevaliergauche.png"));
+        }
+        else {
+            if (entite.getDirection().contains("up"))
+                imgEntite.setImage(new Image("file:src/main/resources/com/example/zeldasae/assets/monstre/monstrebas.png"));
+            if (entite.getDirection().contains("down"))
+                imgEntite.setImage(new Image("file:src/main/resources/com/example/zeldasae/assets/monstre/monstrebas.png"));
+            if (entite.getDirection().contains("right"))
+                imgEntite.setImage(new Image("file:src/main/resources/com/example/zeldasae/assets/monstre/monstredroite.png"));
+            if (entite.getDirection().contains("left"))
+                imgEntite.setImage(new Image("file:src/main/resources/com/example/zeldasae/assets/monstre/monstredroite.png"));
+        }
     }
-
 }

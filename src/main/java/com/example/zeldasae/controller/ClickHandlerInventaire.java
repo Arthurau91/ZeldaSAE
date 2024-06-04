@@ -23,8 +23,7 @@ public class ClickHandlerInventaire implements EventHandler<MouseEvent> {
 
     @Override
     public void handle(MouseEvent mouseEvent) {
-        if (mouseEvent.getSource() instanceof ImageView) {
-            ImageView v = (ImageView) mouseEvent.getSource();
+        if (mouseEvent.getSource() instanceof ImageView v) {
             printTest(v.getId());
         }
 
@@ -32,12 +31,10 @@ public class ClickHandlerInventaire implements EventHandler<MouseEvent> {
 
     public void printTest(String id) {
         System.out.println(j.getInv().getItemParID(Integer.parseInt(id)).getNom());
-        if (j.getInv().getItemParID(Integer.parseInt(id)) instanceof Arme) {
-            Arme a = (Arme) j.getInv().getItemParID(Integer.parseInt(id));
+        if (j.getInv().getItemParID(Integer.parseInt(id)) instanceof Arme a) {
             this.j.getInv().changerArme(a);
         }
-        else if (j.getInv().getItemParID(Integer.parseInt(id)) instanceof Armure) {
-            Armure armure = (Armure) j.getInv().getItemParID(Integer.parseInt(id));
+        else if (j.getInv().getItemParID(Integer.parseInt(id)) instanceof Armure armure) {
             this.j.getInv().changerArmure(armure);
         }
     }

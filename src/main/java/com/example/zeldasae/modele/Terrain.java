@@ -15,7 +15,16 @@ public class Terrain {
     }
     public boolean testCoo(int coo){
         if (coo < map.size() && coo >=0)
-            return this.map.get(coo) == 232;
+            return vide(coo);
+        return false;
+    }
+
+    private boolean vide(int coo){
+        int[] casesVides = {57, 1152};
+        for (int i = 0; i < casesVides.length; i++){
+            if (this.map.get(coo) == casesVides[i])
+                return true;
+        }
         return false;
     }
 

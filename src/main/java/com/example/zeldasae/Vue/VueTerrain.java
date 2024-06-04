@@ -1,98 +1,52 @@
 package com.example.zeldasae.Vue;
 
 import com.example.zeldasae.modele.Monde;
+
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.image.WritableImage;
 import javafx.scene.layout.TilePane;
 
-import java.io.BufferedReader;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
 import java.util.ArrayList;
-import java.util.List;
 
 public class VueTerrain {
 
     private Monde map;
     private TilePane mapPane;
+    private Image tileset;
+    private Image[] tiles;
 
-    public VueTerrain(Monde map, TilePane mapPane) {
+    public VueTerrain(Monde map, TilePane mapPane ,ArrayList<Integer> m) {
         this.map = map;
         this.mapPane = mapPane;
-        afficherMap();
+
+        this.tileset = new Image("file:src/main/resources/com/example/zeldasae/assets/tiles.png");
+
+        int tileWidth = 32;
+        int tileHeight = 32;
+        int colonne = (int) (tileset.getWidth() / tileWidth);
+        int ligne = (int) (tileset.getHeight() / tileHeight);
+        tiles = new Image[colonne * ligne];
+
+        for (int y = 0; y < ligne; y++) {
+            for (int x = 0; x < colonne; x++) {
+                tiles[y * colonne + x] = new WritableImage(tileset.getPixelReader(), (x * tileWidth)+1, (y * tileHeight)+1, tileWidth-2, tileHeight-2);
+            }
+        }
+        afficherMap(m);
     }
 
-
-    public void afficherMap() {
-
-        ArrayList<Integer> m = loadMap("src/main/resources/com/example/zeldasae/assets/map.json");
+    public void afficherMap(ArrayList<Integer> m) {
         this.map.setMap(m);
 
-        for (int x = 0 ; x < m.size() ; x++) {
+        for (int i = 0; i < m.size(); i++) {
             ImageView imageView = new ImageView();
-            switch (m.get(x)) {
-                case 232:
-                    Image image = new Image("file:src/main/resources/com/example/zeldasae/assets/grass.jpg");
-                    imageView.setImage(image);
-                    break;
+            imageView.setId(""+i);
+            int tileIndex = m.get(i);
+            if (tileIndex >= 1 && tileIndex <= tiles.length) { // Assurez-vous que tileIndex est dans les limites
+                imageView.setImage(tiles[tileIndex - 1]);
             }
-
             this.mapPane.getChildren().add(imageView);
-
         }
-
     }
-
-    public ArrayList<Integer> loadMap(String filename) {
-        BufferedReader lecteurAvecBuffer = null;
-        ArrayList<Integer> elementsMap = new ArrayList<>();
-
-        try {
-            lecteurAvecBuffer = new BufferedReader(new FileReader(filename));
-            List<String> elements = new ArrayList<>();
-
-            for (int i = 0; i < 6; i++) {
-                lecteurAvecBuffer.readLine();
-            }
-
-            String ligne;
-            int cmpt = 0;
-
-            while ((ligne = lecteurAvecBuffer.readLine()) != null && cmpt < 40) {
-
-                String[] elementsLigne = ligne.split(",");
-
-                for (String element : elementsLigne) {
-                    elements.add(element.trim());
-                }
-                cmpt++;
-            }
-
-            String[] tableauElements = elements.toArray(new String[0]);
-
-            for (String element : tableauElements) {
-//                System.out.println(element);
-                elementsMap.add(Integer.parseInt(element));
-            }
-
-        } catch (FileNotFoundException exc) {
-            System.out.println("Erreur d'ouverture : Fichier non trouvé");
-        } catch (IOException e) {
-            System.out.println("Erreur lors de la lecture du fichier : " + e.getMessage());
-        } finally {
-            if (lecteurAvecBuffer != null) {
-                try {
-                    lecteurAvecBuffer.close();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
-        }
-
-        return elementsMap;
-
-
-    }
-
 }

@@ -100,7 +100,7 @@ public class HitBox {
         return true;
     }
 
-    public boolean estDedans(int x, int y){
+    public boolean contient(int x, int y){
         return getX() < x && getX()+large > x && getY() < y && getY()+haut > y;
     }
 
