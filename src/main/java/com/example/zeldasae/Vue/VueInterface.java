@@ -5,11 +5,11 @@ import com.example.zeldasae.modele.Joueur;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Pane;
 
-public class VueInterface {
+public abstract class VueInterface {
 
     protected Pane paneInterface;
-    private Joueur joueur;
-    private boolean afficheInterface;
+    protected Joueur joueur;
+    protected boolean afficheInterface;
     protected ClickHandlerInventaire clickHandler;
 
 
@@ -24,14 +24,14 @@ public class VueInterface {
     public void toggleAffichageInterface(KeyEvent keyEvent) {
         if (!this.afficheInterface && keyEvent.getEventType() != KeyEvent.KEY_RELEASED) {
             this.paneInterface.setVisible(true);
-            setAfficheCoffre(true);
+            setAfficheInterface(true);
         } else if (keyEvent.getEventType() != KeyEvent.KEY_RELEASED) {
             this.paneInterface.setVisible(false);
-            setAfficheCoffre(false);
+            setAfficheInterface(false);
         }
     }
 
-    public void setAfficheCoffre(boolean b) {
+    public void setAfficheInterface(boolean b) {
         this.afficheInterface = b;
     }
 }

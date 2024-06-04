@@ -56,7 +56,7 @@ public class Controller implements Initializable {
         new VueTerrain(this.map, this.mapPane, loadJSON.getMap());
         VueInventaire vueInv = new VueInventaire(this.boxInventaire, this.map.getJoueur());
         coffre = new Coffre();
-        vueCoffre = new VueCoffre(this.boxCoffre, this.map.getJoueur(), coffre);
+        vueCoffre = new VueCoffre(this.boxCoffre, this.map.getJoueur(), coffre, vueInv);
         this.map.getJoueur().getInv().getListeItems().addListener(new ObservateurItems(vueInv, this.paneEntites));
         bfs.lanceAlgo(map, mapPane.getPrefColumns(), mapPane.getPrefRows());
 

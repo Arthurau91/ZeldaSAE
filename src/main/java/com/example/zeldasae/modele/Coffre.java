@@ -6,9 +6,11 @@ import javafx.collections.ObservableList;
 public class Coffre {
 
     private ObservableList<Item> listeItem;
+    private boolean estOuvert;
 
     public Coffre() {
         this.listeItem = FXCollections.observableArrayList();
+        this.estOuvert = false;
     }
 
     public ObservableList<Item> getListeItem() {
@@ -22,4 +24,14 @@ public class Coffre {
     public void retirerItem(Item item) {
         listeItem.remove(item);
     }
+
+    public void setEstOuvert(boolean b) {
+        this.estOuvert = b;
+    }
+
+    public boolean getEstOuvert() {
+        return this.estOuvert;
+    }
+
+
 }

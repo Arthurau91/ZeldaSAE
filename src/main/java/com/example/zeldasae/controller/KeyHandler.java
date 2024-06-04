@@ -20,6 +20,7 @@ public class KeyHandler implements EventHandler<KeyEvent> {
     private VueCoffre vueCoffre;
     private final Set<KeyCode> pressedKeys;
 
+
     public KeyHandler(Monde map, VueInventaire vueInv, VueCoffre vueCoffre) {
         this.map = map;
         this.vueInv = vueInv;
@@ -53,8 +54,8 @@ public class KeyHandler implements EventHandler<KeyEvent> {
 
         switch (keyEvent.getCode()) {
             case E:
-//                System.out.println("e");
-                this.vueInv.toggleAffichageInterface(keyEvent);
+                if (!this.vueCoffre.getCoffre().getEstOuvert())
+                    this.vueInv.toggleAffichageInterface(keyEvent);
                 break;
             case X: //à retirer, sert uniquement pour les tests
                 this.map.getJoueur().getInv().ajouterItem(itemTest);
