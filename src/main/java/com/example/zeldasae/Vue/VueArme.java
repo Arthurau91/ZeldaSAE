@@ -62,36 +62,24 @@ public class VueArme {
         p.getHitBox().setX(joueur.getX()); //DES QUE T'UTILISERAS LES TOUCHES DE DEPLACEMENT POUR L'ARC, FAIS CA DANS Projectile.setPosMap()
         p.getHitBox().setY(joueur.getY());
         Rectangle r = new Rectangle(p.getHitBox().getLarge(), p.getHitBox().getHaut(), Color.RED);
+        r.setId(p.getNom());
         r.translateXProperty().bind(p.getHitBox().xProperty());
         r.translateYProperty().bind(p.getHitBox().yProperty());
         this.paneEntites.getChildren().add(r);
     }
 
-    public void gererDelaiProjectile(Projectile p) {
-        Monde map = this.map;
-
-        Timer timer = new Timer();
-        TimerTask task = new TimerTask() {
-            @Override
-            public void run() {
-                if (dansMap(p)) {
-                    p.deplacerProjectile(map.getListeEnnemis());
-                }
-                else {
-                    timer.cancel();
-                }
-
-            }
-        };
-
-        timer.schedule(task, 0, 100);
+    public void supprimerProjectile(Projectile p) {
+        this.paneEntites.getChildren().remove(this.paneEntites.lookup("#" + p.getNom()));
     }
 
-    public boolean dansMap(Projectile p) {
-        if(p.getHitBox().getX() < this.mapPane.getWidth() - p.getHitBox().getLarge()) {
-            return true;
+    public void deplacerProjectiles() {
+        for (int i = 0; i < this.map.getListeProjectiles().size(); i++) {
+            Projectile p = this.map.getListeProjectiles().get(i);
+            p.deplacerProjectile(this.map.getListeEnnemis());
+            if (!p.dansMap(this.mapPane.getWidth())) {
+                this.map.retirerProjectile(p);
+            }
         }
-        return false;
     }
 
 }

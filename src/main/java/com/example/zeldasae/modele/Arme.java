@@ -70,11 +70,6 @@ public class Arme extends Item{
        }
     }
 
-    public void deplacerProjectile(ArrayList<Ennemi> ennemis) {
-        this.getHitBox().setX(this.getX() + 15);
-        checkCoupTouche(ennemis);
-    }
-
     public int getDegats() {
         return this.degats;
     }

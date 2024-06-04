@@ -8,6 +8,7 @@ import com.example.zeldasae.Vue.VueTerrain;
 import com.example.zeldasae.modele.Ennemi;
 import com.example.zeldasae.modele.Joueur;
 import com.example.zeldasae.modele.Monde;
+import com.example.zeldasae.modele.Projectile;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.fxml.FXML;
@@ -40,6 +41,7 @@ public class Controller implements Initializable {
     private Timeline gameLoop;
     private int temps;
     private Button resetButton;
+    private VueArme vueArme;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -68,8 +70,11 @@ public class Controller implements Initializable {
         this.map.addEnnemi(new Ennemi(120, 120, (int)mapPane.getPrefTileWidth(), (int)mapPane.getPrefTileHeight(), mapPane.getPrefColumns(),  mapPane.getPrefRows(), bfs, paneEntites));
         new VueTerrain(this.map, this.mapPane, loadJSON.getMap());
         VueInventaire vueInv = new VueInventaire(this.boxInventaire, this.map.getJoueur());
+        this.vueArme = new VueArme(this.map.getJoueur(), this.paneEntites, map, this.mapPane);
+
         this.map.getJoueur().getInv().getListeItems().addListener(new ObservateurItems(vueInv, this.paneEntites));
-        VueArme vueArme = new VueArme(this.map.getJoueur(), this.paneEntites, map, this.mapPane);
+        this.map.getListeProjectiles().addListener(new ObservateurProjectiles(vueArme));
+
         bfs.lanceAlgo(map, mapPane.getPrefColumns(), mapPane.getPrefRows());
 
         ObservateurMouvement observateurMouvement = new ObservateurMouvement(this.map, this.mapPane, this.paneEntites);
@@ -112,8 +117,10 @@ public class Controller implements Initializable {
                 (ev ->{
                     this.map.getJoueur().deplacement(map);
 
-                    if (temps%2==0)
+                    if (temps%2==0) {
                         this.map.deplacementEnnemi();
+                        this.vueArme.deplacerProjectiles();
+                    }
 
                     temps++;
                     if (!map.getJoueur().verifVivant()) {

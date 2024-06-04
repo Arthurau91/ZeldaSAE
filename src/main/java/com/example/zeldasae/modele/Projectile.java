@@ -25,6 +25,10 @@ public class Projectile {
         return this.hitBox;
     }
 
+    public String getNom() {
+        return this.nom;
+    }
+
     public void deplacerProjectile(ArrayList<Ennemi> ennemis) {
         this.getHitBox().setX(this.getHitBox().getX() + 15);
         checkCoupTouche(ennemis);
@@ -37,5 +41,12 @@ public class Projectile {
                 System.out.println("Pv de l'ennemi : " + e.getPv());
             }
         }
+    }
+
+    public boolean dansMap(double largeur) {
+        if(this.hitBox.getX() < largeur - this.getHitBox().getLarge()) {
+            return true;
+        }
+        return false;
     }
 }

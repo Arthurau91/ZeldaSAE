@@ -84,8 +84,7 @@ public class KeyHandler implements EventHandler<KeyEvent> {
                 case P:
                     if(this.vueArme.isPeutDonnerCoup() && this.map.getJoueur().getInv().getArmeActuelle() instanceof Arc) {
                         Projectile p = ((Arc) this.map.getJoueur().getInv().getArmeActuelle()).creerProjectile();
-                        this.vueArme.creerProjectile(p);
-                        this.vueArme.gererDelaiProjectile(p);
+                        this.map.ajouterProjectile(p);
                     }
             }
         }
