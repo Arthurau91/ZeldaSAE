@@ -125,7 +125,6 @@ public class BFS {
      */
     public int[] prochainMouvement(int[] src){
         List<Point> chemin = constructChemin(new Point(src[0], src[1]));
-        System.out.println(chemin);
         if (chemin.size() > 1)
             return new int[] {chemin.get(chemin.size()-2).getX(), chemin.get(chemin.size()-2).getY()};
         return null;

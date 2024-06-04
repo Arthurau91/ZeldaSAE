@@ -20,32 +20,49 @@ public abstract class Ennemi extends Entite{
      *          déplacement() d'Entite
      */
     public boolean deplacement(Monde m) {
-        int x = (this.getX()/30)%(30*this.getColumn());
-        int y = (this.getY()/30)%(30*this.getRows());
-        int[] src = {x, y};
+        int width = 0;
+        int width2 = this.getWidth();
+        int x;
+        int y;
+        int[] src;
+        int[] pdeplacement;
 
-        int[] pdeplacement = bfs.prochainMouvement(src);
-        if (pdeplacement != null) {
-            String direction = "";
-            donneDirection(x, y, pdeplacement, direction);
-            if(!super.deplacement(m)){
-                x = ((this.getX()+this.getWidth()-1)/30)%(30*this.getColumn());
+        boolean deplacement = false;
+
+        do {
+            if (!deplacement && width <= this.getWidth()) {
+                x = ((this.getX() + width )/ 30) % (30 * this.getColumn());
+                y = (this.getY() / 30) % (30 * this.getRows());
+                src = new int[]{x, y};
+                pdeplacement = bfs.prochainMouvement(src);
+                if (pdeplacement != null) {
+                    donneDirection(x, y, pdeplacement);
+                    deplacement = super.deplacement(m);
+                }
+            }
+            if(!deplacement && width2 >= 0){
+                x = ((this.getX()+width2-1)/30)%(30*this.getColumn());
                 y = ((this.getY()+this.getHeight()-1)/30)%(30*this.getRows());
                 src = new int[]{x, y};
                 pdeplacement = bfs.prochainMouvement(src);
                 if (pdeplacement != null) {
-                    direction = "";
-                    donneDirection(x, y, pdeplacement, direction);
-                    return super.deplacement(m);
+                    donneDirection(x, y, pdeplacement);
+                    deplacement = super.deplacement(m);
                 }
             }
-            else return true;
-        }
+            if (width <= this.getWidth())
+                width += 30;
+            if (width2 >= 0)
+                width2 -= 30;
+        }while (width <= this.getWidth() && width2 >= 0);
+
         this.getVueEntite().changeImage();
-        return false;
+        System.out.println(this.getDirection());
+        return deplacement;
     }
 
-    private void donneDirection(int x, int y, int[] pdeplacement, String direction) {
+    private void donneDirection(int x, int y, int[] pdeplacement) {
+        String direction = "";
         if (pdeplacement[0] > x)
             direction += "right";
         if (pdeplacement[0] < x)
