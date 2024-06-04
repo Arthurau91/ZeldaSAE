@@ -1,20 +1,18 @@
 package com.example.zeldasae.controller;
 
 import com.example.zeldasae.Algo.BFS;
-import com.example.zeldasae.Vue.VueEntite;
 import com.example.zeldasae.Vue.VueInventaire;
 import com.example.zeldasae.Vue.VueTerrain;
-import com.example.zeldasae.modele.*;
+import com.example.zeldasae.modele.Boss;
+import com.example.zeldasae.modele.Joueur;
+import com.example.zeldasae.modele.Monde;
+import com.example.zeldasae.modele.Pursuer;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.Node;
 import javafx.scene.control.Button;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.TilePane;
 import javafx.util.Duration;
@@ -81,6 +79,11 @@ public class Controller implements Initializable {
     }
 
     private void relanceJeu(){
+        clearJeu();
+        lancementJeu();
+    }
+
+    private void clearJeu(){
         paneEntites.getChildren().clear();
         paneEntites.setTranslateX(0);
         paneEntites.setTranslateY(0);
@@ -90,7 +93,6 @@ public class Controller implements Initializable {
         this.map = null;
         resetButton.setDisable(true);
         resetButton.setVisible(false);
-        lancementJeu();
     }
 
     private void initAnimation() {
@@ -110,6 +112,7 @@ public class Controller implements Initializable {
 
                     temps++;
                     if (!map.getJoueur().verifVivant()) {
+                        clearJeu();
                         resetButton.setDisable(false);
                         resetButton.setVisible(true);
                         gameLoop.stop();

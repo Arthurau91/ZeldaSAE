@@ -3,8 +3,6 @@ package com.example.zeldasae.modele;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
-import java.util.ArrayList;
-
 public class Inventaire {
 
     private ObservableList<Item> listeItems;

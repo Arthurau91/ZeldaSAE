@@ -3,8 +3,6 @@ package com.example.zeldasae.modele;
 import com.example.zeldasae.Algo.BFS;
 import javafx.scene.layout.Pane;
 
-import java.util.Arrays;
-
 public abstract class Ennemi extends Entite{
 
     private BFS bfs;
