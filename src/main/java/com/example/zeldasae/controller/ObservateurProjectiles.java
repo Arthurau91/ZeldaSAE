@@ -16,10 +16,10 @@ public class ObservateurProjectiles implements ListChangeListener<Projectile> {
     public void onChanged(Change<? extends Projectile> change) {
         while (change.next()) {
             for(Projectile p : change.getAddedSubList()) {
-                this.vueArme.creerProjectile(p);
+                this.vueArme.creerProjectileVue(p);
             }
             for (int i = 0; i < change.getRemoved().size(); i++) {
-                this.vueArme.supprimerProjectile(change.getRemoved().get(i));
+                this.vueArme.supprimerProjectileVue(change.getRemoved().get(i));
             }
         }
     }

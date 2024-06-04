@@ -18,10 +18,10 @@ public class Monde {
     /**
      * Constructeur de la classe Monde
      */
-    public Monde(Joueur joueur, BFS bfs) {
+    public Monde(Joueur joueur, BFS bfs, int rows) {
 
         this.joueur = joueur;
-        this.terrain = new Terrain();
+        this.terrain = new Terrain(rows);
         this.listeEnnemis = new ArrayList<>();
         this.bfs = bfs;
         this.listeProjectiles = FXCollections.observableArrayList();
@@ -76,9 +76,14 @@ public class Monde {
         this.listeProjectiles.remove(p);
     }
 
-    public void deplacerProjectiles() {
-        for (Projectile p : this.listeProjectiles) {
-            p.deplacerProjectile(this.getListeEnnemis());
+
+    public void deplacerProjectilesVue() {
+        for (int i = 0; i < this.listeProjectiles.size(); i++) {
+            this.listeProjectiles.get(i).deplacerProjectile(this.getListeEnnemis());
+            if (this.listeProjectiles.get(i).isObstacleTouche() || !this.listeProjectiles.get(i).dansMap(this.terrain)) {
+                retirerProjectile(this.listeProjectiles.get(i));
+                i--;
+            }
         }
     }
 }

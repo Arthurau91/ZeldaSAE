@@ -5,14 +5,21 @@ import java.util.ArrayList;
 public class Terrain {
 
     private ArrayList<Integer> map;
+    private int rows;
 
-    public Terrain(){
+    public Terrain(int rows){
         this.map = new ArrayList<>();
+        this.rows = rows;
     }
 
     public ArrayList<Integer> getMap() {
         return map;
     }
+
+    public int getRows() {
+        return rows;
+    }
+
     public boolean testCoo(int coo){
         if (coo < map.size() && coo >=0)
             return vide(coo);
@@ -32,3 +39,4 @@ public class Terrain {
         this.map = map;
     }
 }
+

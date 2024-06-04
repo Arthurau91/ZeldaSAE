@@ -3,7 +3,6 @@ package com.example.zeldasae.Vue;
 import com.example.zeldasae.modele.Joueur;
 import com.example.zeldasae.modele.Monde;
 import com.example.zeldasae.modele.Projectile;
-import com.example.zeldasae.modele.armes.Arc;
 import javafx.animation.PauseTransition;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -11,9 +10,6 @@ import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.util.Duration;
-
-import java.util.Timer;
-import java.util.TimerTask;
 
 
 public class VueArme {
@@ -58,7 +54,7 @@ public class VueArme {
     }
 
 
-    public void creerProjectile(Projectile p) {
+    public void creerProjectileVue(Projectile p) {
         p.getHitBox().setX(joueur.getX()); //DES QUE T'UTILISERAS LES TOUCHES DE DEPLACEMENT POUR L'ARC, FAIS CA DANS Projectile.setPosMap()
         p.getHitBox().setY(joueur.getY());
         Rectangle r = new Rectangle(p.getHitBox().getLarge(), p.getHitBox().getHaut(), Color.RED);
@@ -66,20 +62,15 @@ public class VueArme {
         r.translateXProperty().bind(p.getHitBox().xProperty());
         r.translateYProperty().bind(p.getHitBox().yProperty());
         this.paneEntites.getChildren().add(r);
+        this.peutDonnerCoup = false;
+
+        PauseTransition pause = new PauseTransition(Duration.seconds(joueur.getInv().getArmeActuelle().getDelaiRecuperation()));
+        pause.setOnFinished(event -> this.peutDonnerCoup = true);
+        pause.play();
     }
 
-    public void supprimerProjectile(Projectile p) {
+    public void supprimerProjectileVue(Projectile p) {
         this.paneEntites.getChildren().remove(this.paneEntites.lookup("#" + p.getNom()));
-    }
-
-    public void deplacerProjectiles() {
-        for (int i = 0; i < this.map.getListeProjectiles().size(); i++) {
-            Projectile p = this.map.getListeProjectiles().get(i);
-            p.deplacerProjectile(this.map.getListeEnnemis());
-            if (!p.dansMap(this.mapPane.getWidth())) {
-                this.map.retirerProjectile(p);
-            }
-        }
     }
 
 }

@@ -73,19 +73,23 @@ public class KeyHandler implements EventHandler<KeyEvent> {
                     break;
                 case LEFT, RIGHT, UP, DOWN:
                     if (this.vueArme.isPeutDonnerCoup()) {
-                        this.map.getJoueur().getInv().getArmeActuelle().setPosMap(this.map.getJoueur().getX(), this.map.getJoueur().getY(), keyEvent);
-                        this.vueArme.donnerCoup(this.map.getJoueur().getInv().getArmeActuelle().getX(), this.map.getJoueur().getInv().getArmeActuelle().getY());
-                        this.map.getJoueur().getInv().getArmeActuelle().checkCoupTouche(this.map.getListeEnnemis());
-                        if (keyEvent.getCode() == UP || keyEvent.getCode() == DOWN) {
-                            this.map.getJoueur().getInv().getArmeActuelle().getHitBox().pivote();
+                        if(this.map.getJoueur().getInv().getArmeActuelle() instanceof Arc) {
+                            Projectile p = ((Arc) this.map.getJoueur().getInv().getArmeActuelle()).creerProjectile(keyEvent);
+                            if (keyEvent.getCode() == UP || keyEvent.getCode() == DOWN) {
+                                p.getHitBox().pivote();
+                            }
+                            this.map.ajouterProjectile(p);
+                        }
+                        else {
+                            this.map.getJoueur().getInv().getArmeActuelle().setPosMap(this.map.getJoueur().getX(), this.map.getJoueur().getY(), keyEvent);
+                            this.vueArme.donnerCoup(this.map.getJoueur().getInv().getArmeActuelle().getX(), this.map.getJoueur().getInv().getArmeActuelle().getY());
+                            this.map.getJoueur().getInv().getArmeActuelle().checkCoupTouche(this.map.getListeEnnemis());
+                            if (keyEvent.getCode() == UP || keyEvent.getCode() == DOWN) {
+                                this.map.getJoueur().getInv().getArmeActuelle().getHitBox().pivote();
+                            }
                         }
                     }
                     break;
-                case P:
-                    if(this.vueArme.isPeutDonnerCoup() && this.map.getJoueur().getInv().getArmeActuelle() instanceof Arc) {
-                        Projectile p = ((Arc) this.map.getJoueur().getInv().getArmeActuelle()).creerProjectile();
-                        this.map.ajouterProjectile(p);
-                    }
             }
         }
 

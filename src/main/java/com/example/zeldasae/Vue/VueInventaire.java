@@ -7,8 +7,6 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 
-import javafx.scene.input.KeyEvent;
-
 public class VueInventaire {
 
     public final int nbItemLigne = 5;
@@ -43,7 +41,7 @@ public class VueInventaire {
         this.afficheInventaire = b;
     }
 
-    public void ajouterItem(Item i) {
+    public void ajouterItemVue(Item i) {
         Image img = switchImageItem(i);
         ImageView imageView = new ImageView(img);
 

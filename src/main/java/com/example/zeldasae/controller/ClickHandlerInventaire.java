@@ -24,12 +24,12 @@ public class ClickHandlerInventaire implements EventHandler<MouseEvent> {
     @Override
     public void handle(MouseEvent mouseEvent) {
         if (mouseEvent.getSource() instanceof ImageView v) {
-            printTest(v.getId());
+            clicChangementArme(v.getId());
         }
 
     }
 
-    public void printTest(String id) {
+    public void clicChangementArme(String id) {
         System.out.println(j.getInv().getItemParID(Integer.parseInt(id)).getNom());
         if (j.getInv().getItemParID(Integer.parseInt(id)) instanceof Arme a) {
             this.j.getInv().changerArme(a);
