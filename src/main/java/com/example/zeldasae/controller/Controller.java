@@ -1,9 +1,11 @@
 package com.example.zeldasae.controller;
 
 import com.example.zeldasae.Algo.BFS;
+import com.example.zeldasae.Vue.VueCoffre;
 import com.example.zeldasae.Vue.VueEntite;
 import com.example.zeldasae.Vue.VueInventaire;
 import com.example.zeldasae.Vue.VueTerrain;
+import com.example.zeldasae.modele.Coffre;
 import com.example.zeldasae.modele.Ennemi;
 import com.example.zeldasae.modele.Joueur;
 import com.example.zeldasae.modele.Monde;
@@ -29,10 +31,14 @@ public class Controller implements Initializable {
     @FXML
     private Pane paneEntites;
     @FXML
+    private Pane boxCoffre;
+    @FXML
     private TilePane mapPane;
     private Monde map;
     private Timeline gameLoop;
     private int temps;
+    private Coffre coffre;
+    private VueCoffre vueCoffre;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -49,6 +55,8 @@ public class Controller implements Initializable {
         this.map.addEnnemi(ennemi);
         new VueTerrain(this.map, this.mapPane, loadJSON.getMap());
         VueInventaire vueInv = new VueInventaire(this.boxInventaire, this.map.getJoueur());
+        coffre = new Coffre();
+        vueCoffre = new VueCoffre(this.boxCoffre, this.map.getJoueur(), coffre);
         this.map.getJoueur().getInv().getListeItems().addListener(new ObservateurItems(vueInv, this.paneEntites));
         bfs.lanceAlgo(map, mapPane.getPrefColumns(), mapPane.getPrefRows());
 
@@ -57,7 +65,7 @@ public class Controller implements Initializable {
         this.map.getJoueur().xProperty().addListener(observateurMouvement);
         this.map.getJoueur().yProperty().addListener(observateurMouvement);
 
-        KeyHandler keyHandler = new KeyHandler(this.map, vueInv);
+        KeyHandler keyHandler = new KeyHandler(this.map, vueInv, vueCoffre);
         paneEntites.addEventHandler(KeyEvent.KEY_PRESSED, keyHandler);
         paneEntites.addEventHandler(KeyEvent.KEY_RELEASED, keyHandler);
         initAnimation();

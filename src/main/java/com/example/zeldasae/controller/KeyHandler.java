@@ -1,4 +1,5 @@
 package com.example.zeldasae.controller;
+import com.example.zeldasae.Vue.VueCoffre;
 import com.example.zeldasae.Vue.VueInventaire;
 import com.example.zeldasae.modele.Arme;
 import com.example.zeldasae.modele.Armure;
@@ -16,12 +17,14 @@ public class KeyHandler implements EventHandler<KeyEvent> {
 
     private Monde map;
     private VueInventaire vueInv;
+    private VueCoffre vueCoffre;
     private final Set<KeyCode> pressedKeys;
 
-    public KeyHandler(Monde map, VueInventaire vueInv) {
+    public KeyHandler(Monde map, VueInventaire vueInv, VueCoffre vueCoffre) {
         this.map = map;
         this.vueInv = vueInv;
         this.pressedKeys = new HashSet<>();
+        this.vueCoffre = vueCoffre;
     }
     private Item itemTest = new Arme(0,0, "Arme 1" ,500, 3); //à retirer, sert uniquement pour les tests
     private Item itemTest2 = new Arme(0,0, "Arme 2",2, 5);
@@ -61,6 +64,9 @@ public class KeyHandler implements EventHandler<KeyEvent> {
                 break;
             case C: //à retirer, sert uniquement pour les tests
                 System.out.println("Arme : " + this.map.getJoueur().getInv().getArmeActuelle().getNom() + " Armure : " + this.map.getJoueur().getInv().getArmureActuelle().getNom());
+                break;
+            case I:
+                this.vueCoffre.toggleAffichageCoffre(keyEvent);
                 break;
 
         }
