@@ -54,7 +54,7 @@ public class KeyHandler implements EventHandler<KeyEvent> {
         switch (keyEvent.getCode()) {
             case E:
 //                System.out.println("e");
-                this.vueInv.toggleAffichageInventaire(keyEvent);
+                this.vueInv.toggleAffichageInterface(keyEvent);
                 break;
             case X: //à retirer, sert uniquement pour les tests
                 this.map.getJoueur().getInv().ajouterItem(itemTest);
@@ -66,7 +66,7 @@ public class KeyHandler implements EventHandler<KeyEvent> {
                 System.out.println("Arme : " + this.map.getJoueur().getInv().getArmeActuelle().getNom() + " Armure : " + this.map.getJoueur().getInv().getArmureActuelle().getNom());
                 break;
             case I:
-                this.vueCoffre.toggleAffichageCoffre(keyEvent);
+                this.vueCoffre.toggleAffichageInterface(keyEvent);
                 break;
 
         }
