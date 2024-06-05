@@ -1,14 +1,15 @@
-package com.example.zeldasae.modele;
+package com.example.zeldasae.Vue;
 
+import com.example.zeldasae.modele.Entite;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 
-public class BarreDeVie extends Pane {
+public class VueBarreDeVie extends Pane {
     private Rectangle barreVieTotale;
     private Rectangle barreVieActuelle;
 
-    public BarreDeVie(double largeur, double hauteur) {
+    public VueBarreDeVie(double largeur, double hauteur) {
         this.barreVieTotale = new Rectangle(largeur, hauteur);
         this.barreVieTotale.setFill(Color.GRAY);
         this.barreVieActuelle = new Rectangle(largeur, hauteur);
@@ -33,4 +34,6 @@ public class BarreDeVie extends Pane {
     public void setFill(Color color) {
         this.barreVieActuelle.setFill(color);
     }
+
+
 }

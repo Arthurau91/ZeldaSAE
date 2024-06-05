@@ -18,7 +18,7 @@ public class ObservateurItems implements ListChangeListener<Item> {
     public void onChanged(Change<? extends Item> change) {
         while (change.next()) {
             for (Item i : change.getAddedSubList()) {
-                this.vueInv.ajouterItem(i);
+                this.vueInv.ajouterItemVue(i);
             }
 //            for (Item i : change.getRemoved()) {
 //                méthode pour retirer un item côté vue (si besoin)

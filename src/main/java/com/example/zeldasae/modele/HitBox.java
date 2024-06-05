@@ -2,12 +2,17 @@ package com.example.zeldasae.modele;
 
 import javafx.beans.property.IntegerProperty;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 public class HitBox {
 
     private int large;
     private int haut;
     private IntegerProperty x;
     private IntegerProperty y;
+    private boolean estPivote;
     private static final int[] dLigne = {0, 1, 0, 0};
     private static final int[] dColonne = {0, 0, 0, 1};
     private static final int[] decalage = {-1, 1, -1, 1};
@@ -17,6 +22,7 @@ public class HitBox {
         this.haut = h;
         this.x = x;
         this.y = y;
+        this.estPivote = false;
     }
 
     public int getY() {
@@ -24,6 +30,24 @@ public class HitBox {
     }
     public int getX() {
         return x.getValue();
+    }
+    public void setX(int x) {
+        this.x.set(x);
+    }
+    public void setY(int y) {
+        this.y.set(y);
+    }
+    public int getLarge() {
+        return large;
+    }
+    public int getHaut() {
+        return haut;
+    }
+    public IntegerProperty xProperty() {
+        return x;
+    }
+    public IntegerProperty yProperty() {
+        return y;
     }
 
     public boolean checkColision(String direction, int rows, Terrain terrain){
@@ -76,7 +100,69 @@ public class HitBox {
         return true;
     }
 
-    public boolean estDedans(int x, int y){
+    public boolean contient(int x, int y){
         return getX() < x && getX()+large > x && getY() < y && getY()+haut > y;
     }
+
+    public boolean estDedansEgal(int x, int y){
+        return getX() <= x && getX()+large >= x && getY() <= y && getY()+haut >= y;
+    }
+
+    public boolean estDedansHitbox(HitBox h) {
+//        System.out.println("largeur : " + this.large + " hauteur : " + this.haut);
+        boolean check = (this.checkUp(h) || this.checkDown(h) || this.checkLeft(h) || this.checkRight(h));
+        return(check);
+    }
+
+    public boolean checkUp(HitBox h) {
+        for (int i = 0; i < this.large; i++) {
+            if (h.estDedansEgal(this.getX()+i, this.getY())) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public boolean checkDown(HitBox h) {
+        for (int i = 0; i < this.large; i++) {
+            if (h.estDedansEgal(this.getX()+i, this.getY()+this.haut)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public boolean checkLeft(HitBox h) {
+        for (int i = 0; i < this.haut; i++) {
+            if (h.estDedansEgal(this.getX(), this.getY()+i)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public boolean checkRight(HitBox h) {
+        for (int i = 0; i < this.haut; i++) {
+            if (h.estDedansEgal(this.getX()+this.large, this.getY()+i)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public void pivote() {
+        int pivot;
+        pivot = this.large;
+        this.large = this.haut;
+        this.haut = pivot;
+        if (this.estPivote) {
+            this.estPivote = false;
+        }
+        else {
+            this.estPivote = true;
+        }
+    }
+
+
+
 }
