@@ -4,6 +4,8 @@ import com.example.zeldasae.modele.Coffre;
 import com.example.zeldasae.modele.Item;
 import com.example.zeldasae.modele.Joueur;
 import javafx.scene.control.ListView;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Pane;
 
@@ -17,6 +19,15 @@ public class VueCoffre extends VueInterface{
         super(boxCoffre, joueur);
         this.coffre = coffre;
         this.vueInventaire = vueInventaire;
+
+        Image coffreImage = new Image(getClass().getResource("/com/example/zeldasae/assets/gui/chest/chest.png").toExternalForm());
+        ImageView imageView = new ImageView(coffreImage);
+        imageView.setFitWidth(800);
+        imageView.setFitHeight(800);
+        imageView.setPreserveRatio(true);
+
+        //boxCoffre.getChildren().add(imageView);
+
         listView = new ListView<>(coffre.getListeItem());
         listView.setPrefSize(300, 300);
         boxCoffre.getChildren().add(listView);
@@ -38,7 +49,6 @@ public class VueCoffre extends VueInterface{
         this.coffre.setEstOuvert(b);
     }
 
-
     public Coffre getCoffre() {
         return coffre;
     }
@@ -46,5 +56,4 @@ public class VueCoffre extends VueInterface{
     public VueInventaire getVueInventaire() {
         return vueInventaire;
     }
-
 }

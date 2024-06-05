@@ -1,13 +1,10 @@
 package com.example.zeldasae.Vue;
 
-import com.example.zeldasae.controller.ClickHandlerInventaire;
 import com.example.zeldasae.modele.Item;
 import com.example.zeldasae.modele.Joueur;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
-
-import javafx.scene.input.KeyEvent;
 
 public class VueInventaire extends VueInterface{
 

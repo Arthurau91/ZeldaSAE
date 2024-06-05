@@ -49,17 +49,17 @@ public class KeyHandler implements EventHandler<KeyEvent> {
             direction += "right";
 
         switch (keyEvent.getCode()) {
-            case I: // inventaire
-                Coffre coffreOuvert = this.map.coffreOuvert();
-                if (coffreOuvert == null)
+            case I: // inventaires
+                if (this.map.coffreOuvert() == null)
                     this.vueInv.toggleAffichageInterface(keyEvent);
                 break;
             case E: // interagir
                 for (VueCoffre coffre : gestionnaireCoffre.getVueCoffreList()) {
-                    if ((this.map.getJoueur().peutOuvrirUnCoffre(this.map, 1)) || coffre.getCoffre().isEstOuvert())
+                    if ((this.map.getJoueur().peutOuvrirUnCoffre(this.map, 1)) || coffre.getCoffre().isEstOuvert()) {
                         coffre.toggleAffichageInterface(keyEvent);
+                        break;
+                    }
                 }
-
                 break;
             case F: // à retirer sert pour les tests
                 for (VueCoffre coffre : gestionnaireCoffre.getVueCoffreList())
