@@ -1,11 +1,10 @@
 package com.example.zeldasae.controller;
 
 import com.example.zeldasae.Algo.BFS;
-import com.example.zeldasae.Vue.VueCoffre;
 import com.example.zeldasae.Vue.VueInventaire;
 import com.example.zeldasae.Vue.VueTerrain;
-import com.example.zeldasae.modele.Coffre;
 import com.example.zeldasae.modele.Ennemi;
+import com.example.zeldasae.modele.GestionnaireCoffre;
 import com.example.zeldasae.modele.Joueur;
 import com.example.zeldasae.modele.Monde;
 import javafx.animation.KeyFrame;
@@ -34,6 +33,7 @@ public class Controller implements Initializable {
     private Monde map;
     private Timeline gameLoop;
     private int temps;
+    private GestionnaireCoffre gestionnaireCoffre;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -44,7 +44,7 @@ public class Controller implements Initializable {
         this.mapPane.setPrefWidth(this.mapPane.getPrefTileWidth()*this.mapPane.getPrefColumns());
         this.mapPane.setPrefHeight(this.mapPane.getPrefTileHeight()*this.mapPane.getPrefRows());
 
-        BFS bfs =new BFS();
+        BFS bfs = new BFS();
         this.map = new Monde(new Joueur(600, 500, (int)mapPane.getPrefTileWidth(), (int)mapPane.getPrefTileHeight(), mapPane.getPrefColumns(), mapPane.getPrefRows(), paneEntites), bfs);
         Ennemi ennemi = new Ennemi(120, 120, (int)mapPane.getPrefTileWidth(), (int)mapPane.getPrefTileHeight(), mapPane.getPrefColumns(),  mapPane.getPrefRows(), bfs, paneEntites);
         this.map.addEnnemi(ennemi);
@@ -59,16 +59,10 @@ public class Controller implements Initializable {
         this.map.getJoueur().xProperty().addListener(observateurMouvement);
         this.map.getJoueur().yProperty().addListener(observateurMouvement);
 
-        Coffre coffre = new Coffre(0, 30);
-        VueCoffre vueCoffre = new VueCoffre(this.boxCoffre, this.map.getJoueur(), coffre, vueInv);
-        this.map.addCoffre(coffre);
+        gestionnaireCoffre = new GestionnaireCoffre(this.map, this.boxCoffre, vueInv);
+        gestionnaireCoffre.creerCoffreDansMonde();
 
-        Coffre coffre1 = new Coffre(30, 30);
-        VueCoffre vueCoffre1 = new VueCoffre(this.boxCoffre, this.map.getJoueur(), coffre1, vueInv);
-        this.map.addCoffre(coffre1);
-
-
-        KeyHandler keyHandler = new KeyHandler(this.map, vueInv, vueCoffre);
+        KeyHandler keyHandler = new KeyHandler(this.map, vueInv, gestionnaireCoffre);
         paneEntites.addEventHandler(KeyEvent.KEY_PRESSED, keyHandler);
         paneEntites.addEventHandler(KeyEvent.KEY_RELEASED, keyHandler);
         initAnimation();

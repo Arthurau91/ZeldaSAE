@@ -70,4 +70,14 @@ public class Monde {
     public List<Coffre> getCoffres() {
         return coffres;
     }
+
+    public Coffre coffreOuvert() {
+        for (Coffre coffre : this.coffres) {
+            if (coffre.isEstOuvert())
+                return coffre;
+        }
+
+        return null;
+    }
+
 }
