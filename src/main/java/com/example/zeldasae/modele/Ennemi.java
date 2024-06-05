@@ -12,6 +12,10 @@ public abstract class Ennemi extends Entite{
         this.bfs = bfs;
     }
 
+    public BFS getBfs() {
+        return bfs;
+    }
+
     /**
      * Méthode qui gère le déplacement d'un Ennemi sur la map en se reposant sur la méthode déplacement() d'Entite
      * @param m le monde contenant le terrain, le joueur et la liste d'ennemis qui est passé en paramètre à la méthode
@@ -55,7 +59,6 @@ public abstract class Ennemi extends Entite{
         }while (width <= this.getWidth() && width2 >= 0);
 
         this.getVueEntite().changeImage();
-        System.out.println(this.getDirection());
         return deplacement;
     }
 

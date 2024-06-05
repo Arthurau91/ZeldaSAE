@@ -129,4 +129,9 @@ public class BFS {
             return new int[] {chemin.get(chemin.size()-2).getX(), chemin.get(chemin.size()-2).getY()};
         return null;
     }
+
+    public int distanceMouvement(int[] src){
+        List<Point> chemin = constructChemin(new Point(src[0], src[1]));
+        return chemin.size();
+    }
 }
