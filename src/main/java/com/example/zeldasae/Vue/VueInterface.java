@@ -34,4 +34,12 @@ public abstract class VueInterface {
     public void setAfficheInterface(boolean b) {
         this.afficheInterface = b;
     }
+
+    public Joueur getJoueur() {
+        return joueur;
+    }
+
+    public Pane getPaneInterface() {
+        return paneInterface;
+    }
 }

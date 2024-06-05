@@ -7,10 +7,14 @@ public class Coffre {
 
     private ObservableList<Item> listeItem;
     private boolean estOuvert;
+    private int x;
+    private int y;
 
-    public Coffre() {
+    public Coffre(int x, int y) {
         this.listeItem = FXCollections.observableArrayList();
         this.estOuvert = false;
+        this.x = x;
+        this.y = y;
     }
 
     public ObservableList<Item> getListeItem() {
@@ -18,20 +22,28 @@ public class Coffre {
     }
 
     public void ajouterItem(Item item) {
-        listeItem.add(item);
+        if (listeItem.size() < 8) {
+            listeItem.add(item);
+        }
     }
 
     public void retirerItem(Item item) {
         listeItem.remove(item);
     }
 
-    public void setEstOuvert(boolean b) {
-        this.estOuvert = b;
+    public void setEstOuvert(boolean estOuvert) {
+        this.estOuvert = estOuvert;
     }
 
-    public boolean getEstOuvert() {
-        return this.estOuvert;
+    public boolean isEstOuvert() {
+        return estOuvert;
     }
 
+    public int getX() {
+        return x;
+    }
 
+    public int getY() {
+        return y;
+    }
 }

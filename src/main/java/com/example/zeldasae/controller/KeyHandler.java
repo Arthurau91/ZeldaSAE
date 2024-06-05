@@ -1,16 +1,15 @@
 package com.example.zeldasae.controller;
+
 import com.example.zeldasae.Vue.VueCoffre;
 import com.example.zeldasae.Vue.VueInventaire;
-import com.example.zeldasae.modele.Arme;
-import com.example.zeldasae.modele.Armure;
-import com.example.zeldasae.modele.Item;
-import com.example.zeldasae.modele.Monde;
+import com.example.zeldasae.modele.*;
 import javafx.event.EventHandler;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 
 import java.util.HashSet;
 import java.util.Set;
+
 import static javafx.scene.input.KeyCode.*;
 
 public class KeyHandler implements EventHandler<KeyEvent> {
@@ -36,6 +35,9 @@ public class KeyHandler implements EventHandler<KeyEvent> {
     @Override
     public void handle(KeyEvent keyEvent) {
 
+        System.out.println("X : " + this.map.getJoueur().getX());
+        System.out.println("Y : " + this.map.getJoueur().getY());
+
         if (keyEvent.getEventType() == KeyEvent.KEY_PRESSED)
             this.pressedKeys.add(keyEvent.getCode());
         else if (keyEvent.getEventType() == KeyEvent.KEY_RELEASED)
@@ -54,7 +56,7 @@ public class KeyHandler implements EventHandler<KeyEvent> {
 
         switch (keyEvent.getCode()) {
             case E:
-                if (!this.vueCoffre.getCoffre().getEstOuvert())
+                if (!this.vueCoffre.getCoffre().isEstOuvert())
                     this.vueInv.toggleAffichageInterface(keyEvent);
                 break;
             case X: //à retirer, sert uniquement pour les tests
@@ -67,10 +69,16 @@ public class KeyHandler implements EventHandler<KeyEvent> {
                 System.out.println("Arme : " + this.map.getJoueur().getInv().getArmeActuelle().getNom() + " Armure : " + this.map.getJoueur().getInv().getArmureActuelle().getNom());
                 break;
             case I:
-                this.vueCoffre.toggleAffichageInterface(keyEvent);
+                if ((this.map.getJoueur().peutOuvrirUnCoffre(this.map, 1)) || this.vueCoffre.getCoffre().isEstOuvert())
+                    this.vueCoffre.toggleAffichageInterface(keyEvent);
+                break;
+            case F: // à retirer sert pour les tests
+                this.vueCoffre.getCoffre().ajouterItem(itemTest);
                 break;
 
         }
+
+
 
         this.map.getJoueur().setDirection(direction);
     }

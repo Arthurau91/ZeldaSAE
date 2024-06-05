@@ -3,6 +3,7 @@ package com.example.zeldasae.modele;
 import com.example.zeldasae.Algo.BFS;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class Monde {
 
@@ -10,6 +11,7 @@ public class Monde {
     private Joueur joueur;
     private ArrayList<Ennemi> listeEnnemis;
     private BFS bfs;
+    private List<Coffre> coffres;
 
 
     /**
@@ -21,6 +23,7 @@ public class Monde {
         this.terrain = new Terrain();
         this.listeEnnemis = new ArrayList<>();
         this.bfs = bfs;
+        this.coffres = new ArrayList<>();
     }
 
     public Terrain getTerrain() {
@@ -58,5 +61,13 @@ public class Monde {
 
     public void setMap(ArrayList<Integer> map) {
         this.terrain.setMap(map);
+    }
+
+    public void addCoffre(Coffre coffre) {
+        this.coffres.add(coffre);
+    }
+
+    public List<Coffre> getCoffres() {
+        return coffres;
     }
 }

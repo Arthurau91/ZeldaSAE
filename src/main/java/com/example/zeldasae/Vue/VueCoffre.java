@@ -18,6 +18,7 @@ public class VueCoffre extends VueInterface{
         this.coffre = coffre;
         this.vueInventaire = vueInventaire;
         listView = new ListView<>(coffre.getListeItem());
+        listView.setPrefSize(300, 300);
         boxCoffre.getChildren().add(listView);
     }
 
@@ -37,7 +38,13 @@ public class VueCoffre extends VueInterface{
         this.coffre.setEstOuvert(b);
     }
 
+
     public Coffre getCoffre() {
         return coffre;
     }
+
+    public VueInventaire getVueInventaire() {
+        return vueInventaire;
+    }
+
 }

@@ -21,4 +21,13 @@ public class Joueur extends Entite{
         this.getVueEntite().changeImage();
         return deplacement;
     }
+
+    public boolean peutOuvrirUnCoffre(Monde monde, int tailleBloc) {
+        for (Coffre coffre : monde.getCoffres()) {
+            if (this.getHitBox().coffreProximite(coffre, tailleBloc)) {
+                return true;
+            }
+        }
+        return false;
+    }
 }

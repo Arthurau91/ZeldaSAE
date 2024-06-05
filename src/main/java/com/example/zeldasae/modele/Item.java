@@ -14,6 +14,10 @@ public abstract class Item {
         this.posSlotItems = posSlotItems;
     }
 
+    public Item(){
+
+    }
+
     public int getPosSlotItems() {
         return this.posSlotItems;
     }

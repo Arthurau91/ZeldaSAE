@@ -2,7 +2,6 @@ package com.example.zeldasae.controller;
 
 import com.example.zeldasae.Algo.BFS;
 import com.example.zeldasae.Vue.VueCoffre;
-import com.example.zeldasae.Vue.VueEntite;
 import com.example.zeldasae.Vue.VueInventaire;
 import com.example.zeldasae.Vue.VueTerrain;
 import com.example.zeldasae.modele.Coffre;
@@ -13,7 +12,6 @@ import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.image.Image;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
@@ -21,7 +19,6 @@ import javafx.scene.layout.TilePane;
 import javafx.util.Duration;
 
 import java.net.URL;
-import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 public class Controller implements Initializable {
@@ -37,13 +34,11 @@ public class Controller implements Initializable {
     private Monde map;
     private Timeline gameLoop;
     private int temps;
-    private Coffre coffre;
-    private VueCoffre vueCoffre;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
-        LoadJSON loadJSON = new LoadJSON("src/main/resources/com/example/zeldasae/assets/map.json");
+        LoadJSON loadJSON = new LoadJSON("src/main/resources/com/example/zeldasae/assets/mapCoffre.json");
         this.mapPane.setPrefColumns(loadJSON.getPrefColumns());
         this.mapPane.setPrefRows(loadJSON.getPrefRows());
         this.mapPane.setPrefWidth(this.mapPane.getPrefTileWidth()*this.mapPane.getPrefColumns());
@@ -55,8 +50,7 @@ public class Controller implements Initializable {
         this.map.addEnnemi(ennemi);
         new VueTerrain(this.map, this.mapPane, loadJSON.getMap());
         VueInventaire vueInv = new VueInventaire(this.boxInventaire, this.map.getJoueur());
-        coffre = new Coffre();
-        vueCoffre = new VueCoffre(this.boxCoffre, this.map.getJoueur(), coffre, vueInv);
+
         this.map.getJoueur().getInv().getListeItems().addListener(new ObservateurItems(vueInv, this.paneEntites));
         bfs.lanceAlgo(map, mapPane.getPrefColumns(), mapPane.getPrefRows());
 
@@ -64,6 +58,15 @@ public class Controller implements Initializable {
 
         this.map.getJoueur().xProperty().addListener(observateurMouvement);
         this.map.getJoueur().yProperty().addListener(observateurMouvement);
+
+        Coffre coffre = new Coffre(0, 30);
+        VueCoffre vueCoffre = new VueCoffre(this.boxCoffre, this.map.getJoueur(), coffre, vueInv);
+        this.map.addCoffre(coffre);
+
+        Coffre coffre1 = new Coffre(30, 30);
+        VueCoffre vueCoffre1 = new VueCoffre(this.boxCoffre, this.map.getJoueur(), coffre1, vueInv);
+        this.map.addCoffre(coffre1);
+
 
         KeyHandler keyHandler = new KeyHandler(this.map, vueInv, vueCoffre);
         paneEntites.addEventHandler(KeyEvent.KEY_PRESSED, keyHandler);
@@ -85,8 +88,9 @@ public class Controller implements Initializable {
                 (ev ->{
                     this.map.getJoueur().deplacement(map);
 
-                    if (temps%2==0)
-                        this.map.deplacementEnnemi();
+                    //if (temps%2==0)
+                       // this.map.deplacementEnnemi();
+
                     temps++;
                 })
         );

@@ -79,4 +79,12 @@ public class HitBox {
     public boolean contient(int x, int y){
         return getX() < x && getX()+large > x && getY() < y && getY()+haut > y;
     }
+
+    public boolean coffreProximite(Coffre coffre, int tailleBloc) {
+        int positionX = Math.abs(this.getX() - coffre.getX());
+        int positionY = Math.abs(this.getY() - coffre.getY());
+        return (positionX <= tailleBloc && positionY == 0) || (positionY <= tailleBloc && positionX == 0);
+    }
+
+
 }
