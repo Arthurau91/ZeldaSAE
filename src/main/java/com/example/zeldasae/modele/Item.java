@@ -4,6 +4,7 @@ public abstract class Item {
 
     private String nom;
     private int posSlotItems;
+    private int quantite;
 
     public Item(String nom, int posSlotItems){
         this.nom = nom;

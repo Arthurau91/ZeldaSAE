@@ -1,5 +1,6 @@
 package com.example.zeldasae.controller;
 import com.example.zeldasae.Vue.VueArme;
+import com.example.zeldasae.Vue.VueCollectible;
 import com.example.zeldasae.Vue.VueInventaire;
 import com.example.zeldasae.modele.*;
 import com.example.zeldasae.modele.armes.Arc;
@@ -17,13 +18,15 @@ public class KeyHandler implements EventHandler<KeyEvent> {
     private Monde map;
     private VueInventaire vueInv;
     private VueArme vueArme;
+    private VueCollectible vueCollectible;
     private final Set<KeyCode> pressedKeys;
 
-    public KeyHandler(Monde map, VueInventaire vueInv, VueArme vueArme) {
+    public KeyHandler(Monde map, VueInventaire vueInv, VueArme vueArme, VueCollectible vueCollectible) {
         this.map = map;
         this.vueInv = vueInv;
         this.vueArme = vueArme;
         this.pressedKeys = new HashSet<>();
+        this.vueCollectible = vueCollectible;
     }
 
     //à retirer, sert uniquement pour les tests
@@ -31,7 +34,7 @@ public class KeyHandler implements EventHandler<KeyEvent> {
     private Item itemTest2 = new Arme("Arme 2",2, 5, 2, 100, 100, 0, 0);
     private Item itemTest3 = new Armure(500,"Armure 3", 6);
     private Item itemTest4 = new Armure(500,"Armure 4", 19);
-    private Collectible collectibleTest = new Collectible(0, 10, "CollectibleTest", 5);
+    private Collectible collectibleTest = new Collectible(0, 10, "CollectibleTest", 5, 10, 10, 50, 50);
     private Arc arcTest = new Arc(10, 10, 10, 40);
 
     @Override
@@ -64,12 +67,16 @@ public class KeyHandler implements EventHandler<KeyEvent> {
                     this.map.getJoueur().getInv().ajouterItem(itemTest2);
                     this.map.getJoueur().getInv().ajouterItem(itemTest3);
                     this.map.getJoueur().getInv().ajouterItem(itemTest4);
-                    this.map.getJoueur().getInv().ajouterItem(collectibleTest);
+//                    this.map.getJoueur().getInv().ajouterItem(collectibleTest);
+                    this.map.ajouterCollectible(collectibleTest);
                     break;
                 case A:
-                        collectibleTest.ajouter(1);
-                        System.out.println("quantite de CollectibleTest : " + collectibleTest.getQuantite());
-                        this.map.getJoueur().getInv().changerArme(arcTest);
+                    this.map.getJoueur().getInv().changerArme(arcTest);
+                    for(int i = 0; i < this.map.getJoueur().getInv().getListeItems().size(); i++) {
+                        if (this.map.getJoueur().getInv().getListeItems().get(i) instanceof Collectible) {
+                            System.out.println(((Collectible) this.map.getJoueur().getInv().getListeItems().get(i)).getQuantite() + " " + ((Collectible) this.map.getJoueur().getInv().getListeItems().get(i)).getType());
+                        }
+                    }
                     break;
                 case LEFT, RIGHT, UP, DOWN:
                     if (this.vueArme.isPeutDonnerCoup()) {

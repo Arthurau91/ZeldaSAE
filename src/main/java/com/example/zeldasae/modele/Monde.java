@@ -13,6 +13,7 @@ public class Monde {
     private Joueur joueur;
     private ArrayList<Ennemi> listeEnnemis;
     private ObservableList<Projectile> listeProjectiles;
+    private ObservableList<Collectible> listeCollectibles;
     private BFS bfs;
 
     /**
@@ -23,8 +24,9 @@ public class Monde {
         this.joueur = joueur;
         this.terrain = new Terrain(rows);
         this.listeEnnemis = new ArrayList<>();
-        this.bfs = bfs;
         this.listeProjectiles = FXCollections.observableArrayList();
+        this.listeCollectibles = FXCollections.observableArrayList();
+        this.bfs = bfs;
     }
 
     public Terrain getTerrain() {
@@ -68,6 +70,10 @@ public class Monde {
         return this.listeProjectiles;
     }
 
+    public ObservableList<Collectible> getListeCollectibles() {
+        return listeCollectibles;
+    }
+
     public void ajouterProjectile(Projectile p) {
         this.listeProjectiles.add(p);
     }
@@ -85,5 +91,9 @@ public class Monde {
                 i--;
             }
         }
+    }
+
+    public void ajouterCollectible(Collectible c) {
+        this.listeCollectibles.add(c);
     }
 }

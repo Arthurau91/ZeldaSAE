@@ -1,6 +1,7 @@
 package com.example.zeldasae.Vue;
 
 import com.example.zeldasae.controller.ClickHandlerInventaire;
+import com.example.zeldasae.modele.Collectible;
 import com.example.zeldasae.modele.Item;
 import com.example.zeldasae.modele.Joueur;
 import javafx.scene.image.Image;
@@ -56,8 +57,12 @@ public class VueInventaire {
     }
 
     public Image switchImageItem(Item i) {
-        Image img = new Image("file:src/main/resources/com/example/zeldasae/assets/" + i.getNom() + ".png");
-        return img;
+        if (i instanceof Collectible) {
+            return new Image("file:src/main/resources/com/example/zeldasae/assets/" + ((Collectible) i).getType() + ".png");
+        }
+        else {
+            return new Image("file:src/main/resources/com/example/zeldasae/assets/" + i.getNom() + ".png");
+        }
     }
 
 }
