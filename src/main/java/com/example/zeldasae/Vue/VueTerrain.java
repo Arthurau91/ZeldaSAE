@@ -15,13 +15,11 @@ public class VueTerrain {
     private Monde map;
     private TilePane mapPane;
     private Image[] tiles;
-    private ArrayList<Integer> m1;
     private ArrayList<Integer> m2;
 
     public VueTerrain(Monde map, TilePane mapPane ,ArrayList<Integer> m1, ArrayList<Integer> m2) {
         this.map = map;
         this.mapPane = mapPane;
-        this.m1 = m1;
         this.m2 = m2;
 
         Image tileset = new Image("file:src/main/resources/com/example/zeldasae/assets/tiles.png");
@@ -41,6 +39,7 @@ public class VueTerrain {
     }
 
     public void afficherMap() {
+        ArrayList<Integer> m1 = map.getTerrain().getMap();
         this.map.setMap(m1);
 
         for (int i = 0; i < m1.size(); i++) {
@@ -64,6 +63,8 @@ public class VueTerrain {
     }
 
     public void deplaceBloc(){
+
+        ArrayList<Integer> m1 = map.getTerrain().getMap();
         int coo = (this.map.getJoueur().getX()/30) + ((this.map.getJoueur().getY()/30)*this.mapPane.getPrefRows());
         int coobloc = 0;
         int coovide = 0;
@@ -84,12 +85,12 @@ public class VueTerrain {
         }
         if (this.map.getTerrain().poussable(coobloc)){
             if (this.map.getTerrain().vide(coovide)){
-                StackPane vide = new StackPane(new ImageView(tiles[m1.get(coovide)-1]));
-                StackPane bloc = new StackPane(new ImageView(tiles[m1.get(coobloc)-1]));
+                StackPane vide = new StackPane(new ImageView(tiles[m2.get(coovide)-1]));
+                StackPane bloc = new StackPane(new ImageView(tiles[m2.get(coobloc)-1]), new ImageView(tiles[m1.get(coobloc)-1]));
                 mapPane.getChildren().set(coobloc, vide);
                 mapPane.getChildren().set(coovide, bloc);
                 this.map.getTerrain().setCoo(coovide, m1.get(coobloc));
-                this.map.getTerrain().setCoo(coobloc, 57);
+                this.map.getTerrain().setCoo(coobloc, 0);
             }
         }
     }

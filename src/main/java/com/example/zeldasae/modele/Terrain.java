@@ -16,7 +16,7 @@ public class Terrain {
 
     public boolean poussable(int coo){
         if (coo < map.size() && coo >=0) {
-            int[] casesPoussables = {1152};
+            int[] casesPoussables = {1118};
             for (int i = 0; i < casesPoussables.length; i++) {
                 if (this.map.get(coo) == casesPoussables[i])
                     return true;
