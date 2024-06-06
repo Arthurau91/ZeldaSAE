@@ -29,4 +29,10 @@ public abstract class Item {
     public void setPosSlotItems(int posSlotItems) {
         this.posSlotItems = posSlotItems;
     }
+
+
+    @Override
+    public String toString() {
+        return getNom();
+    }
 }

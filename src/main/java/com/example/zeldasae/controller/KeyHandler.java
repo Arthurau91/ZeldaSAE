@@ -47,6 +47,9 @@ public class KeyHandler implements EventHandler<KeyEvent> {
             direction += "left";
         if (pressedKeys.contains(D))
             direction += "right";
+        if (pressedKeys.contains(F)) {
+            System.out.println(gestionnaireCoffre.getVueCoffreList().size());
+        }
 
         switch (keyEvent.getCode()) {
             case I: // inventaires
@@ -60,10 +63,6 @@ public class KeyHandler implements EventHandler<KeyEvent> {
                         break;
                     }
                 }
-                break;
-            case F: // à retirer sert pour les tests
-                for (VueCoffre coffre : gestionnaireCoffre.getVueCoffreList())
-                    coffre.getCoffre().ajouterItem(itemTest);
                 break;
 
         }

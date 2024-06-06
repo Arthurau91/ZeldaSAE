@@ -20,17 +20,11 @@ public class VueCoffre extends VueInterface{
         this.coffre = coffre;
         this.vueInventaire = vueInventaire;
 
-        Image coffreImage = new Image(getClass().getResource("/com/example/zeldasae/assets/gui/chest/chest.png").toExternalForm());
-        ImageView imageView = new ImageView(coffreImage);
-        imageView.setFitWidth(800);
-        imageView.setFitHeight(800);
-        imageView.setPreserveRatio(true);
-
-        //boxCoffre.getChildren().add(imageView);
-
-        listView = new ListView<>(coffre.getListeItem());
+        listView = new ListView<>();
         listView.setPrefSize(300, 300);
+
         boxCoffre.getChildren().add(listView);
+
     }
 
     public void toggleAffichageInterface(KeyEvent keyEvent) {

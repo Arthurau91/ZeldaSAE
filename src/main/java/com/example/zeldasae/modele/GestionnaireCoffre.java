@@ -23,12 +23,12 @@ public class GestionnaireCoffre {
     }
 
     public void creerCoffreDansMonde() {
-        VueCoffre coffre = creerVueCoffre(0, 30);
-        VueCoffre coffre1 = creerVueCoffre(30, 30);
+        VueCoffre coffre = creerVueCoffre(0, 30, 0);
+        VueCoffre coffre1 = creerVueCoffre(30, 30, 1);
     }
 
-    public VueCoffre creerVueCoffre(int x, int y) {
-        Coffre coffre = new Coffre(x, y);
+    public VueCoffre creerVueCoffre(int x, int y, int id) {
+        Coffre coffre = new Coffre(x, y, id);
         VueCoffre vueCoffre = new VueCoffre(this.pane, this.monde.getJoueur(), coffre, vueInventaire);
         this.monde.addCoffre(coffre);
         this.vueCoffreList.add(vueCoffre);
