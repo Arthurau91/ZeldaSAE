@@ -49,16 +49,16 @@ public class VueTerrain {
             imageView.setId(""+i);
 
             int tileIndex = m1.get(i);
-//            int tileIndex2 = m2.get(i);
+            int tileIndex2 = m2.get(i);
             if (tileIndex >= 1 && tileIndex <= tiles.length) // Assurez-vous que tileIndex est dans les limites
                 imageView.setImage(tiles[tileIndex - 1]);
-//            if (tileIndex2 >= 1 && tileIndex2 <= tiles.length) {
-//                imageView2 = new ImageView();
-//                imageView2.setId(""+i);
-//                imageView2.setImage(tiles[tileIndex2 - 1]);
-//            }
-            if (imageView2 != null)
-                this.mapPane.getChildren().add(new StackPane(imageView, imageView2));
+            if (tileIndex2 >= 1 && tileIndex2 <= tiles.length) {
+                imageView2 = new ImageView();
+                imageView2.setId(""+i);
+                imageView2.setImage(tiles[tileIndex2 - 1]);
+            }
+            if (tileIndex2 != 0)
+                this.mapPane.getChildren().add(new StackPane(imageView2, imageView));
             else this.mapPane.getChildren().add(new StackPane(imageView));
         }
     }

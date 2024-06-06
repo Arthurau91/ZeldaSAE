@@ -16,7 +16,6 @@ public class LoadJSON {
     private int PrefColumns;
     private int PrefRows;
 
-
     public LoadJSON(String file){
         loadMap(file);
     }
@@ -30,24 +29,24 @@ public class LoadJSON {
             JSONObject jsonObject = (JSONObject) parser.parse(reader);
             JSONArray layersArray = (JSONArray) jsonObject.get("layers");
             JSONObject firstLayer = (JSONObject) layersArray.get(0);
-//            JSONObject firstLayer2 = (JSONObject) layersArray.get(1);
+            JSONObject firstLayer2 = (JSONObject) layersArray.get(1);
             JSONArray dataArray = (JSONArray) firstLayer.get("data");
-//            JSONArray dataArray2 = (JSONArray) firstLayer2.get("data");
+            JSONArray dataArray2 = (JSONArray) firstLayer2.get("data");
             this.PrefColumns = (int) (long) firstLayer.get("height");
             this.PrefRows = (int) (long) firstLayer.get("width");
 
             for (Object data : dataArray) {
                 elementsMap.add(Math.toIntExact((Long) data));
             }
-//            for (Object data : dataArray2) {
-//                elementsMap2.add(Math.toIntExact((Long) data));
-//            }
+            for (Object data : dataArray2) {
+                elementsMap2.add(Math.toIntExact((Long) data));
+            }
         } catch (IOException | ParseException e) {
             e.printStackTrace();
         }
 
-        this.map = elementsMap;
-        this.map2 = elementsMap2;
+        this.map = elementsMap2;
+        this.map2 = elementsMap;
     }
 
     public ArrayList<Integer> getMap() {
