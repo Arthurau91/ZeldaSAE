@@ -55,7 +55,6 @@ public abstract class Entite {
         }
 
         this.pv.addListener(new ObservateurVie(this));
-        this.vueEntite = new VueEntite(this, paneEntite);
     }
 
     public Entite(int x, int y, String id, int width, int height, int column, int rows, Pane paneEntite) {
@@ -137,6 +136,9 @@ public abstract class Entite {
     public VueEntite getVueEntite() {
         return vueEntite;
     }
+    protected void setVueEntite(VueEntite vueEntite) {
+        this.vueEntite = vueEntite;
+    }
 
     public void perdreVie(int degats) {
         setPv(this.getPv() - degats);
@@ -144,7 +146,6 @@ public abstract class Entite {
             setPv(0);
         }
     }
-
 
     public void attaqueEntite(Entite entite) {
         if (verifVivant()) {

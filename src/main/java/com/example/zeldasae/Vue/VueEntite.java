@@ -7,32 +7,23 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 
-public class VueEntite {
+public abstract class VueEntite {
 
     private Entite entite;
     private Pane paneEntites;
     private String directionImage;
-
     private ImageView imgEntite;
 
     public VueEntite(Entite entite, Pane paneEntites) {
         this.directionImage = "right";
         this.entite = entite;
         this.paneEntites = paneEntites;
-        creerImageEntite();
     }
 
     public void creerImageEntite() {
         imgEntite = new ImageView();
         Image image;
-        if (this.entite instanceof Joueur) {
-            image = new Image("file:src/main/resources/com/example/zeldasae/assets/chevalier/chevalierdroite.png");
-        } else if (this.entite instanceof Pursuer){
-            image = new Image("file:src/main/resources/com/example/zeldasae/assets/monstre/monstredroite.png");
-        }
-        else {
-            image = new Image("file:src/main/resources/com/example/zeldasae/assets/boss.png");
-        }
+        image = new Image(this.getImageDroite());
         imgEntite.setImage(image);
 
         imgEntite.setId(entite.getId());
@@ -43,36 +34,29 @@ public class VueEntite {
     }
 
     public void changeImage(){
-        if (this.entite instanceof Joueur) {
-            if (entite.getDirection().contains("up")) {
-                imgEntite.setImage(new Image("file:src/main/resources/com/example/zeldasae/assets/chevalier/chevalierhaut.png"));
-                directionImage = "up";
-            }
-            if (entite.getDirection().contains("down")) {
-                imgEntite.setImage(new Image("file:src/main/resources/com/example/zeldasae/assets/chevalier/chevalierbas.png"));
-                directionImage = "down";
-            }
-            if (entite.getDirection().contains("right")) {
-                imgEntite.setImage(new Image("file:src/main/resources/com/example/zeldasae/assets/chevalier/chevalierdroite.png"));
-                directionImage = "right";
-            }
-            if (entite.getDirection().contains("left")){
-                imgEntite.setImage(new Image("file:src/main/resources/com/example/zeldasae/assets/chevalier/chevaliergauche.png"));
-                directionImage = "left";
-            }
+        if (entite.getDirection().contains("up")) {
+            imgEntite.setImage(new Image(this.getImageHaut()));
+            directionImage = "up";
         }
-        else if (this.entite instanceof Pursuer){
-            if (entite.getDirection().contains("up"))
-                imgEntite.setImage(new Image("file:src/main/resources/com/example/zeldasae/assets/monstre/monstrebas.png"));
-            if (entite.getDirection().contains("down"))
-                imgEntite.setImage(new Image("file:src/main/resources/com/example/zeldasae/assets/monstre/monstrebas.png"));
-            if (entite.getDirection().contains("right"))
-                imgEntite.setImage(new Image("file:src/main/resources/com/example/zeldasae/assets/monstre/monstredroite.png"));
-            if (entite.getDirection().contains("left"))
-                imgEntite.setImage(new Image("file:src/main/resources/com/example/zeldasae/assets/monstre/monstredroite.png"));
+        if (entite.getDirection().contains("down")) {
+            imgEntite.setImage(new Image(this.getImageBas()));
+            directionImage = "down";
+        }
+        if (entite.getDirection().contains("right")) {
+            imgEntite.setImage(new Image(this.getImageDroite()));
+            directionImage = "right";
+        }
+        if (entite.getDirection().contains("left")){
+            imgEntite.setImage(new Image(this.getImageGauche()));
+            directionImage = "left";
         }
     }
 
+
+    public abstract String getImageBas();
+    public abstract String getImageHaut();
+    public abstract String getImageDroite();
+    public abstract String getImageGauche();
     public String getDirectionImage() {
         return directionImage;
     }
