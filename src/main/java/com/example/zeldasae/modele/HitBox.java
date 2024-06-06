@@ -34,14 +34,14 @@ public class HitBox {
             if (i < 2 && direction.contains(dString[i])){
                 nx += decalage[i];
                 for (int j = 0; j < large; j++){
-                    if(!terrain.testCoo((nx / 30) + ((ny+j)/ 30 * rows)))
+                    if(!terrain.vide((nx / 30) + ((ny+j)/ 30 * rows)))
                         return false;
                 }
             }
             else if (i > 1 && direction.contains(dString[i])){
                 ny += decalage[i];
                 for (int j = 0; j < haut; j++){
-                    if(!terrain.testCoo(((nx+j) / 30) + (ny/ 30 * rows)))
+                    if(!terrain.vide(((nx+j) / 30) + (ny/ 30 * rows)))
                         return false;
                 }
             }

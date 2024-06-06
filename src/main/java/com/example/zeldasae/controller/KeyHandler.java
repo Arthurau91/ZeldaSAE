@@ -1,5 +1,6 @@
 package com.example.zeldasae.controller;
 import com.example.zeldasae.Vue.VueInventaire;
+import com.example.zeldasae.Vue.VueTerrain;
 import com.example.zeldasae.modele.Arme;
 import com.example.zeldasae.modele.Armure;
 import com.example.zeldasae.modele.Item;
@@ -15,13 +16,15 @@ import static javafx.scene.input.KeyCode.*;
 public class KeyHandler implements EventHandler<KeyEvent> {
 
     private Monde map;
+    private VueTerrain vueTerrain;
     private VueInventaire vueInv;
     private final Set<KeyCode> pressedKeys;
 
-    public KeyHandler(Monde map, VueInventaire vueInv) {
+    public KeyHandler(Monde map, VueInventaire vueInv, VueTerrain vueTerrain) {
         this.map = map;
         this.vueInv = vueInv;
         this.pressedKeys = new HashSet<>();
+        this.vueTerrain = vueTerrain;
     }
     private Item itemTest = new Arme(0,0, "Arme 1" ,500, 3); //à retirer, sert uniquement pour les tests
     private Item itemTest2 = new Arme(0,0, "Arme 2",2, 5);
@@ -47,6 +50,10 @@ public class KeyHandler implements EventHandler<KeyEvent> {
             direction += "left";
         if (pressedKeys.contains(D))
             direction += "right";
+        this.map.getJoueur().setDirection(direction);
+
+        if (pressedKeys.contains(SPACE))
+            vueTerrain.deplaceBloc();
 
         switch (keyEvent.getCode()) {
             case E:
@@ -64,8 +71,6 @@ public class KeyHandler implements EventHandler<KeyEvent> {
                 break;
 
         }
-
-        this.map.getJoueur().setDirection(direction);
     }
 
 }

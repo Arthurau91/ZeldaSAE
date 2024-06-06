@@ -61,7 +61,7 @@ public class Controller implements Initializable {
         this.map = new Monde(new Joueur(600, 510, (int)mapPane.getPrefTileWidth(), (int)mapPane.getPrefTileHeight(), mapPane.getPrefColumns(), mapPane.getPrefRows(), paneEntites), bfs);
         this.map.addEnnemi(new Pursuer(120, 120, (int)mapPane.getPrefTileWidth(), (int)mapPane.getPrefTileHeight(), mapPane.getPrefColumns(),  mapPane.getPrefRows(), bfs, paneEntites));
         this.map.addEnnemi(new Boss(740, 900, (int)mapPane.getPrefTileWidth()*3, (int)mapPane.getPrefTileHeight()*3, mapPane.getPrefColumns(),  mapPane.getPrefRows(), bfs, paneEntites));
-        new VueTerrain(this.map, this.mapPane, loadJSON.getMap(), loadJSON.getMap2());
+        VueTerrain vueTerrain = new VueTerrain(this.map, this.mapPane, loadJSON.getMap(), loadJSON.getMap2());
         VueInventaire vueInv = new VueInventaire(this.boxInventaire, this.map.getJoueur());
         this.map.getJoueur().getInv().getListeItems().addListener(new ObservateurItems(vueInv, this.paneEntites));
         bfs.lanceAlgo(map, mapPane.getPrefColumns(), mapPane.getPrefRows());
@@ -71,7 +71,7 @@ public class Controller implements Initializable {
         this.map.getJoueur().xProperty().addListener(observateurMouvement);
         this.map.getJoueur().yProperty().addListener(observateurMouvement);
 
-        KeyHandler keyHandler = new KeyHandler(this.map, vueInv);
+        KeyHandler keyHandler = new KeyHandler(this.map, vueInv, vueTerrain);
         paneEntites.addEventHandler(KeyEvent.KEY_PRESSED, keyHandler);
         paneEntites.addEventHandler(KeyEvent.KEY_RELEASED, keyHandler);
         initAnimation();

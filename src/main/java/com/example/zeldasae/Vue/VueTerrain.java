@@ -14,14 +14,17 @@ public class VueTerrain {
 
     private Monde map;
     private TilePane mapPane;
-    private Image tileset;
     private Image[] tiles;
+    private ArrayList<Integer> m1;
+    private ArrayList<Integer> m2;
 
     public VueTerrain(Monde map, TilePane mapPane ,ArrayList<Integer> m1, ArrayList<Integer> m2) {
         this.map = map;
         this.mapPane = mapPane;
+        this.m1 = m1;
+        this.m2 = m2;
 
-        this.tileset = new Image("file:src/main/resources/com/example/zeldasae/assets/tiles.png");
+        Image tileset = new Image("file:src/main/resources/com/example/zeldasae/assets/tiles.png");
 
         int tileWidth = 32;
         int tileHeight = 32;
@@ -34,10 +37,10 @@ public class VueTerrain {
                 tiles[y * colonne + x] = new WritableImage(tileset.getPixelReader(), (x * tileWidth)+1, (y * tileHeight)+1, tileWidth-2, tileHeight-2);
             }
         }
-        afficherMap(m1, m2);
+        afficherMap();
     }
 
-    public void afficherMap(ArrayList<Integer> m1, ArrayList<Integer> m2) {
+    public void afficherMap() {
         this.map.setMap(m1);
 
         for (int i = 0; i < m1.size(); i++) {
@@ -57,6 +60,37 @@ public class VueTerrain {
             if (imageView2 != null)
                 this.mapPane.getChildren().add(new StackPane(imageView, imageView2));
             else this.mapPane.getChildren().add(new StackPane(imageView));
+        }
+    }
+
+    public void deplaceBloc(){
+        int coo = (this.map.getJoueur().getX()/30) + ((this.map.getJoueur().getY()/30)*this.mapPane.getPrefRows());
+        int coobloc = 0;
+        int coovide = 0;
+        String directionImage = this.map.getJoueur().getVueEntite().getDirectionImage();
+        switch (directionImage){
+            case "up" : coobloc = coo - 100;
+                coovide = coobloc - 100;
+                        break;
+            case "down" : coobloc = coo + 100;
+                coovide = coobloc + 100;
+                break;
+            case "right" : coobloc = coo + 1;
+                coovide = coobloc + 1;
+                break;
+            case "left" : coobloc = coo - 1;
+                coovide = coobloc - 1;
+                break;
+        }
+        if (this.map.getTerrain().poussable(coobloc)){
+            if (this.map.getTerrain().vide(coovide)){
+                StackPane vide = new StackPane(new ImageView(tiles[m1.get(coovide)-1]));
+                StackPane bloc = new StackPane(new ImageView(tiles[m1.get(coobloc)-1]));
+                mapPane.getChildren().set(coobloc, vide);
+                mapPane.getChildren().set(coovide, bloc);
+                this.map.getTerrain().setCoo(coovide, m1.get(coobloc));
+                this.map.getTerrain().setCoo(coobloc, 57);
+            }
         }
     }
 }

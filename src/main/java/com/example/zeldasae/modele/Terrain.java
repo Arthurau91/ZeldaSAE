@@ -13,19 +13,33 @@ public class Terrain {
     public ArrayList<Integer> getMap() {
         return map;
     }
-    public boolean testCoo(int coo){
-        if (coo < map.size() && coo >=0)
-            return vide(coo);
+
+    public boolean poussable(int coo){
+        if (coo < map.size() && coo >=0) {
+            int[] casesPoussables = {1152};
+            for (int i = 0; i < casesPoussables.length; i++) {
+                if (this.map.get(coo) == casesPoussables[i])
+                    return true;
+            }
+        }
         return false;
     }
 
-    private boolean vide(int coo){
-        int[] casesVides = {57, 1152};
-        for (int i = 0; i < casesVides.length; i++){
-            if (this.map.get(coo) == casesVides[i])
-                return true;
+    public boolean vide(int coo){
+        if (coo < map.size() && coo >=0) {
+            int[] casesVides = {57};
+            for (int i = 0; i < casesVides.length; i++) {
+                if (this.map.get(coo) == casesVides[i])
+                    return true;
+            }
         }
         return false;
+    }
+
+    public void setCoo(int coo, int valeur){
+        if (coo < map.size() && coo >=0) {
+            this.map.set(coo, valeur);
+        }
     }
 
     public void setMap(ArrayList<Integer> map) {

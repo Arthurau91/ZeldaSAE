@@ -11,18 +11,17 @@ public class VueEntite {
 
     private Entite entite;
     private Pane paneEntites;
+    private String directionImage;
 
     private ImageView imgEntite;
 
     public VueEntite(Entite entite, Pane paneEntites) {
+        this.directionImage = "right";
         this.entite = entite;
         this.paneEntites = paneEntites;
         creerImageEntite();
     }
 
-    /**
-     * Méthode qui crée un sprite sur le pane pour l'entite
-     */
     public void creerImageEntite() {
         imgEntite = new ImageView();
         Image image;
@@ -45,14 +44,22 @@ public class VueEntite {
 
     public void changeImage(){
         if (this.entite instanceof Joueur) {
-            if (entite.getDirection().contains("up"))
+            if (entite.getDirection().contains("up")) {
                 imgEntite.setImage(new Image("file:src/main/resources/com/example/zeldasae/assets/chevalier/chevalierhaut.png"));
-            if (entite.getDirection().contains("down"))
+                directionImage = "up";
+            }
+            if (entite.getDirection().contains("down")) {
                 imgEntite.setImage(new Image("file:src/main/resources/com/example/zeldasae/assets/chevalier/chevalierbas.png"));
-            if (entite.getDirection().contains("right"))
+                directionImage = "down";
+            }
+            if (entite.getDirection().contains("right")) {
                 imgEntite.setImage(new Image("file:src/main/resources/com/example/zeldasae/assets/chevalier/chevalierdroite.png"));
-            if (entite.getDirection().contains("left"))
+                directionImage = "right";
+            }
+            if (entite.getDirection().contains("left")){
                 imgEntite.setImage(new Image("file:src/main/resources/com/example/zeldasae/assets/chevalier/chevaliergauche.png"));
+                directionImage = "left";
+            }
         }
         else if (this.entite instanceof Pursuer){
             if (entite.getDirection().contains("up"))
@@ -64,5 +71,9 @@ public class VueEntite {
             if (entite.getDirection().contains("left"))
                 imgEntite.setImage(new Image("file:src/main/resources/com/example/zeldasae/assets/monstre/monstredroite.png"));
         }
+    }
+
+    public String getDirectionImage() {
+        return directionImage;
     }
 }
