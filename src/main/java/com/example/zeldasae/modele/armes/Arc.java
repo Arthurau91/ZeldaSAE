@@ -7,7 +7,7 @@ import javafx.scene.input.KeyEvent;
 public class Arc extends Arme {
 
     public Arc(int large, int haut, int x, int y) {
-        super("Arc,", 2, 2, 0, large, haut, x, y);
+        super("Arc,", 2, 2, 1, large, haut, x, y);
     }
 
     public Projectile creerProjectile(KeyEvent keyEvent) {

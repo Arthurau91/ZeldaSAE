@@ -1,9 +1,6 @@
 package com.example.zeldasae.controller;
 
-import com.example.zeldasae.modele.Arme;
-import com.example.zeldasae.modele.Armure;
-import com.example.zeldasae.modele.Inventaire;
-import com.example.zeldasae.modele.Joueur;
+import com.example.zeldasae.modele.*;
 import javafx.event.EventHandler;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
@@ -24,7 +21,13 @@ public class ClickHandlerInventaire implements EventHandler<MouseEvent> {
     @Override
     public void handle(MouseEvent mouseEvent) {
         if (mouseEvent.getSource() instanceof ImageView v) {
-            clicChangementArme(v.getId());
+            Item i = j.getInv().getItemParID(Integer.parseInt(v.getId()));
+            if (i instanceof Collectible) {
+                ((Collectible) i).utiliserCollectible();
+            }
+            else{
+                clicChangementArme(v.getId());
+            }
         }
 
     }

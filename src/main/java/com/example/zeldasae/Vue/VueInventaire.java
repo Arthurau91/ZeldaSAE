@@ -4,9 +4,11 @@ import com.example.zeldasae.controller.ClickHandlerInventaire;
 import com.example.zeldasae.modele.Collectible;
 import com.example.zeldasae.modele.Item;
 import com.example.zeldasae.modele.Joueur;
+import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
+import javafx.scene.paint.Color;
 
 public class VueInventaire {
 
@@ -51,9 +53,20 @@ public class VueInventaire {
         y = (i.getPosSlotItems() - 1)/this.nbItemLigne * ((int) this.boxInventaire.getHeight()/this.nbItemColonne) + 100;
         imageView.setTranslateX(x);
         imageView.setTranslateY(y);
+        imageView.setFitWidth(50);
+        imageView.setFitHeight(50);
         imageView.setId("" + i.getPosSlotItems());
         imageView.setOnMouseClicked(this.clickHandler);
         this.boxInventaire.getChildren().add(imageView);
+
+        if(i instanceof Collectible) {
+            Label l = new Label();
+            l.setTextFill(Color.WHITE);
+            ((Collectible) i).quantiteProperty().addListener((obs, ol, nouv) -> l.setText(nouv.toString()));
+            l.setTranslateX(x + 50);
+            l.setTranslateY(y + 50);
+            boxInventaire.getChildren().add(l);
+        }
     }
 
     public Image switchImageItem(Item i) {

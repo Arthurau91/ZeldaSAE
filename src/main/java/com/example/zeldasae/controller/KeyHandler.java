@@ -4,6 +4,7 @@ import com.example.zeldasae.Vue.VueCollectible;
 import com.example.zeldasae.Vue.VueInventaire;
 import com.example.zeldasae.modele.*;
 import com.example.zeldasae.modele.armes.Arc;
+import com.example.zeldasae.modele.collectibles.Fruit;
 import javafx.event.EventHandler;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
@@ -31,10 +32,9 @@ public class KeyHandler implements EventHandler<KeyEvent> {
 
     //à retirer, sert uniquement pour les tests
     private Item itemTest = new Arme("Arme 1" ,1, 3,0.5, 150, 15, 0, 0);
-    private Item itemTest2 = new Arme("Arme 2",2, 5, 2, 100, 100, 0, 0);
+    private Item itemTest2 = new Arme("Arme 2",2, 8, 2, 100, 100, 0, 0);
     private Item itemTest3 = new Armure(500,"Armure 3", 6);
     private Item itemTest4 = new Armure(500,"Armure 4", 19);
-    private Collectible collectibleTest = new Collectible(0, 10, "CollectibleTest", 5, 10, 10, 50, 50);
     private Arc arcTest = new Arc(10, 10, 10, 40);
 
     @Override
@@ -63,6 +63,7 @@ public class KeyHandler implements EventHandler<KeyEvent> {
                     this.vueInv.toggleAffichageInventaire();
                     break;
                 case X: //à retirer, sert uniquement pour les tests
+                    Collectible collectibleTest = new Fruit(0, 10,  5, 10, 10, 50, 50, this.map.getJoueur());
                     this.map.getJoueur().getInv().ajouterItem(itemTest);
                     this.map.getJoueur().getInv().ajouterItem(itemTest2);
                     this.map.getJoueur().getInv().ajouterItem(itemTest3);
@@ -71,6 +72,7 @@ public class KeyHandler implements EventHandler<KeyEvent> {
                     this.map.ajouterCollectible(collectibleTest);
                     break;
                 case A:
+                    System.out.println(this.map.getJoueur().getPv());
                     this.map.getJoueur().getInv().changerArme(arcTest);
                     for(int i = 0; i < this.map.getJoueur().getInv().getListeItems().size(); i++) {
                         if (this.map.getJoueur().getInv().getListeItems().get(i) instanceof Collectible) {

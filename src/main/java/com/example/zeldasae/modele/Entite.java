@@ -24,7 +24,7 @@ public abstract class Entite {
     private HitBox hitBox;
     private static int n = 0;
     private IntegerProperty pv;
-    private int pvDebut;
+    private int pvMax;
     private int degats;
     private VueBarreDeVie vueBarreDeVie;
     private VueEntite vueEntite;
@@ -41,8 +41,8 @@ public abstract class Entite {
         this.direction = "null";
         this.vitesse = 10;
         this.hitBox = new HitBox(this.width, this.height, this.xProperty, this.yProperty);
-        this.pvDebut = 10;
-        this.pv = new SimpleIntegerProperty(this.pvDebut);
+        this.pvMax = 10;
+        this.pv = new SimpleIntegerProperty(this.pvMax);
         this.degats = 1;
 
         if (this instanceof Joueur) {
@@ -113,8 +113,8 @@ public abstract class Entite {
     public int getPv() {
         return pv.getValue();
     }
-    public int getPvDebut() {
-        return pvDebut;
+    public int getPvMax() {
+        return pvMax;
     }
     public void setPv(int pv) {
         this.pv.setValue(pv);
@@ -143,6 +143,10 @@ public abstract class Entite {
         if (this.getPv() <= 0) {
             setPv(0);
         }
+    }
+
+    public void ajouterVie(int vieRecup) {
+            setPv(this.getPv() + vieRecup);
     }
 
 
