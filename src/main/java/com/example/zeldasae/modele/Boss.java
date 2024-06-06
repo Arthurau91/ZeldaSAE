@@ -10,7 +10,6 @@ public class Boss extends Ennemi{
 
     @Override
     public boolean deplacement(Monde m) {
-        System.out.println("1 déplacement");
         int x = (this.getX()/ 30) % (30 * this.getColumn());
         int y = (this.getY() / 30) % (30 * this.getRows());
         if (this.getBfs().distanceMouvement(new int[]{x, y}) < 15)
