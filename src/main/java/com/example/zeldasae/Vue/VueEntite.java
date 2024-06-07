@@ -1,8 +1,6 @@
 package com.example.zeldasae.Vue;
 
 import com.example.zeldasae.modele.Entite;
-import com.example.zeldasae.modele.Joueur;
-import com.example.zeldasae.modele.Pursuer;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
@@ -11,13 +9,12 @@ public abstract class VueEntite {
 
     private Entite entite;
     private Pane paneEntites;
-    private String directionImage;
     private ImageView imgEntite;
 
     public VueEntite(Entite entite, Pane paneEntites) {
-        this.directionImage = "right";
         this.entite = entite;
         this.paneEntites = paneEntites;
+        this.entite.directionProperty().addListener((obs, old, nouv)-> changeImage(old, nouv));
     }
 
     public void creerImageEntite() {
@@ -33,31 +30,23 @@ public abstract class VueEntite {
         this.paneEntites.getChildren().add(imgEntite);
     }
 
-    public void changeImage(){
-        if (entite.getDirection().contains("up")) {
+    public void changeImage(String old, String nouv){
+        if (nouv.contains("up")) {
             imgEntite.setImage(this.getImageHaut());
-            directionImage = "up";
         }
-        if (entite.getDirection().contains("down")) {
+        if (nouv.contains("down")) {
             imgEntite.setImage(this.getImageBas());
-            directionImage = "down";
         }
-        if (entite.getDirection().contains("right")) {
+        if (nouv.contains("right")) {
             imgEntite.setImage(this.getImageDroite());
-            directionImage = "right";
         }
-        if (entite.getDirection().contains("left")){
+        if (nouv.contains("left")){
             imgEntite.setImage(this.getImageGauche());
-            directionImage = "left";
         }
     }
-
 
     public abstract Image getImageBas();
     public abstract Image getImageHaut();
     public abstract Image getImageDroite();
     public abstract Image getImageGauche();
-    public String getDirectionImage() {
-        return directionImage;
-    }
 }

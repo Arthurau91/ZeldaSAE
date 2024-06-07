@@ -52,7 +52,7 @@ public class Monde {
      */
     public void deplacementEnnemi(){
         for (Ennemi ennemi : this.listeEnnemis) {
-//            ennemi.deplacement(this);
+            ennemi.deplacement(this);
         }
     }
 
@@ -64,20 +64,22 @@ public class Monde {
         ArrayList<Integer> m1 = getTerrain().getMap();
         int coobloc = 0;
         int coovide = 0;
-        String directionImage = joueur.getVueEntite().getDirectionImage();
-        switch (directionImage){
-            case "up" : coobloc = coo - 100;
-                coovide = coobloc - 100;
-                break;
-            case "down" : coobloc = coo + 100;
-                coovide = coobloc + 100;
-                break;
-            case "right" : coobloc = coo + 1;
-                coovide = coobloc + 1;
-                break;
-            case "left" : coobloc = coo - 1;
-                coovide = coobloc - 1;
-                break;
+        String direction = joueur.getDirection();
+        if (direction.contains("up")){
+            coobloc = coo - 100;
+            coovide = coobloc - 100;
+        }
+        else if (direction.contains("down")){
+            coobloc = coo + 100;
+            coovide = coobloc + 100;
+        }
+        else if (direction.contains("right")){
+            coobloc = coo + 1;
+            coovide = coobloc + 1;
+        }
+        else if (direction.contains("left")){
+            coobloc = coo - 1;
+            coovide = coobloc - 1;
         }
         return new int[]{coobloc, coovide};
     }

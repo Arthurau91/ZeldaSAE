@@ -7,7 +7,8 @@ import javafx.beans.binding.Bindings;
 import javafx.beans.binding.DoubleBinding;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
-import javafx.scene.layout.Pane;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
 
 public abstract class Entite {
 
@@ -19,17 +20,18 @@ public abstract class Entite {
     private IntegerProperty widthProperty;
     private int column;
     private int rows;
-    private String direction;
+    private String deplacement;
     private int vitesse;
     private HitBox hitBox;
     private static int n = 0;
     private IntegerProperty pv;
     private int pvDebut;
     private int degats;
+    private StringProperty direction;
     private VueBarreDeVie vueBarreDeVie;
     private VueEntite vueEntite;
 
-    public Entite(int x, int y, int width, int height, int column, int rows, Pane paneEntite) {
+    public Entite(int x, int y, int width, int height, int column, int rows) {
         this.xProperty = new SimpleIntegerProperty(x);
         this.yProperty = new SimpleIntegerProperty(y);
         this.id = ""+n++;
@@ -38,12 +40,13 @@ public abstract class Entite {
         this.widthProperty = new SimpleIntegerProperty(this.width);
         this.column = column;
         this.rows = rows;
-        this.direction = "null";
+        this.deplacement = "null";
         this.vitesse = 10;
         this.hitBox = new HitBox(this.width, this.height, this.xProperty, this.yProperty);
         this.pvDebut = 10;
         this.pv = new SimpleIntegerProperty(this.pvDebut);
         this.degats = 1;
+        this.direction = new SimpleStringProperty("right");
 
         if (this instanceof Joueur) {
             this.vueBarreDeVie = new VueBarreDeVie(100, 20);
@@ -57,11 +60,10 @@ public abstract class Entite {
         this.pv.addListener(new ObservateurVie(this));
     }
 
-    public Entite(int x, int y, String id, int width, int height, int column, int rows, Pane paneEntite) {
-        this(x, y, width, height, column, rows, paneEntite);
+    public Entite(int x, int y, String id, int width, int height, int column, int rows) {
+        this(x, y, width, height, column, rows);
         this.setId(id);
     }
-
 
     public int getX() {
         return this.xProperty.getValue();
@@ -81,6 +83,16 @@ public abstract class Entite {
     public IntegerProperty yProperty() {
         return yProperty;
     }
+    public StringProperty directionProperty() {
+        return direction;
+    }
+    public void setDirection(String direction) {
+        this.direction.setValue(direction);
+    }
+    public String getDirection() {
+        return direction.getValue();
+    }
+    public void addDirectionImage(String direction){this.direction.setValue(this.getDirection()+direction);}
 
     public String getId() {
         return id;
@@ -96,12 +108,6 @@ public abstract class Entite {
     }
     public int getRows() {
         return rows;
-    }
-    public void setDirection(String direction) {
-        this.direction = direction;
-    }
-    public String getDirection() {
-        return direction;
     }
     public void setVitesse(int vitesse) {
         this.vitesse = vitesse;
@@ -132,6 +138,12 @@ public abstract class Entite {
     }
     public HitBox getHitBox() {
         return hitBox;
+    }
+    public String getDeplacement() {
+        return deplacement;
+    }
+    public void setDeplacement(String deplacement) {
+        this.deplacement = deplacement;
     }
     public VueEntite getVueEntite() {
         return vueEntite;
@@ -192,18 +204,26 @@ public abstract class Entite {
             int x = getX();
             int y = getY();
 
-            if (this.direction.contains("up") && checkHitBox("up", m.getTerrain()))
-                if (checkUp(m, vitesse))
+            if (this.deplacement.contains("up") && checkHitBox("up", m.getTerrain()))
+                if (checkUp(m, vitesse)) {
                     dy -= vitesse;
-            if (this.direction.contains("down") && checkHitBox("down", m.getTerrain()))
-                if (checkDown(m, vitesse))
+                    addDirectionImage("up");
+                }
+            if (this.deplacement.contains("down") && checkHitBox("down", m.getTerrain()))
+                if (checkDown(m, vitesse)) {
                     dy += vitesse;
-            if (this.direction.contains("left") && checkHitBox("left", m.getTerrain()))
-                if (checkLeft(m, vitesse))
+                    addDirectionImage("down");
+                }
+            if (this.deplacement.contains("left") && checkHitBox("left", m.getTerrain()))
+                if (checkLeft(m, vitesse)) {
                     dx -= vitesse;
-            if (this.direction.contains("right") && checkHitBox("right", m.getTerrain()))
-                if (checkRight(m, vitesse))
+                    addDirectionImage("left");
+                }
+            if (this.deplacement.contains("right") && checkHitBox("right", m.getTerrain()))
+                if (checkRight(m, vitesse)) {
                     dx += vitesse;
+                    addDirectionImage("right");
+                }
 
             setX(getX() + dx);
             setY(getY() + dy);

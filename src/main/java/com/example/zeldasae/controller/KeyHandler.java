@@ -18,7 +18,7 @@ public class KeyHandler implements EventHandler<KeyEvent> {
     private Monde map;
     private VueTerrain vueTerrain;
     private VueInventaire vueInv;
-    private final Set<KeyCode> pressedKeys;
+    private Set<KeyCode> pressedKeys;
 
     public KeyHandler(Monde map, VueInventaire vueInv, VueTerrain vueTerrain) {
         this.map = map;
@@ -37,20 +37,37 @@ public class KeyHandler implements EventHandler<KeyEvent> {
 
         if (keyEvent.getEventType() == KeyEvent.KEY_PRESSED)
             this.pressedKeys.add(keyEvent.getCode());
-        else if (keyEvent.getEventType() == KeyEvent.KEY_RELEASED)
+        else if (keyEvent.getEventType() == KeyEvent.KEY_RELEASED) {
             this.pressedKeys.remove(keyEvent.getCode());
+            if (keyEvent.getCode() == Z)
+                map.getJoueur().setDirection(map.getJoueur().getDeplacement().replace("up",""));
+            if (keyEvent.getCode() == S)
+                map.getJoueur().setDirection(map.getJoueur().getDeplacement().replace("down",""));
+            if (keyEvent.getCode() == Q)
+                map.getJoueur().setDirection(map.getJoueur().getDeplacement().replace("left",""));
+            if (keyEvent.getCode() == D)
+                map.getJoueur().setDirection(map.getJoueur().getDeplacement().replace("right",""));
+        }
 
         String direction = "";
 
-        if (pressedKeys.contains(Z))
+        if (pressedKeys.contains(Z)) {
             direction += "up";
-        if (pressedKeys.contains(S))
+            map.getJoueur().addDirectionImage("up");
+        }
+        if (pressedKeys.contains(S)) {
             direction += "down";
-        if (pressedKeys.contains(Q))
+            map.getJoueur().addDirectionImage("down");
+        }
+        if (pressedKeys.contains(Q)) {
             direction += "left";
-        if (pressedKeys.contains(D))
+            map.getJoueur().addDirectionImage("left");
+        }
+        if (pressedKeys.contains(D)) {
             direction += "right";
-        this.map.getJoueur().setDirection(direction);
+            map.getJoueur().addDirectionImage("right");
+        }
+        this.map.getJoueur().setDeplacement(direction);
 
         if (pressedKeys.contains(SPACE))
             vueTerrain.deplaceBloc();

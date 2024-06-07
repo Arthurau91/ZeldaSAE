@@ -1,14 +1,13 @@
 package com.example.zeldasae.modele;
 
 import com.example.zeldasae.Algo.BFS;
-import javafx.scene.layout.Pane;
 
 public abstract class Ennemi extends Entite{
 
     private BFS bfs;
 
-    public Ennemi(int x, int y, int width, int height, int column, int rows ,BFS bfs, Pane paneEntite) {
-        super(x, y, width, height, column, rows, paneEntite);
+    public Ennemi(int x, int y, int width, int height, int column, int rows ,BFS bfs) {
+        super(x, y, width, height, column, rows);
         this.bfs = bfs;
     }
 
@@ -58,7 +57,7 @@ public abstract class Ennemi extends Entite{
                 width2 -= 30;
         }while (width <= this.getWidth() && width2 >= 0);
 
-        this.getVueEntite().changeImage();
+        this.setDirection(this.getDeplacement());
         return deplacement;
     }
 
@@ -72,7 +71,7 @@ public abstract class Ennemi extends Entite{
             direction += "down";
         if (pdeplacement[1] < y)
             direction += "up";
-        this.setDirection(direction);
+        this.setDeplacement(direction);
     }
 
     public boolean checkColisionEntite(Monde m, int x, int y) {

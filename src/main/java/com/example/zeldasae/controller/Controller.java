@@ -1,8 +1,7 @@
 package com.example.zeldasae.controller;
 
 import com.example.zeldasae.Algo.BFS;
-import com.example.zeldasae.Vue.VueInventaire;
-import com.example.zeldasae.Vue.VueTerrain;
+import com.example.zeldasae.Vue.*;
 import com.example.zeldasae.modele.Boss;
 import com.example.zeldasae.modele.Joueur;
 import com.example.zeldasae.modele.Monde;
@@ -58,9 +57,15 @@ public class Controller implements Initializable {
         this.mapPane.setPrefHeight(this.mapPane.getPrefTileHeight()*this.mapPane.getPrefRows());
 
         BFS bfs =new BFS();
-        this.map = new Monde(new Joueur(600, 510, (int)mapPane.getPrefTileWidth(), (int)mapPane.getPrefTileHeight(), mapPane.getPrefColumns(), mapPane.getPrefRows(), paneEntites), bfs);
-        this.map.addEnnemi(new Pursuer(120, 120, (int)mapPane.getPrefTileWidth(), (int)mapPane.getPrefTileHeight(), mapPane.getPrefColumns(),  mapPane.getPrefRows(), bfs, paneEntites));
-        this.map.addEnnemi(new Boss(740, 900, (int)mapPane.getPrefTileWidth()*3, (int)mapPane.getPrefTileHeight()*3, mapPane.getPrefColumns(),  mapPane.getPrefRows(), bfs, paneEntites));
+        Joueur joueur = new Joueur(600, 510, (int)mapPane.getPrefTileWidth(), (int)mapPane.getPrefTileHeight(), mapPane.getPrefColumns(), mapPane.getPrefRows());
+        new VueJoueur(joueur, paneEntites);
+        this.map = new Monde(joueur, bfs);
+        Pursuer pursuer = new Pursuer(120, 120, (int)mapPane.getPrefTileWidth(), (int)mapPane.getPrefTileHeight(), mapPane.getPrefColumns(),  mapPane.getPrefRows(), bfs);
+        new VuePursuer(pursuer, paneEntites);
+        this.map.addEnnemi(pursuer);
+        Boss boss = new Boss(740, 900, (int)mapPane.getPrefTileWidth()*3, (int)mapPane.getPrefTileHeight()*3, mapPane.getPrefColumns(),  mapPane.getPrefRows(), bfs);
+        this.map.addEnnemi(boss);
+        new VueBoss(boss, paneEntites);
         VueTerrain vueTerrain = new VueTerrain(this.map, this.mapPane, loadJSON.getMap(), loadJSON.getMap2());
         VueInventaire vueInv = new VueInventaire(this.boxInventaire, this.map.getJoueur());
         this.map.getJoueur().getInv().getListeItems().addListener(new ObservateurItems(vueInv, this.paneEntites));
