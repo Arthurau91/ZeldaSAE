@@ -22,9 +22,9 @@ public class Joueur extends Entite{
         return deplacement;
     }
 
-    public boolean peutOuvrirUnCoffre(Monde monde, int tailleBloc) {
-        for (Coffre coffre : monde.getCoffres()) {
-            if (this.getHitBox().coffreProximite(coffre, tailleBloc)) {
+    public boolean peutOuvrirUnCoffre(Monde monde, Coffre coffre, int tailleBloc) {
+        for (Coffre c : monde.getCoffres()) {
+            if (coffre.getId() == c.getId() && this.getHitBox().coffreProximite(c, tailleBloc)) {
                 return true;
             }
         }

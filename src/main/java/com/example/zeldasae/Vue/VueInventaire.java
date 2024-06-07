@@ -1,23 +1,28 @@
 package com.example.zeldasae.Vue;
 
+import com.example.zeldasae.controller.ClickHandlerInventaire;
 import com.example.zeldasae.modele.Item;
 import com.example.zeldasae.modele.Joueur;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.Priority;
 
 public class VueInventaire extends VueInterface{
 
     public final int nbItemLigne = 5;
     public final int nbItemColonne = 10;
+    private ClickHandlerInventaire clickHandler;
 
 
     public VueInventaire(Pane boxInv, Joueur joueur) {
         super(boxInv, joueur);
+        this.clickHandler = new ClickHandlerInventaire(boxInv, this.joueur);
     }
 
 
     public void ajouterItem(Item i) {
+        System.out.println("ajout");
         Image img = switchImageItem(i);
         ImageView imageView = new ImageView(img);
 
@@ -35,5 +40,4 @@ public class VueInventaire extends VueInterface{
         Image img = new Image("file:src/main/resources/com/example/zeldasae/assets/" + i.getNom() + ".png");
         return img;
     }
-
 }

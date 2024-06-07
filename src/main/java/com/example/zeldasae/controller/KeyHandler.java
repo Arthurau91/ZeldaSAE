@@ -27,6 +27,7 @@ public class KeyHandler implements EventHandler<KeyEvent> {
         this.gestionnaireCoffre = gestionnaireCoffre;
     }
     private Item itemTest = new Arme(0,0, "Arme 1" ,500, 3); //à retirer, sert uniquement pour les tests
+    private Item itemTest2 = new Arme(0,0, "Arme 2",2, 5);
 
 
     @Override
@@ -48,7 +49,15 @@ public class KeyHandler implements EventHandler<KeyEvent> {
         if (pressedKeys.contains(D))
             direction += "right";
         if (pressedKeys.contains(F)) {
-            System.out.println(gestionnaireCoffre.getVueCoffreList().size());
+            for (int i = 0 ; i < this.gestionnaireCoffre.getVueCoffreList().size() ; i++) {
+                if (this.gestionnaireCoffre.getVueCoffreList().get(i).getCoffre().isEstOuvert()) {
+                    this.gestionnaireCoffre.getVueCoffreList().get(i).ajouterItem(itemTest);
+                    this.gestionnaireCoffre.getVueCoffreList().get(i).ajouterItem(itemTest2);
+                }
+            }
+        }
+        if (pressedKeys.contains(X)) {
+            this.map.getJoueur().getInv().ajouterItem(itemTest);
         }
 
         switch (keyEvent.getCode()) {
@@ -58,12 +67,13 @@ public class KeyHandler implements EventHandler<KeyEvent> {
                 break;
             case E: // interagir
                 for (VueCoffre coffre : gestionnaireCoffre.getVueCoffreList()) {
-                    if ((this.map.getJoueur().peutOuvrirUnCoffre(this.map, 1)) || coffre.getCoffre().isEstOuvert()) {
+                    if ((this.map.getJoueur().peutOuvrirUnCoffre(this.map, coffre.getCoffre(), 1)) || coffre.getCoffre().isEstOuvert()) {
                         coffre.toggleAffichageInterface(keyEvent);
                         break;
                     }
                 }
                 break;
+
 
         }
 

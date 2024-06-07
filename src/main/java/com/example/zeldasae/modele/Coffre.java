@@ -3,9 +3,6 @@ package com.example.zeldasae.modele;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
-import javax.swing.text.html.ListView;
-import java.util.ArrayList;
-import java.util.List;
 
 public class Coffre {
 
@@ -23,7 +20,7 @@ public class Coffre {
         this.id = id;
     }
 
-    public List<Item> getListeItem() {
+    public ObservableList<Item> getListeItem() {
         return listeItem;
     }
 
@@ -56,6 +53,15 @@ public class Coffre {
 
     public int getId() {
         return id;
+    }
+
+    public Item getItemParID(int posItem) {
+        for (Item i : getListeItem()) {
+            if (i.getPosSlotItems() == posItem) {
+                return i;
+            }
+        }
+        return null;
     }
 
     @Override

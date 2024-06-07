@@ -10,7 +10,6 @@ public abstract class VueInterface {
     protected Pane paneInterface;
     protected Joueur joueur;
     protected boolean afficheInterface;
-    protected ClickHandlerInventaire clickHandler;
 
 
     public VueInterface(Pane pane, Joueur joueur) {
@@ -19,7 +18,7 @@ public abstract class VueInterface {
         this.paneInterface.setVisible(false);
         this.joueur = joueur;
         this.afficheInterface = false;
-        this.clickHandler = new ClickHandlerInventaire(pane, this.joueur);
+
     }
     public void toggleAffichageInterface(KeyEvent keyEvent) {
         if (!this.afficheInterface && keyEvent.getEventType() != KeyEvent.KEY_RELEASED) {

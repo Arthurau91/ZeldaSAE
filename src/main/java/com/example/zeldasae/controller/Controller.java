@@ -3,10 +3,7 @@ package com.example.zeldasae.controller;
 import com.example.zeldasae.Algo.BFS;
 import com.example.zeldasae.Vue.VueInventaire;
 import com.example.zeldasae.Vue.VueTerrain;
-import com.example.zeldasae.modele.Ennemi;
-import com.example.zeldasae.modele.GestionnaireCoffre;
-import com.example.zeldasae.modele.Joueur;
-import com.example.zeldasae.modele.Monde;
+import com.example.zeldasae.modele.*;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.fxml.FXML;
@@ -18,6 +15,7 @@ import javafx.scene.layout.TilePane;
 import javafx.util.Duration;
 
 import java.net.URL;
+import java.util.List;
 import java.util.ResourceBundle;
 
 public class Controller implements Initializable {
@@ -51,7 +49,7 @@ public class Controller implements Initializable {
         new VueTerrain(this.map, this.mapPane, loadJSON.getMap());
         VueInventaire vueInv = new VueInventaire(this.boxInventaire, this.map.getJoueur());
 
-        this.map.getJoueur().getInv().getListeItems().addListener(new ObservateurItems(vueInv, this.paneEntites));
+        this.map.getJoueur().getInv().getListeItems().addListener(new ObservateurItems(vueInv, this.paneEntites, null));
         bfs.lanceAlgo(map, mapPane.getPrefColumns(), mapPane.getPrefRows());
 
         ObservateurMouvement observateurMouvement = new ObservateurMouvement(this.map, this.mapPane, this.paneEntites);
@@ -61,6 +59,9 @@ public class Controller implements Initializable {
 
         gestionnaireCoffre = new GestionnaireCoffre(this.map, this.boxCoffre, vueInv);
         gestionnaireCoffre.creerCoffreDansMonde();
+
+        for (int i = 0 ; i < gestionnaireCoffre.getCoffreList().size() ; i++)
+            gestionnaireCoffre.getCoffreList().get(i).getListeItem().addListener(new ObservateurItems(null, this.paneEntites, this.gestionnaireCoffre.getVueCoffreList().get(i)));
 
         KeyHandler keyHandler = new KeyHandler(this.map, vueInv, gestionnaireCoffre);
         paneEntites.addEventHandler(KeyEvent.KEY_PRESSED, keyHandler);
@@ -82,8 +83,8 @@ public class Controller implements Initializable {
                 (ev ->{
                     this.map.getJoueur().deplacement(map);
 
-                    //if (temps%2==0)
-                       // this.map.deplacementEnnemi();
+//                    if (temps%2==0)
+//                        this.map.deplacementEnnemi();
 
                     temps++;
                 })
