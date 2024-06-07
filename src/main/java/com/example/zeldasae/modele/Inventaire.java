@@ -11,6 +11,7 @@ public class Inventaire {
     private ObservableList<Item> listeItems;
     private Armure armureActuelle;
     private Arme armeActuelle;
+    private Arme armeSecondaire;
 
     public Inventaire() {
         listeItems = FXCollections.observableArrayList();
@@ -21,11 +22,29 @@ public class Inventaire {
     }
 
     public void changerArme(Arme a) {
-        this.armeActuelle = a;
+        if (this.armeActuelle == null) {
+            this.armeActuelle = a;
+        }
+        else {
+            this.armeSecondaire = armeActuelle;
+            this.armeActuelle = a;
+        }
     }
 
     public void changerArmure(Armure a) {
         this.armureActuelle = a;
+    }
+
+    public void changerArmeSecondaire(Arme a) {
+        this.armeSecondaire = a;
+    }
+
+    public void echangerArmes() {
+        if (armeActuelle != null && armeSecondaire != null) {
+            Arme pivot = armeActuelle;
+            armeActuelle = armeSecondaire;
+            armeSecondaire = pivot;
+        }
     }
 
     public ObservableList<Item> getListeItems() {

@@ -49,6 +49,9 @@ public class HitBox {
     public IntegerProperty yProperty() {
         return y;
     }
+    public boolean isEstPivote() {
+        return this.estPivote;
+    }
 
     public boolean checkColision(String direction, int rows, Terrain terrain){
         String[] dString = {"left","right","up","down"};
@@ -162,7 +165,4 @@ public class HitBox {
             this.estPivote = true;
         }
     }
-
-
-
 }

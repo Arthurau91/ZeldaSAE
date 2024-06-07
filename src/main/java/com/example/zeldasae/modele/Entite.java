@@ -26,8 +26,8 @@ public abstract class Entite {
     private IntegerProperty pv;
     private int pvMax;
     private int degats;
-    private VueBarreDeVie vueBarreDeVie;
-    private VueEntite vueEntite;
+    private VueBarreDeVie vueBarreDeVie; //à remettre côté vue
+    private VueEntite vueEntite; //à remettre côté vue
 
     public Entite(int x, int y, int width, int height, int column, int rows, Pane paneEntite) {
         this.xProperty = new SimpleIntegerProperty(x);
@@ -45,6 +45,7 @@ public abstract class Entite {
         this.pv = new SimpleIntegerProperty(this.pvMax);
         this.degats = 1;
 
+        //mettre côté vue
         if (this instanceof Joueur) {
             this.vueBarreDeVie = new VueBarreDeVie(100, 20);
             this.getVueBarreDeVie().setLayoutX(1050);
@@ -54,6 +55,7 @@ public abstract class Entite {
             bindBarreDeViePosition();
         }
 
+        //à faire dans le contrôleur
         this.pv.addListener(new ObservateurVie(this));
         this.vueEntite = new VueEntite(this, paneEntite);
     }
@@ -160,7 +162,7 @@ public abstract class Entite {
         return this.getPv() > 0;
     }
 
-
+    //remettre côté vue
     private void bindBarreDeViePosition() {
 
         DoubleBinding barreXBinding = Bindings.createDoubleBinding(() ->

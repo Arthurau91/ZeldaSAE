@@ -1,14 +1,20 @@
 package com.example.zeldasae.modele;
 
+import javafx.animation.PauseTransition;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.scene.input.KeyEvent;
+import javafx.util.Duration;
 
 import javax.swing.*;
 import javax.swing.plaf.PanelUI;
 import java.util.ArrayList;
+import java.util.Timer;
+import java.util.TimerTask;
 
-//A REMETTRE ABSTRACT
-public class Arme extends Item{
+import static javafx.scene.input.KeyCode.DOWN;
+import static javafx.scene.input.KeyCode.UP;
+
+public abstract class Arme extends Item{
 
     private int degats;
     private HitBox hitBox;
@@ -36,6 +42,10 @@ public class Arme extends Item{
 
     public double getDelaiRecuperation() {
         return delaiRecuperation;
+    }
+
+    public int getDegats() {
+        return this.degats;
     }
 
     public void setPosMap(int x, int y, KeyEvent keyEvent) {
@@ -70,7 +80,14 @@ public class Arme extends Item{
        }
     }
 
-    public int getDegats() {
-        return this.degats;
+    public void attaquer(KeyEvent keyEvent, Monde map) {
+        this.setPosMap(map.getJoueur().getX(), map.getJoueur().getY(), keyEvent);
+        this.checkCoupTouche(map.getListeEnnemis());
+        map.getJoueur().setPeutDonnerCoupProperty(false);
+
+        PauseTransition pause = new PauseTransition(Duration.seconds(map.getJoueur().getInv().getArmeActuelle().getDelaiRecuperation()));
+        pause.setOnFinished(event -> map.getJoueur().setPeutDonnerCoupProperty(true));
+        pause.play();
     }
+
 }

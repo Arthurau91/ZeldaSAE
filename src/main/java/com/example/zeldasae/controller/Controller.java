@@ -85,6 +85,7 @@ public class Controller implements Initializable {
         paneEntites.addEventHandler(KeyEvent.KEY_RELEASED, keyHandler);
         initAnimation();
         paneEntites.getChildren().add(this.map.getJoueur().getVueBarreDeVie());
+
     }
 
     private void relanceJeu(){

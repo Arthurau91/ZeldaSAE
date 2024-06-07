@@ -6,10 +6,13 @@ import com.example.zeldasae.modele.Projectile;
 import javafx.animation.PauseTransition;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.util.Duration;
+
+import static javafx.scene.input.KeyCode.*;
 
 
 public class VueArme {
@@ -18,41 +21,32 @@ public class VueArme {
     private Pane paneEntites;
     private Monde map;
     private Pane mapPane;
-    private boolean peutDonnerCoup;
 
     public VueArme (Joueur joueur, Pane paneEntites, Monde map, Pane mapPane) {
         this.joueur = joueur;
         this.paneEntites = paneEntites;
         this.map = map;
         this.mapPane = mapPane;
-        this.peutDonnerCoup = true;
     }
 
-    public boolean isPeutDonnerCoup() {
-        return this.peutDonnerCoup;
+    public void donnerCoup(int x, int y, KeyEvent keyEvent) {
+            Image img = new Image("file:src/main/resources/com/example/zeldasae/assets/" + joueur.getInv().getArmeActuelle().getNom() + "Attaque.png");
+            ImageView imageView = new ImageView(img);
+            imageView.setTranslateX(x);
+            imageView.setTranslateY(y);
+            imageView.setFitWidth(joueur.getInv().getArmeActuelle().getHitBox().getLarge());
+            imageView.setFitHeight(joueur.getInv().getArmeActuelle().getHitBox().getHaut());
+
+            if(keyEvent.getCode() == UP || keyEvent.getCode() == DOWN) {
+
+            }
+
+            paneEntites.getChildren().add(imageView);
+
+            PauseTransition pause = new PauseTransition(Duration.seconds(joueur.getInv().getArmeActuelle().getDelaiRecuperation()));
+            pause.setOnFinished(event -> paneEntites.getChildren().remove(imageView));
+            pause.play();
     }
-
-    public void donnerCoup(int x, int y) {
-        Image img = new Image ("file:src/main/resources/com/example/zeldasae/assets/" + joueur.getInv().getArmeActuelle().getNom() + "Attaque.png");
-        ImageView imageView = new ImageView(img);
-        imageView.setTranslateX(x);
-        imageView.setTranslateY(y);
-
-        imageView.setFitWidth(joueur.getInv().getArmeActuelle().getHitBox().getLarge());
-        imageView.setFitHeight(joueur.getInv().getArmeActuelle().getHitBox().getHaut());
-
-        paneEntites.getChildren().add(imageView);
-        this.peutDonnerCoup = false;
-        PauseTransition pause = new PauseTransition(Duration.seconds(joueur.getInv().getArmeActuelle().getDelaiRecuperation()));
-        pause.setOnFinished(event -> gererCooldown(imageView));
-        pause.play();
-    }
-
-    public void gererCooldown(ImageView imageView) {
-        paneEntites.getChildren().remove(imageView);
-        this.peutDonnerCoup = true;
-    }
-
 
     public void creerProjectileVue(Projectile p) {
         p.getHitBox().setX(joueur.getX()); //DES QUE T'UTILISERAS LES TOUCHES DE DEPLACEMENT POUR L'ARC, FAIS CA DANS Projectile.setPosMap()
@@ -62,10 +56,10 @@ public class VueArme {
         r.translateXProperty().bind(p.getHitBox().xProperty());
         r.translateYProperty().bind(p.getHitBox().yProperty());
         this.paneEntites.getChildren().add(r);
-        this.peutDonnerCoup = false;
+        this.joueur.setPeutDonnerCoupProperty(false);
 
         PauseTransition pause = new PauseTransition(Duration.seconds(joueur.getInv().getArmeActuelle().getDelaiRecuperation()));
-        pause.setOnFinished(event -> this.peutDonnerCoup = true);
+        pause.setOnFinished(event -> this.joueur.setPeutDonnerCoupProperty(true));
         pause.play();
     }
 
