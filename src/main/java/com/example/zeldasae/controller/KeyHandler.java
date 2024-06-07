@@ -63,7 +63,7 @@ public class KeyHandler implements EventHandler<KeyEvent> {
                     this.vueInv.toggleAffichageInventaire();
                     break;
                 case X: //à retirer, sert uniquement pour les tests
-                    Collectible collectibleTest = new Fruit(0, 10,  5, 10, 10, 50, 50, this.map.getJoueur());
+                    Collectible collectibleTest = new Fruit(0, 10,  5, 30, 30, 50, 50, this.map.getJoueur());
                     this.map.getJoueur().getInv().ajouterItem(itemTest);
                     this.map.getJoueur().getInv().ajouterItem(itemTest2);
                     this.map.getJoueur().getInv().ajouterItem(itemTest3);
