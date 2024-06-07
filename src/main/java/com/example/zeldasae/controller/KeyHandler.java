@@ -70,7 +70,9 @@ public class KeyHandler implements EventHandler<KeyEvent> {
                     this.map.ajouterCollectible(collectibleTest);
                     break;
                 case A:
-                    System.out.println(this.map.getJoueur().getPv());
+                    this.map.getJoueur().getInv().echangerArmes();
+                    break;
+                case P:
                     this.map.getJoueur().getInv().changerArme(arcTest);
                     for(int i = 0; i < this.map.getJoueur().getInv().getListeItems().size(); i++) {
                         if (this.map.getJoueur().getInv().getListeItems().get(i) instanceof Collectible) { //TODO mettre méthode abstraite commune aux Items ?

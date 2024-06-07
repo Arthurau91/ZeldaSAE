@@ -22,21 +22,14 @@ public class Inventaire {
     }
 
     public void changerArme(Arme a) {
-        if (this.armeActuelle == null) {
-            this.armeActuelle = a;
-        }
-        else {
+        if (this.armeActuelle != null) {
             this.armeSecondaire = armeActuelle;
-            this.armeActuelle = a;
         }
+        this.armeActuelle = a;
     }
 
     public void changerArmure(Armure a) {
         this.armureActuelle = a;
-    }
-
-    public void changerArmeSecondaire(Arme a) {
-        this.armeSecondaire = a;
     }
 
     public void echangerArmes() {

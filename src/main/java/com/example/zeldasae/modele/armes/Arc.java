@@ -11,7 +11,7 @@ import static javafx.scene.input.KeyCode.UP;
 public class Arc extends Arme {
 
     public Arc(int large, int haut, int x, int y) {
-        super("Arc,", 2, 2, 1, large, haut, x, y);
+        super("Arc,", 2, 2, 0.8, large, haut, x, y);
     }
 
     public Projectile creerProjectile(KeyEvent keyEvent) {
