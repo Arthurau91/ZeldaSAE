@@ -52,11 +52,33 @@ public class Monde {
      */
     public void deplacementEnnemi(){
         for (Ennemi ennemi : this.listeEnnemis) {
-            ennemi.deplacement(this);
+//            ennemi.deplacement(this);
         }
     }
 
     public void setMap(ArrayList<Integer> map) {
         this.terrain.setMap(map);
+    }
+
+    public int[] cooBloc(int coo){
+        ArrayList<Integer> m1 = getTerrain().getMap();
+        int coobloc = 0;
+        int coovide = 0;
+        String directionImage = joueur.getVueEntite().getDirectionImage();
+        switch (directionImage){
+            case "up" : coobloc = coo - 100;
+                coovide = coobloc - 100;
+                break;
+            case "down" : coobloc = coo + 100;
+                coovide = coobloc + 100;
+                break;
+            case "right" : coobloc = coo + 1;
+                coovide = coobloc + 1;
+                break;
+            case "left" : coobloc = coo - 1;
+                coovide = coobloc - 1;
+                break;
+        }
+        return new int[]{coobloc, coovide};
     }
 }

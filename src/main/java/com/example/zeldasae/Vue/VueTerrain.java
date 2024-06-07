@@ -21,6 +21,7 @@ public class VueTerrain {
         this.map = map;
         this.mapPane = mapPane;
         this.m2 = m2;
+        map.setMap(m1);
 
         Image tileset = new Image("file:src/main/resources/com/example/zeldasae/assets/tiles.png");
 
@@ -62,36 +63,24 @@ public class VueTerrain {
         }
     }
 
-    public void deplaceBloc(){
+    public boolean deplaceBloc(){
 
         ArrayList<Integer> m1 = map.getTerrain().getMap();
         int coo = (this.map.getJoueur().getX()/30) + ((this.map.getJoueur().getY()/30)*this.mapPane.getPrefRows());
-        int coobloc = 0;
-        int coovide = 0;
-        String directionImage = this.map.getJoueur().getVueEntite().getDirectionImage();
-        switch (directionImage){
-            case "up" : coobloc = coo - 100;
-                coovide = coobloc - 100;
-                        break;
-            case "down" : coobloc = coo + 100;
-                coovide = coobloc + 100;
-                break;
-            case "right" : coobloc = coo + 1;
-                coovide = coobloc + 1;
-                break;
-            case "left" : coobloc = coo - 1;
-                coovide = coobloc - 1;
-                break;
-        }
+        int[] coos = map.cooBloc(coo);
+        int coobloc = coos[0];
+        int coovide = coos[1];
         if (this.map.getTerrain().poussable(coobloc)){
             if (this.map.getTerrain().vide(coovide)){
-                StackPane vide = new StackPane(new ImageView(tiles[m2.get(coovide)-1]));
-                StackPane bloc = new StackPane(new ImageView(tiles[m2.get(coobloc)-1]), new ImageView(tiles[m1.get(coobloc)-1]));
+                StackPane vide = new StackPane(new ImageView(tiles[m2.get(coobloc)-1]));
+                StackPane bloc = new StackPane(new ImageView(tiles[m2.get(coovide)-1]), new ImageView(tiles[m1.get(coobloc)-1]));
                 mapPane.getChildren().set(coobloc, vide);
                 mapPane.getChildren().set(coovide, bloc);
                 this.map.getTerrain().setCoo(coovide, m1.get(coobloc));
                 this.map.getTerrain().setCoo(coobloc, 0);
+                return true;
             }
         }
+        return false;
     }
 }
