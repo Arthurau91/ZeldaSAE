@@ -14,7 +14,7 @@ public abstract class VueEntite {
     public VueEntite(Entite entite, Pane paneEntites) {
         this.entite = entite;
         this.paneEntites = paneEntites;
-        this.entite.directionProperty().addListener((obs, old, nouv)-> changeImage(old, nouv));
+        this.entite.directionProperty().addListener((obs, old, nouv)-> changeImage(nouv));
     }
 
     public void creerImageEntite() {
@@ -30,7 +30,7 @@ public abstract class VueEntite {
         this.paneEntites.getChildren().add(imgEntite);
     }
 
-    public void changeImage(String old, String nouv){
+    public void changeImage(String nouv){
         if (nouv.contains("up")) {
             imgEntite.setImage(this.getImageHaut());
         }

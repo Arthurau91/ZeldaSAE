@@ -29,7 +29,6 @@ public abstract class Entite {
     private int degats;
     private StringProperty direction;
     private VueBarreDeVie vueBarreDeVie;
-    private VueEntite vueEntite;
 
     public Entite(int x, int y, int width, int height, int column, int rows) {
         this.xProperty = new SimpleIntegerProperty(x);
@@ -74,6 +73,7 @@ public abstract class Entite {
     public IntegerProperty xProperty() {
         return xProperty;
     }
+
     public int getY() {
         return yProperty.getValue();
     }
@@ -83,6 +83,14 @@ public abstract class Entite {
     public IntegerProperty yProperty() {
         return yProperty;
     }
+
+    public void setPv(int pv) {
+        this.pv.setValue(pv);
+    }
+    public IntegerProperty pv() {
+        return this.pv;
+    }
+
     public StringProperty directionProperty() {
         return direction;
     }
@@ -121,12 +129,6 @@ public abstract class Entite {
     public int getPvDebut() {
         return pvDebut;
     }
-    public void setPv(int pv) {
-        this.pv.setValue(pv);
-    }
-    public IntegerProperty pv() {
-        return this.pv;
-    }
     public int getDegats() {
         return degats;
     }
@@ -145,11 +147,8 @@ public abstract class Entite {
     public void setDeplacement(String deplacement) {
         this.deplacement = deplacement;
     }
-    public VueEntite getVueEntite() {
-        return vueEntite;
-    }
-    protected void setVueEntite(VueEntite vueEntite) {
-        this.vueEntite = vueEntite;
+    public int getVitesse() {
+        return vitesse;
     }
 
     public void perdreVie(int degats) {
@@ -169,7 +168,6 @@ public abstract class Entite {
         return this.getPv() > 0;
     }
 
-
     private void bindBarreDeViePosition() {
 
         DoubleBinding barreXBinding = Bindings.createDoubleBinding(() ->
@@ -188,7 +186,6 @@ public abstract class Entite {
     private IntegerProperty widthProperty() {
         return this.widthProperty;
     }
-
 
     /**
      * Méthode qui gère le déplacement d'une Entite sur le pane
