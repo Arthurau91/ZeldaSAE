@@ -1,12 +1,49 @@
 package com.example.zeldasae.modele;
 
-public class Collectible extends Item{
+import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.SimpleIntegerProperty;
 
-    public Collectible(int quantite, int quantite_max, String nom, int posSlotItems) {
-        super(quantite, quantite_max, nom, posSlotItems);
+public abstract class Collectible extends Item{
+
+    public static int compteur = 0;
+    private IntegerProperty quantiteProperty;
+    private int quantite_max;
+    private String type;     //ici, type = "coeur" ou "fleche", c'est le type d'item ramassable
+    private HitBox hitBox;
+
+
+    public Collectible(int quantite, int quantite_max, String type, int posSlotItems, int large, int haut, int x, int y) {
+        super(type + compteur, posSlotItems);
+        this.quantiteProperty = new SimpleIntegerProperty(quantite);
+        this.quantite_max = quantite_max;
+        this.type = type;
+        this.hitBox = new HitBox(large, haut, new SimpleIntegerProperty(x), new SimpleIntegerProperty(y));
+        compteur++;
     }
 
-    public void ajouter(){
-
+    public int getQuantite() {
+        return this.quantiteProperty.getValue();
     }
+
+    public void ajouter(int n) {
+        this.quantiteProperty.set(this.quantiteProperty.getValue() + n);
+    }
+
+    public void retirer(int n) {
+        this.quantiteProperty.set(this.quantiteProperty.getValue() - n);
+    }
+
+    public IntegerProperty quantiteProperty() {
+        return quantiteProperty;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public HitBox getHitBox() {
+        return hitBox;
+    }
+
+    public abstract void utiliserCollectible();
 }

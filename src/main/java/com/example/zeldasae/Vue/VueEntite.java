@@ -23,6 +23,7 @@ public abstract class VueEntite {
         image = this.getImageDroite();
         imgEntite.setImage(image);
 
+        //mettre une directionProperty avec un listener
         imgEntite.setId(entite.getId());
         imgEntite.translateXProperty().bind(entite.xProperty());
         imgEntite.translateYProperty().bind(entite.yProperty());

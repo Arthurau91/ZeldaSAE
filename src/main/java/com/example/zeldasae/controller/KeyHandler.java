@@ -1,10 +1,16 @@
 package com.example.zeldasae.controller;
+import com.example.zeldasae.Vue.VueArme;
+import com.example.zeldasae.Vue.VueCollectible;
 import com.example.zeldasae.Vue.VueInventaire;
 import com.example.zeldasae.Vue.VueTerrain;
 import com.example.zeldasae.modele.Arme;
 import com.example.zeldasae.modele.Armure;
 import com.example.zeldasae.modele.Item;
 import com.example.zeldasae.modele.Monde;
+import com.example.zeldasae.modele.*;
+import com.example.zeldasae.modele.armes.Arc;
+import com.example.zeldasae.modele.armes.Epee;
+import com.example.zeldasae.modele.collectibles.Fruit;
 import javafx.event.EventHandler;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
@@ -19,18 +25,24 @@ public class KeyHandler implements EventHandler<KeyEvent> {
     private VueTerrain vueTerrain;
     private VueInventaire vueInv;
     private Set<KeyCode> pressedKeys;
+    private VueArme vueArme;
+    private VueCollectible vueCollectible;
 
-    public KeyHandler(Monde map, VueInventaire vueInv, VueTerrain vueTerrain) {
+    public KeyHandler(Monde map, VueInventaire vueInv, VueTerrain vueTerrain, VueArme vueArme, VueCollectible vueCollectible) {
         this.map = map;
         this.vueInv = vueInv;
+        this.vueArme = vueArme;
         this.pressedKeys = new HashSet<>();
         this.vueTerrain = vueTerrain;
+        this.vueCollectible = vueCollectible;
     }
-    private Item itemTest = new Arme(0,0, "Arme 1" ,500, 3); //à retirer, sert uniquement pour les tests
-    private Item itemTest2 = new Arme(0,0, "Arme 2",2, 5);
-    private Item itemTest3 = new Armure(0,0, 500,"Armure 3", 6);
-    private Item itemTest4 = new Armure(0,0, 500,"Armure 4", 19);
 
+    //à retirer, sert uniquement pour les tests
+    private Epee itemTest = new Epee( 150, 15, 0, 0);
+//    private Epee itemTest2 = new Epee(100, 100, 0, 0);
+    private Item itemTest3 = new Armure(500,"Armure 3", 6);
+    private Item itemTest4 = new Armure(500,"Armure 4", 19);
+    private Arc arcTest = new Arc(10, 10, 10, 40);
 
     @Override
     public void handle(KeyEvent keyEvent) {
@@ -72,21 +84,40 @@ public class KeyHandler implements EventHandler<KeyEvent> {
         if (pressedKeys.contains(SPACE))
             vueTerrain.deplaceBloc();
 
-        switch (keyEvent.getCode()) {
-            case E:
-//                System.out.println("e");
-                this.vueInv.toggleAffichageInventaire(keyEvent);
-                break;
-            case X: //à retirer, sert uniquement pour les tests
-                this.map.getJoueur().getInv().ajouterItem(itemTest);
-                this.map.getJoueur().getInv().ajouterItem(itemTest2);
-                this.map.getJoueur().getInv().ajouterItem(itemTest3);
-                this.map.getJoueur().getInv().ajouterItem(itemTest4);
-                break;
-            case C: //à retirer, sert uniquement pour les tests
-                System.out.println("Arme : " + this.map.getJoueur().getInv().getArmeActuelle().getNom() + " Armure : " + this.map.getJoueur().getInv().getArmureActuelle().getNom());
-                break;
-
+        if (keyEvent.getEventType() != KeyEvent.KEY_RELEASED) {
+            switch (keyEvent.getCode()) {
+                case E:
+                System.out.println("e");
+                    this.vueInv.toggleAffichageInventaire();
+                    break;
+                case X: //à retirer, sert uniquement pour les tests
+                    Collectible collectibleTest = new Fruit(0, 10,  5, 30, 30, 50, 50, this.map.getJoueur());
+                    this.map.getJoueur().getInv().ajouterItem(itemTest);
+                    this.map.getJoueur().getInv().ajouterItem(itemTest3);
+                    this.map.getJoueur().getInv().ajouterItem(itemTest4);
+                    this.map.ajouterCollectible(collectibleTest);
+                    break;
+                case A:
+                    this.map.getJoueur().getInv().echangerArmes();
+                    break;
+                case P:
+                    this.map.getJoueur().getInv().changerArme(arcTest);
+                    for(int i = 0; i < this.map.getJoueur().getInv().getListeItems().size(); i++) {
+                        if (this.map.getJoueur().getInv().getListeItems().get(i) instanceof Collectible) { //TODO mettre méthode abstraite commune aux Items ?
+                            System.out.println(((Collectible) this.map.getJoueur().getInv().getListeItems().get(i)).getQuantite() + " " + ((Collectible) this.map.getJoueur().getInv().getListeItems().get(i)).getType());
+                        }
+                    }
+                    break;
+                case LEFT, RIGHT, UP, DOWN:
+                    if (this.map.getJoueur().getPeutDonnerCoupProperty()) {
+                        this.map.getJoueur().attaquer(keyEvent, map);
+                        this.vueArme.donnerCoup(this.map.getJoueur().getInv().getArmeActuelle().getX(), this.map.getJoueur().getInv().getArmeActuelle().getY(), keyEvent);
+                        if (keyEvent.getCode() == UP || keyEvent.getCode() == DOWN) {
+                            this.map.getJoueur().getInv().getArmeActuelle().getHitBox().pivote();
+                        }
+                    }
+                    break;
+            }
         }
     }
 

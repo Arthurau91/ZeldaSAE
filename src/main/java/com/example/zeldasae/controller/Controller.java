@@ -1,6 +1,9 @@
 package com.example.zeldasae.controller;
 
 import com.example.zeldasae.Algo.BFS;
+import com.example.zeldasae.Vue.VueInventaire;
+import com.example.zeldasae.Vue.VueTerrain;
+import com.example.zeldasae.modele.Ennemi;
 import com.example.zeldasae.Vue.*;
 import com.example.zeldasae.modele.Boss;
 import com.example.zeldasae.modele.Joueur;
@@ -33,6 +36,9 @@ public class Controller implements Initializable {
     private Timeline gameLoop;
     private int temps;
     private Button resetButton;
+    private VueArme vueArme;
+    private VueCollectible vueCollectible;
+    private KeyHandler keyHandler;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -59,7 +65,7 @@ public class Controller implements Initializable {
         BFS bfs =new BFS();
         Joueur joueur = new Joueur(600, 510, (int)mapPane.getPrefTileWidth(), (int)mapPane.getPrefTileHeight(), mapPane.getPrefColumns(), mapPane.getPrefRows());
         new VueJoueur(joueur, paneEntites);
-        this.map = new Monde(joueur, bfs);
+        this.map = new Monde(joueur, bfs, loadJSON.getPrefRows());
         Pursuer pursuer = new Pursuer(120, 120, (int)mapPane.getPrefTileWidth(), (int)mapPane.getPrefTileHeight(), mapPane.getPrefColumns(),  mapPane.getPrefRows(), bfs);
         new VuePursuer(pursuer, paneEntites);
         this.map.addEnnemi(pursuer);
@@ -68,7 +74,13 @@ public class Controller implements Initializable {
         new VueBoss(boss, paneEntites);
         VueTerrain vueTerrain = new VueTerrain(this.map, this.mapPane, loadJSON.getMap(), loadJSON.getMap2());
         VueInventaire vueInv = new VueInventaire(this.boxInventaire, this.map.getJoueur());
+        this.vueArme = new VueArme(this.map.getJoueur(), this.paneEntites, map, this.mapPane);
+        this.vueCollectible = new VueCollectible(paneEntites, map);
+
         this.map.getJoueur().getInv().getListeItems().addListener(new ObservateurItems(vueInv, this.paneEntites));
+        this.map.getListeProjectiles().addListener(new ObservateurProjectiles(vueArme));
+        this.map.getListeCollectibles().addListener(new ObservateurCollectibles(vueCollectible));
+
         bfs.lanceAlgo(map, mapPane.getPrefColumns(), mapPane.getPrefRows());
 
         ObservateurMouvement observateurMouvement = new ObservateurMouvement(this.map, this.mapPane, this.paneEntites);
@@ -76,11 +88,12 @@ public class Controller implements Initializable {
         this.map.getJoueur().xProperty().addListener(observateurMouvement);
         this.map.getJoueur().yProperty().addListener(observateurMouvement);
 
-        KeyHandler keyHandler = new KeyHandler(this.map, vueInv, vueTerrain);
+        KeyHandler keyHandler = new KeyHandler(this.map, vueInv, vueTerrain, vueArme, vueCollectible);
         paneEntites.addEventHandler(KeyEvent.KEY_PRESSED, keyHandler);
         paneEntites.addEventHandler(KeyEvent.KEY_RELEASED, keyHandler);
         initAnimation();
         paneEntites.getChildren().add(this.map.getJoueur().getVueBarreDeVie());
+
     }
 
     private void relanceJeu(){
@@ -95,6 +108,9 @@ public class Controller implements Initializable {
         mapPane.getChildren().clear();
         mapPane.setTranslateX(0);
         mapPane.setTranslateY(0);
+        boxInventaire.getChildren().clear();
+        boxInventaire.setTranslateX(0);
+        boxInventaire.setTranslateY(0);
         this.map = null;
         resetButton.setDisable(true);
         resetButton.setVisible(false);
@@ -112,16 +128,22 @@ public class Controller implements Initializable {
                 (ev ->{
                     this.map.getJoueur().deplacement(map);
 
-                    if (temps%2==0)
+                    if (temps%2==0) {
                         this.map.deplacementEnnemi();
+                        this.map.deplacerProjectilesVue();
+                    }
 
                     temps++;
                     if (!map.getJoueur().verifVivant()) {
                         clearJeu();
+                        paneEntites.removeEventHandler(KeyEvent.KEY_PRESSED, keyHandler);
+                        paneEntites.removeEventHandler(KeyEvent.KEY_RELEASED, keyHandler);
                         resetButton.setDisable(false);
                         resetButton.setVisible(true);
                         gameLoop.stop();
                     }
+
+                    this.vueCollectible.checkCollectiblesRamasses();
                 })
         );
         gameLoop.getKeyFrames().add(kf);

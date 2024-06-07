@@ -25,7 +25,7 @@ public abstract class Entite {
     private HitBox hitBox;
     private static int n = 0;
     private IntegerProperty pv;
-    private int pvDebut;
+    private int pvMax;
     private int degats;
     private StringProperty direction;
     private VueBarreDeVie vueBarreDeVie;
@@ -42,11 +42,12 @@ public abstract class Entite {
         this.deplacement = "null";
         this.vitesse = 10;
         this.hitBox = new HitBox(this.width, this.height, this.xProperty, this.yProperty);
-        this.pvDebut = 10;
-        this.pv = new SimpleIntegerProperty(this.pvDebut);
+        this.pvMax = 10;
+        this.pv = new SimpleIntegerProperty(this.pvMax);
         this.degats = 1;
         this.direction = new SimpleStringProperty("right");
 
+        //mettre côté vue
         if (this instanceof Joueur) {
             this.vueBarreDeVie = new VueBarreDeVie(100, 20);
             this.getVueBarreDeVie().setLayoutX(1050);
@@ -56,6 +57,7 @@ public abstract class Entite {
             bindBarreDeViePosition();
         }
 
+        //à faire dans le contrôleur
         this.pv.addListener(new ObservateurVie(this));
     }
 
@@ -126,8 +128,8 @@ public abstract class Entite {
     public int getPv() {
         return pv.getValue();
     }
-    public int getPvDebut() {
-        return pvDebut;
+    public int getPvMax() {
+        return pvMax;
     }
     public int getDegats() {
         return degats;
@@ -158,6 +160,11 @@ public abstract class Entite {
         }
     }
 
+    public void ajouterVie(int vieRecup) {
+            setPv(this.getPv() + vieRecup);
+    }
+
+
     public void attaqueEntite(Entite entite) {
         if (verifVivant()) {
             entite.perdreVie(this.getDegats());
@@ -168,6 +175,7 @@ public abstract class Entite {
         return this.getPv() > 0;
     }
 
+    //remettre côté vue
     private void bindBarreDeViePosition() {
 
         DoubleBinding barreXBinding = Bindings.createDoubleBinding(() ->
@@ -242,28 +250,28 @@ public abstract class Entite {
         return false;
     }
 
-    private boolean checkUp(Monde m, int decalages){
+    public boolean checkUp(Monde m, int decalages){
         for (int i = 0; i <= width; i++){
             if (checkColisionEntite(m, getX() + i, getY() - decalages))
                 return false;
         }
         return true;
     }
-    private boolean checkDown(Monde m, int decalages){
+    public boolean checkDown(Monde m, int decalages){
         for (int i = 0; i <= width; i++){
             if (checkColisionEntite(m, getX() + i, getY() + height + decalages))
                 return false;
         }
         return true;
     }
-    private boolean checkRight(Monde m, int decalages){
+    public boolean checkRight(Monde m, int decalages){
         for (int i = 0; i <= height; i++){
             if (checkColisionEntite(m, getX() + width + decalages, getY() + i))
                 return false;
         }
         return true;
     }
-    private boolean checkLeft(Monde m, int decalages){
+    public boolean checkLeft(Monde m, int decalages){
         for (int i = 0; i <= height; i++){
             if (checkColisionEntite(m, getX() - decalages, getY() + i))
                 return false;
