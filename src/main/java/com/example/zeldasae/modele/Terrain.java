@@ -16,23 +16,19 @@ public class Terrain {
         return map;
     }
 
-    public boolean poussable(int coo){
-        if (coo < map.size() && coo >=0) {
+    public boolean poussable(int coo) {
+        if (coo < map.size() && coo >= 0) {
             int[] casesPoussables = {1118};
             for (int i = 0; i < casesPoussables.length; i++) {
                 if (this.map.get(coo) == casesPoussables[i])
                     return true;
             }
         }
+        return false;
+    }
 
     public int getRows() {
         return rows;
-    }
-
-    public boolean testCoo(int coo){
-        if (coo < map.size() && coo >=0)
-            return vide(coo);
-        return false;
     }
 
     public boolean vide(int coo){

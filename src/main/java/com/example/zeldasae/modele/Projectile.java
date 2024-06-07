@@ -75,6 +75,6 @@ public class Projectile {
     }
 
     public boolean dansMap(Terrain terrain) {
-        return terrain.testCoo((this.getHitBox().getX() / 30) + (this.getHitBox().getY() / 30 * terrain.getRows()));
+        return terrain.vide((this.getHitBox().getX() / 30) + (this.getHitBox().getY() / 30 * terrain.getRows()));
     }
 }
