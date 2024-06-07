@@ -23,7 +23,7 @@ public abstract class VueEntite {
     public void creerImageEntite() {
         imgEntite = new ImageView();
         Image image;
-        image = new Image(this.getImageDroite());
+        image = this.getImageDroite();
         imgEntite.setImage(image);
 
         imgEntite.setId(entite.getId());
@@ -35,28 +35,28 @@ public abstract class VueEntite {
 
     public void changeImage(){
         if (entite.getDirection().contains("up")) {
-            imgEntite.setImage(new Image(this.getImageHaut()));
+            imgEntite.setImage(this.getImageHaut());
             directionImage = "up";
         }
         if (entite.getDirection().contains("down")) {
-            imgEntite.setImage(new Image(this.getImageBas()));
+            imgEntite.setImage(this.getImageBas());
             directionImage = "down";
         }
         if (entite.getDirection().contains("right")) {
-            imgEntite.setImage(new Image(this.getImageDroite()));
+            imgEntite.setImage(this.getImageDroite());
             directionImage = "right";
         }
         if (entite.getDirection().contains("left")){
-            imgEntite.setImage(new Image(this.getImageGauche()));
+            imgEntite.setImage(this.getImageGauche());
             directionImage = "left";
         }
     }
 
 
-    public abstract String getImageBas();
-    public abstract String getImageHaut();
-    public abstract String getImageDroite();
-    public abstract String getImageGauche();
+    public abstract Image getImageBas();
+    public abstract Image getImageHaut();
+    public abstract Image getImageDroite();
+    public abstract Image getImageGauche();
     public String getDirectionImage() {
         return directionImage;
     }

@@ -1,6 +1,7 @@
 package com.example.zeldasae.Vue;
 
 import com.example.zeldasae.modele.Entite;
+import javafx.scene.image.Image;
 import javafx.scene.layout.Pane;
 
 public class VueBoss extends VueEntite{
@@ -15,19 +16,19 @@ public class VueBoss extends VueEntite{
         super.creerImageEntite();
     }
     @Override
-    public String getImageBas() {
-        return imageBas;
+    public Image getImageBas() {
+        return new Image(imageBas);
     }
     @Override
-    public String getImageDroite() {
-        return imageDroite;
+    public Image getImageDroite() {
+        return new Image(imageDroite);
     }
     @Override
-    public String getImageGauche() {
-        return imageGauche;
+    public Image getImageGauche() {
+        return new Image(imageGauche);
     }
     @Override
-    public String getImageHaut() {
-        return imageHaut;
+    public Image getImageHaut() {
+        return new Image(imageHaut);
     }
 }
