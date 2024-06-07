@@ -37,6 +37,7 @@ public class Controller implements Initializable {
     private Button resetButton;
     private VueArme vueArme;
     private VueCollectible vueCollectible;
+    private KeyHandler keyHandler;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -79,7 +80,7 @@ public class Controller implements Initializable {
         this.map.getJoueur().xProperty().addListener(observateurMouvement);
         this.map.getJoueur().yProperty().addListener(observateurMouvement);
 
-        KeyHandler keyHandler = new KeyHandler(this.map, vueInv, vueArme, vueCollectible);
+        keyHandler = new KeyHandler(this.map, vueInv, vueArme, vueCollectible);
         paneEntites.addEventHandler(KeyEvent.KEY_PRESSED, keyHandler);
         paneEntites.addEventHandler(KeyEvent.KEY_RELEASED, keyHandler);
         initAnimation();
@@ -121,6 +122,8 @@ public class Controller implements Initializable {
 
                     temps++;
                     if (!map.getJoueur().verifVivant()) {
+                        paneEntites.removeEventHandler(KeyEvent.KEY_PRESSED, keyHandler);
+                        paneEntites.removeEventHandler(KeyEvent.KEY_RELEASED, keyHandler);
                         resetButton.setDisable(false);
                         resetButton.setVisible(true);
                         gameLoop.stop();

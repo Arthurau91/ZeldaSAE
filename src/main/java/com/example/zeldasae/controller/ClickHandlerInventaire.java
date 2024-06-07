@@ -29,7 +29,6 @@ public class ClickHandlerInventaire implements EventHandler<MouseEvent> {
                 clicChangementArme(v.getId());
             }
         }
-
     }
 
     public void clicChangementArme(String id) {

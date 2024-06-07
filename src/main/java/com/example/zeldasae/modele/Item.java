@@ -23,5 +23,4 @@ public abstract class Item {
         this.posSlotItems = posSlotItems;
     }
 
-
 }

@@ -82,6 +82,9 @@ public class Monde {
         this.listeProjectiles.remove(p);
     }
 
+    public void setJoueur(Joueur joueur) {
+        this.joueur = null;
+    }
 
     public void deplacerProjectilesVue() {
         for (int i = 0; i < this.listeProjectiles.size(); i++) {

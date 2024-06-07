@@ -13,7 +13,7 @@ import javafx.scene.paint.Color;
 public class VueInventaire {
 
     public final int nbItemLigne = 5;
-    public final int nbItemColonne = 10;
+    public final int nbItemColonne = 8;
 
     private Pane boxInventaire;
     private boolean afficheInventaire;

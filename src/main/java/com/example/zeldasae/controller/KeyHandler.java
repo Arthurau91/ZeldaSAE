@@ -59,7 +59,7 @@ public class KeyHandler implements EventHandler<KeyEvent> {
         if (keyEvent.getEventType() != KeyEvent.KEY_RELEASED) {
             switch (keyEvent.getCode()) {
                 case E:
-//                System.out.println("e");
+                System.out.println("e");
                     this.vueInv.toggleAffichageInventaire();
                     break;
                 case X: //à retirer, sert uniquement pour les tests
