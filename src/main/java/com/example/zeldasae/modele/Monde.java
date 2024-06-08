@@ -66,8 +66,8 @@ public class Monde {
         this.terrain.setMap(map);
     }
 
-    public int[] cooBloc(int coo){
-        ArrayList<Integer> m1 = getTerrain().getMap();
+    public int[] cooBloc(int x, int y){
+        int coo = terrain.changeCoo(x, y);
         int coobloc = 0;
         int coovide = 0;
         String direction = joueur.getDirection();

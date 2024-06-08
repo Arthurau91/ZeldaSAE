@@ -88,7 +88,7 @@ public class Controller implements Initializable {
         this.map.getJoueur().xProperty().addListener(observateurMouvement);
         this.map.getJoueur().yProperty().addListener(observateurMouvement);
 
-        KeyHandler keyHandler = new KeyHandler(this.map, vueInv, vueTerrain, vueArme, vueCollectible);
+        this.keyHandler = new KeyHandler(this.map, vueInv, vueTerrain, vueArme, vueCollectible);
         paneEntites.addEventHandler(KeyEvent.KEY_PRESSED, keyHandler);
         paneEntites.addEventHandler(KeyEvent.KEY_RELEASED, keyHandler);
         initAnimation();

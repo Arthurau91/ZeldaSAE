@@ -16,6 +16,10 @@ public class Terrain {
         return map;
     }
 
+    public int changeCoo(int x, int y){
+        return (x/30) + ((y/30)*rows);
+    }
+
     public boolean poussable(int coo) {
         if (coo < map.size() && coo >= 0) {
             int[] casesPoussables = {1118};
