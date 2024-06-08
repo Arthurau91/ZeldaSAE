@@ -37,7 +37,7 @@ public abstract class Ennemi extends Entite{
                 src = new int[]{x, y};
                 pdeplacement = bfs.prochainMouvement(src);
                 if (pdeplacement != null) {
-                    donneDirection(x, y, pdeplacement);
+                    metDirection(x, y, pdeplacement);
                     deplacement = super.deplacement(m);
                 }
             }
@@ -47,7 +47,7 @@ public abstract class Ennemi extends Entite{
                 src = new int[]{x, y};
                 pdeplacement = bfs.prochainMouvement(src);
                 if (pdeplacement != null) {
-                    donneDirection(x, y, pdeplacement);
+                    metDirection(x, y, pdeplacement);
                     deplacement = super.deplacement(m);
                 }
             }
@@ -58,10 +58,12 @@ public abstract class Ennemi extends Entite{
         }while (width <= this.getWidth() && width2 >= 0);
 
         this.setDirection(this.getDeplacement());
+        if (isJoueurDirection(m))
+            attaqueEntite(m.getJoueur());
         return deplacement;
     }
 
-    private void donneDirection(int x, int y, int[] pdeplacement) {
+    private void metDirection(int x, int y, int[] pdeplacement) {
         String direction = "";
         if (pdeplacement[0] > x)
             direction += "right";
@@ -74,11 +76,53 @@ public abstract class Ennemi extends Entite{
         this.setDeplacement(direction);
     }
 
+    private boolean isJoueurDirection(Monde m){
+
+        if(isJoueurUp(m, 1))
+            return true;
+        if(isJoueurDown(m, 1))
+            return true;
+        if(isJoueurRight(m, 1))
+            return true;
+        if(isJoueurLeft(m, 1))
+            return true;
+
+        return false;
+    }
+
     public boolean checkColisionEntite(Monde m, int x, int y) {
         if (m.getJoueur().getHitBox().contient(x, y)){
-            this.attaqueEntite(m.getJoueur());
             return true;
         }
         return super.checkColisionEntite(m, x, y);
+    }
+
+    private boolean isJoueurUp(Monde m, int decalages){
+        for (int i = 0; i <= super.getWidth(); i++){
+            if (m.getJoueur().getHitBox().contient(getX() + i, getY() - decalages))
+                return true;
+        }
+        return false;
+    }
+    private boolean isJoueurDown(Monde m, int decalages){
+        for (int i = 0; i <= super.getWidth(); i++){
+            if (m.getJoueur().getHitBox().contient(getX() + i, getY() + super.getHeight() + decalages))
+                return true;
+        }
+        return false;
+    }
+    private boolean isJoueurRight(Monde m, int decalages){
+        for (int i = 0; i <= super.getHeight(); i++){
+            if (m.getJoueur().getHitBox().contient(getX() + super.getWidth() + decalages, getY() + i))
+                return true;
+        }
+        return false;
+    }
+    private boolean isJoueurLeft(Monde m, int decalages){
+        for (int i = 0; i <= super.getHeight(); i++){
+            if (m.getJoueur().getHitBox().contient(getX() - decalages, getY() + i))
+                return true;
+        }
+        return false;
     }
 }

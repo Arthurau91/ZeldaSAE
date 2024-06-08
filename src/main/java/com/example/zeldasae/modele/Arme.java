@@ -5,14 +5,7 @@ import javafx.beans.property.SimpleIntegerProperty;
 import javafx.scene.input.KeyEvent;
 import javafx.util.Duration;
 
-import javax.swing.*;
-import javax.swing.plaf.PanelUI;
 import java.util.ArrayList;
-import java.util.Timer;
-import java.util.TimerTask;
-
-import static javafx.scene.input.KeyCode.DOWN;
-import static javafx.scene.input.KeyCode.UP;
 
 public abstract class Arme extends Item{
 
