@@ -102,11 +102,6 @@ public class KeyHandler implements EventHandler<KeyEvent> {
                     break;
                 case P:
                     this.map.getJoueur().getInv().changerArme(arcTest);
-                    for(int i = 0; i < this.map.getJoueur().getInv().getListeItems().size(); i++) {
-                        if (this.map.getJoueur().getInv().getListeItems().get(i) instanceof Collectible) { //TODO mettre méthode abstraite commune aux Items ?
-                            System.out.println(((Collectible) this.map.getJoueur().getInv().getListeItems().get(i)).getQuantite() + " " + ((Collectible) this.map.getJoueur().getInv().getListeItems().get(i)).getType());
-                        }
-                    }
                     break;
                 case LEFT, RIGHT, UP, DOWN:
                     if (this.map.getJoueur().getPeutDonnerCoupProperty() && this.map.getJoueur().getInv().getArmeActuelle() != null) {

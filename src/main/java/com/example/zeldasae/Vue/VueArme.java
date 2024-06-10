@@ -44,11 +44,8 @@ public class VueArme {
             pause.play();
     }
 
-    public void creerProjectileVue(Projectile p) {
-        p.getHitBox().setX(joueur.getX()); //DES QUE T'UTILISERAS LES TOUCHES DE DEPLACEMENT POUR L'ARC, FAIS CA DANS Projectile.setPosMap()
-        p.getHitBox().setY(joueur.getY());
+    public void creerProjectileJoueurVue(Projectile p) {
         ImageView image = getImageViewProjectile(p);
-//        Rectangle image = new Rectangle(p.getHitBox().getLarge(), p.getHitBox().getHaut(), Color.RED);
         image.setId(p.getNom());
         image.translateXProperty().bind(p.getHitBox().xProperty());
         image.translateYProperty().bind(p.getHitBox().yProperty());
@@ -58,6 +55,10 @@ public class VueArme {
         PauseTransition pause = new PauseTransition(Duration.seconds(joueur.getInv().getArmeActuelle().getDelaiRecuperation()));
         pause.setOnFinished(event -> this.joueur.setPeutDonnerCoupProperty(true));
         pause.play();
+    }
+
+    public void creerProjectileEnnemiVue(Projectile p) {
+
     }
 
     private static ImageView getImageViewProjectile(Projectile p) {

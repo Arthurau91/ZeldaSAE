@@ -6,7 +6,7 @@ import javafx.scene.input.KeyEvent;
 
 import java.util.ArrayList;
 
-public class Projectile {
+public abstract class Projectile {
 
     private String nom;
     public static int compteur = 0;
@@ -24,6 +24,19 @@ public class Projectile {
         this.direction = keyEvent.getCode().toString();
         this.obstacleTouche = false;
         compteur++;
+    }
+
+    public Projectile(int degats, int vitesse, int large, int haut) {
+        this.nom = "Proj" + compteur;
+        this.degats = degats;
+        this.vitesse = vitesse;
+        this.hitBox = new HitBox(large, haut, new SimpleIntegerProperty(0), new SimpleIntegerProperty(0));
+        this.obstacleTouche = false;
+        compteur++;
+    }
+
+    public int getDegats() {
+        return degats;
     }
 
     public HitBox getHitBox() {
@@ -46,7 +59,34 @@ public class Projectile {
         return this.obstacleTouche;
     }
 
-    public void deplacerProjectile(ArrayList<Ennemi> ennemis) {
+    public void setObstacleTouche(boolean obstacleTouche) {
+        this.obstacleTouche = obstacleTouche;
+    }
+
+    public void setPosMap(int x, int y, String keyEvent) {
+        switch (keyEvent) {
+            case "LEFT":
+                this.hitBox.setX(x-this.hitBox.getLarge());
+                this.hitBox.setY(y);
+                break;
+            case "RIGHT":
+                this.hitBox.setX(x+30);
+                this.hitBox.setY(y);
+                break;
+            case "UP":
+                this.hitBox.pivote();
+                this.hitBox.setX(x+10);
+                this.hitBox.setY(y-this.hitBox.getHaut());
+                break;
+            case "DOWN":
+                this.hitBox.pivote();
+                this.hitBox.setX(x+10);
+                this.hitBox.setY(y+30);
+                break;
+        }
+    }
+
+    public void deplacerProjectile(Monde map) {
         switch (this.direction) {
             case "UP":
                 getHitBox().setY(getHitBox().getY() - this.vitesse);
@@ -61,18 +101,10 @@ public class Projectile {
                 getHitBox().setX(getHitBox().getX() + this.vitesse);
                 break;
         }
-        checkCoupTouche(ennemis);
+        checkCoupTouche(map);
     }
 
-    public void checkCoupTouche(ArrayList<Ennemi> ennemis) {
-        for (Ennemi e : ennemis) {
-            if (e.getHitBox().estDedansHitbox(this.hitBox) && !this.obstacleTouche) {
-                this.obstacleTouche = true;
-                e.perdreVie(this.degats);
-                System.out.println("Pv de l'ennemi : " + e.getPv());
-            }
-        }
-    }
+    public abstract void checkCoupTouche(Monde map);
 
     public boolean dansMap(Terrain terrain) {
         return terrain.vide((this.getHitBox().getX() / 30) + (this.getHitBox().getY() / 30 * terrain.getRows()));

@@ -112,7 +112,7 @@ public class Monde {
 
     public void deplacerProjectilesVue() {
         for (int i = 0; i < this.listeProjectiles.size(); i++) {
-            this.listeProjectiles.get(i).deplacerProjectile(this.getListeEnnemis());
+            this.listeProjectiles.get(i).deplacerProjectile(this);
             if (this.listeProjectiles.get(i).isObstacleTouche() || !this.listeProjectiles.get(i).dansMap(this.terrain)) {
                 retirerProjectile(this.listeProjectiles.get(i));
                 i--;
