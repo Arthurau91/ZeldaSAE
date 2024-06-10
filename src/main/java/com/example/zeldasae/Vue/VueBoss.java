@@ -1,6 +1,7 @@
 package com.example.zeldasae.Vue;
 
 import com.example.zeldasae.modele.entities.Boss;
+import javafx.beans.property.IntegerProperty;
 import javafx.scene.image.Image;
 import javafx.scene.image.WritableImage;
 import javafx.scene.layout.Pane;
@@ -10,8 +11,8 @@ public class VueBoss extends VueEntite{
     private Image[] sprites;
     private int statusAnim;
 
-    public VueBoss(Boss entite, Pane paneEntites) {
-        super(entite, paneEntites);
+    public VueBoss(Boss entite, Pane paneEntites, IntegerProperty temps) {
+        super(entite, paneEntites, temps);
         loadSprites();
         statusAnim = 0;
         super.creerImageEntite();
@@ -47,5 +48,22 @@ public class VueBoss extends VueEntite{
     @Override
     public Image getImageHaut() {
         return sprites[((statusAnim++)%3)];
+    }
+
+    @Override
+    public Image getImageStatiqueBas() {
+        return getImageBas();
+    }
+    @Override
+    public Image getImageStatiqueHaut() {
+        return getImageHaut();
+    }
+    @Override
+    public Image getImageStatiqueDroite() {
+        return getImageDroite();
+    }
+    @Override
+    public Image getImageStatiqueGauche() {
+        return getImageGauche();
     }
 }

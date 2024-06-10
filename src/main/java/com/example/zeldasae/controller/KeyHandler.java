@@ -3,7 +3,6 @@ import com.example.zeldasae.Vue.VueArme;
 import com.example.zeldasae.Vue.VueCollectible;
 import com.example.zeldasae.Vue.VueInventaire;
 import com.example.zeldasae.Vue.VueTerrain;
-import com.example.zeldasae.modele.Arme;
 import com.example.zeldasae.modele.Armure;
 import com.example.zeldasae.modele.Item;
 import com.example.zeldasae.modele.Monde;
@@ -65,19 +64,19 @@ public class KeyHandler implements EventHandler<KeyEvent> {
 
         if (pressedKeys.contains(Z)) {
             direction += "up";
-            map.getJoueur().addDirectionImage("up");
+            map.getJoueur().addDirection("up");
         }
         if (pressedKeys.contains(S)) {
             direction += "down";
-            map.getJoueur().addDirectionImage("down");
+            map.getJoueur().addDirection("down");
         }
         if (pressedKeys.contains(Q)) {
             direction += "left";
-            map.getJoueur().addDirectionImage("left");
+            map.getJoueur().addDirection("left");
         }
         if (pressedKeys.contains(D)) {
             direction += "right";
-            map.getJoueur().addDirectionImage("right");
+            map.getJoueur().addDirection("right");
         }
         this.map.getJoueur().setDeplacement(direction);
 

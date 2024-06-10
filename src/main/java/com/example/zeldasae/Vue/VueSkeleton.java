@@ -1,6 +1,7 @@
 package com.example.zeldasae.Vue;
 
 import com.example.zeldasae.modele.entities.Skeleton;
+import javafx.beans.property.IntegerProperty;
 import javafx.scene.image.Image;
 import javafx.scene.image.WritableImage;
 import javafx.scene.layout.Pane;
@@ -10,8 +11,8 @@ public class VueSkeleton extends VueEntite{
     private Image[] sprites;
     private int statusAnim;
 
-    public VueSkeleton(Skeleton entite, Pane paneEntites) {
-        super(entite, paneEntites);
+    public VueSkeleton(Skeleton entite, Pane paneEntites, IntegerProperty temps) {
+        super(entite, paneEntites, temps);
         loadSprites();
         statusAnim = 0;
         super.creerImageEntite();
@@ -49,4 +50,22 @@ public class VueSkeleton extends VueEntite{
     public Image getImageHaut() {
         return sprites[8*13+((statusAnim++)%9)];
     }
+
+    @Override
+    public Image getImageStatiqueBas() {
+        return sprites[6*13+((statusAnim++)%8)];
+    }
+    @Override
+    public Image getImageStatiqueHaut() {
+        return sprites[4*13+((statusAnim++)%8)];
+    }
+    @Override
+    public Image getImageStatiqueDroite() {
+        return sprites[7*13+((statusAnim++)%8)];
+    }
+    @Override
+    public Image getImageStatiqueGauche() {
+        return sprites[5*13+((statusAnim++)%8)];
+    }
+
 }
