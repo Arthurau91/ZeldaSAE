@@ -4,7 +4,9 @@ import com.example.zeldasae.modele.Arme;
 import com.example.zeldasae.modele.Monde;
 import com.example.zeldasae.modele.Projectile;
 import com.example.zeldasae.modele.ProjectileJoueur;
+import javafx.animation.PauseTransition;
 import javafx.scene.input.KeyEvent;
+import javafx.util.Duration;
 
 import static javafx.scene.input.KeyCode.DOWN;
 import static javafx.scene.input.KeyCode.UP;
@@ -17,7 +19,7 @@ public class Arc extends Arme {
 
     public Projectile creerProjectile(KeyEvent keyEvent, Monde map) {
         Projectile fleche = new ProjectileJoueur(this.getDegats(), 15, 20, 10, keyEvent);
-        fleche.setPosMap(map.getJoueur().getX(), map.getJoueur().getY(), keyEvent.toString());
+        fleche.setPosMap(map.getJoueur().getHitBox().getX(), map.getJoueur().getHitBox().getY(), keyEvent.getCode().toString());
         return fleche;
     }
 
@@ -25,5 +27,11 @@ public class Arc extends Arme {
     public void attaquer(KeyEvent keyEvent, Monde map) {
         Projectile p = creerProjectile(keyEvent, map);
         map.ajouterProjectile(p);
+
+        map.getJoueur().setPeutDonnerCoupProperty(false);
+
+        PauseTransition pause = new PauseTransition(Duration.seconds(map.getJoueur().getInv().getArmeActuelle().getDelaiRecuperation()));
+        pause.setOnFinished(event -> map.getJoueur().setPeutDonnerCoupProperty(true));
+        pause.play();
     }
 }

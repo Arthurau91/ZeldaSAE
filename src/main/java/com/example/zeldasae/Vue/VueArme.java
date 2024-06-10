@@ -50,15 +50,14 @@ public class VueArme {
         image.translateXProperty().bind(p.getHitBox().xProperty());
         image.translateYProperty().bind(p.getHitBox().yProperty());
         this.paneEntites.getChildren().add(image);
-        this.joueur.setPeutDonnerCoupProperty(false);
-
-        PauseTransition pause = new PauseTransition(Duration.seconds(joueur.getInv().getArmeActuelle().getDelaiRecuperation()));
-        pause.setOnFinished(event -> this.joueur.setPeutDonnerCoupProperty(true));
-        pause.play();
     }
 
     public void creerProjectileEnnemiVue(Projectile p) {
-
+        ImageView image = getImageViewProjectile(p);
+        image.setId(p.getNom());
+        image.translateXProperty().bind(p.getHitBox().xProperty());
+        image.translateYProperty().bind(p.getHitBox().yProperty());
+        this.paneEntites.getChildren().add(image);
     }
 
     private static ImageView getImageViewProjectile(Projectile p) {

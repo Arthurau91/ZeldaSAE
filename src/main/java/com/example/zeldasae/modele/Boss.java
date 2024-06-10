@@ -8,7 +8,7 @@ import javafx.util.Duration;
 
 public class Boss extends Ennemi {
 
-    private final int cooldownAttaqueDistance = 2;
+    private final int cooldownAttaqueDistance = 3;
     private boolean peutAttaquerDistance;
 
     public Boss(int x, int y, int width, int height, int column, int rows, BFS bfs) {
@@ -24,14 +24,14 @@ public class Boss extends Ennemi {
         if (this.getBfs().distanceMouvement(new int[]{x, y}) < 15) {
             return super.deplacement(m);
         }
-        if (this.peutAttaquerDistance) {
+        if (this.peutAttaquerDistance && verifVivant()) {
             attaquerDistance(m);
         }
         return false;
     }
 
     public void attaquerDistance(Monde m) {
-        ProjectileEnnemi p = new ProjectileEnnemi(2, 5, 30, 30);
+        ProjectileEnnemi p = new ProjectileEnnemi(2, 20, 30, 30);
         p.setDirection("RIGHT");
         p.setPosMap(this.getX(), this.getY(), "RIGHT");
         m.ajouterProjectile(p);
