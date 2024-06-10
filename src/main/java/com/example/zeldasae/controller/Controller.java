@@ -3,7 +3,10 @@ package com.example.zeldasae.controller;
 import com.example.zeldasae.Algo.BFS;
 import com.example.zeldasae.Vue.VueInventaire;
 import com.example.zeldasae.Vue.VueTerrain;
-import com.example.zeldasae.modele.*;
+import com.example.zeldasae.modele.Ennemi;
+import com.example.zeldasae.modele.GestionnaireCoffre;
+import com.example.zeldasae.modele.Joueur;
+import com.example.zeldasae.modele.Monde;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.fxml.FXML;
@@ -15,7 +18,7 @@ import javafx.scene.layout.TilePane;
 import javafx.util.Duration;
 
 import java.net.URL;
-import java.util.List;
+import java.util.Arrays;
 import java.util.ResourceBundle;
 
 public class Controller implements Initializable {
@@ -25,7 +28,9 @@ public class Controller implements Initializable {
     @FXML
     private Pane paneEntites;
     @FXML
-    private Pane boxCoffre;
+    private Pane boxCoffre1;
+    @FXML
+    private Pane boxCoffre2;
     @FXML
     private TilePane mapPane;
     private Monde map;
@@ -57,7 +62,9 @@ public class Controller implements Initializable {
         this.map.getJoueur().xProperty().addListener(observateurMouvement);
         this.map.getJoueur().yProperty().addListener(observateurMouvement);
 
-        gestionnaireCoffre = new GestionnaireCoffre(this.map, this.boxCoffre, vueInv);
+        gestionnaireCoffre = new GestionnaireCoffre(this.map, Arrays.asList(boxCoffre1, boxCoffre2), vueInv);
+
+
         gestionnaireCoffre.creerCoffreDansMonde();
 
         for (int i = 0 ; i < gestionnaireCoffre.getCoffreList().size() ; i++)

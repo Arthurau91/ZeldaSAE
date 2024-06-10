@@ -16,13 +16,14 @@ public class VueCoffre extends VueInterface{
     private Coffre coffre;
     private VueInventaire vueInventaire;
     private ClickHandlerCoffre clickHandlerCoffre;
+    private Pane paneCoffre;
 
-    public VueCoffre(Pane boxCoffre, Joueur joueur, Coffre coffre, VueInventaire vueInventaire) {
-        super(boxCoffre, joueur);
+    public VueCoffre(Pane paneCoffre, Joueur joueur, Coffre coffre, VueInventaire vueInventaire) {
+        super(paneCoffre, joueur);
         this.coffre = coffre;
         this.vueInventaire = vueInventaire;
-        this.clickHandlerCoffre = new ClickHandlerCoffre(boxCoffre, this.coffre, vueInventaire);
-
+        this.clickHandlerCoffre = new ClickHandlerCoffre(paneCoffre, this.coffre, vueInventaire);
+        this.paneCoffre = paneCoffre;
     }
 
     public void toggleAffichageInterface(KeyEvent keyEvent) {
@@ -34,7 +35,7 @@ public class VueCoffre extends VueInterface{
     }
 
     public void affichageInterface(boolean b) {
-        this.paneInterface.setVisible(b);
+        this.paneCoffre.setVisible(b);
         this.vueInventaire.paneInterface.setVisible(b);
         setAfficheInterface(b);
         this.vueInventaire.setAfficheInterface(b);
@@ -50,20 +51,20 @@ public class VueCoffre extends VueInterface{
         ImageView imageView = new ImageView(img);
 
         int x, y;
-        x = (i.getPosSlotItems() - 1)%this.nbItemLigne * ((int) this.paneInterface.getWidth()/this.nbItemLigne);
-        y = (i.getPosSlotItems() - 1)/this.nbItemLigne * ((int) this.paneInterface.getHeight()/this.nbItemColonne) + 100;
+        x = (i.getPosSlotItems() - 1) % this.nbItemLigne * ((int) this.paneCoffre.getWidth() / this.nbItemLigne);
+        y = (i.getPosSlotItems() - 1) / this.nbItemLigne * ((int) this.paneCoffre.getHeight() / this.nbItemColonne) + 100;
         imageView.setTranslateX(x);
         imageView.setTranslateY(y);
         imageView.setId("" + i.getPosSlotItems());
         imageView.setOnMouseClicked(this.clickHandlerCoffre);
         this.coffre.ajouterItem(i);
-        this.paneInterface.getChildren().add(imageView);
+        this.paneCoffre.getChildren().add(imageView);
     }
 
     public void retirerItem(Item i) {
-        ImageView imageViewToRemove = (ImageView) this.paneInterface.lookup("#" + i.getPosSlotItems());
+        ImageView imageViewToRemove = (ImageView) this.paneCoffre.lookup("#" + i.getPosSlotItems());
         if (imageViewToRemove != null) {
-            this.paneInterface.getChildren().remove(imageViewToRemove);
+            this.paneCoffre.getChildren().remove(imageViewToRemove);
             this.coffre.retirerItem(i);
         } else {
             System.out.println("Item non trouvé : " + i.getPosSlotItems());

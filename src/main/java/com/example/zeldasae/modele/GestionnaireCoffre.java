@@ -2,8 +2,6 @@ package com.example.zeldasae.modele;
 
 import com.example.zeldasae.Vue.VueCoffre;
 import com.example.zeldasae.Vue.VueInventaire;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.scene.layout.Pane;
 
 import java.util.ArrayList;
@@ -12,15 +10,14 @@ import java.util.List;
 public class GestionnaireCoffre {
 
     private Monde monde;
-    private Pane pane;
+    private List<Pane> coffrePanes; // Liste des panneaux de coffre où tous les coffres seront ajoutés
     private VueInventaire vueInventaire;
-    private ArrayList<VueCoffre> vueCoffreList;
-    private ArrayList<Coffre> coffreList;
+    private List<VueCoffre> vueCoffreList;
+    private List<Coffre> coffreList;
 
-
-    public GestionnaireCoffre(Monde monde, Pane pane, VueInventaire vueInventaire) {
+    public GestionnaireCoffre(Monde monde, List<Pane> coffrePanes, VueInventaire vueInventaire) {
         this.monde = monde;
-        this.pane = pane;
+        this.coffrePanes = coffrePanes;
         this.vueInventaire = vueInventaire;
         this.vueCoffreList = new ArrayList<>();
         this.coffreList = new ArrayList<>();
@@ -33,10 +30,20 @@ public class GestionnaireCoffre {
 
     public VueCoffre creerVueCoffre(int x, int y, int id) {
         Coffre coffre = new Coffre(x, y, id);
-        VueCoffre vueCoffre = new VueCoffre(this.pane, this.monde.getJoueur(), coffre, vueInventaire);
+        Pane coffrePane = new Pane();
+        coffrePane.setPrefSize(900, 445);
+        coffrePane.setVisible(false);
+
+        VueCoffre vueCoffre = new VueCoffre(coffrePane, this.monde.getJoueur(), coffre, vueInventaire);
+
+        for (Pane pane : coffrePanes) {
+            pane.getChildren().add(coffrePane);
+        }
+
         this.monde.addCoffre(coffre);
         this.coffreList.add(coffre);
         this.vueCoffreList.add(vueCoffre);
+
         return vueCoffre;
     }
 
@@ -44,7 +51,7 @@ public class GestionnaireCoffre {
         return vueCoffreList;
     }
 
-    public ArrayList<Coffre> getCoffreList() {
+    public List<Coffre> getCoffreList() {
         return coffreList;
     }
 }
