@@ -109,7 +109,7 @@ public class KeyHandler implements EventHandler<KeyEvent> {
                     }
                     break;
                 case LEFT, RIGHT, UP, DOWN:
-                    if (this.map.getJoueur().getPeutDonnerCoupProperty()) {
+                    if (this.map.getJoueur().getPeutDonnerCoupProperty() && this.map.getJoueur().getInv().getArmeActuelle() != null) {
                         this.map.getJoueur().attaquer(keyEvent, map);
                         this.vueArme.donnerCoup(this.map.getJoueur().getInv().getArmeActuelle().getX(), this.map.getJoueur().getInv().getArmeActuelle().getY(), keyEvent);
                         if (keyEvent.getCode() == UP || keyEvent.getCode() == DOWN) {

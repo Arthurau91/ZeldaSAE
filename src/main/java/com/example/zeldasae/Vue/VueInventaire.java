@@ -9,6 +9,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
 
 public class VueInventaire {
 
@@ -27,7 +28,16 @@ public class VueInventaire {
         this.afficheInventaire = false;
         this.joueur = joueur;
         this.clickHandler = new ClickHandlerInventaire(boxInv, this.joueur);
+        creerLabelInventaire();
     }
+
+//    <children>
+//            <Label layoutX="275.0" layoutY="6.0" text="Inventaire" textFill="WHITE">
+//               <font>
+//                  <Font size="69.0" />
+//               </font>
+//            </Label>
+//         </children>
 
     public void toggleAffichageInventaire() {
         if (!this.afficheInventaire) {
@@ -76,6 +86,14 @@ public class VueInventaire {
         else {
             return new Image("file:src/main/resources/com/example/zeldasae/assets/" + i.getNom() + ".png");
         }
+    }
+
+    public void creerLabelInventaire() {
+        Label l = new Label("Inventaire");
+        l.setTextFill(Color.WHITE);
+        l.setFont(Font.font("Calibri", 69));
+        l.setLayoutX(300);
+        this.boxInventaire.getChildren().add(l);
     }
 
 }
