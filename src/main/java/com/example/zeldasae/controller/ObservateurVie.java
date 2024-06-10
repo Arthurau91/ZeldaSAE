@@ -1,7 +1,7 @@
 package com.example.zeldasae.controller;
 
 import com.example.zeldasae.Vue.VueBarreDeVie;
-import com.example.zeldasae.modele.Entite;
+import com.example.zeldasae.modele.entities.Entite;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.scene.paint.Color;

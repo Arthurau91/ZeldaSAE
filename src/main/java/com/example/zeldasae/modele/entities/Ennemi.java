@@ -1,8 +1,9 @@
-package com.example.zeldasae.modele;
+package com.example.zeldasae.modele.entities;
 
 import com.example.zeldasae.Algo.BFS;
+import com.example.zeldasae.modele.Monde;
 
-public abstract class Ennemi extends Entite{
+public abstract class Ennemi extends Entite {
 
     private BFS bfs;
 

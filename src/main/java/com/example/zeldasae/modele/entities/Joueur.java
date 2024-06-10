@@ -1,11 +1,13 @@
-package com.example.zeldasae.modele;
+package com.example.zeldasae.modele.entities;
 
+import com.example.zeldasae.modele.Inventaire;
+import com.example.zeldasae.modele.Monde;
+import com.example.zeldasae.modele.entities.Entite;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.scene.input.KeyEvent;
-import javafx.scene.layout.Pane;
 
-public class Joueur extends Entite{
+public class Joueur extends Entite {
 
     private Inventaire inv;
     private BooleanProperty peutDonnerCoupProperty;

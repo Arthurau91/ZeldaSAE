@@ -1,6 +1,6 @@
 package com.example.zeldasae.Vue;
 
-import com.example.zeldasae.modele.Entite;
+import com.example.zeldasae.modele.entities.Joueur;
 import javafx.scene.image.Image;
 import javafx.scene.image.WritableImage;
 import javafx.scene.layout.Pane;
@@ -10,7 +10,7 @@ public class VueJoueur extends VueEntite{
     private Image[] sprites;
     private int statusAnim;
 
-    public VueJoueur(Entite entite, Pane paneEntites) {
+    public VueJoueur(Joueur entite, Pane paneEntites) {
         super(entite, paneEntites);
         loadSprites();
         statusAnim = 0;

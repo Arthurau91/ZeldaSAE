@@ -1,6 +1,6 @@
 package com.example.zeldasae.Vue;
 
-import com.example.zeldasae.modele.Entite;
+import com.example.zeldasae.modele.entities.Pursuer;
 import javafx.scene.image.Image;
 import javafx.scene.layout.Pane;
 
@@ -11,7 +11,7 @@ public class VuePursuer extends VueEntite{
     private String imageHaut = "file:src/main/resources/com/example/zeldasae/assets/monstre/monstrebas.png";
     private String imageBas = "file:src/main/resources/com/example/zeldasae/assets/monstre/monstrebas.png";
 
-    public VuePursuer(Entite entite, Pane paneEntites) {
+    public VuePursuer(Pursuer entite, Pane paneEntites) {
         super(entite, paneEntites);
         super.creerImageEntite();
     }

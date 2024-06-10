@@ -1,12 +1,8 @@
 package com.example.zeldasae.Vue;
 
 import com.example.zeldasae.modele.Collectible;
-import com.example.zeldasae.modele.Item;
-import com.example.zeldasae.modele.Joueur;
 import com.example.zeldasae.modele.Monde;
 import javafx.scene.layout.Pane;
-import javafx.scene.paint.Color;
-import javafx.scene.shape.Rectangle;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 

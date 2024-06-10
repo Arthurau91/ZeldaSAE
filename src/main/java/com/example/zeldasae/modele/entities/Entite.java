@@ -1,8 +1,10 @@
-package com.example.zeldasae.modele;
+package com.example.zeldasae.modele.entities;
 
 import com.example.zeldasae.Vue.VueBarreDeVie;
-import com.example.zeldasae.Vue.VueEntite;
 import com.example.zeldasae.controller.ObservateurVie;
+import com.example.zeldasae.modele.HitBox;
+import com.example.zeldasae.modele.Monde;
+import com.example.zeldasae.modele.Terrain;
 import javafx.beans.binding.Bindings;
 import javafx.beans.binding.DoubleBinding;
 import javafx.beans.property.IntegerProperty;

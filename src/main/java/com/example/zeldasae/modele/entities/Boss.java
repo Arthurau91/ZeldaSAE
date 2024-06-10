@@ -1,10 +1,9 @@
-package com.example.zeldasae.modele;
+package com.example.zeldasae.modele.entities;
 
 import com.example.zeldasae.Algo.BFS;
-import com.example.zeldasae.Vue.VueBoss;
-import javafx.scene.layout.Pane;
+import com.example.zeldasae.modele.Monde;
 
-public class Boss extends Ennemi{
+public class Boss extends Ennemi {
     public Boss(int x, int y, int width, int height, int column, int rows, BFS bfs) {
         super(x, y, width, height, column, rows, bfs);
         super.setVitesse(5);
