@@ -64,7 +64,6 @@ public abstract class Projectile {
     }
 
     public void setPosMap(int x, int y, String keyEvent) {
-        System.out.println(keyEvent);
         switch (keyEvent) {
             case "LEFT":
                 this.hitBox.setX(x-this.hitBox.getLarge());

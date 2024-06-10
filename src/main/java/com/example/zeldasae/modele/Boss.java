@@ -32,14 +32,35 @@ public class Boss extends Ennemi {
 
     public void attaquerDistance(Monde m) {
         ProjectileEnnemi p = new ProjectileEnnemi(2, 20, 30, 30);
-        p.setDirection("RIGHT");
-        p.setPosMap(this.getX(), this.getY(), "RIGHT");
-        m.ajouterProjectile(p);
-        this.peutAttaquerDistance = false;
+        if(!switchDirection(m).equals("NULL")) {
+            p.setDirection(switchDirection(m));
+            p.setPosMap(this.getX(), this.getY(), switchDirection(m));
+            m.ajouterProjectile(p);
+            this.peutAttaquerDistance = false;
 
-        PauseTransition pause = new PauseTransition(Duration.seconds(this.cooldownAttaqueDistance));
-        pause.setOnFinished(event -> this.peutAttaquerDistance = true);
-        pause.play();
+            PauseTransition pause = new PauseTransition(Duration.seconds(this.cooldownAttaqueDistance));
+            pause.setOnFinished(event -> this.peutAttaquerDistance = true);
+            pause.play();
+        }
+    }
 
+    public String switchDirection(Monde m) {
+        int x = m.getJoueur().getX();
+        int y = m.getJoueur().getY();
+        if(x < getX() && y < getY() + 200 && y > getY() - 200) {
+            return "LEFT";
+        }
+        else if(x > getX() && y < getY() + 200 && y > getY() - 200) {
+            return "RIGHT";
+        }
+        else if(y > getY() && x < getX() + 200 && x > getX() - 200) {
+            return "DOWN";
+        }
+        else if(y < getY() && x < getX() + 200 && x > getX() - 200) {
+            return "UP";
+        }
+        else {
+            return "NULL";
+        }
     }
 }
