@@ -31,14 +31,6 @@ public class VueInventaire {
         creerLabelInventaire();
     }
 
-//    <children>
-//            <Label layoutX="275.0" layoutY="6.0" text="Inventaire" textFill="WHITE">
-//               <font>
-//                  <Font size="69.0" />
-//               </font>
-//            </Label>
-//         </children>
-
     public void toggleAffichageInventaire() {
         if (!this.afficheInventaire) {
             this.boxInventaire.setVisible(true);

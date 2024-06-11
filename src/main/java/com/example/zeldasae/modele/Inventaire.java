@@ -1,5 +1,6 @@
 package com.example.zeldasae.modele;
 
+import com.example.zeldasae.modele.collectibles.Fleche;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
@@ -77,4 +78,15 @@ public class Inventaire {
             System.out.println("ajout liste");
         }
     }
+
+    public Fleche getFleche() {
+        for(Item i : getListeItems()) {
+            if (i instanceof Fleche) {
+                return (Fleche) i;
+            }
+        }
+        return null;
+    }
+
+
 }

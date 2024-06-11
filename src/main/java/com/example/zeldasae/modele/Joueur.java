@@ -1,5 +1,6 @@
 package com.example.zeldasae.modele;
 
+import com.example.zeldasae.modele.collectibles.Fleche;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.scene.input.KeyEvent;
@@ -20,8 +21,8 @@ public class Joueur extends Entite{
         return this.inv;
     }
 
-    public boolean getPeutDonnerCoupProperty() {
-        return this.peutDonnerCoupProperty.get();
+    public boolean getPeutDonnerCoupProperty(Monde m) {
+        return getInv().getArmeActuelle() != null && this.peutDonnerCoupProperty.get() && getInv().getArmeActuelle().peutAttaquer(m);
     }
 
     public void setPeutDonnerCoupProperty(boolean peutDonnerCoupProperty) {

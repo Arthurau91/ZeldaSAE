@@ -24,7 +24,14 @@ public class Arc extends Arme {
     }
 
     @Override
+    public boolean peutAttaquer(Monde map) {
+        return map.getJoueur().getInv().getFleche() != null && map.getJoueur().getInv().getFleche().getQuantite() > 0;
+    }
+
+    @Override
     public void attaquer(KeyEvent keyEvent, Monde map) {
+        map.getJoueur().getInv().getFleche().utiliserCollectible();
+
         Projectile p = creerProjectile(keyEvent, map);
         map.ajouterProjectile(p);
 

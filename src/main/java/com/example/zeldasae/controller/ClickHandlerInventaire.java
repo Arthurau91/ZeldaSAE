@@ -24,8 +24,9 @@ public class ClickHandlerInventaire implements EventHandler<MouseEvent> {
     public void handle(MouseEvent mouseEvent) {
         if (mouseEvent.getSource() instanceof ImageView v) {
             Item i = j.getInv().getItemParID(Integer.parseInt(v.getId()));
-            if (i instanceof Collectible) {
-                ((Collectible) i).utiliserCollectible();
+            if (i instanceof Collectible) { //TODO creer classe abstraite "Equipement" pour éviter les instance of
+                if (((Collectible) i).isUtilisable())
+                    ((Collectible) i).utiliserCollectible();
             }
             else{
                 clicChangementArme(v.getId());
@@ -35,10 +36,10 @@ public class ClickHandlerInventaire implements EventHandler<MouseEvent> {
 
     public void clicChangementArme(String id) {
         System.out.println(j.getInv().getItemParID(Integer.parseInt(id)).getNom());
-        if (j.getInv().getItemParID(Integer.parseInt(id)) instanceof Arme a) {
+        if (j.getInv().getItemParID(Integer.parseInt(id)) instanceof Arme a) { //TODO creer classe abstraite "Equipement" pour éviter les instance of
             this.j.getInv().changerArme(a);
         }
-        else if (j.getInv().getItemParID(Integer.parseInt(id)) instanceof Armure armure) {
+        else if (j.getInv().getItemParID(Integer.parseInt(id)) instanceof Armure armure) { //TODO creer classe abstraite "Equipement" pour éviter les instance of
             this.j.getInv().changerArmure(armure);
         }
     }

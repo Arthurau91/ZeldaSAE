@@ -10,6 +10,7 @@ import com.example.zeldasae.modele.Monde;
 import com.example.zeldasae.modele.*;
 import com.example.zeldasae.modele.armes.Arc;
 import com.example.zeldasae.modele.armes.Epee;
+import com.example.zeldasae.modele.collectibles.Fleche;
 import com.example.zeldasae.modele.collectibles.Fruit;
 import javafx.event.EventHandler;
 import javafx.scene.input.KeyCode;
@@ -91,20 +92,29 @@ public class KeyHandler implements EventHandler<KeyEvent> {
                     this.vueInv.toggleAffichageInventaire();
                     break;
                 case X: //à retirer, sert uniquement pour les tests
-                    Collectible collectibleTest = new Fruit(0, 10,  5, 30, 30, 50, 50, this.map.getJoueur());
+                    Collectible fruitTest = new Fruit(0, 10, 30, 30, 50, 50, this.map.getJoueur());
                     this.map.getJoueur().getInv().ajouterItem(itemTest);
                     this.map.getJoueur().getInv().ajouterItem(itemTest3);
                     this.map.getJoueur().getInv().ajouterItem(itemTest4);
-                    this.map.ajouterCollectible(collectibleTest);
+                    this.map.ajouterCollectible(fruitTest);
                     break;
                 case A:
                     this.map.getJoueur().getInv().echangerArmes();
                     break;
-                case P:
+                case P: //à retirer, sert uniquement pour les tests
                     this.map.getJoueur().getInv().changerArme(arcTest);
                     break;
+                case TAB: //à retirer, sert uniquement pour les tests
+                    if(this.map.getJoueur().getInv().getFleche() != null) {
+                        this.map.getJoueur().getInv().getFleche().ajouter(1);
+                    }
+                    else {
+                        Collectible fleche = new Fleche(0, 30, 30, 30, 0, 0);
+                        this.map.getJoueur().getInv().ajouterItem(fleche);
+                    }
+                    break;
                 case LEFT, RIGHT, UP, DOWN:
-                    if (this.map.getJoueur().getPeutDonnerCoupProperty() && this.map.getJoueur().getInv().getArmeActuelle() != null) {
+                    if (this.map.getJoueur().getPeutDonnerCoupProperty(map)) {
                         this.map.getJoueur().attaquer(keyEvent, map);
                         this.vueArme.donnerCoup(this.map.getJoueur().getInv().getArmeActuelle().getX(), this.map.getJoueur().getInv().getArmeActuelle().getY(), keyEvent);
                         if (keyEvent.getCode() == UP || keyEvent.getCode() == DOWN) {

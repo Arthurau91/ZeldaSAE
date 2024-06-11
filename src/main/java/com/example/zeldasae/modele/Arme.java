@@ -83,4 +83,8 @@ public abstract class Arme extends Item{
         pause.play();
     }
 
+    public boolean peutAttaquer(Monde map) {
+        return true;
+    }
+
 }
