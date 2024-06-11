@@ -40,10 +40,10 @@ public class KeyHandler implements EventHandler<KeyEvent> {
 
     //à retirer, sert uniquement pour les tests
     private Epee itemTest = new Epee(0, 0);
-//    private Epee itemTest2 = new Epee(100, 100, 0, 0);
     private Item itemTest3 = new Armure(500,"Armure 3", 6);
     private Item itemTest4 = new Armure(500,"Armure 4", 19);
     private Arc arcTest = new Arc(10, 10, 10, 40);
+    Collectible fleche = new Fleche(0, 30, 30, 30, 0, 0);
 
     @Override
     public void handle(KeyEvent keyEvent) {
@@ -97,6 +97,7 @@ public class KeyHandler implements EventHandler<KeyEvent> {
                     this.map.getJoueur().getInv().ajouterItem(itemTest3);
                     this.map.getJoueur().getInv().ajouterItem(itemTest4);
                     this.map.ajouterCollectible(fruitTest);
+                    this.map.ajouterCollectible(fleche);
                     break;
                 case A:
                     this.map.getJoueur().getInv().echangerArmes();
@@ -109,7 +110,6 @@ public class KeyHandler implements EventHandler<KeyEvent> {
                         this.map.getJoueur().getInv().getFleche().ajouter(1);
                     }
                     else {
-                        Collectible fleche = new Fleche(0, 30, 30, 30, 0, 0);
                         this.map.getJoueur().getInv().ajouterItem(fleche);
                     }
                     break;

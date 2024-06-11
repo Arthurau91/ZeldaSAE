@@ -27,6 +27,7 @@ public abstract class Collectible extends Item{
     }
 
     public void ajouter(int n) {
+        if(quantiteProperty.getValue() + n <= quantite_max)
         this.quantiteProperty.set(this.quantiteProperty.getValue() + n);
     }
 
