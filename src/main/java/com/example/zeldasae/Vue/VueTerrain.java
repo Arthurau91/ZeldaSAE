@@ -63,8 +63,7 @@ public class VueTerrain {
         }
     }
 
-    public boolean deplaceBloc(){
-
+    public void deplaceBloc(){
         ArrayList<Integer> m1 = map.getTerrain().getMap();
         int[] coos = map.cooBloc(this.map.getJoueur().getX(), this.map.getJoueur().getY());
         int coobloc = coos[0];
@@ -77,9 +76,23 @@ public class VueTerrain {
                 mapPane.getChildren().set(coovide, bloc);
                 this.map.getTerrain().setCoo(coovide, m1.get(coobloc));
                 this.map.getTerrain().setCoo(coobloc, 0);
-                return true;
             }
         }
-        return false;
+    }
+
+    public void detruitBloc(){
+        int[] coos = map.cooBloc(this.map.getJoueur().getX(), this.map.getJoueur().getY());
+        int cooRock = coos[0];
+        int cooRock2 = coos[1];
+        if (this.map.getTerrain().destructible(cooRock)){
+            StackPane vide = new StackPane(new ImageView(tiles[m2.get(cooRock)-1]));
+            mapPane.getChildren().set(cooRock, vide);
+            this.map.getTerrain().setCoo(cooRock, 0);
+        }
+        else if (this.map.getTerrain().destructible(cooRock2)){
+            StackPane vide = new StackPane(new ImageView(tiles[m2.get(cooRock2)-1]));
+            mapPane.getChildren().set(cooRock2, vide);
+            this.map.getTerrain().setCoo(cooRock2, 0);
+        }
     }
 }

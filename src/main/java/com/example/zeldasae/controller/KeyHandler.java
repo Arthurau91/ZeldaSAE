@@ -114,6 +114,7 @@ public class KeyHandler implements EventHandler<KeyEvent> {
                         if (keyEvent.getCode() == UP || keyEvent.getCode() == DOWN) {
                             this.map.getJoueur().getInv().getArmeActuelle().getHitBox().pivote();
                         }
+                        vueTerrain.detruitBloc();
                     }
                     break;
             }

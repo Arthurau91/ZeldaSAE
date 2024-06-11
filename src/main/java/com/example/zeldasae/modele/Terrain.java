@@ -46,6 +46,17 @@ public class Terrain {
         return false;
     }
 
+    public boolean destructible(int coo){
+        if (coo < map.size() && coo >=0) {
+            int[] casesDestructibles = {514};
+            for (int i = 0; i < casesDestructibles.length; i++) {
+                if (this.map.get(coo) == casesDestructibles[i])
+                    return true;
+            }
+        }
+        return false;
+    }
+
     public void setCoo(int coo, int valeur){
         if (coo < map.size() && coo >=0) {
             this.map.set(coo, valeur);
