@@ -31,6 +31,10 @@ public abstract class VueEntite {
         this.paneEntites.getChildren().add(imgEntite);
     }
 
+    public void supprimerImageEntite() {
+        imgEntite.setId(entite.getId());
+        this.paneEntites.getChildren().remove(this.paneEntites.lookup("#" + entite.getId()));}
+
     public void changeImage(String nouv){
         if (nouv.contains("up")) {
             imgEntite.setImage(this.getImageHaut());
