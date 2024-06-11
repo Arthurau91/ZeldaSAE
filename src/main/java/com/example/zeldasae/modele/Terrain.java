@@ -61,6 +61,12 @@ public class Terrain {
         return this.map.get(coo) == 1079;
     }
 
+    public boolean isCactus(int coo){
+        if (coo < map.size() && coo >=0)
+            return this.map.get(coo) == 403;
+        return false;
+    }
+
     public void setCoo(int coo, int valeur){
         if (coo < map.size() && coo >=0) {
             this.map.set(coo, valeur);

@@ -253,8 +253,12 @@ public abstract class Entite {
     }
 
     private boolean checkHitBox(String direction, Terrain terrain){
-        return hitBox.checkColision(direction, this.rows, terrain) &&
-                hitBox.checkBord(direction, this.column, this.rows, this.vitesse);
+        if (hitBox.checkColision(direction, this.rows, terrain)) {
+            return hitBox.checkBord(direction, this.column, this.rows, this.vitesse);
+        }
+        if (hitBox.degatBlocs(terrain, direction))
+            this.perdreVie(1);
+        return false;
     }
 
     public boolean checkColisionEntite(Monde m, int x, int y){
