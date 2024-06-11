@@ -6,8 +6,8 @@ import javafx.scene.input.KeyEvent;
 
 public class Epee extends Arme {
 
-    public Epee(int large, int haut, int x, int y) {
-        super("Epee", 3, 2, 0.5, large, haut, x, y);
+    public Epee(int x, int y) {
+        super("Epee", 3, 2, 0.5, 40, 30, x, y);
     }
 
 }

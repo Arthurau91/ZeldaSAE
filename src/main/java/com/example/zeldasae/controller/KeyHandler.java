@@ -38,7 +38,7 @@ public class KeyHandler implements EventHandler<KeyEvent> {
     }
 
     //à retirer, sert uniquement pour les tests
-    private Epee itemTest = new Epee( 150, 15, 0, 0);
+    private Epee itemTest = new Epee(0, 0);
 //    private Epee itemTest2 = new Epee(100, 100, 0, 0);
     private Item itemTest3 = new Armure(500,"Armure 3", 6);
     private Item itemTest4 = new Armure(500,"Armure 4", 19);
