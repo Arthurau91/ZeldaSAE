@@ -65,7 +65,6 @@ public class Joueur extends Entite {
 
     @Override
     public boolean deplacement(Monde m) {
-        boolean deplacement = super.deplacement(m);
-        return deplacement;
+        return super.deplacement(m);
     }
 }

@@ -2,6 +2,7 @@ package com.example.zeldasae.modele.entities;
 
 import com.example.zeldasae.Algo.BFS;
 import com.example.zeldasae.modele.Monde;
+import com.example.zeldasae.modele.Terrain;
 
 public abstract class Ennemi extends Entite {
 
@@ -38,7 +39,7 @@ public abstract class Ennemi extends Entite {
                 src = new int[]{x, y};
                 pdeplacement = bfs.prochainMouvement(src);
                 if (pdeplacement != null) {
-                    metDirection(x, y, pdeplacement);
+                    metDirection(x, y, pdeplacement, m.getTerrain());
                     deplacement = super.deplacement(m);
                 }
             }
@@ -48,7 +49,7 @@ public abstract class Ennemi extends Entite {
                 src = new int[]{x, y};
                 pdeplacement = bfs.prochainMouvement(src);
                 if (pdeplacement != null) {
-                    metDirection(x, y, pdeplacement);
+                    metDirection(x, y, pdeplacement, m.getTerrain());
                     deplacement = super.deplacement(m);
                 }
             }
@@ -64,17 +65,22 @@ public abstract class Ennemi extends Entite {
         return deplacement;
     }
 
-    private void metDirection(int x, int y, int[] pdeplacement) {
+    private void metDirection(int x, int y, int[] pdeplacement, Terrain terrain) {
         String direction = "";
-        if (pdeplacement[0] > x)
+        if (pdeplacement[0] > x && !terrain.isBrouillard(terrain.changeCoo(x+this.getVitesse(), y)))
             direction += "right";
-        if (pdeplacement[0] < x)
+        if (pdeplacement[0] < x && !terrain.isBrouillard(terrain.changeCoo(x-this.getVitesse(), y)))
             direction += "left";
-        if (pdeplacement[1] > y)
+        if (pdeplacement[1] > y && !terrain.isBrouillard(terrain.changeCoo(x, y+this.getVitesse())))
             direction += "down";
-        if (pdeplacement[1] < y)
+        if (pdeplacement[1] < y && !terrain.isBrouillard(terrain.changeCoo(x, y-this.getVitesse())))
             direction += "up";
         this.setDeplacement(direction);
+        System.out.println(!terrain.isBrouillard(terrain.changeCoo(x, y)));
+        System.out.println(!terrain.isBrouillard(terrain.changeCoo(x, y+this.getVitesse())));
+        System.out.println(!terrain.isBrouillard(terrain.changeCoo(pdeplacement[0], pdeplacement[1])));
+        System.out.println(!terrain.isBrouillard(terrain.changeCoo(pdeplacement[0], pdeplacement[1]+this.getVitesse())));
+        System.out.println();
     }
 
     private boolean isJoueurDirection(Monde m){
