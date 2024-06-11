@@ -63,15 +63,20 @@ public class Controller implements Initializable {
         this.mapPane.setPrefHeight(this.mapPane.getPrefTileHeight()*this.mapPane.getPrefRows());
 
         BFS bfs =new BFS();
-        Joueur joueur = new Joueur(600, 510, (int)mapPane.getPrefTileWidth(), (int)mapPane.getPrefTileHeight(), mapPane.getPrefColumns(), mapPane.getPrefRows());
+        Joueur joueur = new Joueur(600, 510, (int)mapPane.getPrefTileWidth(), (int)mapPane.getPrefTileHeight(), mapPane.getPrefColumns(), mapPane.getPrefRows(), map);
         new VueJoueur(joueur, paneEntites);
         this.map = new Monde(joueur, bfs, loadJSON.getPrefRows());
-        Pursuer pursuer = new Pursuer(120, 120, (int)mapPane.getPrefTileWidth(), (int)mapPane.getPrefTileHeight(), mapPane.getPrefColumns(),  mapPane.getPrefRows(), bfs);
-        new VuePursuer(pursuer, paneEntites);
+
+        Pursuer pursuer = new Pursuer(120, 120, (int)mapPane.getPrefTileWidth(), (int)mapPane.getPrefTileHeight(), mapPane.getPrefColumns(),  mapPane.getPrefRows(), bfs, map);
+        VuePursuer vuePursuer = new VuePursuer(pursuer, paneEntites);
+        pursuer.pv().addListener(new ObservateurVie(pursuer, vuePursuer));
         this.map.addEnnemi(pursuer);
-        Boss boss = new Boss(740, 900, (int)mapPane.getPrefTileWidth()*3, (int)mapPane.getPrefTileHeight()*3, mapPane.getPrefColumns(),  mapPane.getPrefRows(), bfs);
+
+        Boss boss = new Boss(740, 900, (int)mapPane.getPrefTileWidth()*3, (int)mapPane.getPrefTileHeight()*3, mapPane.getPrefColumns(),  mapPane.getPrefRows(), bfs, map);
         this.map.addEnnemi(boss);
-        new VueBoss(boss, paneEntites);
+        VueBoss vueBoss = new VueBoss(boss, paneEntites);
+        boss.pv().addListener(new ObservateurVie(boss, vueBoss));
+
         VueTerrain vueTerrain = new VueTerrain(this.map, this.mapPane, loadJSON.getMap(), loadJSON.getMap2());
         VueInventaire vueInv = new VueInventaire(this.boxInventaire, this.map.getJoueur());
         this.vueArme = new VueArme(this.map.getJoueur(), this.paneEntites, map, this.mapPane);

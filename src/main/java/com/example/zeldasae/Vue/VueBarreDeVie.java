@@ -34,5 +34,9 @@ public class VueBarreDeVie extends Pane {
         this.barreVieActuelle.setFill(color);
     }
 
+    public void supprimerBarreDeVie() {
+        getChildren().removeAll(this.barreVieTotale, this.barreVieActuelle);
+    }
+
 
 }

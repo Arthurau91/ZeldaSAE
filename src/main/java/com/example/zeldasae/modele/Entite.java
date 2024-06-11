@@ -29,8 +29,9 @@ public abstract class Entite {
     private int degats;
     private StringProperty direction;
     private VueBarreDeVie vueBarreDeVie;
+    private Monde monde;
 
-    public Entite(int x, int y, int width, int height, int column, int rows) {
+    public Entite(int x, int y, int width, int height, int column, int rows, Monde monde) {
         this.xProperty = new SimpleIntegerProperty(x);
         this.yProperty = new SimpleIntegerProperty(y);
         this.id = ""+n++;
@@ -46,6 +47,7 @@ public abstract class Entite {
         this.pv = new SimpleIntegerProperty(this.pvMax);
         this.degats = 1;
         this.direction = new SimpleStringProperty("right");
+        this.monde = monde;
 
         //mettre côté vue
         if (this instanceof Joueur) {
@@ -58,11 +60,11 @@ public abstract class Entite {
         }
 
         //à faire dans le contrôleur
-        this.pv.addListener(new ObservateurVie(this));
+//        this.pv.addListener(new ObservateurVie(this));
     }
 
-    public Entite(int x, int y, String id, int width, int height, int column, int rows) {
-        this(x, y, width, height, column, rows);
+    public Entite(int x, int y, String id, int width, int height, int column, int rows, Monde monde) {
+        this(x, y, width, height, column, rows, monde);
         this.setId(id);
     }
 
@@ -170,6 +172,11 @@ public abstract class Entite {
             entite.perdreVie(this.getDegats());
         }
     }
+
+    public void meurt() {
+        this.monde.retirerEntite(this);
+    }
+
 
     public boolean verifVivant() {
         return this.getPv() > 0;

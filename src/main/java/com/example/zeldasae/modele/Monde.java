@@ -41,6 +41,10 @@ public class Monde {
         return this.listeEnnemis;
     }
 
+    public void retirerEntite(Entite entite) {
+        getListeEnnemis().remove(entite);
+    }
+
     public BFS getBfs() {
         return bfs;
     }

@@ -69,6 +69,7 @@ public abstract class Arme extends Item{
            if (e.getHitBox().estDedansHitbox(this.hitBox)) {
                e.perdreVie(this.degats);
                System.out.println("Pv de l'ennemi : " + e.getPv());
+               break;
            }
        }
     }

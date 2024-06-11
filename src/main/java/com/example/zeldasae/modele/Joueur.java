@@ -10,8 +10,8 @@ public class Joueur extends Entite{
     private Inventaire inv;
     private BooleanProperty peutDonnerCoupProperty;
 
-    public Joueur(int x, int y, int width, int height, int column, int rows) {
-        super(x, y, "j1", width, height, column, rows);
+    public Joueur(int x, int y, int width, int height, int column, int rows, Monde monde) {
+        super(x, y, "j1", width, height, column, rows, monde);
         this.inv = new Inventaire();
         this.peutDonnerCoupProperty = new SimpleBooleanProperty(true);
     }

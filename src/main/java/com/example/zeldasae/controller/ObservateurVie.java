@@ -1,6 +1,7 @@
 package com.example.zeldasae.controller;
 
 import com.example.zeldasae.Vue.VueBarreDeVie;
+import com.example.zeldasae.Vue.VueEntite;
 import com.example.zeldasae.modele.Entite;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -9,9 +10,11 @@ import javafx.scene.paint.Color;
 public class ObservateurVie implements ChangeListener<Number> {
 
     private Entite entite;
+    private VueEntite vueEntite;
 
-    public ObservateurVie(Entite entite) {
+    public ObservateurVie(Entite entite, VueEntite vueEntite) {
         this.entite = entite;
+        this.vueEntite = vueEntite;
     }
 
     @Override
@@ -22,7 +25,9 @@ public class ObservateurVie implements ChangeListener<Number> {
             vueBarreDeVie.setPourcentageVie(pourcentage);
             mettreAJourBarreDeVie(vueBarreDeVie);
         } else {
-            entite.getVueEntite().supprimerImageEntite();
+            entite.meurt();
+            vueEntite.supprimerImageEntite();
+            vueBarreDeVie.supprimerBarreDeVie();
         }
 
     }
