@@ -1,7 +1,9 @@
 package com.example.zeldasae.Vue;
 
+import com.example.zeldasae.modele.Collectible;
 import com.example.zeldasae.modele.Monde;
 
+import com.example.zeldasae.modele.collectibles.Fruit;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.image.WritableImage;
@@ -88,11 +90,19 @@ public class VueTerrain {
             StackPane vide = new StackPane(new ImageView(tiles[m2.get(cooRock)-1]));
             mapPane.getChildren().set(cooRock, vide);
             this.map.getTerrain().setCoo(cooRock, 0);
+            if (this.map.getTerrain().isBuisson(cooRock)) {
+                Collectible fruit = new Fruit(0, 10, 5, 30, 30, (cooRock % 100) * 30, (cooRock / 100) * 30, this.map.getJoueur());
+                this.map.ajouterCollectible(fruit);
+            }
         }
         else if (this.map.getTerrain().destructible(cooRock2)){
             StackPane vide = new StackPane(new ImageView(tiles[m2.get(cooRock2)-1]));
             mapPane.getChildren().set(cooRock2, vide);
             this.map.getTerrain().setCoo(cooRock2, 0);
+            if (this.map.getTerrain().isBuisson(cooRock2)) {
+                Collectible fruit = new Fruit(0, 10, 5, 30, 30, (cooRock2 % 100) * 30, (cooRock2 / 100) * 30, this.map.getJoueur());
+                this.map.ajouterCollectible(fruit);
+            }
         }
     }
 }

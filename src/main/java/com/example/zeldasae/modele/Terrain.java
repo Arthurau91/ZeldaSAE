@@ -48,13 +48,17 @@ public class Terrain {
 
     public boolean destructible(int coo){
         if (coo < map.size() && coo >=0) {
-            int[] casesDestructibles = {514};
+            int[] casesDestructibles = {514, 1079};
             for (int i = 0; i < casesDestructibles.length; i++) {
                 if (this.map.get(coo) == casesDestructibles[i])
                     return true;
             }
         }
         return false;
+    }
+
+    public boolean isBuisson(int coo){
+        return this.map.get(coo) == 1079;
     }
 
     public void setCoo(int coo, int valeur){
