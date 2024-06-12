@@ -6,6 +6,7 @@ import com.example.zeldasae.Vue.VueTerrain;
 import com.example.zeldasae.modele.Ennemi;
 import com.example.zeldasae.Vue.*;
 import com.example.zeldasae.modele.Boss;
+import com.example.zeldasae.modele.GestionnaireCoffre;
 import com.example.zeldasae.modele.Joueur;
 import com.example.zeldasae.modele.Monde;
 import com.example.zeldasae.modele.Pursuer;
@@ -20,6 +21,7 @@ import javafx.scene.layout.TilePane;
 import javafx.util.Duration;
 
 import java.net.URL;
+import java.util.Arrays;
 import java.util.ResourceBundle;
 
 public class Controller implements Initializable {
@@ -31,6 +33,10 @@ public class Controller implements Initializable {
     @FXML
     private Pane paneEntites;
     @FXML
+    private Pane boxCoffre1;
+    @FXML
+    private Pane boxCoffre2;
+    @FXML
     private TilePane mapPane;
     private Monde map;
     private Timeline gameLoop;
@@ -39,6 +45,7 @@ public class Controller implements Initializable {
     private VueArme vueArme;
     private VueCollectible vueCollectible;
     private KeyHandler keyHandler;
+    private GestionnaireCoffre gestionnaireCoffre;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -78,6 +85,11 @@ public class Controller implements Initializable {
         boss.pv().addListener(new ObservateurVie(boss, vueBoss));
 
         VueTerrain vueTerrain = new VueTerrain(this.map, this.mapPane, loadJSON.getMap(), loadJSON.getMap2());
+        BFS bfs = new BFS();
+        this.map = new Monde(new Joueur(600, 500, (int)mapPane.getPrefTileWidth(), (int)mapPane.getPrefTileHeight(), mapPane.getPrefColumns(), mapPane.getPrefRows(), paneEntites), bfs);
+        Ennemi ennemi = new Ennemi(120, 120, (int)mapPane.getPrefTileWidth(), (int)mapPane.getPrefTileHeight(), mapPane.getPrefColumns(),  mapPane.getPrefRows(), bfs, paneEntites);
+        this.map.addEnnemi(ennemi);
+        new VueTerrain(this.map, this.mapPane, loadJSON.getMap());
         VueInventaire vueInv = new VueInventaire(this.boxInventaire, this.map.getJoueur());
         this.vueArme = new VueArme(this.map.getJoueur(), this.paneEntites, map, this.mapPane);
         this.vueCollectible = new VueCollectible(paneEntites, map);
@@ -94,6 +106,15 @@ public class Controller implements Initializable {
         this.map.getJoueur().yProperty().addListener(observateurMouvement);
 
         this.keyHandler = new KeyHandler(this.map, vueInv, vueTerrain, vueArme, vueCollectible);
+        gestionnaireCoffre = new GestionnaireCoffre(this.map, Arrays.asList(boxCoffre1, boxCoffre2), vueInv);
+
+
+        gestionnaireCoffre.creerCoffreDansMonde();
+
+        for (int i = 0 ; i < gestionnaireCoffre.getCoffreList().size() ; i++)
+            gestionnaireCoffre.getCoffreList().get(i).getListeItem().addListener(new ObservateurItems(null, this.paneEntites, this.gestionnaireCoffre.getVueCoffreList().get(i)));
+
+        KeyHandler keyHandler = new KeyHandler(this.map, vueInv, gestionnaireCoffre);
         paneEntites.addEventHandler(KeyEvent.KEY_PRESSED, keyHandler);
         paneEntites.addEventHandler(KeyEvent.KEY_RELEASED, keyHandler);
         initAnimation();

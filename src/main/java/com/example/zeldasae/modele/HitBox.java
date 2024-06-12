@@ -165,4 +165,12 @@ public class HitBox {
             this.estPivote = true;
         }
     }
+
+    public boolean coffreProximite(Coffre coffre, int distance) {
+        int positionX = Math.abs(this.getX() - coffre.getX());
+        int positionY = Math.abs(this.getY() - coffre.getY());
+        return (positionX <= distance && positionY == 0) || (positionY <= distance && positionX == 0);
+    }
+
+
 }

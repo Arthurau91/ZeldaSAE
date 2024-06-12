@@ -35,11 +35,6 @@ public class ClickHandlerInventaire implements EventHandler<MouseEvent> {
 
     public void clicChangementArme(String id) {
         System.out.println(j.getInv().getItemParID(Integer.parseInt(id)).getNom());
-        if (j.getInv().getItemParID(Integer.parseInt(id)) instanceof Arme a) {
-            this.j.getInv().changerArme(a);
-        }
-        else if (j.getInv().getItemParID(Integer.parseInt(id)) instanceof Armure armure) {
-            this.j.getInv().changerArmure(armure);
-        }
     }
+
 }

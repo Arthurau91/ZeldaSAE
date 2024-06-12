@@ -6,6 +6,7 @@ import javafx.collections.ObservableList;
 import com.example.zeldasae.Algo.BFS;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class Monde {
 
@@ -15,6 +16,7 @@ public class Monde {
     private ObservableList<Projectile> listeProjectiles;
     private ObservableList<Collectible> listeCollectibles;
     private BFS bfs;
+    private List<Coffre> coffres;
 
     /**
      * Constructeur de la classe Monde
@@ -27,6 +29,7 @@ public class Monde {
         this.listeProjectiles = FXCollections.observableArrayList();
         this.listeCollectibles = FXCollections.observableArrayList();
         this.bfs = bfs;
+        this.coffres = new ArrayList<>();
     }
 
     public Terrain getTerrain() {
@@ -127,4 +130,22 @@ public class Monde {
     public void ajouterCollectible(Collectible c) {
         this.listeCollectibles.add(c);
     }
+
+    public void addCoffre(Coffre coffre) {
+        this.coffres.add(coffre);
+    }
+
+    public List<Coffre> getCoffres() {
+        return coffres;
+    }
+
+    public Coffre coffreOuvert() {
+        for (Coffre coffre : this.coffres) {
+            if (coffre.isEstOuvert())
+                return coffre;
+        }
+
+        return null;
+    }
+
 }

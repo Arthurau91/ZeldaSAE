@@ -42,4 +42,13 @@ public class Joueur extends Entite{
         boolean deplacement = super.deplacement(m);
         return deplacement;
     }
+
+    public boolean peutOuvrirUnCoffre(Monde monde, Coffre coffre, int tailleBloc) {
+        for (Coffre c : monde.getCoffres()) {
+            if (coffre.getId() == c.getId() && this.getHitBox().coffreProximite(c, tailleBloc)) {
+                return true;
+            }
+        }
+        return false;
+    }
 }

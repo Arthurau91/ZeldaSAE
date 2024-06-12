@@ -13,6 +13,8 @@ import javafx.scene.text.Font;
 
 public class VueInventaire {
 
+public class VueInventaire extends VueInterface{
+
     public final int nbItemLigne = 5;
     public final int nbItemColonne = 8;
 
@@ -21,30 +23,19 @@ public class VueInventaire {
     private Joueur joueur;
     private ClickHandlerInventaire clickHandler;
 
+
     public VueInventaire(Pane boxInv, Joueur joueur) {
-        this.boxInventaire = boxInv;
-        this.boxInventaire.setStyle("-fx-background-color: black;");
-        this.boxInventaire.setVisible(false);
-        this.afficheInventaire = false;
-        this.joueur = joueur;
+        super(boxInv, joueur);
         this.clickHandler = new ClickHandlerInventaire(boxInv, this.joueur);
         creerLabelInventaire();
     }
 
-//    <children>
-//            <Label layoutX="275.0" layoutY="6.0" text="Inventaire" textFill="WHITE">
-//               <font>
-//                  <Font size="69.0" />
-//               </font>
-//            </Label>
-//         </children>
-
-    public void toggleAffichageInventaire() {
-        if (!this.afficheInventaire) {
+    public void toggleAffichageInventaire(KeyEvent keyEvent) {
+        if (!this.afficheInventaire && keyEvent.getEventType() != KeyEvent.KEY_RELEASED) {
             this.boxInventaire.setVisible(true);
             setAfficheInventaire(true);
         }
-        else {
+        else if(keyEvent.getEventType() != KeyEvent.KEY_RELEASED) {
             this.boxInventaire.setVisible(false);
             setAfficheInventaire(false);
         }
@@ -59,8 +50,8 @@ public class VueInventaire {
         ImageView imageView = new ImageView(img);
 
         int x, y;
-        x = (i.getPosSlotItems() - 1)%this.nbItemLigne * ((int) this.boxInventaire.getWidth()/this.nbItemLigne);
-        y = (i.getPosSlotItems() - 1)/this.nbItemLigne * ((int) this.boxInventaire.getHeight()/this.nbItemColonne) + 100;
+        x = (i.getPosSlotItems() - 1)%this.nbItemLigne * ((int) this.paneInterface.getWidth()/this.nbItemLigne);
+        y = (i.getPosSlotItems() - 1)/this.nbItemLigne * ((int) this.paneInterface.getHeight()/this.nbItemColonne) + 100;
         imageView.setTranslateX(x);
         imageView.setTranslateY(y);
         imageView.setFitWidth(50);
@@ -77,6 +68,7 @@ public class VueInventaire {
             l.setTranslateY(y + 50);
             boxInventaire.getChildren().add(l);
         }
+        this.paneInterface.getChildren().add(imageView);
     }
 
     public Image switchImageItem(Item i) {

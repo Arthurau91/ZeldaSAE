@@ -17,6 +17,7 @@ import javafx.scene.input.KeyEvent;
 
 import java.util.HashSet;
 import java.util.Set;
+
 import static javafx.scene.input.KeyCode.*;
 
 public class KeyHandler implements EventHandler<KeyEvent> {
@@ -80,6 +81,17 @@ public class KeyHandler implements EventHandler<KeyEvent> {
             map.getJoueur().addDirectionImage("right");
         }
         this.map.getJoueur().setDeplacement(direction);
+        if (pressedKeys.contains(F)) {
+            for (int i = 0 ; i < this.gestionnaireCoffre.getVueCoffreList().size() ; i++) {
+                if (this.gestionnaireCoffre.getVueCoffreList().get(i).getCoffre().isEstOuvert()) {
+                    this.gestionnaireCoffre.getVueCoffreList().get(i).ajouterItem(itemTest);
+                    this.gestionnaireCoffre.getVueCoffreList().get(i).ajouterItem(itemTest2);
+                }
+            }
+        }
+        if (pressedKeys.contains(X)) {
+            this.map.getJoueur().getInv().ajouterItem(itemTest);
+        }
 
         if (pressedKeys.contains(SHIFT))
             vueTerrain.deplaceBloc();
@@ -118,7 +130,24 @@ public class KeyHandler implements EventHandler<KeyEvent> {
                     }
                     break;
             }
+        switch (keyEvent.getCode()) {
+            case I: // inventaires
+                if (this.map.coffreOuvert() == null)
+                    this.vueInv.toggleAffichageInterface(keyEvent);
+                break;
+            case E: // interagir
+                for (VueCoffre coffre : gestionnaireCoffre.getVueCoffreList()) {
+                    if ((this.map.getJoueur().peutOuvrirUnCoffre(this.map, coffre.getCoffre(), 1)) || coffre.getCoffre().isEstOuvert()) {
+                        coffre.toggleAffichageInterface(keyEvent);
+                        break;
+                    }
+                }
+                break;
+
+
         }
+
+        this.map.getJoueur().setDirection(direction);
     }
 
 }

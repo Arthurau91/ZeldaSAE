@@ -42,9 +42,6 @@ public class Terrain {
                 if (this.map.get(coo) == casesVides[i])
                     return true;
             }
-        }
-        return false;
-    }
 
     public void setCoo(int coo, int valeur){
         if (coo < map.size() && coo >=0) {
