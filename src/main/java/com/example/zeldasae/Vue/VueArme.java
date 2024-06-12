@@ -36,6 +36,15 @@ public class VueArme {
         PauseTransition pause = new PauseTransition(Duration.seconds(joueur.getInv().getArmeActuelle().getDelaiRecuperation() - 0.3));
         pause.setOnFinished(event -> paneEntites.getChildren().remove(imageView));
         pause.play();
+
+        Rectangle hitboxTest = new Rectangle(joueur.getInv().getArmeActuelle().getHitBox().getLarge(), joueur.getInv().getArmeActuelle().getHitBox().getHaut(), Color.RED);
+        hitboxTest.setTranslateX(x);
+        hitboxTest.setTranslateY(y);
+        paneEntites.getChildren().add(hitboxTest);
+
+        PauseTransition pauseHitbox = new PauseTransition(Duration.seconds(joueur.getInv().getArmeActuelle().getDelaiRecuperation() - 0.3));
+        pauseHitbox.setOnFinished(event -> paneEntites.getChildren().remove(hitboxTest));
+        pauseHitbox.play();
     }
 
     public void creerProjectileJoueurVue(Projectile p) {

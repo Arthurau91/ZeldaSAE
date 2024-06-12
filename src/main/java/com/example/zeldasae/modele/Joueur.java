@@ -46,7 +46,9 @@ public class Joueur extends Entite{
 
     @Override
     public void perdreVie(int degats) {
-        degats = degats - getInv().getArmureActuelle().getResistance();
+        if (getInv().getArmureActuelle() != null)
+            degats = degats - getInv().getArmureActuelle().getResistance();
+
         if (degats < 0)
             degats = 0;
         setPv(this.getPv() - degats);

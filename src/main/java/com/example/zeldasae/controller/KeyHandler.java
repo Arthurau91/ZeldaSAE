@@ -10,6 +10,7 @@ import com.example.zeldasae.modele.Item;
 import com.example.zeldasae.modele.Monde;
 import com.example.zeldasae.modele.armes.Arc;
 import com.example.zeldasae.modele.armes.Epee;
+import com.example.zeldasae.modele.armes.Hache;
 import com.example.zeldasae.modele.collectibles.Fleche;
 import com.example.zeldasae.modele.collectibles.Fruit;
 import javafx.event.EventHandler;
@@ -41,6 +42,7 @@ public class KeyHandler implements EventHandler<KeyEvent> {
 
     //à retirer, sert uniquement pour les tests
     private Epee itemTest = new Epee();
+    private Hache hacheTest = new Hache();
     private Item itemTest3 = new Armure(0,"Armure 3", 6);
     private Item itemTest4 = new Armure(1,"Armure 4", 19);
     private Arc arcTest = new Arc(10, 10, 10, 40);
@@ -97,6 +99,7 @@ public class KeyHandler implements EventHandler<KeyEvent> {
                     this.map.getJoueur().getInv().ajouterItem(itemTest);
                     this.map.getJoueur().getInv().ajouterItem(itemTest3);
                     this.map.getJoueur().getInv().ajouterItem(itemTest4);
+                    this.map.getJoueur().getInv().ajouterItem(hacheTest);
                     this.map.ajouterCollectible(fruitTest);
                     this.map.ajouterCollectible(fleche);
                     break;
