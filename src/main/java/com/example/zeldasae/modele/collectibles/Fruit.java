@@ -11,8 +11,8 @@ public class Fruit extends Collectible {
         super(quantite, quantite_max, "Fruit", 5, large, haut, x, y, true);
         this.joueur = joueur;
     }
-
-    public void utiliserCollectible() {
+    @Override
+    public void utiliserItem(Joueur j) {
         if (super.getQuantite() > 0 && joueur.getPv() + 1 <= joueur.getPvMax()) {
             super.retirer(1);
             this.joueur.ajouterVie(1);

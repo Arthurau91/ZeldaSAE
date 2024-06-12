@@ -101,6 +101,7 @@ public class KeyHandler implements EventHandler<KeyEvent> {
                     break;
                 case A:
                     this.map.getJoueur().getInv().echangerArmes();
+                    System.out.println("Arme : " + this.map.getJoueur().getInv().getArmeActuelle().getNom() + " Armure : " + this.map.getJoueur().getInv().getArmureActuelle().getNom());
                     break;
                 case P: //à retirer, sert uniquement pour les tests
                     this.map.getJoueur().getInv().changerArme(arcTest);

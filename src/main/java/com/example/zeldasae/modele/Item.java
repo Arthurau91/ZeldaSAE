@@ -22,4 +22,6 @@ public abstract class Item {
         this.posSlotItems = posSlotItems;
     }
 
+    public abstract void utiliserItem(Joueur j);
+
 }

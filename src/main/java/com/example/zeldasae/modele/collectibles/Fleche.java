@@ -1,6 +1,7 @@
 package com.example.zeldasae.modele.collectibles;
 
 import com.example.zeldasae.modele.Collectible;
+import com.example.zeldasae.modele.Joueur;
 
 public class Fleche extends Collectible {
 
@@ -9,7 +10,7 @@ public class Fleche extends Collectible {
     }
 
     @Override
-    public void utiliserCollectible() {
+    public void utiliserItem(Joueur j) {
         this.retirer(1);
     }
 }

@@ -51,5 +51,5 @@ public abstract class Collectible extends Item{
         return utilisable;
     }
 
-    public abstract void utiliserCollectible();
+    public abstract void utiliserItem(Joueur j);
 }

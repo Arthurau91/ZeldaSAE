@@ -87,4 +87,8 @@ public abstract class Arme extends Item{
         return true;
     }
 
+    @Override
+    public void utiliserItem(Joueur j) {
+        j.getInv().changerArme(this);
+    }
 }
