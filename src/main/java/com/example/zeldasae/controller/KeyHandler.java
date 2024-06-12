@@ -1,13 +1,13 @@
 package com.example.zeldasae.controller;
+
 import com.example.zeldasae.Vue.VueArme;
 import com.example.zeldasae.Vue.VueCollectible;
 import com.example.zeldasae.Vue.VueInventaire;
 import com.example.zeldasae.Vue.VueTerrain;
-import com.example.zeldasae.modele.Arme;
 import com.example.zeldasae.modele.Armure;
+import com.example.zeldasae.modele.Collectible;
 import com.example.zeldasae.modele.Item;
 import com.example.zeldasae.modele.Monde;
-import com.example.zeldasae.modele.*;
 import com.example.zeldasae.modele.armes.Arc;
 import com.example.zeldasae.modele.armes.Epee;
 import com.example.zeldasae.modele.collectibles.Fleche;
@@ -18,6 +18,7 @@ import javafx.scene.input.KeyEvent;
 
 import java.util.HashSet;
 import java.util.Set;
+
 import static javafx.scene.input.KeyCode.*;
 
 public class KeyHandler implements EventHandler<KeyEvent> {
@@ -39,9 +40,9 @@ public class KeyHandler implements EventHandler<KeyEvent> {
     }
 
     //à retirer, sert uniquement pour les tests
-    private Epee itemTest = new Epee(0, 0);
-    private Item itemTest3 = new Armure(500,"Armure 3", 6);
-    private Item itemTest4 = new Armure(500,"Armure 4", 19);
+    private Epee itemTest = new Epee();
+    private Item itemTest3 = new Armure(0,"Armure 3", 6);
+    private Item itemTest4 = new Armure(1,"Armure 4", 19);
     private Arc arcTest = new Arc(10, 10, 10, 40);
     Collectible fleche = new Fleche(0, 30, 30, 30, 0, 0);
 

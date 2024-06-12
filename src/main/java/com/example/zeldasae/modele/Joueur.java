@@ -43,4 +43,16 @@ public class Joueur extends Entite{
         boolean deplacement = super.deplacement(m);
         return deplacement;
     }
+
+    @Override
+    public void perdreVie(int degats) {
+        degats = degats - getInv().getArmureActuelle().getResistance();
+        if (degats < 0)
+            degats = 0;
+        setPv(this.getPv() - degats);
+        if (this.getPv() <= 0) {
+            setPv(0);
+        }
+    }
+
 }

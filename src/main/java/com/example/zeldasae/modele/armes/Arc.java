@@ -8,9 +8,6 @@ import javafx.animation.PauseTransition;
 import javafx.scene.input.KeyEvent;
 import javafx.util.Duration;
 
-import static javafx.scene.input.KeyCode.DOWN;
-import static javafx.scene.input.KeyCode.UP;
-
 public class Arc extends Arme {
 
     public Arc(int large, int haut, int x, int y) {

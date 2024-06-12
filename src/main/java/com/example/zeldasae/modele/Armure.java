@@ -13,4 +13,8 @@ public class Armure extends Item {
     public void utiliserItem(Joueur j) {
         j.getInv().changerArmure(this);
     }
+
+    public int getResistance() {
+        return resistance;
+    }
 }
