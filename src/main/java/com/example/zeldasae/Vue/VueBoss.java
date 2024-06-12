@@ -3,34 +3,17 @@ package com.example.zeldasae.Vue;
 import com.example.zeldasae.modele.entities.Boss;
 import javafx.beans.property.IntegerProperty;
 import javafx.scene.image.Image;
-import javafx.scene.image.WritableImage;
 import javafx.scene.layout.Pane;
 
 public class VueBoss extends VueEntite{
 
-    private Image[] sprites;
     private int statusAnim;
 
     public VueBoss(Boss entite, Pane paneEntites, IntegerProperty temps) {
         super(entite, paneEntites, temps);
-        loadSprites();
+        super.loadSprites(new Image("file:src/main/resources/com/example/zeldasae/assets/Boss/Boss.png", 144, 256, false, false), 48, 64);
         statusAnim = 0;
         super.creerImageEntite();
-    }
-    private void loadSprites(){
-        Image tileset = new Image("file:src/main/resources/com/example/zeldasae/assets/Boss/Boss.png", 144, 256, false, false);
-
-        int tileWidth = 48;
-        int tileHeight = 64;
-        int colonne = (int) (tileset.getWidth() / tileWidth);
-        int ligne = (int) (tileset.getHeight() / tileHeight);
-        sprites = new Image[colonne * ligne];
-
-        for (int y = 0; y < ligne; y++) {
-            for (int x = 0; x < colonne; x++) {
-                sprites[y * colonne + x] = new WritableImage(tileset.getPixelReader(), (x * tileWidth), (y * tileHeight), tileWidth, tileHeight);
-            }
-        }
     }
 
     @Override

@@ -66,9 +66,6 @@ public class Controller implements Initializable {
         Joueur joueur = new Joueur(600, 510, (int)mapPane.getPrefTileWidth(), (int)mapPane.getPrefTileHeight(), mapPane.getPrefColumns(), mapPane.getPrefRows());
         new VueJoueur(joueur, paneEntites, temps);
         this.map = new Monde(joueur, bfs, loadJSON.getPrefRows());
-        Pursuer pursuer = new Pursuer(120, 120, (int)mapPane.getPrefTileWidth(), (int)mapPane.getPrefTileHeight(), mapPane.getPrefColumns(),  mapPane.getPrefRows(), bfs);
-        new VuePursuer(pursuer, paneEntites, temps);
-        this.map.addEnnemi(pursuer);
         Skeleton skeleton = new Skeleton(500, 120, (int)mapPane.getPrefTileWidth(), (int)mapPane.getPrefTileHeight(), mapPane.getPrefColumns(),  mapPane.getPrefRows(), bfs);
         new VueSkeleton(skeleton, paneEntites, temps);
         this.map.addEnnemi(skeleton);

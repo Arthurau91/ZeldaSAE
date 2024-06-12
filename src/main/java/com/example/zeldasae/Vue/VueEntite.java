@@ -4,6 +4,7 @@ import com.example.zeldasae.modele.entities.Entite;
 import javafx.beans.property.IntegerProperty;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.image.WritableImage;
 import javafx.scene.layout.Pane;
 
 public abstract class VueEntite {
@@ -11,6 +12,7 @@ public abstract class VueEntite {
     private Entite entite;
     private Pane paneEntites;
     private ImageView imgEntite;
+    protected Image[] sprites;
     private String olddirection;
 
     public VueEntite(Entite entite, Pane paneEntites, IntegerProperty temps) {
@@ -64,6 +66,18 @@ public abstract class VueEntite {
             }
             if ((!entite.getDeplacement().contains("left")) && olddirection.contains("left")) {
                 imgEntite.setImage(this.getImageStatiqueGauche());
+            }
+        }
+    }
+
+    protected void loadSprites(Image tileset, int tileWidth, int tileHeight){
+        int colonne = (int) (tileset.getWidth() / tileWidth);
+        int ligne = (int) (tileset.getHeight() / tileHeight);
+        sprites = new Image[colonne * ligne];
+
+        for (int y = 0; y < ligne; y++) {
+            for (int x = 0; x < colonne; x++) {
+                sprites[y * colonne + x] = new WritableImage(tileset.getPixelReader(), (x * tileWidth), (y * tileHeight), tileWidth, tileHeight);
             }
         }
     }
