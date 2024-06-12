@@ -91,9 +91,11 @@ public class KeyHandler implements EventHandler<KeyEvent> {
                     break;
                 case X: //à retirer, sert uniquement pour les tests
                     Collectible collectibleTest = new Fruit(0, 10,  5, 30, 30, 50, 50, this.map.getJoueur());
+                    Charme charme = new Charme("charme",1);
                     this.map.getJoueur().getInv().ajouterItem(itemTest);
                     this.map.getJoueur().getInv().ajouterItem(itemTest3);
                     this.map.getJoueur().getInv().ajouterItem(itemTest4);
+                    this.map.getJoueur().getInv().ajouterItem(charme);
                     this.map.ajouterCollectible(collectibleTest);
                     break;
                 case A:

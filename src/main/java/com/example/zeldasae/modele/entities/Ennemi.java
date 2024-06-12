@@ -67,20 +67,15 @@ public abstract class Ennemi extends Entite {
 
     private void metDirection(int x, int y, int[] pdeplacement, Terrain terrain) {
         String direction = "";
-        if (pdeplacement[0] > x && !terrain.isBrouillard(terrain.changeCoo(x+this.getVitesse(), y)))
+        if (pdeplacement[0] > x && !terrain.isBrouillard(terrain.changeCoo(getX()+getWidth(), getY())))
             direction += "right";
-        if (pdeplacement[0] < x && !terrain.isBrouillard(terrain.changeCoo(x-this.getVitesse(), y)))
+        if (pdeplacement[0] < x && !terrain.isBrouillard(terrain.changeCoo(getX(), getY())))
             direction += "left";
-        if (pdeplacement[1] > y && !terrain.isBrouillard(terrain.changeCoo(x, y+this.getVitesse())))
+        if (pdeplacement[1] > y && !terrain.isBrouillard(terrain.changeCoo(getX(), getY()+getHeight())))
             direction += "down";
-        if (pdeplacement[1] < y && !terrain.isBrouillard(terrain.changeCoo(x, y-this.getVitesse())))
+        if (pdeplacement[1] < y && !terrain.isBrouillard(terrain.changeCoo(getX(), getY())))
             direction += "up";
         this.setDeplacement(direction);
-        System.out.println(!terrain.isBrouillard(terrain.changeCoo(x, y)));
-        System.out.println(!terrain.isBrouillard(terrain.changeCoo(x, y+this.getVitesse())));
-        System.out.println(!terrain.isBrouillard(terrain.changeCoo(pdeplacement[0], pdeplacement[1])));
-        System.out.println(!terrain.isBrouillard(terrain.changeCoo(pdeplacement[0], pdeplacement[1]+this.getVitesse())));
-        System.out.println();
     }
 
     private boolean isJoueurDirection(Monde m){

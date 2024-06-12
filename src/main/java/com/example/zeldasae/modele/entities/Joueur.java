@@ -65,6 +65,15 @@ public class Joueur extends Entite {
 
     @Override
     public boolean deplacement(Monde m) {
-        return super.deplacement(m);
+        boolean deplacement = super.deplacement(m);
+        if (m.getTerrain().isBrouillard(m.getTerrain().changeCoo(getX(), getY())) && !inv.possedeCharme()) {
+            if (this.getPv()/2 != 0)
+                this.perdreVie(this.getPv() / 2);
+            else this.perdreVie(this.getPv());
+            this.setVitesse(1);
+        }
+        else
+            this.setVitesse(10);
+        return deplacement;
     }
 }
