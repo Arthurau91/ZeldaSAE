@@ -37,7 +37,7 @@ public class Terrain {
 
     public boolean vide(int coo){
         if (coo < map.size() && coo >=0) {
-            int[] casesVides = {0, 1205};
+            int[] casesVides = {0, 1205, 686, 687, 631, 632, 688, 630, 683, 625, 245, 246, 247, 601, 604};
             for (int i = 0; i < casesVides.length; i++) {
                 if (this.map.get(coo) == casesVides[i])
                     return true;
