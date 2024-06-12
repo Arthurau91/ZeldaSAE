@@ -64,7 +64,7 @@ public class Controller implements Initializable {
         this.mapPane.setPrefWidth(this.mapPane.getPrefTileWidth()*this.mapPane.getPrefColumns());
         this.mapPane.setPrefHeight(this.mapPane.getPrefTileHeight()*this.mapPane.getPrefRows());
 
-        BFS bfs =new BFS();
+        BFS bfs = new BFS();
 
         Joueur joueur = new Joueur(600, 510, (int)mapPane.getPrefTileWidth(), (int)mapPane.getPrefTileHeight(), mapPane.getPrefColumns(), mapPane.getPrefRows(), map);
         VueJoueur vueJoueur = new VueJoueur(joueur, paneEntites);
@@ -75,6 +75,12 @@ public class Controller implements Initializable {
         VuePursuer vuePursuer = new VuePursuer(pursuer, paneEntites);
         pursuer.pv().addListener(new ObservateurVie(pursuer, vuePursuer));
         this.map.addEnnemi(pursuer);
+
+        Kami kami = new Kami(120, 120, (int)mapPane.getPrefTileWidth(), (int)mapPane.getPrefTileHeight(), mapPane.getPrefColumns(), mapPane.getPrefRows(), bfs, map);
+        VueKami vueKami = new VueKami(kami, paneEntites);
+        kami.pv().addListener(new ObservateurVie(kami, vueKami));
+        this.map.addEnnemi(kami);
+
 
         Boss boss = new Boss(740, 900, (int)mapPane.getPrefTileWidth()*3, (int)mapPane.getPrefTileHeight()*3, mapPane.getPrefColumns(),  mapPane.getPrefRows(), bfs, map);
         this.map.addEnnemi(boss);

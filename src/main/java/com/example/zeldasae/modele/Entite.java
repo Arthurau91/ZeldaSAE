@@ -1,8 +1,6 @@
 package com.example.zeldasae.modele;
 
 import com.example.zeldasae.Vue.VueBarreDeVie;
-import com.example.zeldasae.Vue.VueEntite;
-import com.example.zeldasae.controller.ObservateurVie;
 import javafx.beans.binding.Bindings;
 import javafx.beans.binding.DoubleBinding;
 import javafx.beans.property.IntegerProperty;
@@ -29,7 +27,7 @@ public abstract class Entite {
     private int degats;
     private StringProperty direction;
     private VueBarreDeVie vueBarreDeVie;
-    private Monde monde;
+    protected Monde monde;
 
     public Entite(int x, int y, int width, int height, int column, int rows, Monde monde) {
         this.xProperty = new SimpleIntegerProperty(x);
