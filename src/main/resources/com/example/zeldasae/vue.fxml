@@ -27,5 +27,6 @@
       <Pane fx:id="boxCoffre1" prefHeight="445.0" prefWidth="900.0"></Pane>
       <Pane fx:id="boxCoffre2" prefHeight="445.0" prefWidth="900.0"></Pane>
 
+   </children>
 
 </Pane>

@@ -30,9 +30,12 @@ public class ObservateurItems implements ListChangeListener<Item> {
     public void onChanged(Change<? extends Item> change) {
         while (change.next()) {
             for (Item i : change.getAddedSubList()) {
-                this.vueInv.ajouterItemVue(i);
-                if (this.vueInv != null)
-                    this.vueInv.ajouterItem(i);
+                if (this.vueInv != null) {
+                    System.out.println("avant ajout");
+                    this.vueInv.ajouterItemVue(i);
+                    System.out.println("ajout");
+                }
+
 
             }
 
@@ -50,5 +53,3 @@ public class ObservateurItems implements ListChangeListener<Item> {
 
 
 }
-
-

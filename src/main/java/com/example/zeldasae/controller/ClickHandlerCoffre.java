@@ -25,7 +25,7 @@ public class ClickHandlerCoffre implements EventHandler<MouseEvent>{
     @Override
     public void handle(MouseEvent mouseEvent) {
         if (mouseEvent.getSource() instanceof ImageView v) {
-            this.vueInventaire.ajouterItem(coffre.getItemParID(Integer.parseInt(v.getId())));
+            this.vueInventaire.ajouterItemVue(coffre.getItemParID(Integer.parseInt(v.getId())));
             this.vueInventaire.getJoueur().getInv().ajouterItem(coffre.getItemParID(Integer.parseInt(v.getId())));
             this.coffre.retirerItem(coffre.getItemParID(Integer.parseInt(v.getId())));
         }

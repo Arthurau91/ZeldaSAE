@@ -10,7 +10,7 @@ import java.util.List;
 public class GestionnaireCoffre {
 
     private Monde monde;
-    private List<Pane> coffrePanes; // Liste des panneaux de coffre où tous les coffres seront ajoutés
+    private List<Pane> coffrePanes;
     private VueInventaire vueInventaire;
     private List<VueCoffre> vueCoffreList;
     private List<Coffre> coffreList;
@@ -24,8 +24,7 @@ public class GestionnaireCoffre {
     }
 
     public void creerCoffreDansMonde() {
-        creerVueCoffre(0, 30, 0);
-        creerVueCoffre(30, 30, 1);
+        creerVueCoffre(600, 300, 0);
     }
 
     public VueCoffre creerVueCoffre(int x, int y, int id) {

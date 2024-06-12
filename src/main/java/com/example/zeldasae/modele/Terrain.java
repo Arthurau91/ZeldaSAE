@@ -42,14 +42,18 @@ public class Terrain {
                 if (this.map.get(coo) == casesVides[i])
                     return true;
             }
+        }
+        return false;
+    }
 
     public void setCoo(int coo, int valeur){
-        if (coo < map.size() && coo >=0) {
+        if (coo < map.size() && coo >=0)
             this.map.set(coo, valeur);
-        }
+
     }
 
     public void setMap(ArrayList<Integer> map) {
         this.map = map;
     }
+
 }

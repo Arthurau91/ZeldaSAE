@@ -1,8 +1,5 @@
 package com.example.zeldasae.controller;
-import com.example.zeldasae.Vue.VueArme;
-import com.example.zeldasae.Vue.VueCollectible;
-import com.example.zeldasae.Vue.VueInventaire;
-import com.example.zeldasae.Vue.VueTerrain;
+import com.example.zeldasae.Vue.*;
 import com.example.zeldasae.modele.Arme;
 import com.example.zeldasae.modele.Armure;
 import com.example.zeldasae.modele.Item;
@@ -28,14 +25,16 @@ public class KeyHandler implements EventHandler<KeyEvent> {
     private Set<KeyCode> pressedKeys;
     private VueArme vueArme;
     private VueCollectible vueCollectible;
+    private GestionnaireCoffre gestionnaireCoffre;
 
-    public KeyHandler(Monde map, VueInventaire vueInv, VueTerrain vueTerrain, VueArme vueArme, VueCollectible vueCollectible) {
+    public KeyHandler(Monde map, VueInventaire vueInv, VueTerrain vueTerrain, VueArme vueArme, VueCollectible vueCollectible, GestionnaireCoffre gestionnaireCoffre) {
         this.map = map;
         this.vueInv = vueInv;
         this.vueArme = vueArme;
         this.pressedKeys = new HashSet<>();
         this.vueTerrain = vueTerrain;
         this.vueCollectible = vueCollectible;
+        this.gestionnaireCoffre = gestionnaireCoffre;
     }
 
     //à retirer, sert uniquement pour les tests
@@ -85,7 +84,7 @@ public class KeyHandler implements EventHandler<KeyEvent> {
             for (int i = 0 ; i < this.gestionnaireCoffre.getVueCoffreList().size() ; i++) {
                 if (this.gestionnaireCoffre.getVueCoffreList().get(i).getCoffre().isEstOuvert()) {
                     this.gestionnaireCoffre.getVueCoffreList().get(i).ajouterItem(itemTest);
-                    this.gestionnaireCoffre.getVueCoffreList().get(i).ajouterItem(itemTest2);
+                    this.gestionnaireCoffre.getVueCoffreList().get(i).ajouterItem(arcTest);
                 }
             }
         }
@@ -98,10 +97,6 @@ public class KeyHandler implements EventHandler<KeyEvent> {
 
         if (keyEvent.getEventType() != KeyEvent.KEY_RELEASED) {
             switch (keyEvent.getCode()) {
-                case E:
-//                System.out.println("e");
-                    this.vueInv.toggleAffichageInventaire();
-                    break;
                 case X: //à retirer, sert uniquement pour les tests
                     Collectible collectibleTest = new Fruit(0, 10,  5, 30, 30, 50, 50, this.map.getJoueur());
                     this.map.getJoueur().getInv().ajouterItem(itemTest);
@@ -109,10 +104,10 @@ public class KeyHandler implements EventHandler<KeyEvent> {
                     this.map.getJoueur().getInv().ajouterItem(itemTest4);
                     this.map.ajouterCollectible(collectibleTest);
                     break;
-                case A:
+                case A: // switch arme
                     this.map.getJoueur().getInv().echangerArmes();
                     break;
-                case P:
+                case P:  // test
                     this.map.getJoueur().getInv().changerArme(arcTest);
                     for(int i = 0; i < this.map.getJoueur().getInv().getListeItems().size(); i++) {
                         if (this.map.getJoueur().getInv().getListeItems().get(i) instanceof Collectible) { //TODO mettre méthode abstraite commune aux Items ?
@@ -120,7 +115,7 @@ public class KeyHandler implements EventHandler<KeyEvent> {
                         }
                     }
                     break;
-                case LEFT, RIGHT, UP, DOWN:
+                case LEFT, RIGHT, UP, DOWN: // tirer
                     if (this.map.getJoueur().getPeutDonnerCoupProperty() && this.map.getJoueur().getInv().getArmeActuelle() != null) {
                         this.map.getJoueur().attaquer(keyEvent, map);
                         this.vueArme.donnerCoup(this.map.getJoueur().getInv().getArmeActuelle().getX(), this.map.getJoueur().getInv().getArmeActuelle().getY(), keyEvent);
@@ -129,25 +124,22 @@ public class KeyHandler implements EventHandler<KeyEvent> {
                         }
                     }
                     break;
-            }
-        switch (keyEvent.getCode()) {
-            case I: // inventaires
-                if (this.map.coffreOuvert() == null)
-                    this.vueInv.toggleAffichageInterface(keyEvent);
-                break;
-            case E: // interagir
-                for (VueCoffre coffre : gestionnaireCoffre.getVueCoffreList()) {
-                    if ((this.map.getJoueur().peutOuvrirUnCoffre(this.map, coffre.getCoffre(), 1)) || coffre.getCoffre().isEstOuvert()) {
-                        coffre.toggleAffichageInterface(keyEvent);
-                        break;
+                case I: // inventaires
+                    if (this.map.coffreOuvert() == null)
+                        this.vueInv.toggleAffichageInterface(keyEvent);
+                    break;
+                case E: // interagir
+                    for (VueCoffre coffre : gestionnaireCoffre.getVueCoffreList()) {
+                        if ((this.map.getJoueur().peutOuvrirUnCoffre(this.map, coffre.getCoffre(), 1)) || coffre.getCoffre().isEstOuvert()) {
+                            coffre.toggleAffichageInterface(keyEvent);
+                            break;
+                        }
                     }
-                }
-                break;
+                    break;
+            }
 
-
+            this.map.getJoueur().setDirection(direction);
         }
 
-        this.map.getJoueur().setDirection(direction);
     }
-
 }
