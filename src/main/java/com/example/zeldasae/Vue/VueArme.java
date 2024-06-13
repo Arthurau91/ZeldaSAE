@@ -11,8 +11,7 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Pane;
 import javafx.util.Duration;
 
-
-public class VueArme {
+public class VueArme { //TODO créer des classes VueEpee, VueHache, VueProjectile...qui extends VueArme
 
     private Joueur joueur;
     private Pane paneEntites;
@@ -28,7 +27,7 @@ public class VueArme {
 
     public void donnerCoup(int x, int y, KeyEvent keyEvent) {
         ImageView imageView = switchImageCoup(x, y, keyEvent);
-        if(joueur.getInv().getArmeActuelle() instanceof Hache) { //TODO à remplacer plus tard avec une méthode
+        if(joueur.getInv().getArmeActuelle().getNom().equals("Hache")) {
             animationHache(x, y, imageView);
         }
         else {
@@ -127,70 +126,50 @@ public class VueArme {
         imageView.setFitHeight(largeur);
         imageView.setFitWidth(hauteur);
 
-//        PauseTransition pause = new PauseTransition(Duration.seconds(0.1));
-//        pause.setOnFinished(event -> etapesAnimationHache(imageView, x, y, largeur, hauteur, iTab[0]));
-
-        //prochaienAnim[0] = true
         while (iTab[0] != 9) {
-            PauseTransition pause = new PauseTransition(Duration.seconds(0.05*(iTab[0]+1)));
+            PauseTransition pause = new PauseTransition(Duration.seconds(0.02*(iTab[0]+1)));
             int i = iTab[0];
-            pause.setOnFinished(event -> supprimerSpriteAnim(imageView, x, y, largeur, hauteur, i));
+            pause.setOnFinished(event -> prochaineEtapeAnim(imageView, x, y, largeur, hauteur, i));
             pause.play();
             iTab[0]++;
+
         }
     }
 
-    public void supprimerSpriteAnim(ImageView imageView, int x, int y, int largeur, int hauteur, int iTab) {
-        paneEntites.getChildren().remove(imageView);
-        etapesAnimationHache(imageView, x, y, largeur, hauteur, iTab);
+    public void prochaineEtapeAnim(ImageView imageView, int x, int y, int largeur, int hauteur, int iTab) {
+        if (iTab == 8)
+            paneEntites.getChildren().remove(imageView);
+        else {
+            paneEntites.getChildren().remove(imageView);
+            int[] coAnimation = etapesAnimationHache(imageView, x, y, largeur, hauteur, iTab);
+            imageView.setTranslateX(coAnimation[0]);
+            imageView.setTranslateY(coAnimation[1]);
+            imageView.setRotate(coAnimation[2]);
+            paneEntites.getChildren().add(imageView);
+        }
+
     }
 
-    public void etapesAnimationHache(ImageView imageView, int x, int y, int largeur, int hauteur, int i) { //TODO pour raccourcir la méthode, faire en sorte qu'elle renvoie un tableau avec x, y, et rotation
+    public int[] etapesAnimationHache(ImageView imageView, int x, int y, int largeur, int hauteur, int i) {
         switch (i) {
             case 0:
-                imageView.setTranslateX(x);
-                imageView.setTranslateY(y);
-                imageView.setRotate(-45);
-                break;
+                return new int[] {x, y, -45};
             case 1:
-                imageView.setTranslateX(x+largeur);
-                imageView.setTranslateY(y);
-                imageView.setRotate(0);
-                break;
+                return new int[] {x+largeur, y, 0};
             case 2:
-                imageView.setTranslateX(x+largeur*2);
-                imageView.setTranslateY(y);
-                imageView.setRotate(45);
-                break;
+                return new int[] {x+largeur*2, y, 45};
             case 3:
-                imageView.setTranslateX(x+largeur*2);
-                imageView.setTranslateY(y+hauteur);
-                imageView.setRotate(90);
-                break;
+                return new int[] {x+largeur*2, y+hauteur, 90};
             case 4:
-                imageView.setTranslateX(x+largeur*2);
-                imageView.setTranslateY(y+hauteur*2);
-                imageView.setRotate(135);
-                break;
+                return new int[] {x+largeur*2, y+hauteur*2, 135};
             case 5:
-                imageView.setTranslateX(x+largeur);
-                imageView.setTranslateY(y+hauteur*2);
-                imageView.setRotate(180);
-                break;
+                return new int[] {x+largeur, y+hauteur*2, 180};
             case 6:
-                imageView.setTranslateX(x);
-                imageView.setTranslateY(y+hauteur*2);
-                imageView.setRotate(225);
-                break;
+                return new int[] {x, y+hauteur*2, 225};
             case 7:
-                imageView.setTranslateX(x);
-                imageView.setTranslateY(y+hauteur);
-                imageView.setRotate(270);
-                break;
+                return new int[] {x, y+hauteur, 270};
         }
-        paneEntites.getChildren().add(imageView);
-        if (i == 8)
-            paneEntites.getChildren().remove(imageView);
+            return null;
     }
 
 }
