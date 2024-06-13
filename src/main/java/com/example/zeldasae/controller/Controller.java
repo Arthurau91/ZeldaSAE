@@ -160,6 +160,9 @@ public class Controller implements Initializable {
                         paneEntites.removeEventHandler(KeyEvent.KEY_RELEASED, keyHandler);
                         resetButton.setDisable(false);
                         resetButton.setVisible(true);
+                        boxInventaire.setVisible(false);
+                        boxCoffre1.setVisible(false);
+                        boxCoffre2.setVisible(false);
                         gameLoop.stop();
                     }
 

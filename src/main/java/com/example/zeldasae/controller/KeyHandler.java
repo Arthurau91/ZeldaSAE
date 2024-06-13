@@ -120,7 +120,7 @@ public class KeyHandler implements EventHandler<KeyEvent> {
                         }
                     }
                     break;
-                case I: // inventaires
+                case TAB: // inventaires
                     if (this.map.coffreOuvert() == null)
                         this.vueInv.toggleAffichageInterface(keyEvent);
                     break;
