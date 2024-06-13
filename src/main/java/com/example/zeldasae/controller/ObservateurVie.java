@@ -20,7 +20,7 @@ public class ObservateurVie implements ChangeListener<Number> {
     @Override
     public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
         double pourcentage = ((double) newValue.intValue() / entite.getPvMax()) * 100;
-        VueBarreDeVie vueBarreDeVie = entite.getVueBarreDeVie();
+        VueBarreDeVie vueBarreDeVie = vueEntite.getVueBarreDeVie();
         if (vueBarreDeVie.getPourcentageVie() != 0) {
             vueBarreDeVie.setPourcentageVie(pourcentage);
             mettreAJourBarreDeVie(vueBarreDeVie);

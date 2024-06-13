@@ -1,6 +1,9 @@
 package com.example.zeldasae.Vue;
 
 import com.example.zeldasae.modele.Entite;
+import com.example.zeldasae.modele.Joueur;
+import javafx.beans.binding.Bindings;
+import javafx.beans.binding.DoubleBinding;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
@@ -10,6 +13,7 @@ public abstract class VueEntite {
     private Entite entite;
     private Pane paneEntites;
     private ImageView imgEntite;
+    protected VueBarreDeVie vueBarreDeVie;
 
     public VueEntite(Entite entite, Pane paneEntites) {
         this.entite = entite;
@@ -48,6 +52,29 @@ public abstract class VueEntite {
         if (nouv.contains("left")){
             imgEntite.setImage(this.getImageGauche());
         }
+    }
+
+    protected void bindBarreDeViePosition() {
+
+        DoubleBinding barreXBinding = Bindings.createDoubleBinding(() ->
+                        entite.getX() + (entite.getWidth() - this.vueBarreDeVie.getWidth()) / 2,
+                entite.xProperty(), vueBarreDeVie.widthProperty(), this.vueBarreDeVie.widthProperty());
+
+        DoubleBinding barreYBinding = Bindings.createDoubleBinding(() ->
+                        entite.getY() - this.vueBarreDeVie.getHeight(),
+                entite.yProperty(), this.vueBarreDeVie.heightProperty());
+
+        this.vueBarreDeVie.layoutXProperty().bind(barreXBinding);
+        this.vueBarreDeVie.layoutYProperty().bind(barreYBinding);
+
+    }
+
+    public VueBarreDeVie getVueBarreDeVie() {
+        return vueBarreDeVie;
+    }
+
+    public Entite getEntite() {
+        return entite;
     }
 
     public abstract Image getImageBas();

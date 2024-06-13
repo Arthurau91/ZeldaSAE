@@ -14,6 +14,8 @@ public class VueBoss extends VueEntite{
     public VueBoss(Entite entite, Pane paneEntites) {
         super(entite, paneEntites);
         super.creerImageEntite();
+        this.vueBarreDeVie = new VueBarreDeVie(90, 10, paneEntites);
+        bindBarreDeViePosition();
     }
     @Override
     public Image getImageBas() {

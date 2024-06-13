@@ -28,7 +28,6 @@ public abstract class Entite {
     private int pvMax;
     private int degats;
     private StringProperty direction;
-    private VueBarreDeVie vueBarreDeVie;
     private Monde monde;
 
     public Entite(int x, int y, int width, int height, int column, int rows, Monde monde) {
@@ -49,18 +48,6 @@ public abstract class Entite {
         this.direction = new SimpleStringProperty("right");
         this.monde = monde;
 
-        //mettre côté vue
-        if (this instanceof Joueur) {
-            this.vueBarreDeVie = new VueBarreDeVie(100, 20);
-            this.getVueBarreDeVie().setLayoutX(1050);
-            this.getVueBarreDeVie().setLayoutY(10);
-        } else {
-            this.vueBarreDeVie = new VueBarreDeVie(90, 10);
-            bindBarreDeViePosition();
-        }
-
-        //à faire dans le contrôleur
-//        this.pv.addListener(new ObservateurVie(this));
     }
 
     public Entite(int x, int y, String id, int width, int height, int column, int rows, Monde monde) {
@@ -139,9 +126,6 @@ public abstract class Entite {
     public void setDegats(int degats) {
         this.degats = degats;
     }
-    public VueBarreDeVie getVueBarreDeVie() {
-        return this.vueBarreDeVie;
-    }
     public HitBox getHitBox() {
         return hitBox;
     }
@@ -180,22 +164,6 @@ public abstract class Entite {
 
     public boolean verifVivant() {
         return this.getPv() > 0;
-    }
-
-    //remettre côté vue
-    private void bindBarreDeViePosition() {
-
-        DoubleBinding barreXBinding = Bindings.createDoubleBinding(() ->
-                        this.getX() + (this.getWidth() - this.vueBarreDeVie.getWidth()) / 2,
-                this.xProperty, this.widthProperty(), this.vueBarreDeVie.widthProperty());
-
-        DoubleBinding barreYBinding = Bindings.createDoubleBinding(() ->
-                        this.getY() - this.vueBarreDeVie.getHeight(),
-                this.yProperty, this.vueBarreDeVie.heightProperty());
-
-        this.vueBarreDeVie.layoutXProperty().bind(barreXBinding);
-        this.vueBarreDeVie.layoutYProperty().bind(barreYBinding);
-
     }
 
     private IntegerProperty widthProperty() {

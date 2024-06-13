@@ -8,7 +8,7 @@ import javafx.scene.layout.Pane;
 public abstract class VueInterface {
 
     protected Pane paneInterface;
-    protected Joueur joueur;
+    private Joueur joueur;
     protected boolean afficheInterface;
 
 

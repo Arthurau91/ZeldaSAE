@@ -12,8 +12,7 @@ import javafx.event.EventHandler;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 
 import static javafx.scene.input.KeyCode.*;
 
@@ -25,27 +24,28 @@ public class KeyHandler implements EventHandler<KeyEvent> {
     private Set<KeyCode> pressedKeys;
     private VueArme vueArme;
     private VueCollectible vueCollectible;
-    private GestionnaireCoffre gestionnaireCoffre;
+    private List<VueCoffre> vueCoffres;
 
-    public KeyHandler(Monde map, VueInventaire vueInv, VueTerrain vueTerrain, VueArme vueArme, VueCollectible vueCollectible, GestionnaireCoffre gestionnaireCoffre) {
+    public KeyHandler(Monde map, VueInventaire vueInv, VueTerrain vueTerrain, VueArme vueArme, VueCollectible vueCollectible, List<VueCoffre> vueCoffres) {
         this.map = map;
         this.vueInv = vueInv;
         this.vueArme = vueArme;
         this.pressedKeys = new HashSet<>();
         this.vueTerrain = vueTerrain;
         this.vueCollectible = vueCollectible;
-        this.gestionnaireCoffre = gestionnaireCoffre;
+        this.vueCoffres = vueCoffres;
     }
 
     //à retirer, sert uniquement pour les tests
     private Epee itemTest = new Epee( 150, 15, 0, 0);
-//    private Epee itemTest2 = new Epee(100, 100, 0, 0);
+    private Epee itemTest2 = new Epee(100, 100, 0, 0);
     private Item itemTest3 = new Armure(500,"Armure 3", 6);
     private Item itemTest4 = new Armure(500,"Armure 4", 19);
     private Arc arcTest = new Arc(10, 10, 10, 40);
 
     @Override
     public void handle(KeyEvent keyEvent) {
+
 
         if (keyEvent.getEventType() == KeyEvent.KEY_PRESSED)
             this.pressedKeys.add(keyEvent.getCode());
@@ -81,15 +81,11 @@ public class KeyHandler implements EventHandler<KeyEvent> {
         }
         this.map.getJoueur().setDeplacement(direction);
         if (pressedKeys.contains(F)) {
-            for (int i = 0 ; i < this.gestionnaireCoffre.getVueCoffreList().size() ; i++) {
-                if (this.gestionnaireCoffre.getVueCoffreList().get(i).getCoffre().isEstOuvert()) {
-                    this.gestionnaireCoffre.getVueCoffreList().get(i).ajouterItem(itemTest);
-                    this.gestionnaireCoffre.getVueCoffreList().get(i).ajouterItem(arcTest);
-                }
+            for (int i = 0 ; i < this.vueCoffres.size() ; i++) {
+                if (this.vueCoffres.get(i).getCoffre().isEstOuvert()) {
+                    this.vueCoffres.get(i).ajouterItem(itemTest);
+                    this.vueCoffres.get(i).ajouterItem(itemTest4);}
             }
-        }
-        if (pressedKeys.contains(X)) {
-            this.map.getJoueur().getInv().ajouterItem(itemTest);
         }
 
         if (pressedKeys.contains(SHIFT))
@@ -97,7 +93,7 @@ public class KeyHandler implements EventHandler<KeyEvent> {
 
         if (keyEvent.getEventType() != KeyEvent.KEY_RELEASED) {
             switch (keyEvent.getCode()) {
-                case X: //à retirer, sert uniquement pour les tests
+                case X: // à retirer, sert uniquement pour les tests
                     Collectible collectibleTest = new Fruit(0, 10,  5, 30, 30, 50, 50, this.map.getJoueur());
                     this.map.getJoueur().getInv().ajouterItem(itemTest);
                     this.map.getJoueur().getInv().ajouterItem(itemTest3);
@@ -129,7 +125,7 @@ public class KeyHandler implements EventHandler<KeyEvent> {
                         this.vueInv.toggleAffichageInterface(keyEvent);
                     break;
                 case E: // interagir
-                    for (VueCoffre coffre : gestionnaireCoffre.getVueCoffreList()) {
+                    for (VueCoffre coffre : vueCoffres) {
                         if ((this.map.getJoueur().peutOuvrirUnCoffre(this.map, coffre.getCoffre(), 1)) || coffre.getCoffre().isEstOuvert()) {
                             coffre.toggleAffichageInterface(keyEvent);
                             break;

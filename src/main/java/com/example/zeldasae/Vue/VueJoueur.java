@@ -14,6 +14,9 @@ public class VueJoueur extends VueEntite{
         super(entite, paneEntites);
         loadSprites();
         statusAnim = 0;
+        this.vueBarreDeVie = new VueBarreDeVie(100, 20, paneEntites);
+        vueBarreDeVie.setLayoutX(1050);
+        vueBarreDeVie.setLayoutY(10);
         super.creerImageEntite();
     }
 

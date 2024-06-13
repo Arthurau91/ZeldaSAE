@@ -22,8 +22,9 @@ public class VueCoffre extends VueInterface{
         super(paneCoffre, joueur);
         this.coffre = coffre;
         this.vueInventaire = vueInventaire;
-        this.clickHandlerCoffre = new ClickHandlerCoffre(paneCoffre, this.coffre, vueInventaire);
         this.paneCoffre = paneCoffre;
+        this.clickHandlerCoffre = new ClickHandlerCoffre(this.paneCoffre, this.coffre, vueInventaire);
+        this.paneCoffre.toFront();
     }
 
     public void toggleAffichageInterface(KeyEvent keyEvent) {
@@ -57,26 +58,21 @@ public class VueCoffre extends VueInterface{
         imageView.setTranslateY(y);
         imageView.setId("" + i.getPosSlotItems());
         imageView.setOnMouseClicked(this.clickHandlerCoffre);
+        System.out.println("passe");
         this.coffre.ajouterItem(i);
-        this.paneCoffre.getChildren().add(imageView);
-    }
+        this.paneCoffre.getChildren().add(imageView);}
 
     public void retirerItem(Item i) {
+        System.out.println("retirer");
         ImageView imageViewToRemove = (ImageView) this.paneCoffre.lookup("#" + i.getPosSlotItems());
         if (imageViewToRemove != null) {
             this.paneCoffre.getChildren().remove(imageViewToRemove);
             this.coffre.retirerItem(i);
-        } else {
-            System.out.println("Item non trouvé : " + i.getPosSlotItems());
         }
     }
 
     public Image switchImageItem(Item i) {
         Image img = new Image("file:src/main/resources/com/example/zeldasae/assets/" + i.getNom() + ".png");
         return img;
-    }
-
-    public VueInventaire getVueInventaire() {
-        return vueInventaire;
     }
 }

@@ -18,11 +18,9 @@ public class ObservateurItems implements ListChangeListener<Item> {
 
     private VueInventaire vueInv;
     private VueCoffre coffre;
-    private Pane map;
 
-    public ObservateurItems(VueInventaire vueInv, Pane map, VueCoffre coffre) {
+    public ObservateurItems(VueInventaire vueInv, VueCoffre coffre) {
         this.vueInv = vueInv;
-        this.map = map;
         this.coffre = coffre;
     }
 
@@ -31,11 +29,8 @@ public class ObservateurItems implements ListChangeListener<Item> {
         while (change.next()) {
             for (Item i : change.getAddedSubList()) {
                 if (this.vueInv != null) {
-                    System.out.println("avant ajout");
                     this.vueInv.ajouterItemVue(i);
-                    System.out.println("ajout");
                 }
-
 
             }
 
@@ -44,12 +39,10 @@ public class ObservateurItems implements ListChangeListener<Item> {
                     this.coffre.retirerItem(i);
                 }
 
-
             }
 
         }
 
     }
-
 
 }

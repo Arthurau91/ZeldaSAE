@@ -21,11 +21,15 @@
                   <Font size="69.0" />
                </font>
             </Label>
+
+
          </children>
       </Pane>
 
+
       <Pane fx:id="boxCoffre1" prefHeight="445.0" prefWidth="900.0"></Pane>
       <Pane fx:id="boxCoffre2" prefHeight="445.0" prefWidth="900.0"></Pane>
+
 
    </children>
 

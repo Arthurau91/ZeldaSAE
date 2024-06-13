@@ -40,7 +40,6 @@ public class Controller implements Initializable {
     private VueArme vueArme;
     private VueCollectible vueCollectible;
     private KeyHandler keyHandler;
-    private GestionnaireCoffre gestionnaireCoffre;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -64,7 +63,7 @@ public class Controller implements Initializable {
         this.mapPane.setPrefWidth(this.mapPane.getPrefTileWidth()*this.mapPane.getPrefColumns());
         this.mapPane.setPrefHeight(this.mapPane.getPrefTileHeight()*this.mapPane.getPrefRows());
 
-        BFS bfs =new BFS();
+        BFS bfs = new BFS();
 
         Joueur joueur = new Joueur(600, 510, (int)mapPane.getPrefTileWidth(), (int)mapPane.getPrefTileHeight(), mapPane.getPrefColumns(), mapPane.getPrefRows(), map);
         VueJoueur vueJoueur = new VueJoueur(joueur, paneEntites);
@@ -86,30 +85,34 @@ public class Controller implements Initializable {
         this.vueArme = new VueArme(this.map.getJoueur(), this.paneEntites, map, this.mapPane);
         this.vueCollectible = new VueCollectible(paneEntites, map);
 
-        this.map.getJoueur().getInv().getListeItems().addListener(new ObservateurItems(vueInv, this.paneEntites, null));
+        this.map.getJoueur().getInv().getListeItems().addListener(new ObservateurItems(vueInv, null));
         this.map.getListeProjectiles().addListener(new ObservateurProjectiles(vueArme));
         this.map.getListeCollectibles().addListener(new ObservateurCollectibles(vueCollectible));
 
         bfs.lanceAlgo(map, mapPane.getPrefColumns(), mapPane.getPrefRows());
 
-        ObservateurMouvement observateurMouvement = new ObservateurMouvement(this.map, this.mapPane, this.paneEntites);
+        ObservateurMouvement observateurMouvement = new ObservateurMouvement(this.map, this.mapPane, this.paneEntites, vueJoueur);
 
         this.map.getJoueur().xProperty().addListener(observateurMouvement);
         this.map.getJoueur().yProperty().addListener(observateurMouvement);
 
-        gestionnaireCoffre = new GestionnaireCoffre(this.map, Arrays.asList(boxCoffre1, boxCoffre2), vueInv);
-        this.keyHandler = new KeyHandler(this.map, vueInv, vueTerrain, vueArme, vueCollectible, gestionnaireCoffre);
+        // Création des coffres
 
+        Coffre coffre = new Coffre(600, 300, 0);
+        VueCoffre vueCoffre = new VueCoffre(boxCoffre1, this.map.getJoueur(), coffre, vueInv);
+        this.map.addCoffre(coffre);
+        coffre.getListeItem().addListener(new ObservateurItems(null, vueCoffre));
 
-        gestionnaireCoffre.creerCoffreDansMonde();
+        Coffre coffre2 = new Coffre(630, 260, 1);
+        VueCoffre vueCoffre2 = new VueCoffre(boxCoffre2, this.map.getJoueur(), coffre2, vueInv);
+        this.map.addCoffre(coffre2);
+        coffre2.getListeItem().addListener(new ObservateurItems(null, vueCoffre2));
 
-        for (int i = 0 ; i < gestionnaireCoffre.getCoffreList().size() ; i++)
-            gestionnaireCoffre.getCoffreList().get(i).getListeItem().addListener(new ObservateurItems(null, this.paneEntites, this.gestionnaireCoffre.getVueCoffreList().get(i)));
+        this.keyHandler = new KeyHandler(this.map, vueInv, vueTerrain, vueArme, vueCollectible, Arrays.asList(vueCoffre, vueCoffre2));
 
         paneEntites.addEventHandler(KeyEvent.KEY_PRESSED, keyHandler);
         paneEntites.addEventHandler(KeyEvent.KEY_RELEASED, keyHandler);
         initAnimation();
-        paneEntites.getChildren().add(this.map.getJoueur().getVueBarreDeVie());
 
     }
 
