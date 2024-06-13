@@ -3,16 +3,13 @@ package com.example.zeldasae.Vue;
 import com.example.zeldasae.modele.Joueur;
 import com.example.zeldasae.modele.Monde;
 import com.example.zeldasae.modele.Projectile;
+import com.example.zeldasae.modele.armes.Hache;
 import javafx.animation.PauseTransition;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Pane;
-import javafx.scene.paint.Color;
-import javafx.scene.shape.Rectangle;
 import javafx.util.Duration;
-
-import static javafx.scene.input.KeyCode.*;
 
 
 public class VueArme {
@@ -31,20 +28,25 @@ public class VueArme {
 
     public void donnerCoup(int x, int y, KeyEvent keyEvent) {
         ImageView imageView = switchImageCoup(x, y, keyEvent);
-        paneEntites.getChildren().add(imageView);
+        if(joueur.getInv().getArmeActuelle() instanceof Hache) { //TODO à remplacer plus tard avec une méthode
+            animationHache(x, y, imageView);
+        }
+        else {
+            paneEntites.getChildren().add(imageView);
 
-        PauseTransition pause = new PauseTransition(Duration.seconds(joueur.getInv().getArmeActuelle().getDelaiRecuperation() - 0.3));
-        pause.setOnFinished(event -> paneEntites.getChildren().remove(imageView));
-        pause.play();
+            PauseTransition pause = new PauseTransition(Duration.seconds(joueur.getInv().getArmeActuelle().getDelaiRecuperation() - 0.3));
+            pause.setOnFinished(event -> paneEntites.getChildren().remove(imageView));
+            pause.play();
+        }
 
-        Rectangle hitboxTest = new Rectangle(joueur.getInv().getArmeActuelle().getHitBox().getLarge(), joueur.getInv().getArmeActuelle().getHitBox().getHaut(), Color.RED);
-        hitboxTest.setTranslateX(x);
-        hitboxTest.setTranslateY(y);
-        paneEntites.getChildren().add(hitboxTest);
-
-        PauseTransition pauseHitbox = new PauseTransition(Duration.seconds(joueur.getInv().getArmeActuelle().getDelaiRecuperation() - 0.3));
-        pauseHitbox.setOnFinished(event -> paneEntites.getChildren().remove(hitboxTest));
-        pauseHitbox.play();
+//        Rectangle hitboxTest = new Rectangle(joueur.getInv().getArmeActuelle().getHitBox().getLarge(), joueur.getInv().getArmeActuelle().getHitBox().getHaut(), Color.RED);
+//        hitboxTest.setTranslateX(x);
+//        hitboxTest.setTranslateY(y);
+//        paneEntites.getChildren().add(hitboxTest);
+//
+//        PauseTransition pauseHitbox = new PauseTransition(Duration.seconds(joueur.getInv().getArmeActuelle().getDelaiRecuperation() - 0.3));
+//        pauseHitbox.setOnFinished(event -> paneEntites.getChildren().remove(hitboxTest));
+//        pauseHitbox.play();
     }
 
     public void creerProjectileJoueurVue(Projectile p) {
@@ -113,6 +115,82 @@ public class VueArme {
         }
 
         return imageView;
+    }
+
+    public void animationHache(int x, int y, ImageView imageView) {
+        int largeur = 30, hauteur = 30, angle = -45;
+        int[] iTab = new int[1];
+        iTab[0] = 0;
+        boolean[] prochaineAnim = new boolean[1];
+        prochaineAnim[0] = true;
+
+        imageView.setFitHeight(largeur);
+        imageView.setFitWidth(hauteur);
+
+//        PauseTransition pause = new PauseTransition(Duration.seconds(0.1));
+//        pause.setOnFinished(event -> etapesAnimationHache(imageView, x, y, largeur, hauteur, iTab[0]));
+
+        //prochaienAnim[0] = true
+        while (iTab[0] != 9) {
+            PauseTransition pause = new PauseTransition(Duration.seconds(0.05*(iTab[0]+1)));
+            int i = iTab[0];
+            pause.setOnFinished(event -> supprimerSpriteAnim(imageView, x, y, largeur, hauteur, i));
+            pause.play();
+            iTab[0]++;
+        }
+    }
+
+    public void supprimerSpriteAnim(ImageView imageView, int x, int y, int largeur, int hauteur, int iTab) {
+        paneEntites.getChildren().remove(imageView);
+        etapesAnimationHache(imageView, x, y, largeur, hauteur, iTab);
+    }
+
+    public void etapesAnimationHache(ImageView imageView, int x, int y, int largeur, int hauteur, int i) { //TODO pour raccourcir la méthode, faire en sorte qu'elle renvoie un tableau avec x, y, et rotation
+        switch (i) {
+            case 0:
+                imageView.setTranslateX(x);
+                imageView.setTranslateY(y);
+                imageView.setRotate(-45);
+                break;
+            case 1:
+                imageView.setTranslateX(x+largeur);
+                imageView.setTranslateY(y);
+                imageView.setRotate(0);
+                break;
+            case 2:
+                imageView.setTranslateX(x+largeur*2);
+                imageView.setTranslateY(y);
+                imageView.setRotate(45);
+                break;
+            case 3:
+                imageView.setTranslateX(x+largeur*2);
+                imageView.setTranslateY(y+hauteur);
+                imageView.setRotate(90);
+                break;
+            case 4:
+                imageView.setTranslateX(x+largeur*2);
+                imageView.setTranslateY(y+hauteur*2);
+                imageView.setRotate(135);
+                break;
+            case 5:
+                imageView.setTranslateX(x+largeur);
+                imageView.setTranslateY(y+hauteur*2);
+                imageView.setRotate(180);
+                break;
+            case 6:
+                imageView.setTranslateX(x);
+                imageView.setTranslateY(y+hauteur*2);
+                imageView.setRotate(225);
+                break;
+            case 7:
+                imageView.setTranslateX(x);
+                imageView.setTranslateY(y+hauteur);
+                imageView.setRotate(270);
+                break;
+        }
+        paneEntites.getChildren().add(imageView);
+        if (i == 8)
+            paneEntites.getChildren().remove(imageView);
     }
 
 }
