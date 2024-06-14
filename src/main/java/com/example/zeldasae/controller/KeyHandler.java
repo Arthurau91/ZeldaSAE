@@ -47,9 +47,6 @@ public class KeyHandler implements EventHandler<KeyEvent> {
     @Override
     public void handle(KeyEvent keyEvent) {
 
-        System.out.println("X : " + map.getJoueur().getX());
-        System.out.println("Y : " + map.getJoueur().getY());
-
         if (keyEvent.getEventType() == KeyEvent.KEY_PRESSED)
             this.pressedKeys.add(keyEvent.getCode());
         else if (keyEvent.getEventType() == KeyEvent.KEY_RELEASED) {

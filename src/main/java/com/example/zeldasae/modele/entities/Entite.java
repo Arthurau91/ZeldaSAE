@@ -195,30 +195,43 @@ public abstract class Entite {
             int dy = 0;
             int x = getX();
             int y = getY();
+            boolean direction = false;
 
             if (this.deplacement.contains("up") && checkHitBox("up", m.getTerrain()))
                 if (checkUp(m, vitesse)) {
                     dy -= vitesse;
-                    addDirection("up");
+                    if (!direction) {
+                        addDirection("up");
+                        direction = true;
+                    }
+                    setY(getY() + dy);
                 }
             if (this.deplacement.contains("down") && checkHitBox("down", m.getTerrain()))
                 if (checkDown(m, vitesse)) {
                     dy += vitesse;
-                    addDirection("down");
+                    if (!direction) {
+                        addDirection("down");
+                        direction = true;
+                    }
+                    setY(getY() + dy);
                 }
             if (this.deplacement.contains("left") && checkHitBox("left", m.getTerrain()))
                 if (checkLeft(m, vitesse)) {
                     dx -= vitesse;
-                    addDirection("left");
+                    if (!direction) {
+                        addDirection("left");
+                        direction = true;
+                    }
+                    setX(getX() + dx);
                 }
             if (this.deplacement.contains("right") && checkHitBox("right", m.getTerrain()))
                 if (checkRight(m, vitesse)) {
                     dx += vitesse;
-                    addDirection("right");
+                    if (!direction)
+                        addDirection("right");
+                    setX(getX() + dx);
                 }
 
-            setX(getX() + dx);
-            setY(getY() + dy);
             if (!(x != getX() || y != getY())){
                 this.setBouge(false);
             }
