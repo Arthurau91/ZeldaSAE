@@ -17,6 +17,11 @@ public class VueBarreDeVie extends Pane {
         this.barreVieActuelle = new Rectangle(largeur, hauteur);
         this.barreVieActuelle.setFill(Color.GREEN);
         this.paneEntites = paneEntites;
+        this.barreVieTotale.setArcHeight(20);
+        this.barreVieTotale.setArcWidth(20);
+        this.barreVieActuelle.setArcHeight(20);
+        this.barreVieActuelle.setArcWidth(20);
+        this.barreVieTotale.setStroke(Color.BLACK);
         ajouterBarreDeVieEnnemiAuPane(this);
         getChildren().addAll(this.barreVieTotale, this.barreVieActuelle);
     }
