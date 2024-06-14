@@ -14,6 +14,8 @@ import javafx.beans.property.SimpleIntegerProperty;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.TilePane;
@@ -37,6 +39,7 @@ public class Controller implements Initializable {
     private Pane boxCoffre2;
     @FXML
     private TilePane mapPane;
+    private ImageView fond;
     private Monde map;
     private Timeline gameLoop;
     private Button resetButton;
@@ -58,6 +61,9 @@ public class Controller implements Initializable {
         resetButton.setDisable(false);
         resetButton.setVisible(true);
         fenetre.getChildren().add(resetButton);
+        fond = new ImageView(new Image("file:src/main/resources/com/example/zeldasae/assets/fond.png", 1200, 1000, false, false));
+        fenetre.getChildren().add(fond);
+        resetButton.toFront();
     }
 
     private void lancementJeu(){
@@ -141,6 +147,7 @@ public class Controller implements Initializable {
         this.map = null;
         resetButton.setDisable(true);
         resetButton.setVisible(false);
+        fond.setVisible(false);
     }
 
     private void initAnimation() {
@@ -169,6 +176,7 @@ public class Controller implements Initializable {
                         boxInventaire.setVisible(false);
                         boxCoffre1.setVisible(false);
                         boxCoffre2.setVisible(false);
+                        fond.setVisible(true);
                         gameLoop.stop();
                     }
 
