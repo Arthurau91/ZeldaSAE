@@ -1,14 +1,11 @@
 package com.example.zeldasae.controller;
 import com.example.zeldasae.Vue.*;
-import com.example.zeldasae.modele.Arme;
 import com.example.zeldasae.Vue.VueArme;
 import com.example.zeldasae.Vue.VueCollectible;
 import com.example.zeldasae.Vue.VueInventaire;
 import com.example.zeldasae.Vue.VueTerrain;
-import com.example.zeldasae.modele.Armure;
-import com.example.zeldasae.modele.Item;
-import com.example.zeldasae.modele.Monde;
 import com.example.zeldasae.modele.*;
+
 import com.example.zeldasae.modele.armes.Arc;
 import com.example.zeldasae.modele.armes.Epee;
 import com.example.zeldasae.modele.collectibles.Fruit;
@@ -55,13 +52,13 @@ public class KeyHandler implements EventHandler<KeyEvent> {
         else if (keyEvent.getEventType() == KeyEvent.KEY_RELEASED) {
             this.pressedKeys.remove(keyEvent.getCode());
             if (keyEvent.getCode() == Z)
-                map.getJoueur().setDirection(map.getJoueur().getDeplacement().replace("up",""));
+                map.getJoueur().setDirection(map.getJoueur().getDeplacement().replace("up", ""));
             if (keyEvent.getCode() == S)
-                map.getJoueur().setDirection(map.getJoueur().getDeplacement().replace("down",""));
+                map.getJoueur().setDirection(map.getJoueur().getDeplacement().replace("down", ""));
             if (keyEvent.getCode() == Q)
-                map.getJoueur().setDirection(map.getJoueur().getDeplacement().replace("left",""));
+                map.getJoueur().setDirection(map.getJoueur().getDeplacement().replace("left", ""));
             if (keyEvent.getCode() == D)
-                map.getJoueur().setDirection(map.getJoueur().getDeplacement().replace("right",""));
+                map.getJoueur().setDirection(map.getJoueur().getDeplacement().replace("right", ""));
         }
 
         String direction = "";
@@ -84,10 +81,11 @@ public class KeyHandler implements EventHandler<KeyEvent> {
         }
         this.map.getJoueur().setDeplacement(direction);
         if (pressedKeys.contains(F)) {
-            for (int i = 0 ; i < this.vueCoffres.size() ; i++) {
+            for (int i = 0; i < this.vueCoffres.size(); i++) {
                 if (this.vueCoffres.get(i).getCoffre().isEstOuvert()) {
                     this.vueCoffres.get(i).ajouterItem(itemTest);
-                    this.vueCoffres.get(i).ajouterItem(itemTest4);}
+                    this.vueCoffres.get(i).ajouterItem(itemTest4);
+                }
             }
         }
 
@@ -97,8 +95,8 @@ public class KeyHandler implements EventHandler<KeyEvent> {
         if (keyEvent.getEventType() != KeyEvent.KEY_RELEASED) {
             switch (keyEvent.getCode()) {
                 case X: // à retirer, sert uniquement pour les tests
-                    Collectible collectibleTest = new Fruit(0, 10,  5, 30, 30, 50, 50, this.map.getJoueur());
-                    Charme charme = new Charme("charme",1);
+                    Collectible collectibleTest = new Fruit(0, 10, 5, 30, 30, 50, 50, this.map.getJoueur());
+                    Charme charme = new Charme("charme", 1);
                     this.map.getJoueur().getInv().ajouterItem(itemTest);
                     this.map.getJoueur().getInv().ajouterItem(itemTest3);
                     this.map.getJoueur().getInv().ajouterItem(itemTest4);
@@ -110,7 +108,7 @@ public class KeyHandler implements EventHandler<KeyEvent> {
                     break;
                 case P:  // test
                     this.map.getJoueur().getInv().changerArme(arcTest);
-                    for(int i = 0; i < this.map.getJoueur().getInv().getListeItems().size(); i++) {
+                    for (int i = 0; i < this.map.getJoueur().getInv().getListeItems().size(); i++) {
                         if (this.map.getJoueur().getInv().getListeItems().get(i) instanceof Collectible) { //TODO mettre méthode abstraite commune aux Items ?
                             System.out.println(((Collectible) this.map.getJoueur().getInv().getListeItems().get(i)).getQuantite() + " " + ((Collectible) this.map.getJoueur().getInv().getListeItems().get(i)).getType());
                         }
@@ -142,5 +140,5 @@ public class KeyHandler implements EventHandler<KeyEvent> {
 
             this.map.getJoueur().setDirection(direction);
         }
-
+    }
 }

@@ -1,7 +1,5 @@
 package com.example.zeldasae.Vue;
 
-import com.example.zeldasae.modele.Ennemi;
-import com.example.zeldasae.modele.Entite;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;

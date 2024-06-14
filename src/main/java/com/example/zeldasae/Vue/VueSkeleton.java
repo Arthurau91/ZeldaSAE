@@ -14,6 +14,8 @@ public class VueSkeleton extends VueEntite{
         super(entite, paneEntites, temps);
         super.loadSprites(new Image("file:src/main/resources/com/example/zeldasae/assets/Skeleton/skeleton.png", 390, 630, false, false), 30, 30);
         statusAnim = 0;
+        this.vueBarreDeVie = new VueBarreDeVie(90, 10, paneEntites);
+        bindBarreDeViePosition();
         super.creerImageEntite();
     }
 

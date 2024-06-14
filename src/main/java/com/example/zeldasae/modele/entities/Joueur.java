@@ -1,5 +1,6 @@
 package com.example.zeldasae.modele.entities;
 
+import com.example.zeldasae.modele.Coffre;
 import com.example.zeldasae.modele.Inventaire;
 import com.example.zeldasae.modele.Monde;
 import com.example.zeldasae.modele.entities.Entite;
@@ -16,7 +17,7 @@ public class Joueur extends Entite {
     private BooleanProperty peutPrendreCoupProperty;
 
     public Joueur(int x, int y, int width, int height, int column, int rows) {
-        super(x, y, "j1", width, height, column, rows);
+        super(x, y, "j1", width, height, column, rows, null);
         this.inv = new Inventaire();
         this.peutDonnerCoupProperty = new SimpleBooleanProperty(true);
         this.peutPrendreCoupProperty = new SimpleBooleanProperty(true);
@@ -75,5 +76,14 @@ public class Joueur extends Entite {
         else
             this.setVitesse(10);
         return deplacement;
+    }
+
+    public boolean peutOuvrirUnCoffre(Monde monde, Coffre coffre, int tailleBloc) {
+        for (Coffre c : monde.getCoffres()) {
+            if (coffre.getId() == c.getId() && this.getHitBox().coffreProximite(c, tailleBloc)) {
+                return true;
+            }
+        }
+        return false;
     }
 }

@@ -2,7 +2,6 @@ package com.example.zeldasae.Vue;
 
 import com.example.zeldasae.modele.entities.Entite;
 import javafx.beans.property.IntegerProperty;
-import com.example.zeldasae.modele.Joueur;
 import javafx.beans.binding.Bindings;
 import javafx.beans.binding.DoubleBinding;
 import javafx.scene.image.Image;

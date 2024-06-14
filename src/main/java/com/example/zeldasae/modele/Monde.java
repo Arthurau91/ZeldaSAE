@@ -1,6 +1,7 @@
 package com.example.zeldasae.modele;
 
 import com.example.zeldasae.modele.entities.Ennemi;
+import com.example.zeldasae.modele.entities.Entite;
 import com.example.zeldasae.modele.entities.Joueur;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
