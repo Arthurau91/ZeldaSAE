@@ -105,12 +105,12 @@ public class Controller implements Initializable {
 
         // Création des coffres
 
-        Coffre coffre = new Coffre(600, 300, 0);
+        Coffre coffre = new Coffre(2160, 2190, 0);
         VueCoffre vueCoffre = new VueCoffre(boxCoffre1, this.map.getJoueur(), coffre, vueInv);
         this.map.addCoffre(coffre);
         coffre.getListeItem().addListener(new ObservateurItems(null, vueCoffre));
 
-        Coffre coffre2 = new Coffre(630, 260, 1);
+        Coffre coffre2 = new Coffre(2640, 750, 1);
         VueCoffre vueCoffre2 = new VueCoffre(boxCoffre2, this.map.getJoueur(), coffre2, vueInv);
         this.map.addCoffre(coffre2);
         coffre2.getListeItem().addListener(new ObservateurItems(null, vueCoffre2));
