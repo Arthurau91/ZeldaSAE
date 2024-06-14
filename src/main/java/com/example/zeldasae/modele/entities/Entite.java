@@ -1,14 +1,13 @@
-package com.example.zeldasae.modele;
+package com.example.zeldasae.modele.entities;
 
 import com.example.zeldasae.Vue.VueBarreDeVie;
-import com.example.zeldasae.Vue.VueEntite;
 import com.example.zeldasae.controller.ObservateurVie;
+import com.example.zeldasae.modele.HitBox;
+import com.example.zeldasae.modele.Monde;
+import com.example.zeldasae.modele.Terrain;
 import javafx.beans.binding.Bindings;
 import javafx.beans.binding.DoubleBinding;
-import javafx.beans.property.IntegerProperty;
-import javafx.beans.property.SimpleIntegerProperty;
-import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.property.StringProperty;
+import javafx.beans.property.*;
 
 public abstract class Entite {
 
@@ -28,6 +27,7 @@ public abstract class Entite {
     private int pvMax;
     private int degats;
     private StringProperty direction;
+    private BooleanProperty bouge;
     private Monde monde;
 
     public Entite(int x, int y, int width, int height, int column, int rows, Monde monde) {
@@ -45,8 +45,10 @@ public abstract class Entite {
         this.pvMax = 10;
         this.pv = new SimpleIntegerProperty(this.pvMax);
         this.degats = 1;
-        this.direction = new SimpleStringProperty("right");
+        this.direction = new SimpleStringProperty("down");
         this.monde = monde;
+        this.bouge = new SimpleBooleanProperty(false);
+
 
     }
 
@@ -91,7 +93,17 @@ public abstract class Entite {
     public String getDirection() {
         return direction.getValue();
     }
-    public void addDirectionImage(String direction){this.direction.setValue(this.getDirection()+direction);}
+    public void addDirection(String direction){this.direction.setValue(this.getDirection()+direction);}
+
+    public BooleanProperty bougeProperty() {
+        return bouge;
+    }
+    public void setBouge(boolean bouge) {
+        this.bouge.setValue(bouge);
+    }
+    public boolean isBouge() {
+        return bouge.getValue();
+    }
 
     public String getId() {
         return id;
@@ -187,34 +199,42 @@ public abstract class Entite {
             if (this.deplacement.contains("up") && checkHitBox("up", m.getTerrain()))
                 if (checkUp(m, vitesse)) {
                     dy -= vitesse;
-                    addDirectionImage("up");
+                    addDirection("up");
                 }
             if (this.deplacement.contains("down") && checkHitBox("down", m.getTerrain()))
                 if (checkDown(m, vitesse)) {
                     dy += vitesse;
-                    addDirectionImage("down");
+                    addDirection("down");
                 }
             if (this.deplacement.contains("left") && checkHitBox("left", m.getTerrain()))
                 if (checkLeft(m, vitesse)) {
                     dx -= vitesse;
-                    addDirectionImage("left");
+                    addDirection("left");
                 }
             if (this.deplacement.contains("right") && checkHitBox("right", m.getTerrain()))
                 if (checkRight(m, vitesse)) {
                     dx += vitesse;
-                    addDirectionImage("right");
+                    addDirection("right");
                 }
 
             setX(getX() + dx);
             setY(getY() + dy);
+            if (!(x != getX() || y != getY())){
+                this.setBouge(false);
+            }
+            else this.setBouge(true);
             return x != getX() || y != getY();
         }
         return false;
     }
 
     private boolean checkHitBox(String direction, Terrain terrain){
-        return hitBox.checkColision(direction, this.rows, terrain) &&
-                hitBox.checkBord(direction, this.column, this.rows, this.vitesse);
+        if (hitBox.checkColision(direction, this.rows, terrain)) {
+            return hitBox.checkBord(direction, this.column, this.rows, this.vitesse);
+        }
+        if (hitBox.degatBlocs(terrain, direction))
+            this.perdreVie(1);
+        return false;
     }
 
     public boolean checkColisionEntite(Monde m, int x, int y){

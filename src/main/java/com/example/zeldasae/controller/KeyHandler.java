@@ -1,6 +1,10 @@
 package com.example.zeldasae.controller;
 import com.example.zeldasae.Vue.*;
 import com.example.zeldasae.modele.Arme;
+import com.example.zeldasae.Vue.VueArme;
+import com.example.zeldasae.Vue.VueCollectible;
+import com.example.zeldasae.Vue.VueInventaire;
+import com.example.zeldasae.Vue.VueTerrain;
 import com.example.zeldasae.modele.Armure;
 import com.example.zeldasae.modele.Item;
 import com.example.zeldasae.modele.Monde;
@@ -46,7 +50,6 @@ public class KeyHandler implements EventHandler<KeyEvent> {
     @Override
     public void handle(KeyEvent keyEvent) {
 
-
         if (keyEvent.getEventType() == KeyEvent.KEY_PRESSED)
             this.pressedKeys.add(keyEvent.getCode());
         else if (keyEvent.getEventType() == KeyEvent.KEY_RELEASED) {
@@ -65,19 +68,19 @@ public class KeyHandler implements EventHandler<KeyEvent> {
 
         if (pressedKeys.contains(Z)) {
             direction += "up";
-            map.getJoueur().addDirectionImage("up");
+            map.getJoueur().addDirection("up");
         }
         if (pressedKeys.contains(S)) {
             direction += "down";
-            map.getJoueur().addDirectionImage("down");
+            map.getJoueur().addDirection("down");
         }
         if (pressedKeys.contains(Q)) {
             direction += "left";
-            map.getJoueur().addDirectionImage("left");
+            map.getJoueur().addDirection("left");
         }
         if (pressedKeys.contains(D)) {
             direction += "right";
-            map.getJoueur().addDirectionImage("right");
+            map.getJoueur().addDirection("right");
         }
         this.map.getJoueur().setDeplacement(direction);
         if (pressedKeys.contains(F)) {
@@ -95,9 +98,11 @@ public class KeyHandler implements EventHandler<KeyEvent> {
             switch (keyEvent.getCode()) {
                 case X: // à retirer, sert uniquement pour les tests
                     Collectible collectibleTest = new Fruit(0, 10,  5, 30, 30, 50, 50, this.map.getJoueur());
+                    Charme charme = new Charme("charme",1);
                     this.map.getJoueur().getInv().ajouterItem(itemTest);
                     this.map.getJoueur().getInv().ajouterItem(itemTest3);
                     this.map.getJoueur().getInv().ajouterItem(itemTest4);
+                    this.map.getJoueur().getInv().ajouterItem(charme);
                     this.map.ajouterCollectible(collectibleTest);
                     break;
                 case A: // switch arme
@@ -118,6 +123,7 @@ public class KeyHandler implements EventHandler<KeyEvent> {
                         if (keyEvent.getCode() == UP || keyEvent.getCode() == DOWN) {
                             this.map.getJoueur().getInv().getArmeActuelle().getHitBox().pivote();
                         }
+                        vueTerrain.detruitBloc();
                     }
                     break;
                 case TAB: // inventaires
@@ -137,5 +143,4 @@ public class KeyHandler implements EventHandler<KeyEvent> {
             this.map.getJoueur().setDirection(direction);
         }
 
-    }
 }

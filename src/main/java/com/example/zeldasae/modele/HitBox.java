@@ -153,6 +153,26 @@ public class HitBox {
         return false;
     }
 
+    public boolean degatBlocs(Terrain terrain, String direction){
+        if (direction.contains("up")){
+            if (terrain.isCactus(terrain.changeCoo(getX(), getY()-30)))
+                return true;
+        }
+        if (direction.contains("down")){
+            if (terrain.isCactus(terrain.changeCoo(getX(), getY()+30)))
+                return true;
+        }
+        if (direction.contains("right")){
+            if (terrain.isCactus(terrain.changeCoo(getX()+30, getY())))
+                return true;
+        }
+        if (direction.contains("left")){
+            if (terrain.isCactus(terrain.changeCoo(getX()-30, getY())))
+                return true;
+        }
+        return false;
+    }
+
     public void pivote() {
         int pivot;
         pivot = this.large;

@@ -1,6 +1,6 @@
 package com.example.zeldasae.modele;
 
-import com.example.zeldasae.controller.LoadJSON;
+import com.example.zeldasae.modele.entities.Ennemi;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.scene.input.KeyEvent;
 

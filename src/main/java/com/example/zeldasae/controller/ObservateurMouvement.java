@@ -1,7 +1,7 @@
 package com.example.zeldasae.controller;
 
 import com.example.zeldasae.Vue.VueJoueur;
-import com.example.zeldasae.modele.Ennemi;
+import com.example.zeldasae.modele.entities.Ennemi;
 import com.example.zeldasae.modele.Monde;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;

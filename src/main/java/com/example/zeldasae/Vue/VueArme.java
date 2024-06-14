@@ -1,6 +1,6 @@
 package com.example.zeldasae.Vue;
 
-import com.example.zeldasae.modele.Joueur;
+import com.example.zeldasae.modele.entities.Joueur;
 import com.example.zeldasae.modele.Monde;
 import com.example.zeldasae.modele.Projectile;
 import javafx.animation.PauseTransition;
@@ -8,11 +8,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Pane;
-import javafx.scene.paint.Color;
-import javafx.scene.shape.Rectangle;
 import javafx.util.Duration;
-
-import static javafx.scene.input.KeyCode.*;
 
 
 public class VueArme {

@@ -1,8 +1,10 @@
-package com.example.zeldasae.modele;
+package com.example.zeldasae.modele.entities;
 
 import com.example.zeldasae.Algo.BFS;
+import com.example.zeldasae.modele.Monde;
+import com.example.zeldasae.modele.Terrain;
 
-public abstract class Ennemi extends Entite{
+public abstract class Ennemi extends Entite {
 
     private BFS bfs;
 
@@ -37,7 +39,7 @@ public abstract class Ennemi extends Entite{
                 src = new int[]{x, y};
                 pdeplacement = bfs.prochainMouvement(src);
                 if (pdeplacement != null) {
-                    metDirection(x, y, pdeplacement);
+                    metDirection(x, y, pdeplacement, m.getTerrain());
                     deplacement = super.deplacement(m);
                 }
             }
@@ -47,7 +49,7 @@ public abstract class Ennemi extends Entite{
                 src = new int[]{x, y};
                 pdeplacement = bfs.prochainMouvement(src);
                 if (pdeplacement != null) {
-                    metDirection(x, y, pdeplacement);
+                    metDirection(x, y, pdeplacement, m.getTerrain());
                     deplacement = super.deplacement(m);
                 }
             }
@@ -63,15 +65,15 @@ public abstract class Ennemi extends Entite{
         return deplacement;
     }
 
-    private void metDirection(int x, int y, int[] pdeplacement) {
+    private void metDirection(int x, int y, int[] pdeplacement, Terrain terrain) {
         String direction = "";
-        if (pdeplacement[0] > x)
+        if (pdeplacement[0] > x && !terrain.isBrouillard(terrain.changeCoo(getX()+getWidth(), getY())))
             direction += "right";
-        if (pdeplacement[0] < x)
+        if (pdeplacement[0] < x && !terrain.isBrouillard(terrain.changeCoo(getX(), getY())))
             direction += "left";
-        if (pdeplacement[1] > y)
+        if (pdeplacement[1] > y && !terrain.isBrouillard(terrain.changeCoo(getX(), getY()+getHeight())))
             direction += "down";
-        if (pdeplacement[1] < y)
+        if (pdeplacement[1] < y && !terrain.isBrouillard(terrain.changeCoo(getX(), getY())))
             direction += "up";
         this.setDeplacement(direction);
     }

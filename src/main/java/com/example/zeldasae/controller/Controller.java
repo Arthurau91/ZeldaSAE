@@ -5,8 +5,12 @@ import com.example.zeldasae.Vue.VueInventaire;
 import com.example.zeldasae.Vue.VueTerrain;
 import com.example.zeldasae.modele.*;
 import com.example.zeldasae.Vue.*;
+import com.example.zeldasae.modele.entities.*;
+import com.example.zeldasae.modele.Monde;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
+import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.SimpleIntegerProperty;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -35,11 +39,11 @@ public class Controller implements Initializable {
     private TilePane mapPane;
     private Monde map;
     private Timeline gameLoop;
-    private int temps;
     private Button resetButton;
     private VueArme vueArme;
     private VueCollectible vueCollectible;
     private KeyHandler keyHandler;
+    private IntegerProperty temps;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -57,28 +61,30 @@ public class Controller implements Initializable {
     }
 
     private void lancementJeu(){
+        this.temps = new SimpleIntegerProperty(0);
         LoadJSON loadJSON = new LoadJSON("src/main/resources/com/example/zeldasae/assets/map.json");
         this.mapPane.setPrefColumns(loadJSON.getPrefColumns());
         this.mapPane.setPrefRows(loadJSON.getPrefRows());
         this.mapPane.setPrefWidth(this.mapPane.getPrefTileWidth()*this.mapPane.getPrefColumns());
         this.mapPane.setPrefHeight(this.mapPane.getPrefTileHeight()*this.mapPane.getPrefRows());
 
-        BFS bfs = new BFS();
+        BFS bfs =new BFS();
+        Joueur joueur = new Joueur(600, 510, (int)mapPane.getPrefTileWidth(), (int)mapPane.getPrefTileHeight(), mapPane.getPrefColumns(), mapPane.getPrefRows());
+        joueur.pv().addListener(new ObservateurVie(joueur, new VueJoueur(joueur, paneEntites, temps)));
 
-        Joueur joueur = new Joueur(600, 510, (int)mapPane.getPrefTileWidth(), (int)mapPane.getPrefTileHeight(), mapPane.getPrefColumns(), mapPane.getPrefRows(), map);
-        VueJoueur vueJoueur = new VueJoueur(joueur, paneEntites);
         this.map = new Monde(joueur, bfs, loadJSON.getPrefRows());
-        joueur.pv().addListener(new ObservateurVie(joueur, vueJoueur));
 
-        Pursuer pursuer = new Pursuer(120, 120, (int)mapPane.getPrefTileWidth(), (int)mapPane.getPrefTileHeight(), mapPane.getPrefColumns(),  mapPane.getPrefRows(), bfs, map);
-        VuePursuer vuePursuer = new VuePursuer(pursuer, paneEntites);
-        pursuer.pv().addListener(new ObservateurVie(pursuer, vuePursuer));
-        this.map.addEnnemi(pursuer);
+        Skeleton skeleton = new Skeleton(500, 120, (int)mapPane.getPrefTileWidth(), (int)mapPane.getPrefTileHeight(), mapPane.getPrefColumns(),  mapPane.getPrefRows(), bfs);
+        skeleton.pv().addListener(new ObservateurVie(skeleton, new VueSkeleton(skeleton, paneEntites, temps)))
+        this.map.addEnnemi(skeleton);
 
-        Boss boss = new Boss(740, 900, (int)mapPane.getPrefTileWidth()*3, (int)mapPane.getPrefTileHeight()*3, mapPane.getPrefColumns(),  mapPane.getPrefRows(), bfs, map);
+        Boss boss = new Boss(740, 1800, 50, 65, mapPane.getPrefColumns(),  mapPane.getPrefRows(), bfs);
+        boss.pv().addListener(new ObservateurVie(boss, new VueBoss(boss, paneEntites, temps)));
         this.map.addEnnemi(boss);
-        VueBoss vueBoss = new VueBoss(boss, paneEntites);
-        boss.pv().addListener(new ObservateurVie(boss, vueBoss));
+
+        Sentinelle sentinelle = new Sentinelle(500, 1800, (int)mapPane.getPrefTileWidth(), (int)mapPane.getPrefTileHeight(), mapPane.getPrefColumns(),  mapPane.getPrefRows(), bfs);
+        sentinelle.pv().addListener(new ObservateurVie(sentinelle, new VueSentinelle(sentinelle, paneEntites, temps)))
+        this.map.addEnnemi(sentinelle);
 
         VueTerrain vueTerrain = new VueTerrain(this.map, this.mapPane, loadJSON.getMap(), loadJSON.getMap2());
         VueInventaire vueInv = new VueInventaire(this.boxInventaire, this.map.getJoueur());
@@ -138,7 +144,6 @@ public class Controller implements Initializable {
 
     private void initAnimation() {
         gameLoop = new Timeline();
-        temps = 0;
         gameLoop.setCycleCount(Timeline.INDEFINITE);
 
         KeyFrame kf = new KeyFrame(
@@ -148,12 +153,12 @@ public class Controller implements Initializable {
                 (ev ->{
                     this.map.getJoueur().deplacement(map);
 
-                    if (temps%2==0) {
+                    if (temps.getValue()%2==0) {
                         this.map.deplacementEnnemi();
                         this.map.deplacerProjectilesVue();
                     }
 
-                    temps++;
+                    temps.setValue(temps.getValue()+1);
                     if (!map.getJoueur().verifVivant()) {
                         clearJeu();
                         paneEntites.removeEventHandler(KeyEvent.KEY_PRESSED, keyHandler);

@@ -3,7 +3,7 @@ package com.example.zeldasae.Vue;
 import com.example.zeldasae.controller.ClickHandlerInventaire;
 import com.example.zeldasae.modele.Collectible;
 import com.example.zeldasae.modele.Item;
-import com.example.zeldasae.modele.Joueur;
+import com.example.zeldasae.modele.entities.Joueur;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
