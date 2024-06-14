@@ -46,6 +46,7 @@ public class Boomerang extends Arme {
     public void supprimerBoomerang(Monde map, Projectile p) {
         map.getJoueur().setPeutDonnerCoupProperty(true);
         p.setObstacleTouche(true);
+        this.ennemisTouchesAller.clear();
     }
 
     public void infligerDegats(Ennemi e) {
