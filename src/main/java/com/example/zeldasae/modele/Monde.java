@@ -110,10 +110,10 @@ public class Monde {
         this.joueur = null;
     }
 
-    public void deplacerProjectilesVue() {
+    public void deplacerProjectiles() {
         for (int i = 0; i < this.listeProjectiles.size(); i++) {
-            this.listeProjectiles.get(i).deplacerProjectile(this);
-            if (this.listeProjectiles.get(i).isObstacleTouche() || !this.listeProjectiles.get(i).dansMap(this.terrain)) {
+            this.listeProjectiles.get(i).seDeplace(this);
+            if (listeProjectiles.get(i).aRetirer(terrain)) {
                 retirerProjectile(this.listeProjectiles.get(i));
                 i--;
             }

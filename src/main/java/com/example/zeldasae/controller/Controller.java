@@ -3,7 +3,6 @@ package com.example.zeldasae.controller;
 import com.example.zeldasae.Algo.BFS;
 import com.example.zeldasae.Vue.VueInventaire;
 import com.example.zeldasae.Vue.VueTerrain;
-import com.example.zeldasae.modele.Ennemi;
 import com.example.zeldasae.Vue.*;
 import com.example.zeldasae.modele.Boss;
 import com.example.zeldasae.modele.Joueur;
@@ -130,7 +129,7 @@ public class Controller implements Initializable {
 
                     if (temps%2==0) {
                         this.map.deplacementEnnemi();
-                        this.map.deplacerProjectilesVue();
+                        this.map.deplacerProjectiles();
                     }
 
                     temps++;

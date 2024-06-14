@@ -1,21 +1,18 @@
 package com.example.zeldasae.modele.armes;
 
-import com.example.zeldasae.modele.Arme;
-import com.example.zeldasae.modele.Monde;
-import com.example.zeldasae.modele.Projectile;
-import com.example.zeldasae.modele.ProjectileJoueur;
+import com.example.zeldasae.modele.*;
 import javafx.animation.PauseTransition;
 import javafx.scene.input.KeyEvent;
 import javafx.util.Duration;
 
 public class Arc extends Arme {
 
-    public Arc(int large, int haut, int x, int y) {
-        super("Arc,", 2, 2, 0.8, large, haut, x, y);
+    public Arc() {
+        super("Arc", 2, 2, 0.8, 0, 0, 0, 0);
     }
 
     public Projectile creerProjectile(KeyEvent keyEvent, Monde map) {
-        Projectile fleche = new ProjectileJoueur(this.getDegats(), 15, 20, 10, keyEvent);
+        Projectile fleche = new ProjectileJoueur(this.getDegats(), 15, 20, 10, keyEvent, "Fleche", true);
         fleche.setPosMap(map.getJoueur().getHitBox().getX(), map.getJoueur().getHitBox().getY(), keyEvent.getCode().toString());
         return fleche;
     }
@@ -38,4 +35,6 @@ public class Arc extends Arme {
         pause.setOnFinished(event -> map.getJoueur().setPeutDonnerCoupProperty(true));
         pause.play();
     }
+
+
 }

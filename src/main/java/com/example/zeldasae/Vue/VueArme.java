@@ -66,7 +66,7 @@ public class VueArme { //TODO créer des classes VueEpee, VueHache, VueProjectil
 
     private static ImageView getImageViewProjectile(Projectile p) {
         ImageView image;
-        if (p.getHitBox().getLarge() > p.getHitBox().getHaut())
+        if (p.getHitBox().getLarge() > p.getHitBox().getHaut()) //TODO faire un switch pour les projectiles
             image = new ImageView(new Image("file:src/main/resources/com/example/zeldasae/assets/projectileMagique.png", p.getHitBox().getLarge(), p.getHitBox().getHaut(), false, false));
         else image = new ImageView(new Image("file:src/main/resources/com/example/zeldasae/assets/projectileMagique.png", p.getHitBox().getHaut(), p.getHitBox().getLarge(), false, false));
 

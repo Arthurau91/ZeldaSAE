@@ -67,7 +67,7 @@ public abstract class Arme extends Item{
     public void checkCoupTouche(ArrayList<Ennemi> ennemis) {
        for (Ennemi e : ennemis) {
            if (e.getHitBox().estDedansHitbox(this.hitBox)) {
-               e.perdreVie(this.degats);
+               infligerDegats(e);
                System.out.println("Pv de l'ennemi : " + e.getPv());
            }
        }
@@ -90,5 +90,9 @@ public abstract class Arme extends Item{
     @Override
     public void utiliserItem(Joueur j) {
         j.getInv().changerArme(this);
+    }
+
+    public void infligerDegats(Ennemi e) {
+        e.perdreVie(getDegats());
     }
 }

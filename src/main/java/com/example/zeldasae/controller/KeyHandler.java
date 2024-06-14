@@ -9,6 +9,7 @@ import com.example.zeldasae.modele.Collectible;
 import com.example.zeldasae.modele.Item;
 import com.example.zeldasae.modele.Monde;
 import com.example.zeldasae.modele.armes.Arc;
+import com.example.zeldasae.modele.armes.Boomerang;
 import com.example.zeldasae.modele.armes.Epee;
 import com.example.zeldasae.modele.armes.Hache;
 import com.example.zeldasae.modele.collectibles.Fleche;
@@ -45,8 +46,9 @@ public class KeyHandler implements EventHandler<KeyEvent> {
     private Hache hacheTest = new Hache();
     private Item itemTest3 = new Armure(0,"Armure 3", 6);
     private Item itemTest4 = new Armure(1,"Armure 4", 19);
-    private Arc arcTest = new Arc(10, 10, 10, 40);
+    private Arc arcTest = new Arc();
     Collectible fleche = new Fleche(0, 30, 30, 30, 0, 0);
+    Boomerang boomerang = new Boomerang();
 
     @Override
     public void handle(KeyEvent keyEvent) {
@@ -108,7 +110,7 @@ public class KeyHandler implements EventHandler<KeyEvent> {
                     System.out.println("Arme : " + this.map.getJoueur().getInv().getArmeActuelle().getNom() + " Armure : " + this.map.getJoueur().getInv().getArmureActuelle().getNom());
                     break;
                 case P: //à retirer, sert uniquement pour les tests
-                    this.map.getJoueur().getInv().changerArme(arcTest);
+                    this.map.getJoueur().getInv().changerArme(boomerang);
                     break;
                 case TAB: //à retirer, sert uniquement pour les tests
                     if(this.map.getJoueur().getInv().getFleche() != null) {

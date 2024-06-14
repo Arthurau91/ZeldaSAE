@@ -1,10 +1,7 @@
 package com.example.zeldasae.modele;
 
-import com.example.zeldasae.controller.LoadJSON;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.scene.input.KeyEvent;
-
-import java.util.ArrayList;
 
 public abstract class Projectile {
 
@@ -15,14 +12,18 @@ public abstract class Projectile {
     private HitBox hitBox;
     private String direction;
     private boolean obstacleTouche;
+    private boolean retireEnnemiTouche;
+    private String type;
 
-    public Projectile(int degats, int vitesse, int large, int haut, KeyEvent keyEvent) {
+    public Projectile(int degats, int vitesse, int large, int haut, KeyEvent keyEvent, String type, boolean retireEnnemiTouche) {
         this.nom = "Proj" + compteur;
         this.degats = degats;
         this.vitesse = vitesse;
         this.hitBox = new HitBox(large, haut, new SimpleIntegerProperty(0), new SimpleIntegerProperty(0));
         this.direction = keyEvent.getCode().toString();
         this.obstacleTouche = false;
+        this.type = type;
+        this.retireEnnemiTouche = retireEnnemiTouche;
         compteur++;
     }
 
@@ -86,7 +87,7 @@ public abstract class Projectile {
         }
     }
 
-    public void deplacerProjectile(Monde map) {
+    public void seDeplace(Monde map) {
         switch (this.direction) {
             case "UP":
                 getHitBox().setY(getHitBox().getY() - this.vitesse);
@@ -108,5 +109,30 @@ public abstract class Projectile {
 
     public boolean dansMap(Terrain terrain) {
         return terrain.vide((this.getHitBox().getX() / 30) + (this.getHitBox().getY() / 30 * terrain.getRows()));
+    }
+
+    public void inverserDirection() {
+        switch (direction) {
+            case "LEFT":
+                this.direction = "RIGHT";
+                break;
+            case "RIGHT":
+                this.direction = "LEFT";
+                break;
+            case "UP":
+                this.direction = "DOWN";
+                break;
+            case "DOWN":
+                this.direction = "UP";
+                break;
+        }
+    }
+
+    public boolean aRetirer(Terrain terrain) {
+        return isObstacleTouche() && dansMap(terrain);
+    }
+
+    public boolean isRetireEnnemiTouche() {
+        return retireEnnemiTouche;
     }
 }
