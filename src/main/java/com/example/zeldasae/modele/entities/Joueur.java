@@ -16,7 +16,7 @@ public class Joueur extends Entite {
     private BooleanProperty peutPrendreCoupProperty;
 
     public Joueur(int x, int y, int column, int rows) {
-        super(x, y, "j1", 30, 30, column, rows);
+        super(x, y, "j1", 30, 30, column, rows, 10);
         this.inv = new Inventaire();
         this.peutDonnerCoupProperty = new SimpleBooleanProperty(true);
         this.peutPrendreCoupProperty = new SimpleBooleanProperty(true);

@@ -103,25 +103,23 @@ public class VueTerrain {
 
     public void detruitBloc(){
         int[] coos = map.cooBloc(this.map.getJoueur().getX(), this.map.getJoueur().getY());
-        int cooRock = coos[0];
-        int cooRock2 = coos[1];
-        if (this.map.getTerrain().destructible(cooRock)){
-            if (this.map.getTerrain().isBuisson(cooRock)) {
-                Collectible fruit = new Fruit(0, 10, 5, 30, 30, (cooRock % 100) * 30, (cooRock / 100) * 30, this.map.getJoueur());
-                this.map.ajouterCollectible(fruit);
-            }
-            StackPane vide = new StackPane(new ImageView(tiles[m2.get(cooRock)-1]));
-            mapPane.getChildren().set(cooRock, vide);
-            this.map.getTerrain().setCoo(cooRock, 0);
+        int cooBloc = coos[0];
+        int cooBloc2 = coos[1];
+        if (this.map.getTerrain().destructible(cooBloc)){
+            changeBloc(cooBloc);
         }
-        else if (this.map.getTerrain().destructible(cooRock2)){
-            if (this.map.getTerrain().isBuisson(cooRock2)) {
-                Collectible fruit = new Fruit(0, 10, 5, 30, 30, (cooRock2 % 100) * 30, (cooRock2 / 100) * 30, this.map.getJoueur());
-                this.map.ajouterCollectible(fruit);
-            }
-            StackPane vide = new StackPane(new ImageView(tiles[m2.get(cooRock2)-1]));
-            mapPane.getChildren().set(cooRock2, vide);
-            this.map.getTerrain().setCoo(cooRock2, 0);
+        else if (this.map.getTerrain().destructible(cooBloc2)){
+            changeBloc(cooBloc2);
         }
+    }
+
+    private void changeBloc(int cooBloc) {
+        if (this.map.getTerrain().isBuisson(cooBloc)) {
+            Collectible fruit = new Fruit(0, 10, 30, 30, (cooBloc % 100) * 30, (cooBloc / 100) * 30, this.map.getJoueur());
+            this.map.ajouterCollectible(fruit);
+        }
+        StackPane vide = new StackPane(new ImageView(tiles[m2.get(cooBloc)-1]));
+        mapPane.getChildren().set(cooBloc, vide);
+        this.map.getTerrain().setCoo(cooBloc, 0);
     }
 }

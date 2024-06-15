@@ -1,5 +1,6 @@
 package com.example.zeldasae.modele;
 
+import com.example.zeldasae.modele.entities.Joueur;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 

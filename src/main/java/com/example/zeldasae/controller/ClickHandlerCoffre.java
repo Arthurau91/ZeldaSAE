@@ -1,14 +1,11 @@
 package com.example.zeldasae.controller;
 
 import com.example.zeldasae.Vue.VueInventaire;
-import com.example.zeldasae.modele.*;
+import com.example.zeldasae.modele.Coffre;
 import javafx.event.EventHandler;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
-
-import java.awt.*;
-import java.util.Map;
 
 public class ClickHandlerCoffre implements EventHandler<MouseEvent>{
 

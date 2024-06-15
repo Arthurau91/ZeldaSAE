@@ -1,6 +1,5 @@
 package com.example.zeldasae.Vue;
 
-import com.example.zeldasae.controller.ClickHandlerInventaire;
 import com.example.zeldasae.modele.entities.Joueur;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Pane;

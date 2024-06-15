@@ -2,10 +2,6 @@ package com.example.zeldasae.modele;
 
 import javafx.beans.property.IntegerProperty;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-
 public class HitBox {
 
     private int large;

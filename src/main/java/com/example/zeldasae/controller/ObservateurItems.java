@@ -2,17 +2,8 @@ package com.example.zeldasae.controller;
 
 import com.example.zeldasae.Vue.VueCoffre;
 import com.example.zeldasae.Vue.VueInventaire;
-import com.example.zeldasae.modele.Coffre;
-import com.example.zeldasae.modele.Inventaire;
 import com.example.zeldasae.modele.Item;
-import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
-import javafx.collections.ObservableList;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-import javafx.scene.layout.Pane;
-
-import java.util.List;
 
 public class ObservateurItems implements ListChangeListener<Item> {
 

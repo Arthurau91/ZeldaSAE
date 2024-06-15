@@ -1,9 +1,9 @@
 package com.example.zeldasae.modele.entities;
 
 import com.example.zeldasae.Algo.BFS;
-import com.example.zeldasae.Vue.VueBoss;
+import com.example.zeldasae.modele.Monde;
+import com.example.zeldasae.modele.ProjectileEnnemi;
 import javafx.animation.PauseTransition;
-import javafx.scene.layout.Pane;
 import javafx.util.Duration;
 
 public class Boss extends Ennemi {
@@ -12,7 +12,7 @@ public class Boss extends Ennemi {
     private boolean peutAttaquerDistance;
 
     public Boss(int x, int y, int width, int height, int column, int rows, BFS bfs) {
-        super(x, y, width, height, column, rows, bfs);
+        super(x, y, width, height, column, rows, 30, bfs);
         super.setVitesse(5);
         this.peutAttaquerDistance = true;
     }

@@ -3,7 +3,6 @@ package com.example.zeldasae.Vue;
 import com.example.zeldasae.modele.entities.Skeleton;
 import javafx.beans.property.IntegerProperty;
 import javafx.scene.image.Image;
-import javafx.scene.image.WritableImage;
 import javafx.scene.layout.Pane;
 
 public class VueSkeleton extends VueEntite{

@@ -1,6 +1,5 @@
 package com.example.zeldasae.modele;
 
-import com.example.zeldasae.modele.entities.Ennemi;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.scene.input.KeyEvent;
 
@@ -130,7 +129,7 @@ public abstract class Projectile {
     }
 
     public boolean aRetirer(Terrain terrain) {
-        return isObstacleTouche() && dansMap(terrain);
+        return isObstacleTouche() || !dansMap(terrain);
     }
 
     public boolean isRetireEnnemiTouche() {

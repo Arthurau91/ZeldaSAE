@@ -25,7 +25,7 @@ public abstract class Entite {
     private StringProperty direction;
     private BooleanProperty bouge;
 
-    public Entite(int x, int y, int width, int height, int column, int rows) {
+    public Entite(int x, int y, int width, int height, int column, int rows, int pvMax) {
         this.xProperty = new SimpleIntegerProperty(x);
         this.yProperty = new SimpleIntegerProperty(y);
         this.id = ""+n++;
@@ -37,7 +37,7 @@ public abstract class Entite {
         this.deplacement = "null";
         this.vitesse = 10;
         this.hitBox = new HitBox(this.width, this.height, this.xProperty, this.yProperty);
-        this.pvMax = 10;
+        this.pvMax = pvMax;
         this.pv = new SimpleIntegerProperty(this.pvMax);
         this.degats = 1;
         this.direction = new SimpleStringProperty("down");
@@ -46,8 +46,8 @@ public abstract class Entite {
 
     }
 
-    public Entite(int x, int y, String id, int width, int height, int column, int rows) {
-        this(x, y, width, height, column, rows);
+    public Entite(int x, int y, String id, int width, int height, int column, int rows, int pvMax) {
+        this(x, y, width, height, column, rows, pvMax);
         this.setId(id);
     }
 

@@ -1,4 +1,5 @@
 package com.example.zeldasae.controller;
+
 import com.example.zeldasae.Vue.*;
 import com.example.zeldasae.Vue.VueArme;
 import com.example.zeldasae.Vue.VueCollectible;
@@ -17,6 +18,7 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import static javafx.scene.input.KeyCode.*;
@@ -44,7 +46,7 @@ public class KeyHandler implements EventHandler<KeyEvent> {
     //à retirer, sert uniquement pour les tests
     private Epee itemTest = new Epee();
     private Hache hacheTest = new Hache();
-    private Epee itemTest2 = new Epee(100, 100, 0, 0);
+    private Epee itemTest2 = new Epee();
     private Item itemTest3 = new Armure(0,"Armure 3", 6);
     private Item itemTest4 = new Armure(1,"Armure 4", 19);
     private Arc arcTest = new Arc();
@@ -102,7 +104,7 @@ public class KeyHandler implements EventHandler<KeyEvent> {
         if (keyEvent.getEventType() != KeyEvent.KEY_RELEASED) {
             switch (keyEvent.getCode()) {
                 case X: // à retirer, sert uniquement pour les tests
-                    Collectible collectibleTest = new Fruit(0, 10, 5, 30, 30, 50, 50, this.map.getJoueur());
+                    Collectible collectibleTest = new Fruit(0, 10, 30, 30, 50, 50, this.map.getJoueur());
                     Charme charme = new Charme("charme", 1);
                     this.map.getJoueur().getInv().ajouterItem(itemTest);
                     this.map.getJoueur().getInv().ajouterItem(itemTest3);

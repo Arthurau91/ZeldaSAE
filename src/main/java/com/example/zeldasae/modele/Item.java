@@ -1,5 +1,7 @@
 package com.example.zeldasae.modele;
 
+import com.example.zeldasae.modele.entities.Joueur;
+
 public abstract class Item {
 
     private String nom;

@@ -178,6 +178,7 @@ public class Controller implements Initializable {
                     }
 
                     temps.setValue(temps.getValue()+1);
+                    map.setEnnemisMorts();
                     if (!map.getJoueur().verifVivant()) {
                         clearJeu();
                         paneEntites.removeEventHandler(KeyEvent.KEY_PRESSED, keyHandler);
@@ -192,7 +193,6 @@ public class Controller implements Initializable {
                     }
 
                     this.vueCollectible.checkCollectiblesRamasses();
-                    map.setEnnemisMorts();
                 })
         );
         gameLoop.getKeyFrames().add(kf);
