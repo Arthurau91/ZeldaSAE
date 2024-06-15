@@ -129,7 +129,7 @@ public abstract class Projectile {
     }
 
     public boolean aRetirer(Terrain terrain) {
-        return isObstacleTouche() && dansMap(terrain);
+        return isObstacleTouche() || !dansMap(terrain);
     }
 
     public boolean isRetireEnnemiTouche() {
