@@ -15,6 +15,7 @@ public class Main extends Application {
         Scene scene = new Scene(fxmlLoader.load(), 1200, 1037);
         stage.setMaxHeight(1037);
         stage.setMaxWidth(1200);
+        stage.setFullScreen(false);
         stage.setTitle("Zelda!");
         stage.setScene(scene);
         stage.show();

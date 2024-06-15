@@ -1,12 +1,8 @@
 package com.example.zeldasae.modele.entities;
 
-import com.example.zeldasae.Vue.VueBarreDeVie;
-import com.example.zeldasae.controller.ObservateurVie;
 import com.example.zeldasae.modele.HitBox;
 import com.example.zeldasae.modele.Monde;
 import com.example.zeldasae.modele.Terrain;
-import javafx.beans.binding.Bindings;
-import javafx.beans.binding.DoubleBinding;
 import javafx.beans.property.*;
 
 public abstract class Entite {
@@ -28,9 +24,8 @@ public abstract class Entite {
     private int degats;
     private StringProperty direction;
     private BooleanProperty bouge;
-    private Monde monde;
 
-    public Entite(int x, int y, int width, int height, int column, int rows, Monde monde) {
+    public Entite(int x, int y, int width, int height, int column, int rows) {
         this.xProperty = new SimpleIntegerProperty(x);
         this.yProperty = new SimpleIntegerProperty(y);
         this.id = ""+n++;
@@ -46,14 +41,13 @@ public abstract class Entite {
         this.pv = new SimpleIntegerProperty(this.pvMax);
         this.degats = 1;
         this.direction = new SimpleStringProperty("down");
-        this.monde = monde;
         this.bouge = new SimpleBooleanProperty(false);
 
 
     }
 
-    public Entite(int x, int y, String id, int width, int height, int column, int rows, Monde monde) {
-        this(x, y, width, height, column, rows, monde);
+    public Entite(int x, int y, String id, int width, int height, int column, int rows) {
+        this(x, y, width, height, column, rows);
         this.setId(id);
     }
 
@@ -80,7 +74,7 @@ public abstract class Entite {
     public void setPv(int pv) {
         this.pv.setValue(pv);
     }
-    public IntegerProperty pv() {
+    public IntegerProperty pvProperty() {
         return this.pv;
     }
 
@@ -169,11 +163,6 @@ public abstract class Entite {
         }
     }
 
-    public void meurt() {
-        this.monde.retirerEntite(this);
-    }
-
-
     public boolean verifVivant() {
         return this.getPv() > 0;
     }
@@ -195,47 +184,33 @@ public abstract class Entite {
             int dy = 0;
             int x = getX();
             int y = getY();
-            boolean direction = false;
 
             if (this.deplacement.contains("up") && checkHitBox("up", m.getTerrain()))
                 if (checkUp(m, vitesse)) {
                     dy -= vitesse;
-                    if (!direction) {
-                        addDirection("up");
-                        direction = true;
-                    }
+                    addDirection("up");
                     setY(getY() + dy);
                 }
             if (this.deplacement.contains("down") && checkHitBox("down", m.getTerrain()))
                 if (checkDown(m, vitesse)) {
                     dy += vitesse;
-                    if (!direction) {
-                        addDirection("down");
-                        direction = true;
-                    }
+                    addDirection("down");
                     setY(getY() + dy);
                 }
             if (this.deplacement.contains("left") && checkHitBox("left", m.getTerrain()))
                 if (checkLeft(m, vitesse)) {
                     dx -= vitesse;
-                    if (!direction) {
-                        addDirection("left");
-                        direction = true;
-                    }
+                    addDirection("left");
                     setX(getX() + dx);
                 }
             if (this.deplacement.contains("right") && checkHitBox("right", m.getTerrain()))
                 if (checkRight(m, vitesse)) {
                     dx += vitesse;
-                    if (!direction)
-                        addDirection("right");
+                    addDirection("right");
                     setX(getX() + dx);
                 }
 
-            if (!(x != getX() || y != getY())){
-                this.setBouge(false);
-            }
-            else this.setBouge(true);
+            this.setBouge(x != getX() || y != getY());
             return x != getX() || y != getY();
         }
         return false;

@@ -4,8 +4,8 @@ import com.example.zeldasae.Algo.BFS;
 import com.example.zeldasae.modele.Monde;
 
 public class Boss extends Ennemi{
-    public Boss(int x, int y, int width, int height, int column, int rows, BFS bfs, Monde monde) {
-        super(x, y, width, height, column, rows, bfs, monde);
+    public Boss(int x, int y, int width, int height, int column, int rows, BFS bfs) {
+        super(x, y, width, height, column, rows, bfs);
         super.setVitesse(5);
     }
 

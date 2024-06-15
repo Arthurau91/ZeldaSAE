@@ -3,7 +3,6 @@ package com.example.zeldasae.modele.entities;
 import com.example.zeldasae.modele.Coffre;
 import com.example.zeldasae.modele.Inventaire;
 import com.example.zeldasae.modele.Monde;
-import com.example.zeldasae.modele.entities.Entite;
 import javafx.animation.PauseTransition;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
@@ -16,8 +15,8 @@ public class Joueur extends Entite {
     private BooleanProperty peutDonnerCoupProperty;
     private BooleanProperty peutPrendreCoupProperty;
 
-    public Joueur(int x, int y, int width, int height, int column, int rows) {
-        super(x, y, "j1", width, height, column, rows, null);
+    public Joueur(int x, int y, int column, int rows) {
+        super(x, y, "j1", 30, 30, column, rows);
         this.inv = new Inventaire();
         this.peutDonnerCoupProperty = new SimpleBooleanProperty(true);
         this.peutPrendreCoupProperty = new SimpleBooleanProperty(true);

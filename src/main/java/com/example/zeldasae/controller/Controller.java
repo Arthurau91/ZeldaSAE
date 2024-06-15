@@ -52,8 +52,15 @@ public class Controller implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         resetButton = new Button();
         resetButton.setOnAction(actionEvent -> {
-            relanceJeu();
+            resetButton.setDisable(true);
+            resetButton.setVisible(false);
+            fond.setVisible(false);
+            lancementJeu();
             stopfreeze();
+            resetButton.setOnAction(actionEvent1 -> {
+                relanceJeu();
+                stopfreeze();
+            });
         });
         resetButton.setTranslateX(600);
         resetButton.setTranslateY(500);
@@ -75,23 +82,13 @@ public class Controller implements Initializable {
         this.mapPane.setPrefHeight(this.mapPane.getPrefTileHeight()*this.mapPane.getPrefRows());
 
         BFS bfs =new BFS();
-        Joueur joueur = new Joueur(600, 510, (int)mapPane.getPrefTileWidth(), (int)mapPane.getPrefTileHeight(), mapPane.getPrefColumns(), mapPane.getPrefRows());
+        Joueur joueur = new Joueur(600, 510, mapPane.getPrefColumns(), mapPane.getPrefRows());
         VueJoueur vueJoueur = new VueJoueur(joueur, paneEntites, temps);
-        joueur.pv().addListener(new ObservateurVie(joueur, vueJoueur));
+        joueur.pvProperty().addListener(new ObservateurVie(joueur, vueJoueur));
 
         this.map = new Monde(joueur, bfs, loadJSON.getPrefRows());
 
-        Skeleton skeleton = new Skeleton(500, 120, (int)mapPane.getPrefTileWidth(), (int)mapPane.getPrefTileHeight(), mapPane.getPrefColumns(),  mapPane.getPrefRows(), bfs, map);
-        skeleton.pv().addListener(new ObservateurVie(skeleton, new VueSkeleton(skeleton, paneEntites, temps)));
-        this.map.addEnnemi(skeleton);
-
-        Boss boss = new Boss(740, 1800, 50, 65, mapPane.getPrefColumns(),  mapPane.getPrefRows(), bfs, map);
-        boss.pv().addListener(new ObservateurVie(boss, new VueBoss(boss, paneEntites, temps)));
-        this.map.addEnnemi(boss);
-
-        Sentinelle sentinelle = new Sentinelle(500, 1800, (int)mapPane.getPrefTileWidth(), (int)mapPane.getPrefTileHeight(), mapPane.getPrefColumns(),  mapPane.getPrefRows(), bfs, map);
-        sentinelle.pv().addListener(new ObservateurVie(sentinelle, new VueSentinelle(sentinelle, paneEntites, temps)));
-        this.map.addEnnemi(sentinelle);
+        initEnnemis();
 
         VueTerrain vueTerrain = new VueTerrain(this.map, this.mapPane, loadJSON.getMap(), loadJSON.getMap2());
         VueInventaire vueInv = new VueInventaire(this.boxInventaire, this.map.getJoueur());
@@ -127,6 +124,20 @@ public class Controller implements Initializable {
         paneEntites.addEventHandler(KeyEvent.KEY_RELEASED, keyHandler);
         initAnimation();
 
+    }
+
+    private void initEnnemis(){
+        Skeleton skeleton = new Skeleton(500, 120, mapPane.getPrefColumns(),  mapPane.getPrefRows(), map.getBfs());
+        skeleton.pvProperty().addListener(new ObservateurVie(skeleton, new VueSkeleton(skeleton, paneEntites, temps)));
+        this.map.addEnnemi(skeleton);
+
+        Boss boss = new Boss(740, 1800, 50, 65, mapPane.getPrefColumns(),  mapPane.getPrefRows(), map.getBfs());
+        boss.pvProperty().addListener(new ObservateurVie(boss, new VueBoss(boss, paneEntites, temps)));
+        this.map.addEnnemi(boss);
+
+        Sentinelle sentinelle = new Sentinelle(500, 1800, mapPane.getPrefColumns(),  mapPane.getPrefRows(), map.getBfs());
+        sentinelle.pvProperty().addListener(new ObservateurVie(sentinelle, new VueSentinelle(sentinelle, paneEntites, temps)));
+        this.map.addEnnemi(sentinelle);
     }
 
     private void relanceJeu(){
@@ -181,6 +192,7 @@ public class Controller implements Initializable {
                     }
 
                     this.vueCollectible.checkCollectiblesRamasses();
+                    map.setEnnemisMorts();
                 })
         );
         gameLoop.getKeyFrames().add(kf);

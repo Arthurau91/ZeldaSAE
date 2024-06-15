@@ -120,6 +120,10 @@ public class Monde {
         this.joueur = null;
     }
 
+    public void setEnnemisMorts(){
+        listeEnnemis.removeIf(ennemi -> !ennemi.verifVivant());
+    }
+
     public void deplacerProjectilesVue() {
         for (int i = 0; i < this.listeProjectiles.size(); i++) {
             this.listeProjectiles.get(i).deplacerProjectile(this.getListeEnnemis());

@@ -5,8 +5,8 @@ import com.example.zeldasae.modele.Monde;
 
 public class Sentinelle extends Ennemi{
 
-    public Sentinelle(int x, int y, int width, int height, int column, int rows, BFS bfs, Monde monde) {
-        super(x, y, width, height, column, rows, bfs, monde);
+    public Sentinelle(int x, int y, int column, int rows, BFS bfs) {
+        super(x, y, 30, 30, column, rows, bfs);
         super.setVitesse(0);
     }
 }

@@ -8,8 +8,8 @@ public abstract class Ennemi extends Entite {
 
     private BFS bfs;
 
-    public Ennemi(int x, int y, int width, int height, int column, int rows ,BFS bfs, Monde monde) {
-        super(x, y, width, height, column, rows, monde);
+    public Ennemi(int x, int y, int width, int height, int column, int rows ,BFS bfs) {
+        super(x, y, width, height, column, rows);
         this.bfs = bfs;
     }
 

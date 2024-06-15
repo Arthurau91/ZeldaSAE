@@ -25,7 +25,6 @@ public class ObservateurVie implements ChangeListener<Number> {
             vueBarreDeVie.setPourcentageVie(pourcentage);
             mettreAJourBarreDeVie(vueBarreDeVie);
         } else {
-            entite.meurt();
             vueEntite.supprimerImageEntite();
             vueBarreDeVie.supprimerBarreDeVie();
         }
