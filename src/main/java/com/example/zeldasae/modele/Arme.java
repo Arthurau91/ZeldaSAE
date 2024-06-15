@@ -4,6 +4,7 @@ import com.example.zeldasae.modele.entities.Ennemi;
 import com.example.zeldasae.modele.entities.Joueur;
 import javafx.animation.PauseTransition;
 import javafx.beans.property.SimpleIntegerProperty;
+import javafx.collections.ObservableList;
 import javafx.scene.input.KeyEvent;
 import javafx.util.Duration;
 
@@ -66,7 +67,7 @@ public abstract class Arme extends Item{
         }
     }
 
-    public void checkCoupTouche(ArrayList<Ennemi> ennemis) {
+    public void checkCoupTouche(ObservableList<Ennemi> ennemis) {
        for (Ennemi e : ennemis) {
            if (e.getHitBox().estDedansHitbox(this.hitBox)) {
                infligerDegats(e);

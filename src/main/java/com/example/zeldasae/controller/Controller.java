@@ -86,9 +86,10 @@ public class Controller implements Initializable {
         VueJoueur vueJoueur = new VueJoueur(joueur, paneEntites, temps);
         joueur.pvProperty().addListener(new ObservateurVie(joueur, vueJoueur));
 
-        this.map = new Monde(joueur, bfs, loadJSON.getPrefRows());
+        this.map = new Monde(joueur, bfs, loadJSON.getPrefRows(), loadJSON.getPrefColumns());
 
-        initEnnemis();
+        this.map.getListeEnnemis().addListener(new ObservateurEnnemis(paneEntites, temps));
+        this.map.initEnnemis();
 
         VueTerrain vueTerrain = new VueTerrain(this.map, this.mapPane, loadJSON.getMap(), loadJSON.getMap2());
         VueInventaire vueInv = new VueInventaire(this.boxInventaire, this.map.getJoueur());
@@ -124,36 +125,6 @@ public class Controller implements Initializable {
         paneEntites.addEventHandler(KeyEvent.KEY_RELEASED, keyHandler);
         initAnimation();
 
-    }
-
-    private void initEnnemis(){
-        Skeleton skeleton = new Skeleton(500, 120, mapPane.getPrefColumns(),  mapPane.getPrefRows(), map.getBfs());
-        skeleton.pvProperty().addListener(new ObservateurVie(skeleton, new VueSkeleton(skeleton, paneEntites, temps)));
-        this.map.addEnnemi(skeleton);
-
-        Boss boss = new Boss(420, 2400, 50, 65, mapPane.getPrefColumns(),  mapPane.getPrefRows(), map.getBfs());
-        boss.pvProperty().addListener(new ObservateurVie(boss, new VueBoss(boss, paneEntites, temps)));
-        this.map.addEnnemi(boss);
-
-        Sentinelle sentinelle1 = new Sentinelle(2130, 2370, mapPane.getPrefColumns(),  mapPane.getPrefRows(), map.getBfs());
-        sentinelle1.pvProperty().addListener(new ObservateurVie(sentinelle1, new VueSentinelle(sentinelle1, paneEntites, temps)));
-        this.map.addEnnemi(sentinelle1);
-
-        Sentinelle sentinelle2 = new Sentinelle(2190, 2400, mapPane.getPrefColumns(),  mapPane.getPrefRows(), map.getBfs());
-        sentinelle2.pvProperty().addListener(new ObservateurVie(sentinelle2, new VueSentinelle(sentinelle2, paneEntites, temps)));
-        this.map.addEnnemi(sentinelle2);
-
-        Sentinelle sentinelle3 = new Sentinelle(2400, 2370, mapPane.getPrefColumns(),  mapPane.getPrefRows(), map.getBfs());
-        sentinelle3.pvProperty().addListener(new ObservateurVie(sentinelle3, new VueSentinelle(sentinelle3, paneEntites, temps)));
-        this.map.addEnnemi(sentinelle3);
-
-        Sentinelle sentinelle4 = new Sentinelle(2250, 2280, mapPane.getPrefColumns(),  mapPane.getPrefRows(), map.getBfs());
-        sentinelle4.pvProperty().addListener(new ObservateurVie(sentinelle4, new VueSentinelle(sentinelle4, paneEntites, temps)));
-        this.map.addEnnemi(sentinelle4);
-
-        Sentinelle sentinelle5 = new Sentinelle(2250, 2190, mapPane.getPrefColumns(),  mapPane.getPrefRows(), map.getBfs());
-        sentinelle5.pvProperty().addListener(new ObservateurVie(sentinelle5, new VueSentinelle(sentinelle5, paneEntites, temps)));
-        this.map.addEnnemi(sentinelle5);
     }
 
     private void relanceJeu(){

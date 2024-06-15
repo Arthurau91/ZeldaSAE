@@ -8,9 +8,10 @@ public class Terrain {
     private int rows;
     private int columns;
 
-    public Terrain(int rows){
+    public Terrain(int rows, int columns){
         this.map = new ArrayList<>();
         this.rows = rows;
+        this.columns = columns;
     }
 
     public ArrayList<Integer> getMap() {

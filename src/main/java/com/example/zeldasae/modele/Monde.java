@@ -1,12 +1,9 @@
 package com.example.zeldasae.modele;
 
-import com.example.zeldasae.modele.entities.Ennemi;
-import com.example.zeldasae.modele.entities.Entite;
-import com.example.zeldasae.modele.entities.Joueur;
+import com.example.zeldasae.Algo.BFS;
+import com.example.zeldasae.modele.entities.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-
-import com.example.zeldasae.Algo.BFS;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,7 +12,7 @@ public class Monde {
 
     private Terrain terrain;
     private Joueur joueur;
-    private ArrayList<Ennemi> listeEnnemis;
+    private ObservableList<Ennemi> listeEnnemis;
     private ObservableList<Projectile> listeProjectiles;
     private ObservableList<Collectible> listeCollectibles;
     private BFS bfs;
@@ -24,11 +21,11 @@ public class Monde {
     /**
      * Constructeur de la classe Monde
      */
-    public Monde(Joueur joueur, BFS bfs, int rows) {
+    public Monde(Joueur joueur, BFS bfs, int rows, int columns) {
 
         this.joueur = joueur;
-        this.terrain = new Terrain(rows);
-        this.listeEnnemis = new ArrayList<>();
+        this.terrain = new Terrain(rows, columns);
+        this.listeEnnemis = FXCollections.observableArrayList();
         this.listeProjectiles = FXCollections.observableArrayList();
         this.listeCollectibles = FXCollections.observableArrayList();
         this.bfs = bfs;
@@ -43,12 +40,8 @@ public class Monde {
         return this.joueur;
     }
 
-    public ArrayList<Ennemi> getListeEnnemis() {
-        return this.listeEnnemis;
-    }
-
     public void retirerEntite(Entite entite) {
-        getListeEnnemis().remove(entite);
+        listeEnnemis.remove(entite);
     }
 
     public BFS getBfs() {
@@ -107,6 +100,9 @@ public class Monde {
     public ObservableList<Collectible> getListeCollectibles() {
         return listeCollectibles;
     }
+    public ObservableList<Ennemi> getListeEnnemis() {
+        return this.listeEnnemis;
+    }
 
     public void ajouterProjectile(Projectile p) {
         this.listeProjectiles.add(p);
@@ -155,4 +151,26 @@ public class Monde {
         return null;
     }
 
+    public void initEnnemis(){
+        Skeleton skeleton = new Skeleton(500, 120, terrain.getColumns(),  terrain.getRows(), getBfs());
+        addEnnemi(skeleton);
+
+        Boss boss = new Boss(420, 2400, 50, 65, terrain.getColumns(),  terrain.getRows(), getBfs());
+        addEnnemi(boss);
+
+        Sentinelle sentinelle1 = new Sentinelle(2130, 2370, terrain.getColumns(),  terrain.getRows(), getBfs());
+        addEnnemi(sentinelle1);
+
+        Sentinelle sentinelle2 = new Sentinelle(2190, 2400, terrain.getColumns(),  terrain.getRows(), getBfs());
+        addEnnemi(sentinelle2);
+
+        Sentinelle sentinelle3 = new Sentinelle(2400, 2370, terrain.getColumns(),  terrain.getRows(), getBfs());
+        addEnnemi(sentinelle3);
+
+        Sentinelle sentinelle4 = new Sentinelle(2250, 2280, terrain.getColumns(),  terrain.getRows(), getBfs());
+        addEnnemi(sentinelle4);
+
+        Sentinelle sentinelle5 = new Sentinelle(2250, 2190, terrain.getColumns(),  terrain.getRows(), getBfs());
+        addEnnemi(sentinelle5);
+    }
 }
