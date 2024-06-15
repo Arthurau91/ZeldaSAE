@@ -6,6 +6,7 @@ public class Terrain {
 
     private ArrayList<Integer> map;
     private int rows;
+    private int columns;
 
     public Terrain(int rows){
         this.map = new ArrayList<>();
@@ -33,6 +34,14 @@ public class Terrain {
 
     public int getRows() {
         return rows;
+    }
+
+    public int getColumns() {
+        return columns;
+    }
+
+    public void setColumns(int columns) {
+        this.columns = columns;
     }
 
     public boolean vide(int coo){

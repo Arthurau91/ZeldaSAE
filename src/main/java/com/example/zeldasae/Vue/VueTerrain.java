@@ -26,6 +26,7 @@ public class VueTerrain {
         this.mapPane = mapPane;
         this.m2 = m2;
         map.setMap(m1);
+        map.getTerrain().setColumns(m1.size()/map.getTerrain().getRows());
 
         Image tileset = new Image("file:src/main/resources/com/example/zeldasae/assets/tiles.png", 1680, 690, false, false);
         Image fog = new Image("file:src/main/resources/com/example/zeldasae/assets/fog.png");

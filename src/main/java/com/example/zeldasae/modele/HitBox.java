@@ -108,9 +108,7 @@ public class HitBox {
     }
 
     public boolean estDedansHitbox(HitBox h) {
-//        System.out.println("largeur : " + this.large + " hauteur : " + this.haut);
-        boolean check = (this.checkUp(h) || this.checkDown(h) || this.checkLeft(h) || this.checkRight(h));
-        return(check);
+        return((this.checkUp(h) || this.checkDown(h) || this.checkLeft(h) || this.checkRight(h)));
     }
 
     public boolean checkUp(HitBox h) {

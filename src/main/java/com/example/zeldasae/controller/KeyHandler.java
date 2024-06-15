@@ -30,16 +30,14 @@ public class KeyHandler implements EventHandler<KeyEvent> {
     private VueInventaire vueInv;
     private Set<KeyCode> pressedKeys;
     private VueArme vueArme;
-    private VueCollectible vueCollectible;
     private List<VueCoffre> vueCoffres;
 
-    public KeyHandler(Monde map, VueInventaire vueInv, VueTerrain vueTerrain, VueArme vueArme, VueCollectible vueCollectible, List<VueCoffre> vueCoffres) {
+    public KeyHandler(Monde map, VueInventaire vueInv, VueTerrain vueTerrain, VueArme vueArme, List<VueCoffre> vueCoffres) {
         this.map = map;
         this.vueInv = vueInv;
         this.vueArme = vueArme;
         this.pressedKeys = new HashSet<>();
         this.vueTerrain = vueTerrain;
-        this.vueCollectible = vueCollectible;
         this.vueCoffres = vueCoffres;
     }
 
