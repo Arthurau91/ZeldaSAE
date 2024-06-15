@@ -1,7 +1,8 @@
 package com.example.zeldasae.controller;
 
 import com.example.zeldasae.Vue.*;
-import com.example.zeldasae.Vue.VueArme;
+import com.example.zeldasae.Vue.VueArmes.CreateurVueArme;
+import com.example.zeldasae.Vue.VueArmes.VueArme;
 import com.example.zeldasae.Vue.VueCollectible;
 import com.example.zeldasae.Vue.VueInventaire;
 import com.example.zeldasae.Vue.VueTerrain;
@@ -29,14 +30,14 @@ public class KeyHandler implements EventHandler<KeyEvent> {
     private VueTerrain vueTerrain;
     private VueInventaire vueInv;
     private Set<KeyCode> pressedKeys;
-    private VueArme vueArme;
+    private CreateurVueArme createurVueArme;
     private VueCollectible vueCollectible;
     private List<VueCoffre> vueCoffres;
 
-    public KeyHandler(Monde map, VueInventaire vueInv, VueTerrain vueTerrain, VueArme vueArme, VueCollectible vueCollectible, List<VueCoffre> vueCoffres) {
+    public KeyHandler(Monde map, VueInventaire vueInv, VueTerrain vueTerrain, CreateurVueArme createurVueArme, VueCollectible vueCollectible, List<VueCoffre> vueCoffres) {
         this.map = map;
         this.vueInv = vueInv;
-        this.vueArme = vueArme;
+        this.createurVueArme = createurVueArme;
         this.pressedKeys = new HashSet<>();
         this.vueTerrain = vueTerrain;
         this.vueCollectible = vueCollectible;
@@ -46,7 +47,6 @@ public class KeyHandler implements EventHandler<KeyEvent> {
     //à retirer, sert uniquement pour les tests
     private Epee itemTest = new Epee();
     private Hache hacheTest = new Hache();
-    private Epee itemTest2 = new Epee();
     private Item itemTest3 = new Armure(0,"Armure 3", 6);
     private Item itemTest4 = new Armure(1,"Armure 4", 19);
     private Arc arcTest = new Arc();
@@ -110,6 +110,7 @@ public class KeyHandler implements EventHandler<KeyEvent> {
                     this.map.getJoueur().getInv().ajouterItem(itemTest3);
                     this.map.getJoueur().getInv().ajouterItem(itemTest4);
                     this.map.getJoueur().getInv().ajouterItem(charme);
+                    this.map.getJoueur().getInv().ajouterItem(hacheTest);
                     this.map.ajouterCollectible(collectibleTest);
                     this.map.ajouterCollectible(fleche);
                     break;
@@ -123,10 +124,11 @@ public class KeyHandler implements EventHandler<KeyEvent> {
                 case LEFT, RIGHT, UP, DOWN: // tirer
                     if (this.map.getJoueur().getPeutDonnerCoupProperty() && this.map.getJoueur().getInv().getArmeActuelle() != null) {
                         this.map.getJoueur().attaquer(keyEvent, map);
-                        this.vueArme.donnerCoup(this.map.getJoueur().getInv().getArmeActuelle().getX(), this.map.getJoueur().getInv().getArmeActuelle().getY(), keyEvent);
-                        if (keyEvent.getCode() == UP || keyEvent.getCode() == DOWN) {
+                        VueArme vueArme = createurVueArme.creerVueArme();
+                        if (vueArme != null)
+                            vueArme.donnerCoup(this.map.getJoueur().getInv().getArmeActuelle().getX(), this.map.getJoueur().getInv().getArmeActuelle().getY(), keyEvent);
+                        if (keyEvent.getCode() == UP || keyEvent.getCode() == DOWN)
                             this.map.getJoueur().getInv().getArmeActuelle().getHitBox().pivote();
-                        }
                         vueTerrain.detruitBloc();
                     }
                     break;
