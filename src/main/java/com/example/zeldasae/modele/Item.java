@@ -4,7 +4,6 @@ public abstract class Item {
 
     private String nom;
     private int posSlotItems;
-    private int quantite;
 
     public Item(String nom, int posSlotItems){
         this.nom = nom;
@@ -22,4 +21,7 @@ public abstract class Item {
     public void setPosSlotItems(int posSlotItems) {
         this.posSlotItems = posSlotItems;
     }
+
+    public abstract void utiliserItem(Joueur j);
+
 }

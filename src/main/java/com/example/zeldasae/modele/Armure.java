@@ -8,4 +8,13 @@ public class Armure extends Item {
         super(nom, posSlotItems);
         this.resistance = resistance;
     }
+
+    @Override
+    public void utiliserItem(Joueur j) {
+        j.getInv().changerArmure(this);
+    }
+
+    public int getResistance() {
+        return resistance;
+    }
 }

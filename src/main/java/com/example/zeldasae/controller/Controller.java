@@ -174,7 +174,7 @@ public class Controller implements Initializable {
 
                     if (temps.getValue()%2==0) {
                         this.map.deplacementEnnemi();
-                        this.map.deplacerProjectilesVue();
+                        this.map.deplacerProjectiles();
                     }
 
                     temps.setValue(temps.getValue()+1);

@@ -7,13 +7,17 @@ import com.example.zeldasae.Vue.VueTerrain;
 import com.example.zeldasae.modele.*;
 
 import com.example.zeldasae.modele.armes.Arc;
+import com.example.zeldasae.modele.armes.Boomerang;
 import com.example.zeldasae.modele.armes.Epee;
+import com.example.zeldasae.modele.armes.Hache;
+import com.example.zeldasae.modele.collectibles.Fleche;
 import com.example.zeldasae.modele.collectibles.Fruit;
 import javafx.event.EventHandler;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 
-import java.util.*;
+import java.util.HashSet;
+import java.util.Set;
 
 import static javafx.scene.input.KeyCode.*;
 
@@ -38,11 +42,14 @@ public class KeyHandler implements EventHandler<KeyEvent> {
     }
 
     //à retirer, sert uniquement pour les tests
-    private Epee itemTest = new Epee( 150, 15, 0, 0);
+    private Epee itemTest = new Epee();
+    private Hache hacheTest = new Hache();
     private Epee itemTest2 = new Epee(100, 100, 0, 0);
-    private Item itemTest3 = new Armure(500,"Armure 3", 6);
-    private Item itemTest4 = new Armure(500,"Armure 4", 19);
-    private Arc arcTest = new Arc(10, 10, 10, 40);
+    private Item itemTest3 = new Armure(0,"Armure 3", 6);
+    private Item itemTest4 = new Armure(1,"Armure 4", 19);
+    private Arc arcTest = new Arc();
+    Collectible fleche = new Fleche(0, 30, 30, 30, 0, 0);
+    Boomerang boomerang = new Boomerang();
 
     @Override
     public void handle(KeyEvent keyEvent) {
@@ -102,17 +109,14 @@ public class KeyHandler implements EventHandler<KeyEvent> {
                     this.map.getJoueur().getInv().ajouterItem(itemTest4);
                     this.map.getJoueur().getInv().ajouterItem(charme);
                     this.map.ajouterCollectible(collectibleTest);
+                    this.map.ajouterCollectible(fleche);
                     break;
                 case A: // switch arme
                     this.map.getJoueur().getInv().echangerArmes();
+                    System.out.println("Arme : " + this.map.getJoueur().getInv().getArmeActuelle().getNom() + " Armure : " + this.map.getJoueur().getInv().getArmureActuelle().getNom());
                     break;
-                case P:  // test
-                    this.map.getJoueur().getInv().changerArme(arcTest);
-                    for (int i = 0; i < this.map.getJoueur().getInv().getListeItems().size(); i++) {
-                        if (this.map.getJoueur().getInv().getListeItems().get(i) instanceof Collectible) { //TODO mettre méthode abstraite commune aux Items ?
-                            System.out.println(((Collectible) this.map.getJoueur().getInv().getListeItems().get(i)).getQuantite() + " " + ((Collectible) this.map.getJoueur().getInv().getListeItems().get(i)).getType());
-                        }
-                    }
+                case P: //à retirer, sert uniquement pour les tests
+                    this.map.getJoueur().getInv().changerArme(boomerang);
                     break;
                 case LEFT, RIGHT, UP, DOWN: // tirer
                     if (this.map.getJoueur().getPeutDonnerCoupProperty() && this.map.getJoueur().getInv().getArmeActuelle() != null) {
