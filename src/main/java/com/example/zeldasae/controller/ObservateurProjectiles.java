@@ -2,7 +2,6 @@ package com.example.zeldasae.controller;
 
 import com.example.zeldasae.Vue.VueArme;
 import com.example.zeldasae.modele.Projectile;
-import com.example.zeldasae.modele.ProjectileEnnemi;
 import com.example.zeldasae.modele.ProjectileJoueur;
 import javafx.collections.ListChangeListener;
 

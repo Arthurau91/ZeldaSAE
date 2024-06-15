@@ -1,6 +1,6 @@
 package com.example.zeldasae.controller;
 
-import com.example.zeldasae.modele.Ennemi;
+import com.example.zeldasae.Vue.VueJoueur;
 import com.example.zeldasae.modele.Monde;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -12,11 +12,13 @@ public class ObservateurMouvement implements ChangeListener<Number> {
     private Monde map;
     private TilePane mapPane;
     private  Pane paneEntites;
+    private VueJoueur vueJoueur;
 
-    public ObservateurMouvement(Monde map, TilePane mapPane, Pane paneEntites) {
+    public ObservateurMouvement(Monde map, TilePane mapPane, Pane paneEntites, VueJoueur vueJoueur) {
         this.map = map;
         this.mapPane = mapPane;
         this.paneEntites = paneEntites;
+        this.vueJoueur = vueJoueur;
     }
 
     @Override
@@ -36,7 +38,6 @@ public class ObservateurMouvement implements ChangeListener<Number> {
             }
         }
 
-        actualiserEnnemi();
     }
 
 
@@ -44,7 +45,7 @@ public class ObservateurMouvement implements ChangeListener<Number> {
 
         if (deltaX != 0 || deltaY != 0) {
             scrollMap(deltaX, deltaY);
-            mettreAJourPositionBarreDeVieJoueur(deltaX, deltaY);
+            vueJoueur.getVueBarreDeVie().mettreAJourPositionBarreDeVieJoueur(deltaX, deltaY, vueJoueur.getVueBarreDeVie());
         }
 
     }
@@ -55,24 +56,5 @@ public class ObservateurMouvement implements ChangeListener<Number> {
         this.paneEntites.setTranslateX(paneEntites.getTranslateX() - deltaX);
         this.paneEntites.setTranslateY(paneEntites.getTranslateY() - deltaY);
     }
-
-    private void mettreAJourPositionBarreDeVieJoueur(int deltaX, int deltaY) {
-        this.map.getJoueur().getVueBarreDeVie().setTranslateX(map.getJoueur().getVueBarreDeVie().getTranslateX() + deltaX);
-        this.map.getJoueur().getVueBarreDeVie().setTranslateY(map.getJoueur().getVueBarreDeVie().getTranslateY() + deltaY);
-    }
-
-    private void actualiserEnnemi() {
-        for (Ennemi ennemi : map.getListeEnnemis()) {
-            ajouterBarreDeVieEnnemiAuPane(ennemi);
-        }
-    }
-
-    private void ajouterBarreDeVieEnnemiAuPane(Ennemi ennemi) {
-        if (!paneEntites.getChildren().contains(ennemi.getVueBarreDeVie())) {
-            paneEntites.getChildren().add(ennemi.getVueBarreDeVie());
-        }
-    }
-
-
 
 }

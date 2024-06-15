@@ -1,21 +1,21 @@
 package com.example.zeldasae.Vue;
 
-import com.example.zeldasae.modele.entities.Boss;
+import com.example.zeldasae.modele.entities.Sentinelle;
 import javafx.beans.property.IntegerProperty;
 import javafx.scene.image.Image;
 import javafx.scene.layout.Pane;
 
-public class VueBoss extends VueEntite{
+public class VueSentinelle extends VueEntite{
 
     private int statusAnim;
 
-    public VueBoss(Boss entite, Pane paneEntites, IntegerProperty temps) {
+    public VueSentinelle(Sentinelle entite, Pane paneEntites, IntegerProperty temps) {
         super(entite, paneEntites, temps);
-        super.loadSprites(new Image("file:src/main/resources/com/example/zeldasae/assets/Boss/Boss.png", 144, 256, false, false), 48, 64);
+        super.loadSprites(new Image("file:src/main/resources/com/example/zeldasae/assets/Sentinelle/Sentinelle.png", 90, 120, false, false), 30, 30);
         statusAnim = 0;
-        super.creerImageEntite();
         this.vueBarreDeVie = new VueBarreDeVie(90, 10, paneEntites);
         bindBarreDeViePosition();
+        super.creerImageEntite();
     }
 
     @Override

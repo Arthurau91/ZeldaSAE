@@ -1,9 +1,8 @@
 package com.example.zeldasae.Vue;
 
-import com.example.zeldasae.modele.Joueur;
 import com.example.zeldasae.modele.Monde;
 import com.example.zeldasae.modele.Projectile;
-import com.example.zeldasae.modele.armes.Hache;
+import com.example.zeldasae.modele.entities.Joueur;
 import javafx.animation.PauseTransition;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;

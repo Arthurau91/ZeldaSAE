@@ -7,12 +7,20 @@ import javafx.scene.shape.Rectangle;
 public class VueBarreDeVie extends Pane {
     private Rectangle barreVieTotale;
     private Rectangle barreVieActuelle;
+    private Pane paneEntites;
 
-    public VueBarreDeVie(double largeur, double hauteur) {
+    public VueBarreDeVie(double largeur, double hauteur, Pane paneEntites) {
         this.barreVieTotale = new Rectangle(largeur, hauteur);
         this.barreVieTotale.setFill(Color.GRAY);
         this.barreVieActuelle = new Rectangle(largeur, hauteur);
         this.barreVieActuelle.setFill(Color.GREEN);
+        this.paneEntites = paneEntites;
+        this.barreVieTotale.setArcHeight(20);
+        this.barreVieTotale.setArcWidth(20);
+        this.barreVieActuelle.setArcHeight(20);
+        this.barreVieActuelle.setArcWidth(20);
+        this.barreVieTotale.setStroke(Color.BLACK);
+        ajouterBarreDeVieEnnemiAuPane(this);
         getChildren().addAll(this.barreVieTotale, this.barreVieActuelle);
     }
 
@@ -32,6 +40,21 @@ public class VueBarreDeVie extends Pane {
 
     public void setFill(Color color) {
         this.barreVieActuelle.setFill(color);
+    }
+
+    public void supprimerBarreDeVie() {
+        getChildren().removeAll(this.barreVieTotale, this.barreVieActuelle);
+    }
+
+    private void ajouterBarreDeVieEnnemiAuPane(VueBarreDeVie ennemi) {
+        if (!paneEntites.getChildren().contains(ennemi)) {
+            paneEntites.getChildren().add(this);
+        }
+    }
+
+    public void mettreAJourPositionBarreDeVieJoueur(int deltaX, int deltaY, VueBarreDeVie vueBarreDeVie) {
+        vueBarreDeVie.setTranslateX(vueBarreDeVie.getTranslateX() + deltaX);
+        vueBarreDeVie.setTranslateY(vueBarreDeVie.getTranslateY() + deltaY);
     }
 
 

@@ -2,10 +2,6 @@ package com.example.zeldasae.modele;
 
 import javafx.beans.property.IntegerProperty;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-
 public class HitBox {
 
     private int large;
@@ -153,6 +149,26 @@ public class HitBox {
         return false;
     }
 
+    public boolean degatBlocs(Terrain terrain, String direction){
+        if (direction.contains("up")){
+            if (terrain.isCactus(terrain.changeCoo(getX(), getY()-30)))
+                return true;
+        }
+        if (direction.contains("down")){
+            if (terrain.isCactus(terrain.changeCoo(getX(), getY()+30)))
+                return true;
+        }
+        if (direction.contains("right")){
+            if (terrain.isCactus(terrain.changeCoo(getX()+30, getY())))
+                return true;
+        }
+        if (direction.contains("left")){
+            if (terrain.isCactus(terrain.changeCoo(getX()-30, getY())))
+                return true;
+        }
+        return false;
+    }
+
     public void pivote() {
         int pivot;
         pivot = this.large;
@@ -165,4 +181,12 @@ public class HitBox {
             this.estPivote = true;
         }
     }
+
+    public boolean coffreProximite(Coffre coffre, int distance) {
+        int positionX = Math.abs(this.getX() - coffre.getX());
+        int positionY = Math.abs(this.getY() - coffre.getY());
+        return (positionX <= distance && positionY == 0) || (positionY <= distance && positionX == 0);
+    }
+
+
 }

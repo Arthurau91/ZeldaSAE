@@ -1,14 +1,9 @@
-package com.example.zeldasae.modele;
+package com.example.zeldasae.modele.entities;
 
-import com.example.zeldasae.Vue.VueBarreDeVie;
-import com.example.zeldasae.Vue.VueEntite;
-import com.example.zeldasae.controller.ObservateurVie;
-import javafx.beans.binding.Bindings;
-import javafx.beans.binding.DoubleBinding;
-import javafx.beans.property.IntegerProperty;
-import javafx.beans.property.SimpleIntegerProperty;
-import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.property.StringProperty;
+import com.example.zeldasae.modele.HitBox;
+import com.example.zeldasae.modele.Monde;
+import com.example.zeldasae.modele.Terrain;
+import javafx.beans.property.*;
 
 public abstract class Entite {
 
@@ -28,9 +23,9 @@ public abstract class Entite {
     private int pvMax;
     private int degats;
     private StringProperty direction;
-    private VueBarreDeVie vueBarreDeVie;
+    private BooleanProperty bouge;
 
-    public Entite(int x, int y, int width, int height, int column, int rows) {
+    public Entite(int x, int y, int width, int height, int column, int rows, int pvMax) {
         this.xProperty = new SimpleIntegerProperty(x);
         this.yProperty = new SimpleIntegerProperty(y);
         this.id = ""+n++;
@@ -42,27 +37,17 @@ public abstract class Entite {
         this.deplacement = "null";
         this.vitesse = 10;
         this.hitBox = new HitBox(this.width, this.height, this.xProperty, this.yProperty);
-        this.pvMax = 10;
+        this.pvMax = pvMax;
         this.pv = new SimpleIntegerProperty(this.pvMax);
         this.degats = 1;
-        this.direction = new SimpleStringProperty("right");
+        this.direction = new SimpleStringProperty("down");
+        this.bouge = new SimpleBooleanProperty(false);
 
-        //mettre côté vue
-        if (this instanceof Joueur) {
-            this.vueBarreDeVie = new VueBarreDeVie(100, 20);
-            this.getVueBarreDeVie().setLayoutX(1050);
-            this.getVueBarreDeVie().setLayoutY(10);
-        } else {
-            this.vueBarreDeVie = new VueBarreDeVie(90, 10);
-            bindBarreDeViePosition();
-        }
 
-        //à faire dans le contrôleur
-        this.pv.addListener(new ObservateurVie(this));
     }
 
-    public Entite(int x, int y, String id, int width, int height, int column, int rows) {
-        this(x, y, width, height, column, rows);
+    public Entite(int x, int y, String id, int width, int height, int column, int rows, int pvMax) {
+        this(x, y, width, height, column, rows, pvMax);
         this.setId(id);
     }
 
@@ -89,7 +74,7 @@ public abstract class Entite {
     public void setPv(int pv) {
         this.pv.setValue(pv);
     }
-    public IntegerProperty pv() {
+    public IntegerProperty pvProperty() {
         return this.pv;
     }
 
@@ -102,7 +87,17 @@ public abstract class Entite {
     public String getDirection() {
         return direction.getValue();
     }
-    public void addDirectionImage(String direction){this.direction.setValue(this.getDirection()+direction);}
+    public void addDirection(String direction){this.direction.setValue(this.getDirection()+direction);}
+
+    public BooleanProperty bougeProperty() {
+        return bouge;
+    }
+    public void setBouge(boolean bouge) {
+        this.bouge.setValue(bouge);
+    }
+    public boolean isBouge() {
+        return bouge.getValue();
+    }
 
     public String getId() {
         return id;
@@ -136,9 +131,6 @@ public abstract class Entite {
     }
     public void setDegats(int degats) {
         this.degats = degats;
-    }
-    public VueBarreDeVie getVueBarreDeVie() {
-        return this.vueBarreDeVie;
     }
     public HitBox getHitBox() {
         return hitBox;
@@ -175,22 +167,6 @@ public abstract class Entite {
         return this.getPv() > 0;
     }
 
-    //remettre côté vue
-    private void bindBarreDeViePosition() {
-
-        DoubleBinding barreXBinding = Bindings.createDoubleBinding(() ->
-                        this.getX() + (this.getWidth() - this.vueBarreDeVie.getWidth()) / 2,
-                this.xProperty, this.widthProperty(), this.vueBarreDeVie.widthProperty());
-
-        DoubleBinding barreYBinding = Bindings.createDoubleBinding(() ->
-                        this.getY() - this.vueBarreDeVie.getHeight(),
-                this.yProperty, this.vueBarreDeVie.heightProperty());
-
-        this.vueBarreDeVie.layoutXProperty().bind(barreXBinding);
-        this.vueBarreDeVie.layoutYProperty().bind(barreYBinding);
-
-    }
-
     private IntegerProperty widthProperty() {
         return this.widthProperty;
     }
@@ -212,34 +188,41 @@ public abstract class Entite {
             if (this.deplacement.contains("up") && checkHitBox("up", m.getTerrain()))
                 if (checkUp(m, vitesse)) {
                     dy -= vitesse;
-                    addDirectionImage("up");
+                    addDirection("up");
+                    setY(getY() + dy);
                 }
             if (this.deplacement.contains("down") && checkHitBox("down", m.getTerrain()))
                 if (checkDown(m, vitesse)) {
                     dy += vitesse;
-                    addDirectionImage("down");
+                    addDirection("down");
+                    setY(getY() + dy);
                 }
             if (this.deplacement.contains("left") && checkHitBox("left", m.getTerrain()))
                 if (checkLeft(m, vitesse)) {
                     dx -= vitesse;
-                    addDirectionImage("left");
+                    addDirection("left");
+                    setX(getX() + dx);
                 }
             if (this.deplacement.contains("right") && checkHitBox("right", m.getTerrain()))
                 if (checkRight(m, vitesse)) {
                     dx += vitesse;
-                    addDirectionImage("right");
+                    addDirection("right");
+                    setX(getX() + dx);
                 }
 
-            setX(getX() + dx);
-            setY(getY() + dy);
+            this.setBouge(x != getX() || y != getY());
             return x != getX() || y != getY();
         }
         return false;
     }
 
     private boolean checkHitBox(String direction, Terrain terrain){
-        return hitBox.checkColision(direction, this.rows, terrain) &&
-                hitBox.checkBord(direction, this.column, this.rows, this.vitesse);
+        if (hitBox.checkColision(direction, this.rows, terrain)) {
+            return hitBox.checkBord(direction, this.column, this.rows, this.vitesse);
+        }
+        if (hitBox.degatBlocs(terrain, direction))
+            this.perdreVie(1);
+        return false;
     }
 
     public boolean checkColisionEntite(Monde m, int x, int y){

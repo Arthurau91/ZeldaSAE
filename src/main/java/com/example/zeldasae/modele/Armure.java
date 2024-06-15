@@ -1,5 +1,7 @@
 package com.example.zeldasae.modele;
 
+import com.example.zeldasae.modele.entities.Joueur;
+
 public class Armure extends Item {
 
     private int resistance;

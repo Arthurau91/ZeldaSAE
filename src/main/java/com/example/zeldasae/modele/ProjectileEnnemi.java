@@ -1,7 +1,5 @@
 package com.example.zeldasae.modele;
 
-import javafx.scene.input.KeyEvent;
-
 public class ProjectileEnnemi extends Projectile {
 
     public ProjectileEnnemi(int degats, int vitesse, int large, int haut) {

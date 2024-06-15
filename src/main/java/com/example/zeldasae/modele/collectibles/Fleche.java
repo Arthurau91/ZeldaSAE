@@ -1,7 +1,7 @@
 package com.example.zeldasae.modele.collectibles;
 
 import com.example.zeldasae.modele.Collectible;
-import com.example.zeldasae.modele.Joueur;
+import com.example.zeldasae.modele.entities.Joueur;
 
 public class Fleche extends Collectible {
 

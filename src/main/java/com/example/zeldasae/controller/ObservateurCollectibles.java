@@ -2,7 +2,6 @@ package com.example.zeldasae.controller;
 
 import com.example.zeldasae.Vue.VueCollectible;
 import com.example.zeldasae.modele.Collectible;
-import com.example.zeldasae.modele.Projectile;
 import javafx.collections.ListChangeListener;
 
 public class ObservateurCollectibles implements ListChangeListener<Collectible> {

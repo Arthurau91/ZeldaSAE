@@ -1,6 +1,7 @@
 package com.example.zeldasae.modele.armes;
 
 import com.example.zeldasae.modele.*;
+import com.example.zeldasae.modele.entities.Ennemi;
 import javafx.animation.PauseTransition;
 import javafx.scene.input.KeyEvent;
 import javafx.util.Duration;

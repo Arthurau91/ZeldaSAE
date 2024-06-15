@@ -1,5 +1,7 @@
 package com.example.zeldasae.modele;
 
+import com.example.zeldasae.modele.entities.Ennemi;
+import com.example.zeldasae.modele.entities.Joueur;
 import javafx.animation.PauseTransition;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.scene.input.KeyEvent;
@@ -69,6 +71,7 @@ public abstract class Arme extends Item{
            if (e.getHitBox().estDedansHitbox(this.hitBox)) {
                infligerDegats(e);
                System.out.println("Pv de l'ennemi : " + e.getPv());
+               break;
            }
        }
     }

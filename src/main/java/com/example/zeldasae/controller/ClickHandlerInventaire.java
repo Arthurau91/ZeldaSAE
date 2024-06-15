@@ -1,10 +1,7 @@
 package com.example.zeldasae.controller;
 
-import com.example.zeldasae.modele.Arme;
-import com.example.zeldasae.modele.Armure;
-import com.example.zeldasae.modele.Joueur;
-import com.example.zeldasae.modele.Collectible;
 import com.example.zeldasae.modele.Item;
+import com.example.zeldasae.modele.entities.Joueur;
 import javafx.event.EventHandler;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
@@ -27,4 +24,5 @@ public class ClickHandlerInventaire implements EventHandler<MouseEvent> {
             i.utiliserItem(j);
         }
     }
+
 }
