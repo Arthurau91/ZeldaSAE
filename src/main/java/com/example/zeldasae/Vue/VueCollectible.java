@@ -25,16 +25,6 @@ public class VueCollectible {
         paneEntites.getChildren().remove(paneEntites.lookup("#" + c.getNom()));
     }
 
-    public void checkCollectiblesRamasses() {
-        for(int i = 0; i < map.getListeCollectibles().size(); i++) {
-            if (map.getListeCollectibles().get(i).getHitBox().estDedansHitbox(map.getJoueur().getHitBox())) {
-                map.getJoueur().getInv().ajouterCollectible(map.getListeCollectibles().get(i));
-                map.getListeCollectibles().remove(i);
-                i--;
-            }
-        }
-    }
-
     public ImageView switchImageCollectible(Collectible c) {
         Image img = new Image("file:src/main/resources/com/example/zeldasae/assets/" + c.getType() + ".png");
         ImageView imageView = new ImageView(img);

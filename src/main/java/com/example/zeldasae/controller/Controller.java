@@ -204,7 +204,7 @@ public class Controller implements Initializable {
                         gameLoop.stop();
                     }
 
-                    this.vueCollectible.checkCollectiblesRamasses();
+                    map.checkCollectiblesRamasses();
                 })
         );
         gameLoop.getKeyFrames().add(kf);

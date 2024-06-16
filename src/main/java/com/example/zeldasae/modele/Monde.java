@@ -89,6 +89,16 @@ public class Monde {
         }
     }
 
+    public void checkCollectiblesRamasses() {
+        for(int i = 0; i < getListeCollectibles().size(); i++) {
+            if (getListeCollectibles().get(i).getHitBox().estDedansHitbox(getJoueur().getHitBox())) {
+                getJoueur().getInv().ajouterCollectible(getListeCollectibles().get(i));
+                getListeCollectibles().remove(i);
+                i--;
+            }
+        }
+    }
+
     public int[] cooBloc(int x, int y, String direction){
         int coo = terrain.changeCoo(x, y);
         int coobloc = 0;
