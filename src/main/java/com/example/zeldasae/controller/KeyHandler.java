@@ -9,6 +9,7 @@ import com.example.zeldasae.Vue.VueTerrain;
 import com.example.zeldasae.modele.*;
 
 import com.example.zeldasae.modele.armes.*;
+import com.example.zeldasae.modele.armures.*;
 import com.example.zeldasae.modele.collectibles.BombeCollectible;
 import com.example.zeldasae.modele.collectibles.Collectible;
 import com.example.zeldasae.modele.collectibles.Fleche;
