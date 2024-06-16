@@ -86,7 +86,7 @@ public class VueTerrain {
 
     public void deplaceBloc(){
         ArrayList<Integer> m1 = map.getTerrain().getMap();
-        int[] coos = map.cooBloc(this.map.getJoueur().getX(), this.map.getJoueur().getY());
+        int[] coos = map.cooBloc(this.map.getJoueur().getX(), this.map.getJoueur().getY(), map.getJoueur().getDirection());
         int coobloc = coos[0];
         int coovide = coos[1];
         if (this.map.getTerrain().poussable(coobloc)){
@@ -101,8 +101,8 @@ public class VueTerrain {
         }
     }
 
-    public void detruitBloc(){
-        int[] coos = map.cooBloc(this.map.getJoueur().getX(), this.map.getJoueur().getY());
+    public void detruitBloc(int x, int y, String direction){
+        int[] coos = map.cooBloc(x, y, direction);
         int cooBloc = coos[0];
         int cooBloc2 = coos[1];
         if (this.map.getTerrain().destructible(cooBloc)){

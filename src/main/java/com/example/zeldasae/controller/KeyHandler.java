@@ -125,7 +125,22 @@ public class KeyHandler implements EventHandler<KeyEvent> {
                         if (keyEvent.getCode() == UP || keyEvent.getCode() == DOWN) {
                             this.map.getJoueur().getInv().getArmeActuelle().getHitBox().pivote();
                         }
-                        vueTerrain.detruitBloc();
+                        String directionBloc = "";
+                        switch (keyEvent.getCode()) {
+                            case LEFT:
+                                directionBloc = "left";
+                                break;
+                            case RIGHT:
+                                directionBloc = "right";
+                                break;
+                            case UP:
+                                directionBloc = "up";
+                                break;
+                            case DOWN:
+                                directionBloc = "down";
+                                break;
+                        }
+                        vueTerrain.detruitBloc(map.getJoueur().getX(), map.getJoueur().getY(), directionBloc);
                     }
                     break;
                 case TAB: // inventaires
