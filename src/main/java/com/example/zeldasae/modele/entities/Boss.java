@@ -8,7 +8,7 @@ import javafx.util.Duration;
 
 public class Boss extends Ennemi {
 
-    private final double cooldownAttaqueDistance = 3;
+    private final double cooldownAttaqueDistance = 1.5;
     private boolean peutAttaquerDistance;
 
     public Boss(int x, int y, int width, int height, int column, int rows, BFS bfs) {

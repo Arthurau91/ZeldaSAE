@@ -152,8 +152,6 @@ public class Monde {
     }
 
     public void initEnnemis(){
-        Skeleton skeleton = new Skeleton(500, 120, terrain.getColumns(),  terrain.getRows(), getBfs());
-        addEnnemi(skeleton);
 
         Boss boss = new Boss(420, 2400, 50, 65, terrain.getColumns(),  terrain.getRows(), getBfs());
         addEnnemi(boss);
@@ -173,7 +171,28 @@ public class Monde {
         Sentinelle sentinelle5 = new Sentinelle(2250, 2190, terrain.getColumns(),  terrain.getRows(), getBfs());
         addEnnemi(sentinelle5);
 
-        Kami kami = new Kami(100, 500, terrain.getColumns(),  terrain.getRows(), getBfs());
+        Skeleton skeleton = new Skeleton(500, 120, terrain.getColumns(),  terrain.getRows(), getBfs());
+        addEnnemi(skeleton);
+
+        Skeleton skeleton2 = new Skeleton(1400, 1400, terrain.getColumns(),  terrain.getRows(), getBfs());
+        addEnnemi(skeleton2);
+
+        Skeleton skeleton3 = new Skeleton(500, 1400, terrain.getColumns(),  terrain.getRows(), getBfs());
+        addEnnemi(skeleton3);
+
+        Skeleton skeleton4 = new Skeleton(500, 1200, terrain.getColumns(),  terrain.getRows(), getBfs());
+        addEnnemi(skeleton4);
+
+        Kami kami = new Kami(1500, 1500, terrain.getColumns(),  terrain.getRows(), getBfs());
         addEnnemi(kami);
+
+        Kami kami2 = new Kami(2970, 0, terrain.getColumns(),  terrain.getRows(), getBfs());
+        addEnnemi(kami2);
+
+        Kami kami3 = new Kami(2100, 600, terrain.getColumns(),  terrain.getRows(), getBfs());
+        addEnnemi(kami3);
+
+        Kami kami4 = new Kami(2500, 1500, terrain.getColumns(),  terrain.getRows(), getBfs());
+        addEnnemi(kami4);
     }
 }

@@ -8,17 +8,21 @@ import com.example.zeldasae.Vue.*;
 import com.example.zeldasae.modele.entities.*;
 import com.example.zeldasae.modele.Monde;
 import javafx.animation.KeyFrame;
+import javafx.animation.PauseTransition;
 import javafx.animation.Timeline;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.TilePane;
+import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
 import javafx.util.Duration;
 
 import java.net.URL;
@@ -43,6 +47,7 @@ public class Controller implements Initializable {
     private Monde map;
     private Timeline gameLoop;
     private Button resetButton;
+    private Label labelMort;
     private VueArme vueArme;
     private VueCollectible vueCollectible;
     private KeyHandler keyHandler;
@@ -50,6 +55,11 @@ public class Controller implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        labelMort = new Label("Vous êtes Mort !");
+        labelMort.setTextFill(Color.RED);
+        labelMort.setFont(new Font("Arial", 36));
+        labelMort.setTranslateX(480);
+        labelMort.setTranslateY(250);
         resetButton = new Button();
         resetButton.setOnAction(actionEvent -> {
             resetButton.setDisable(true);
@@ -62,7 +72,7 @@ public class Controller implements Initializable {
                 stopfreeze();
             });
         });
-        resetButton.setTranslateX(600);
+        resetButton.setTranslateX(595);
         resetButton.setTranslateY(500);
         resetButton.setText("Lancer");
         resetButton.setDisable(false);
@@ -70,7 +80,10 @@ public class Controller implements Initializable {
         fenetre.getChildren().add(resetButton);
         fond = new ImageView(new Image("file:src/main/resources/com/example/zeldasae/assets/fond.png", 1200, 1000, false, false));
         fenetre.getChildren().add(fond);
+        fenetre.getChildren().add(labelMort);
         resetButton.toFront();
+        labelMort.toFront();
+        labelMort.setVisible(false);
     }
 
     private void lancementJeu(){
@@ -167,15 +180,21 @@ public class Controller implements Initializable {
                     temps.setValue(temps.getValue()+1);
                     map.setEnnemisMorts();
                     if (!map.getJoueur().verifVivant()) {
-                        clearJeu();
-                        paneEntites.removeEventHandler(KeyEvent.KEY_PRESSED, keyHandler);
-                        paneEntites.removeEventHandler(KeyEvent.KEY_RELEASED, keyHandler);
-                        resetButton.setDisable(false);
-                        resetButton.setVisible(true);
-                        boxInventaire.setVisible(false);
-                        boxCoffre1.setVisible(false);
-                        boxCoffre2.setVisible(false);
-                        fond.setVisible(true);
+                        labelMort.setVisible(true);
+                        PauseTransition pause = new PauseTransition(Duration.seconds(1));
+                        pause.setOnFinished(event -> {
+                            clearJeu();
+                            paneEntites.removeEventHandler(KeyEvent.KEY_PRESSED, keyHandler);
+                            paneEntites.removeEventHandler(KeyEvent.KEY_RELEASED, keyHandler);
+                            resetButton.setDisable(false);
+                            resetButton.setVisible(true);
+                            boxInventaire.setVisible(false);
+                            boxCoffre1.setVisible(false);
+                            boxCoffre2.setVisible(false);
+                            fond.setVisible(true);
+                            labelMort.setVisible(false);
+                        });
+                        pause.play();
                         gameLoop.stop();
                     }
 
