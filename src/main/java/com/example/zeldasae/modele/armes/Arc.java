@@ -1,6 +1,7 @@
 package com.example.zeldasae.modele.armes;
 
 import com.example.zeldasae.modele.*;
+import com.example.zeldasae.modele.collectibles.Fleche;
 import javafx.animation.PauseTransition;
 import javafx.scene.input.KeyEvent;
 import javafx.util.Duration;
@@ -8,7 +9,7 @@ import javafx.util.Duration;
 public class Arc extends Arme {
 
     public Arc() {
-        super("Arc", 2, 2, 0.8, 0, 0, 0, 0);
+        super("Arc", 2, 3, 0.8, 0, 0, 0, 0);
     }
 
     public Projectile creerProjectile(KeyEvent keyEvent, Monde map) {
@@ -19,12 +20,15 @@ public class Arc extends Arme {
 
     @Override
     public boolean peutAttaquer(Monde map) {
-        return map.getJoueur().getInv().getFleche() != null && map.getJoueur().getInv().getFleche().getQuantite() > 0;
+        if (map.getJoueur().getInv().getCollectible(new Fleche(0, 0)) != null)
+            return map.getJoueur().getInv().getCollectible(new Fleche(0, 0)).getQuantite() > 0;
+        else
+            return false;
     }
 
     @Override
     public void attaquer(KeyEvent keyEvent, Monde map) {
-        map.getJoueur().getInv().getFleche().utiliserItem(map.getJoueur());
+        map.getJoueur().getInv().getCollectible(new Fleche(0, 0)).retirer(1);
 
         Projectile p = creerProjectile(keyEvent, map);
         map.ajouterProjectile(p);

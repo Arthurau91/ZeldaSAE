@@ -1,7 +1,7 @@
 package com.example.zeldasae.Vue;
 
 import com.example.zeldasae.controller.ClickHandlerInventaire;
-import com.example.zeldasae.modele.Collectible;
+import com.example.zeldasae.modele.collectibles.Collectible;
 import com.example.zeldasae.modele.Item;
 import com.example.zeldasae.modele.entities.Joueur;
 import javafx.scene.control.Label;
@@ -41,28 +41,30 @@ public class VueInventaire extends VueInterface {
         }
 
     public void ajouterItemVue(Item i) {
-        Image img = switchImageItem(i);
-        ImageView imageView = new ImageView(img);
+        if (i.getPosSlotItems() != 0) {
+            Image img = switchImageItem(i);
+            ImageView imageView = new ImageView(img);
 
-        int x, y;
-        x = (i.getPosSlotItems() - 1) % this.nbItemLigne * ((int) this.paneInterface.getWidth() / this.nbItemLigne);
-        y = (i.getPosSlotItems() - 1) / this.nbItemLigne * ((int) this.paneInterface.getHeight() / this.nbItemColonne) + 100;
-        imageView.setTranslateX(x);
-        imageView.setTranslateY(y);
-        imageView.setFitWidth(50);
-        imageView.setFitHeight(50);
-        imageView.setId("" + i.getPosSlotItems());
-        imageView.setOnMouseClicked(this.clickHandler);
+            int x, y;
+            x = (i.getPosSlotItems() - 1) % this.nbItemLigne * ((int) this.paneInterface.getWidth() / this.nbItemLigne);
+            y = (i.getPosSlotItems() - 1) / this.nbItemLigne * ((int) this.paneInterface.getHeight() / this.nbItemColonne) + 100;
+            imageView.setTranslateX(x);
+            imageView.setTranslateY(y);
+            imageView.setFitWidth(50);
+            imageView.setFitHeight(50);
+            imageView.setId("" + i.getPosSlotItems());
+            imageView.setOnMouseClicked(this.clickHandler);
 
-        if (i instanceof Collectible) {
-            Label l = new Label();
-            l.setTextFill(Color.WHITE);
-            ((Collectible) i).quantiteProperty().addListener((obs, ol, nouv) -> l.setText(nouv.toString()));
-            l.setTranslateX(x + 50);
-            l.setTranslateY(y + 50);
-            paneInterface.getChildren().add(l);
+            if (i instanceof Collectible) {
+                Label l = new Label();
+                l.setTextFill(Color.WHITE);
+                ((Collectible) i).quantiteProperty().addListener((obs, ol, nouv) -> l.setText(nouv.toString()));
+                l.setTranslateX(x + 50);
+                l.setTranslateY(y + 50);
+                paneInterface.getChildren().add(l);
+            }
+            this.paneInterface.getChildren().add(imageView);
         }
-        this.paneInterface.getChildren().add(imageView);
     }
 
     public Image switchImageItem(Item i) {

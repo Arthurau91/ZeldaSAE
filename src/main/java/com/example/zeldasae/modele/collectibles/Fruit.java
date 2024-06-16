@@ -1,14 +1,13 @@
 package com.example.zeldasae.modele.collectibles;
 
-import com.example.zeldasae.modele.Collectible;
 import com.example.zeldasae.modele.entities.Joueur;
 
 public class Fruit extends Collectible {
 
     private Joueur joueur;
 
-    public Fruit(int quantite, int quantite_max, int large, int haut, int x, int y, Joueur joueur) {
-        super(quantite, quantite_max, "Fruit", 5, large, haut, x, y, true);
+    public Fruit(int x, int y, Joueur joueur) {
+        super(0, 10, "Fruit", 5, 30, 30, x, y);
         this.joueur = joueur;
     }
     @Override

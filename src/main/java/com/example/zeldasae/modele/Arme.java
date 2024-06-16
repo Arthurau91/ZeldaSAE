@@ -8,8 +8,6 @@ import javafx.collections.ObservableList;
 import javafx.scene.input.KeyEvent;
 import javafx.util.Duration;
 
-import java.util.ArrayList;
-
 public abstract class Arme extends Item{
 
     private int degats;
@@ -79,7 +77,7 @@ public abstract class Arme extends Item{
 
     public void attaquer(KeyEvent keyEvent, Monde map) {
         this.setPosMap(map.getJoueur().getX(), map.getJoueur().getY(), keyEvent);
-        this.checkCoupTouche(map.getListeEnnemis());
+        this.checkCoupTouche(map);
         map.getJoueur().setPeutDonnerCoupProperty(false);
 
         PauseTransition pause = new PauseTransition(Duration.seconds(map.getJoueur().getInv().getArmeActuelle().getDelaiRecuperation()));

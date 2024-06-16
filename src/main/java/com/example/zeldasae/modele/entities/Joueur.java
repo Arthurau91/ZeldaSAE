@@ -85,4 +85,11 @@ public class Joueur extends Entite {
         }
         return false;
     }
+
+    public boolean peutAttaquerArme(Monde map) {
+        if (getInv().getArmeActuelle() != null)
+            return getInv().getArmeActuelle().peutAttaquer(map);
+        else
+            return false;
+    }
 }

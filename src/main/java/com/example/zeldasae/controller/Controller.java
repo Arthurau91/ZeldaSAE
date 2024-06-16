@@ -1,6 +1,8 @@
 package com.example.zeldasae.controller;
 
 import com.example.zeldasae.Algo.BFS;
+import com.example.zeldasae.Vue.VueArmes.CreateurVueArme;
+import com.example.zeldasae.Vue.VueProjectile;
 import com.example.zeldasae.Vue.VueInventaire;
 import com.example.zeldasae.Vue.VueTerrain;
 import com.example.zeldasae.modele.*;
@@ -48,7 +50,8 @@ public class Controller implements Initializable {
     private Timeline gameLoop;
     private Button resetButton;
     private Label labelMort;
-    private VueArme vueArme;
+    private CreateurVueArme createurVueArme;
+    private VueProjectile vueProjectile;
     private VueCollectible vueCollectible;
     private KeyHandler keyHandler;
     private IntegerProperty temps;
@@ -106,11 +109,12 @@ public class Controller implements Initializable {
 
         VueTerrain vueTerrain = new VueTerrain(this.map, this.mapPane, loadJSON.getMap(), loadJSON.getMap2());
         VueInventaire vueInv = new VueInventaire(this.boxInventaire, this.map.getJoueur());
-        this.vueArme = new VueArme(this.map.getJoueur(), this.paneEntites, map, this.mapPane);
+        this.createurVueArme = new CreateurVueArme(this.map.getJoueur(), this.paneEntites, map, this.mapPane);
         this.vueCollectible = new VueCollectible(paneEntites, map);
+        this.vueProjectile = new VueProjectile(paneEntites);
 
         this.map.getJoueur().getInv().getListeItems().addListener(new ObservateurItems(vueInv, null));
-        this.map.getListeProjectiles().addListener(new ObservateurProjectiles(vueArme));
+        this.map.getListeProjectiles().addListener(new ObservateurProjectiles(vueProjectile));
         this.map.getListeCollectibles().addListener(new ObservateurCollectibles(vueCollectible));
 
         bfs.lanceAlgo(map, mapPane.getPrefColumns(), mapPane.getPrefRows());
@@ -132,7 +136,7 @@ public class Controller implements Initializable {
         this.map.addCoffre(coffre2);
         coffre2.getListeItem().addListener(new ObservateurItems(null, vueCoffre2));
 
-        this.keyHandler = new KeyHandler(this.map, vueInv, vueTerrain, vueArme, Arrays.asList(vueCoffre, vueCoffre2));
+        this.keyHandler = new KeyHandler(this.map, vueInv, vueTerrain, createurVueArme, vueCollectible, Arrays.asList(vueCoffre, vueCoffre2));
 
         paneEntites.addEventHandler(KeyEvent.KEY_PRESSED, keyHandler);
         paneEntites.addEventHandler(KeyEvent.KEY_RELEASED, keyHandler);
