@@ -1,5 +1,6 @@
 package com.example.zeldasae.Vue.VueArmes;
 
+import com.example.zeldasae.Vue.VueProjectile;
 import com.example.zeldasae.modele.armes.Arme;
 import com.example.zeldasae.modele.Monde;
 import com.example.zeldasae.modele.armes.Bombe;
@@ -35,4 +36,5 @@ public class CreateurVueArme {
         }
         return null;
     }
+
 }
