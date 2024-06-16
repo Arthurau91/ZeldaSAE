@@ -1,5 +1,6 @@
 package com.example.zeldasae.Vue.VueArmes;
 
+import com.example.zeldasae.Vue.VueTerrain;
 import com.example.zeldasae.modele.Monde;
 import com.example.zeldasae.modele.armes.Bombe;
 import com.example.zeldasae.modele.entities.Joueur;
@@ -12,8 +13,8 @@ import javafx.util.Duration;
 
 public class VueBombe extends VueArme {
 
-    public VueBombe(Joueur joueur, Pane paneEntites, Monde map, Pane mapPane) {
-        super(joueur, paneEntites, map, mapPane);
+    public VueBombe(Joueur joueur, Pane paneEntites, Monde map, Pane mapPane, VueTerrain vueTerrain) {
+        super(joueur, paneEntites, map, mapPane, vueTerrain);
     }
 
     @Override
@@ -21,7 +22,10 @@ public class VueBombe extends VueArme {
         afficherBombe(keyEvent);
 
         PauseTransition pause = new PauseTransition(Duration.seconds(Bombe.delaiExplosion));
-        pause.setOnFinished(event -> afficherExplosion(x, y));
+        pause.setOnFinished(event -> {
+            afficherExplosion(x, y);
+            vueTerrain.explosion(x, y);
+        });
         pause.play();
     }
 

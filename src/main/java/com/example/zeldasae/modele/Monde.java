@@ -1,6 +1,7 @@
 package com.example.zeldasae.modele;
 
 import com.example.zeldasae.Algo.BFS;
+import com.example.zeldasae.modele.collectibles.Collectible;
 import com.example.zeldasae.modele.entities.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;

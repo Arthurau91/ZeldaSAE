@@ -8,10 +8,7 @@ import com.example.zeldasae.Vue.VueInventaire;
 import com.example.zeldasae.Vue.VueTerrain;
 import com.example.zeldasae.modele.*;
 
-import com.example.zeldasae.modele.armes.Arc;
-import com.example.zeldasae.modele.armes.Boomerang;
-import com.example.zeldasae.modele.armes.Epee;
-import com.example.zeldasae.modele.armes.Hache;
+import com.example.zeldasae.modele.armes.*;
 import com.example.zeldasae.modele.collectibles.BombeCollectible;
 import com.example.zeldasae.modele.collectibles.Collectible;
 import com.example.zeldasae.modele.collectibles.Fleche;
@@ -48,8 +45,8 @@ public class KeyHandler implements EventHandler<KeyEvent> {
     //à retirer, sert uniquement pour les tests
     private Epee itemTest = new Epee();
     private Hache hacheTest = new Hache();
-    private Item itemTest3 = new Armure(0,"Armure 3", 6);
-    private Item itemTest4 = new Armure(1,"Armure 4", 19);
+    private Item itemTest3 = new Armure(0, "Armure 3", 6);
+    private Item itemTest4 = new Armure(1, "Armure 4", 19);
     private Arc arcTest = new Arc();
     Collectible fleche = new Fleche(0, 0);
     Boomerang boomerang = new Boomerang();
@@ -131,23 +128,6 @@ public class KeyHandler implements EventHandler<KeyEvent> {
                             vueArme.donnerCoup(this.map.getJoueur().getInv().getArmeActuelle().getHitBox().getX(), this.map.getJoueur().getInv().getArmeActuelle().getHitBox().getY(), keyEvent);
                         if (keyEvent.getCode() == UP || keyEvent.getCode() == DOWN)
                             this.map.getJoueur().getInv().getArmeActuelle().getHitBox().pivote();
-                        }
-                        String directionBloc = "";
-                        switch (keyEvent.getCode()) {
-                            case LEFT:
-                                directionBloc = "left";
-                                break;
-                            case RIGHT:
-                                directionBloc = "right";
-                                break;
-                            case UP:
-                                directionBloc = "up";
-                                break;
-                            case DOWN:
-                                directionBloc = "down";
-                                break;
-                        }
-                        vueTerrain.detruitBloc(map.getJoueur().getX(), map.getJoueur().getY(), directionBloc);
                     }
                     break;
                 case TAB: // inventaires

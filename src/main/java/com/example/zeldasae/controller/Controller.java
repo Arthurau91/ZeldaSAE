@@ -104,12 +104,13 @@ public class Controller implements Initializable {
 
         this.map = new Monde(joueur, bfs, loadJSON.getPrefRows(), loadJSON.getPrefColumns());
 
-        this.map.getListeEnnemis().addListener(new ObservateurEnnemis(paneEntites, temps));
+        VueTerrain vueTerrain = new VueTerrain(this.map, this.mapPane, loadJSON.getMap(), loadJSON.getMap2());
+        this.map.getListeEnnemis().addListener(new ObservateurEnnemis(paneEntites, temps, vueTerrain));
         this.map.initEnnemis();
 
-        VueTerrain vueTerrain = new VueTerrain(this.map, this.mapPane, loadJSON.getMap(), loadJSON.getMap2());
+
         VueInventaire vueInv = new VueInventaire(this.boxInventaire, this.map.getJoueur());
-        this.createurVueArme = new CreateurVueArme(this.map.getJoueur(), this.paneEntites, map, this.mapPane);
+        this.createurVueArme = new CreateurVueArme(this.map.getJoueur(), this.paneEntites, map, this.mapPane, vueTerrain);
         this.vueCollectible = new VueCollectible(paneEntites, map);
         this.vueProjectile = new VueProjectile(paneEntites);
 
@@ -136,7 +137,7 @@ public class Controller implements Initializable {
         this.map.addCoffre(coffre2);
         coffre2.getListeItem().addListener(new ObservateurItems(null, vueCoffre2));
 
-        this.keyHandler = new KeyHandler(this.map, vueInv, vueTerrain, createurVueArme, vueCollectible, Arrays.asList(vueCoffre, vueCoffre2));
+        this.keyHandler = new KeyHandler(this.map, vueInv, vueTerrain, createurVueArme, Arrays.asList(vueCoffre, vueCoffre2));
 
         paneEntites.addEventHandler(KeyEvent.KEY_PRESSED, keyHandler);
         paneEntites.addEventHandler(KeyEvent.KEY_RELEASED, keyHandler);

@@ -1,5 +1,6 @@
 package com.example.zeldasae.Vue.VueArmes;
 
+import com.example.zeldasae.Vue.VueTerrain;
 import com.example.zeldasae.modele.Monde;
 import com.example.zeldasae.modele.entities.Joueur;
 import javafx.animation.PauseTransition;
@@ -10,8 +11,8 @@ import javafx.scene.input.KeyEvent;
 
 public class VueHache extends VueArme {
 
-    public VueHache(Joueur joueur, Pane paneEntites, Monde map, Pane mapPane) {
-        super(joueur, paneEntites, map, mapPane);
+    public VueHache(Joueur joueur, Pane paneEntites, Monde map, Pane mapPane, VueTerrain vueTerrain) {
+        super(joueur, paneEntites, map, mapPane, vueTerrain);
     }
 
     @Override

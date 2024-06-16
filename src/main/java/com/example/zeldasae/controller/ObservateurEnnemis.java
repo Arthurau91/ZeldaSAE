@@ -10,10 +10,12 @@ public class ObservateurEnnemis implements ListChangeListener<Ennemi> {
 
     private Pane paneEntites;
     private IntegerProperty temps;
+    private VueTerrain vueTerrain;
 
-    public ObservateurEnnemis(Pane paneEntites, IntegerProperty temps){
+    public ObservateurEnnemis(Pane paneEntites, IntegerProperty temps, VueTerrain vueTerrain){
         this.paneEntites = paneEntites;
         this.temps = temps;
+        this.vueTerrain = vueTerrain;
     }
 
     @Override
@@ -28,7 +30,7 @@ public class ObservateurEnnemis implements ListChangeListener<Ennemi> {
                 else if (ennemi instanceof Skeleton)
                     vueEntite = new VueSkeleton((Skeleton) ennemi, paneEntites, temps);
                 else if (ennemi instanceof Kami)
-                    vueEntite = new VueKami((Kami) ennemi, paneEntites, temps);
+                    vueEntite = new VueKami((Kami) ennemi, paneEntites, temps, vueTerrain);
                 ennemi.pvProperty().addListener(new ObservateurVie(ennemi, vueEntite));
             }
         }

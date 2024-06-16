@@ -54,7 +54,7 @@ public class VueTerrain {
         afficherMap();
     }
 
-    public void afficherMap() {
+    private void afficherMap() {
         ArrayList<Integer> m1 = map.getTerrain().getMap();
         this.map.setMap(m1);
         Random random = new Random();
@@ -121,5 +121,14 @@ public class VueTerrain {
         StackPane vide = new StackPane(new ImageView(tiles[m2.get(cooBloc)-1]));
         mapPane.getChildren().set(cooBloc, vide);
         this.map.getTerrain().setCoo(cooBloc, 0);
+    }
+
+    public void explosion(int x, int y){
+        int coo = map.getTerrain().changeCoo(x, y);
+        int[] modifcoo = {-0, 1, 2, 100, 101, 102, 200, 201, 202};
+        for (int cases : modifcoo){
+            if (this.map.getTerrain().destructible(coo+cases))
+                changeBloc(coo+cases);
+        }
     }
 }

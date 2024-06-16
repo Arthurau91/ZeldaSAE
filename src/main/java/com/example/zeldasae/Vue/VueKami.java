@@ -10,13 +10,16 @@ import javafx.util.Duration;
 
 public class VueKami extends VueEntite{
 
-    public VueKami(Kami entite, Pane paneEntites, IntegerProperty temps) {
+    private VueTerrain vueTerrain;
+
+    public VueKami(Kami entite, Pane paneEntites, IntegerProperty temps, VueTerrain vueTerrain) {
         super(entite, paneEntites, temps);
         super.loadSprites(new Image("file:src/main/resources/com/example/zeldasae/assets/Kami/Kami.png", 240, 90, false, false), 30, 30);
         statusAnim = 0;
         this.vueBarreDeVie = new VueBarreDeVie(90, 10, paneEntites);
         bindBarreDeViePosition();
         super.creerImageEntite();
+        this.vueTerrain = vueTerrain;
     }
 
     @Override
@@ -29,6 +32,7 @@ public class VueKami extends VueEntite{
         PauseTransition pause = new PauseTransition(Duration.seconds(1));
         pause.setOnFinished(event -> super.supprimerImageEntite());
         pause.play();
+        vueTerrain.explosion(getEntite().getX(), getEntite().getY());
     }
 
     @Override

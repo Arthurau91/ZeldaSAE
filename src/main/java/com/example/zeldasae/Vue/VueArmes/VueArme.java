@@ -1,5 +1,6 @@
 package com.example.zeldasae.Vue.VueArmes;
 
+import com.example.zeldasae.Vue.VueTerrain;
 import com.example.zeldasae.modele.Monde;
 import com.example.zeldasae.modele.entities.Joueur;
 import javafx.animation.PauseTransition;
@@ -15,12 +16,14 @@ public abstract class VueArme {
     private Pane paneEntites;
     private Monde map;
     private Pane mapPane;
+    protected VueTerrain vueTerrain;
 
-    public VueArme (Joueur joueur, Pane paneEntites, Monde map, Pane mapPane) {
+    public VueArme (Joueur joueur, Pane paneEntites, Monde map, Pane mapPane, VueTerrain vueTerrain) {
         this.joueur = joueur;
         this.paneEntites = paneEntites;
         this.map = map;
         this.mapPane = mapPane;
+        this.vueTerrain = vueTerrain;
     }
 
     public Joueur getJoueur() {
@@ -36,7 +39,25 @@ public abstract class VueArme {
         paneEntites.getChildren().add(imageView);
 
         PauseTransition pause = new PauseTransition(Duration.seconds(joueur.getInv().getArmeActuelle().getDelaiRecuperation() - 0.3));
-        pause.setOnFinished(event -> paneEntites.getChildren().remove(imageView));
+        pause.setOnFinished(event -> {
+            paneEntites.getChildren().remove(imageView);
+            String directionBloc = "";
+            switch (keyEvent.getCode()) {
+                case LEFT:
+                    directionBloc = "left";
+                    break;
+                case RIGHT:
+                    directionBloc = "right";
+                    break;
+                case UP:
+                    directionBloc = "up";
+                    break;
+                case DOWN:
+                    directionBloc = "down";
+                    break;
+            }
+            vueTerrain.detruitBloc(map.getJoueur().getX(), map.getJoueur().getY(), directionBloc);
+        });
         pause.play();
 
 //        Rectangle hitboxTest = new Rectangle(joueur.getInv().getArmeActuelle().getHitBox().getLarge(), joueur.getInv().getArmeActuelle().getHitBox().getHaut(), Color.RED);

@@ -65,8 +65,8 @@ public abstract class Arme extends Item{
         }
     }
 
-    public void checkCoupTouche(ObservableList<Ennemi> ennemis) {
-       for (Ennemi e : ennemis) {
+    public void checkCoupTouche(Monde map) {
+       for (Ennemi e : map.getListeEnnemis()) {
            if (e.getHitBox().estDedansHitbox(this.hitBox)) {
                infligerDegats(e);
                System.out.println("Pv de l'ennemi : " + e.getPv());
