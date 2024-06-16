@@ -12,6 +12,9 @@ import com.example.zeldasae.modele.armes.Arc;
 import com.example.zeldasae.modele.armes.Boomerang;
 import com.example.zeldasae.modele.armes.Epee;
 import com.example.zeldasae.modele.armes.Hache;
+import com.example.zeldasae.modele.armures.Armure;
+import com.example.zeldasae.modele.armures.ArmureChevalier;
+import com.example.zeldasae.modele.armures.ArmureFragile;
 import com.example.zeldasae.modele.collectibles.BombeCollectible;
 import com.example.zeldasae.modele.collectibles.Collectible;
 import com.example.zeldasae.modele.collectibles.Fleche;
@@ -49,8 +52,8 @@ public class KeyHandler implements EventHandler<KeyEvent> {
     //à retirer, sert uniquement pour les tests
     private Epee itemTest = new Epee();
     private Hache hacheTest = new Hache();
-    private Item itemTest3 = new Armure(0,"Armure 3", 6);
-    private Item itemTest4 = new Armure(1,"Armure 4", 19);
+    private Item itemTest3 = new ArmureFragile();
+    private Item itemTest4 = new ArmureChevalier();
     private Arc arcTest = new Arc();
     Collectible fleche = new Fleche(0, 0);
     Boomerang boomerang = new Boomerang();
@@ -114,15 +117,14 @@ public class KeyHandler implements EventHandler<KeyEvent> {
                     this.map.getJoueur().getInv().ajouterItem(itemTest4);
                     this.map.getJoueur().getInv().ajouterItem(charme);
                     this.map.getJoueur().getInv().ajouterItem(hacheTest);
+                    this.map.getJoueur().getInv().ajouterItem(arcTest);
+                    this.map.getJoueur().getInv().ajouterItem(boomerang);
                     this.map.ajouterCollectible(collectibleTest);
                     this.map.ajouterCollectible(fleche);
                     this.map.ajouterCollectible(bombeCollectible);
                     break;
                 case A: // switch arme
                     this.map.getJoueur().getInv().echangerArmes();
-                    break;
-                case P: //à retirer, sert uniquement pour les tests
-                    this.map.getJoueur().getInv().changerArme(arcTest);
                     break;
                 case LEFT, RIGHT, UP, DOWN: // tirer
                     if (this.map.getJoueur().getPeutDonnerCoupProperty() && map.getJoueur().peutAttaquerArme(map)) {

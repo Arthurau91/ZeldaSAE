@@ -1,5 +1,8 @@
-package com.example.zeldasae.modele;
+package com.example.zeldasae.modele.armes;
 
+import com.example.zeldasae.modele.HitBox;
+import com.example.zeldasae.modele.Item;
+import com.example.zeldasae.modele.Monde;
 import com.example.zeldasae.modele.entities.Ennemi;
 import com.example.zeldasae.modele.entities.Joueur;
 import javafx.animation.PauseTransition;
@@ -7,7 +10,7 @@ import javafx.beans.property.SimpleIntegerProperty;
 import javafx.scene.input.KeyEvent;
 import javafx.util.Duration;
 
-public abstract class Arme extends Item{
+public abstract class Arme extends Item {
 
     private int degats;
     private HitBox hitBox;

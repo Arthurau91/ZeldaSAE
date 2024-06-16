@@ -1,6 +1,6 @@
 package com.example.zeldasae.Vue.VueArmes;
 
-import com.example.zeldasae.modele.Arme;
+import com.example.zeldasae.modele.armes.Arme;
 import com.example.zeldasae.modele.Monde;
 import com.example.zeldasae.modele.armes.Bombe;
 import com.example.zeldasae.modele.armes.Epee;

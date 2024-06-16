@@ -1,6 +1,5 @@
 package com.example.zeldasae.modele.armes;
 
-import com.example.zeldasae.modele.Arme;
 import com.example.zeldasae.modele.Monde;
 import com.example.zeldasae.modele.collectibles.BombeCollectible;
 import com.example.zeldasae.modele.entities.Ennemi;

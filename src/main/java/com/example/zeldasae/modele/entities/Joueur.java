@@ -48,8 +48,11 @@ public class Joueur extends Entite {
 
     @Override
     public void perdreVie(int degats) {
+        int resistance = 0;
+        if (getInv().getArmureActuelle() != null)
+            resistance = getInv().getArmureActuelle().getResistance();
         if (getPeutPrendreCoupProperty()) {
-            super.perdreVie(degats);
+            super.perdreVie(degats - resistance);
             setPeutPrendreCoupProperty(false);
 
             PauseTransition pause = new PauseTransition(Duration.seconds(1));

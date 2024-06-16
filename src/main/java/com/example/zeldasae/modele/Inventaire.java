@@ -1,5 +1,7 @@
 package com.example.zeldasae.modele;
 
+import com.example.zeldasae.modele.armes.Arme;
+import com.example.zeldasae.modele.armures.Armure;
 import com.example.zeldasae.modele.collectibles.Collectible;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;

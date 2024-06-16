@@ -1,7 +1,5 @@
 package com.example.zeldasae.modele.armes;
 
-import com.example.zeldasae.modele.Arme;
-
 public class Epee extends Arme {
 
     public Epee() {

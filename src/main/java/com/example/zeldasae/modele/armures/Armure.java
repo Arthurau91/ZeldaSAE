@@ -1,8 +1,9 @@
-package com.example.zeldasae.modele;
+package com.example.zeldasae.modele.armures;
 
+import com.example.zeldasae.modele.Item;
 import com.example.zeldasae.modele.entities.Joueur;
 
-public class Armure extends Item {
+public abstract class Armure extends Item {
 
     private int resistance;
 
