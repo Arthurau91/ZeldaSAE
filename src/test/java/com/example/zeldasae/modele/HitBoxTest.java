@@ -5,6 +5,8 @@ import javafx.beans.property.SimpleIntegerProperty;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.util.ArrayList;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 class HitBoxTest {
@@ -22,6 +24,7 @@ class HitBoxTest {
         hitBox = new HitBox(30, 30, x, y);
         terrain = new Terrain(10);
         coffre = new Coffre(50, 50, 1);
+
     }
 
     @Test
@@ -94,14 +97,15 @@ class HitBoxTest {
 
         assertTrue(hitBox.contient(51, 51));
         assertTrue(hitBox.contient(79, 79));
+        assertTrue(hitBox.contient(60, 60));
+        assertTrue(hitBox.contient(55, 55));
+        assertTrue(hitBox.contient(78, 78));
 
         assertFalse(hitBox.contient(50, 50));
         assertFalse(hitBox.contient(80, 80));
         assertFalse(hitBox.contient(30, 30));
-
         assertFalse(hitBox.contient(49, 49));
         assertFalse(hitBox.contient(81, 81));
-
         assertFalse(hitBox.contient(50, 51));
         assertFalse(hitBox.contient(79, 80));
     }
@@ -201,33 +205,35 @@ class HitBoxTest {
 
 
     @Test
-    public void testCheckColision() {
+    void testCheckColision() {
 
-        assertFalse(hitBox.checkColision("left", 10, terrain));
-        assertFalse(hitBox.checkColision("right", 10, terrain));
-        assertFalse(hitBox.checkColision("up", 10, terrain));
-        assertFalse(hitBox.checkColision("down", 10, terrain));
+        ArrayList<Integer> map = new ArrayList<>();
 
-        hitBox.setX(30);
-        hitBox.setY(30);
+        for (int i = 0; i < 100; i++) {
+            map.add(0);
+        }
 
-        assertFalse(hitBox.checkColision("left", 10, terrain));
-        assertFalse(hitBox.checkColision("right", 10, terrain));
-        assertFalse(hitBox.checkColision("up", 10, terrain));
-        assertFalse(hitBox.checkColision("down", 10, terrain));
+        terrain.setMap(map);
 
-        hitBox.setY(0);
-        assertFalse(hitBox.checkColision("down", 10, terrain));
+        assertTrue(hitBox.checkColision("right", terrain.getRows(), terrain));
 
-        hitBox.setY(terrain.getMap().size() * 30 - hitBox.getHaut());
-        assertFalse(hitBox.checkColision("up", 10, terrain));
+        terrain.setCoo(terrain.changeCoo(80, 50), 514);
+        assertFalse(hitBox.checkColision("right", terrain.getRows(), terrain));
 
-        hitBox.setX(0);
-        assertFalse(hitBox.checkColision("right", 10, terrain));
+        assertTrue(hitBox.checkColision("left", terrain.getRows(), terrain));
 
-        hitBox.setX(terrain.getMap().size() * 30 - hitBox.getLarge());
-        assertFalse(hitBox.checkColision("left", 10, terrain));
+        terrain.setCoo(terrain.changeCoo(20, 50), 514);
+        assertTrue(hitBox.checkColision("left", terrain.getRows(), terrain));
 
+        assertFalse(hitBox.checkColision("up", terrain.getRows(), terrain));
+
+        terrain.setCoo(terrain.changeCoo(50, 20), 514);
+        assertFalse(hitBox.checkColision("up", terrain.getRows(), terrain));
+
+        assertTrue(hitBox.checkColision("down", terrain.getRows(), terrain));
+
+        terrain.setCoo(terrain.changeCoo(50, 80), 514);
+        assertFalse(hitBox.checkColision("down", terrain.getRows(), terrain));
     }
 
     @Test
