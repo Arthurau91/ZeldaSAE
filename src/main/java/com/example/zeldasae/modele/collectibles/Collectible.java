@@ -11,7 +11,7 @@ public abstract class Collectible extends Item {
     public static int compteur = 0;
     private IntegerProperty quantiteProperty;
     private int quantite_max;
-    private String type;     //ici, type = "coeur" ou "fleche", c'est le type d'item ramassable
+    private String type;
     private HitBox hitBox;
 
     public Collectible(int quantite, int quantite_max, String type, int posSlotItems, int large, int haut, int x, int y) {

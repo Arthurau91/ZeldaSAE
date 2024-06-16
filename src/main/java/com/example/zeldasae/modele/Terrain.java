@@ -17,6 +17,15 @@ public class Terrain {
     public ArrayList<Integer> getMap() {
         return map;
     }
+    public void setMap(ArrayList<Integer> map) {
+        this.map = map;
+    }
+    public int getRows() {
+        return rows;
+    }
+    public int getColumns() {
+        return columns;
+    }
 
     public int changeCoo(int x, int y){
         return (x/30) + ((y/30)*rows);
@@ -31,18 +40,6 @@ public class Terrain {
             }
         }
         return false;
-    }
-
-    public int getRows() {
-        return rows;
-    }
-
-    public int getColumns() {
-        return columns;
-    }
-
-    public void setColumns(int columns) {
-        this.columns = columns;
     }
 
     public boolean vide(int coo){
@@ -92,10 +89,6 @@ public class Terrain {
         if (coo < map.size() && coo >=0)
             this.map.set(coo, valeur);
 
-    }
-
-    public void setMap(ArrayList<Integer> map) {
-        this.map = map;
     }
 
 }

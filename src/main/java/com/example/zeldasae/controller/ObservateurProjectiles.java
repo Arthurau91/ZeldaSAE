@@ -1,6 +1,5 @@
 package com.example.zeldasae.controller;
 
-import com.example.zeldasae.Vue.VueArmes.VueArme;
 import com.example.zeldasae.Vue.VueProjectile;
 import com.example.zeldasae.modele.Projectile;
 import com.example.zeldasae.modele.ProjectileJoueur;

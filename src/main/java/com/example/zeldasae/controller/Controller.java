@@ -7,6 +7,7 @@ import com.example.zeldasae.Vue.VueInventaire;
 import com.example.zeldasae.Vue.VueTerrain;
 import com.example.zeldasae.modele.*;
 import com.example.zeldasae.Vue.*;
+import com.example.zeldasae.modele.armes.Epee;
 import com.example.zeldasae.modele.entities.*;
 import com.example.zeldasae.modele.Monde;
 import javafx.animation.KeyFrame;
@@ -60,7 +61,7 @@ public class Controller implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         labelMort = new Label("Vous êtes Mort !");
         labelMort.setTextFill(Color.RED);
-        labelMort.setFont(new Font("Arial", 36));
+        labelMort.setFont(new Font("Calibri", 36));
         labelMort.setTranslateX(480);
         labelMort.setTranslateY(250);
         resetButton = new Button();
@@ -110,11 +111,12 @@ public class Controller implements Initializable {
 
 
         VueInventaire vueInv = new VueInventaire(this.boxInventaire, this.map.getJoueur());
-        this.createurVueArme = new CreateurVueArme(this.map.getJoueur(), this.paneEntites, map, this.mapPane, vueTerrain);
+        this.createurVueArme = new CreateurVueArme(joueur, this.paneEntites, map, vueTerrain);
         this.vueCollectible = new VueCollectible(paneEntites, map);
         this.vueProjectile = new VueProjectile(paneEntites);
 
-        this.map.getJoueur().getInv().getListeItems().addListener(new ObservateurItems(vueInv, null));
+        joueur.getInv().getListeItems().addListener(new ObservateurItems(vueInv));
+        joueur.getInv().ajouterItem(new Epee());
         this.map.getListeProjectiles().addListener(new ObservateurProjectiles(vueProjectile));
         this.map.getListeCollectibles().addListener(new ObservateurCollectibles(vueCollectible));
 
@@ -122,27 +124,28 @@ public class Controller implements Initializable {
 
         ObservateurMouvement observateurMouvement = new ObservateurMouvement(this.map, this.mapPane, this.paneEntites, vueJoueur);
 
-        this.map.getJoueur().xProperty().addListener(observateurMouvement);
-        this.map.getJoueur().yProperty().addListener(observateurMouvement);
+        joueur.xProperty().addListener(observateurMouvement);
+        joueur.yProperty().addListener(observateurMouvement);
 
         // Création des coffres
 
         Coffre coffre = new Coffre(2160, 2190, 0);
-        VueCoffre vueCoffre = new VueCoffre(boxCoffre1, this.map.getJoueur(), coffre, vueInv);
+        VueCoffre vueCoffre = new VueCoffre(boxCoffre1, joueur, coffre, vueInv);
         this.map.addCoffre(coffre);
-        coffre.getListeItem().addListener(new ObservateurItems(null, vueCoffre));
+        coffre.getListeItem().addListener(new ObservateurItemsCoffre(vueCoffre));
 
         Coffre coffre2 = new Coffre(2640, 750, 1);
-        VueCoffre vueCoffre2 = new VueCoffre(boxCoffre2, this.map.getJoueur(), coffre2, vueInv);
+        VueCoffre vueCoffre2 = new VueCoffre(boxCoffre2, joueur, coffre2, vueInv);
         this.map.addCoffre(coffre2);
-        coffre2.getListeItem().addListener(new ObservateurItems(null, vueCoffre2));
+        coffre2.getListeItem().addListener(new ObservateurItemsCoffre(vueCoffre2));
+
+        map.initCoffres();
 
         this.keyHandler = new KeyHandler(this.map, vueInv, vueTerrain, createurVueArme, Arrays.asList(vueCoffre, vueCoffre2));
 
         paneEntites.addEventHandler(KeyEvent.KEY_PRESSED, keyHandler);
         paneEntites.addEventHandler(KeyEvent.KEY_RELEASED, keyHandler);
         initAnimation();
-
     }
 
     private void relanceJeu(){
@@ -171,9 +174,7 @@ public class Controller implements Initializable {
         gameLoop.setCycleCount(Timeline.INDEFINITE);
 
         KeyFrame kf = new KeyFrame(
-                // on définit le FPS (nbre de frame par seconde)
                 Duration.seconds(0.040),
-                // on définit ce qui se passe à chaque frame
                 (ev ->{
                     this.map.getJoueur().deplacement(map);
 

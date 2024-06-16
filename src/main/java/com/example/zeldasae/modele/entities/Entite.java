@@ -23,7 +23,7 @@ public abstract class Entite {
     private int pvMax;
     private int degats;
     private StringProperty direction;
-    private BooleanProperty bouge;
+    private boolean bouge;
 
     public Entite(int x, int y, int width, int height, int column, int rows, int pvMax) {
         this.xProperty = new SimpleIntegerProperty(x);
@@ -41,9 +41,7 @@ public abstract class Entite {
         this.pv = new SimpleIntegerProperty(this.pvMax);
         this.degats = 1;
         this.direction = new SimpleStringProperty("down");
-        this.bouge = new SimpleBooleanProperty(false);
-
-
+        this.bouge = false;
     }
 
     public Entite(int x, int y, String id, int width, int height, int column, int rows, int pvMax) {
@@ -89,16 +87,12 @@ public abstract class Entite {
     }
     public void addDirection(String direction){this.direction.setValue(this.getDirection()+direction);}
 
-    public BooleanProperty bougeProperty() {
-        return bouge;
-    }
     public void setBouge(boolean bouge) {
-        this.bouge.setValue(bouge);
+        this.bouge = bouge;
     }
     public boolean isBouge() {
-        return bouge.getValue();
+        return bouge;
     }
-
     public String getId() {
         return id;
     }
@@ -129,9 +123,6 @@ public abstract class Entite {
     public int getDegats() {
         return degats;
     }
-    public void setDegats(int degats) {
-        this.degats = degats;
-    }
     public HitBox getHitBox() {
         return hitBox;
     }
@@ -141,17 +132,15 @@ public abstract class Entite {
     public void setDeplacement(String deplacement) {
         this.deplacement = deplacement;
     }
-    public int getVitesse() {
-        return vitesse;
-    }
 
     public void perdreVie(int degats) {
         if (degats <= 0)
             degats = 1;
-        setPv(this.getPv() - degats);
-        if (this.getPv() <= 0) {
+        int npv = this.getPv() - degats;
+        if (npv <= 0) {
             setPv(0);
         }
+        else setPv(npv);
     }
 
     public void ajouterVie(int vieRecup) {
@@ -180,7 +169,6 @@ public abstract class Entite {
      * @return true si le déplacement a été effectué sinon false
      */
     public boolean deplacement(Monde m) {
-//        System.out.println("X : "+(this.getX()/this.width)%(this.width*this.column)+"; Y : "+(this.getY()/this.height)%(this.height*this.getRows()));
         if (verifVivant()) {
             int dx = 0;
             int dy = 0;

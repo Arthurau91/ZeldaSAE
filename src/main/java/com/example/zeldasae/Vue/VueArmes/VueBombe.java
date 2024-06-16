@@ -13,8 +13,8 @@ import javafx.util.Duration;
 
 public class VueBombe extends VueArme {
 
-    public VueBombe(Joueur joueur, Pane paneEntites, Monde map, Pane mapPane, VueTerrain vueTerrain) {
-        super(joueur, paneEntites, map, mapPane, vueTerrain);
+    public VueBombe(Joueur joueur, Pane paneEntites, Monde map, VueTerrain vueTerrain) {
+        super(joueur, paneEntites, map, vueTerrain);
     }
 
     @Override

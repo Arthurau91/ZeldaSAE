@@ -50,6 +50,8 @@ public class VueCoffre extends VueInterface{
     public void ajouterItem(Item i) {
         Image img = switchImageItem(i);
         ImageView imageView = new ImageView(img);
+        imageView.setFitWidth(50);
+        imageView.setFitHeight(50);
 
         int x, y;
         x = (i.getPosSlotItems() - 1) % this.nbItemLigne * ((int) this.paneCoffre.getWidth() / this.nbItemLigne);
@@ -58,12 +60,9 @@ public class VueCoffre extends VueInterface{
         imageView.setTranslateY(y);
         imageView.setId("" + i.getPosSlotItems());
         imageView.setOnMouseClicked(this.clickHandlerCoffre);
-        System.out.println("passe");
-        this.coffre.ajouterItem(i);
         this.paneCoffre.getChildren().add(imageView);}
 
     public void retirerItem(Item i) {
-        System.out.println("retirer");
         ImageView imageViewToRemove = (ImageView) this.paneCoffre.lookup("#" + i.getPosSlotItems());
         if (imageViewToRemove != null) {
             this.paneCoffre.getChildren().remove(imageViewToRemove);

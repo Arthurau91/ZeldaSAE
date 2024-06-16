@@ -1,7 +1,13 @@
 package com.example.zeldasae.modele;
 
 import com.example.zeldasae.Algo.BFS;
+import com.example.zeldasae.modele.armes.Arc;
+import com.example.zeldasae.modele.armes.Boomerang;
+import com.example.zeldasae.modele.armes.Hache;
+import com.example.zeldasae.modele.armures.ArmureChevalier;
+import com.example.zeldasae.modele.armures.ArmureFragile;
 import com.example.zeldasae.modele.collectibles.Collectible;
+import com.example.zeldasae.modele.collectibles.Fleche;
 import com.example.zeldasae.modele.entities.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -33,41 +39,54 @@ public class Monde {
         this.coffres = new ArrayList<>();
     }
 
-    public Terrain getTerrain() {
-        return this.terrain;
+    public ObservableList<Projectile> getListeProjectiles() {
+        return this.listeProjectiles;
+    }
+    public void addProjectile(Projectile p) {
+        this.listeProjectiles.add(p);
+    }
+    public void removeProjectile(Projectile p) {
+        this.listeProjectiles.remove(p);
     }
 
-    public Joueur getJoueur() {
-        return this.joueur;
+    public ObservableList<Collectible> getListeCollectibles() {
+        return listeCollectibles;
+    }
+    public void addCollectible(Collectible c) {
+        this.listeCollectibles.add(c);
     }
 
-    public void retirerEntite(Entite entite) {
-        listeEnnemis.remove(entite);
+    public ObservableList<Ennemi> getListeEnnemis() {
+        return this.listeEnnemis;
     }
-
-    public BFS getBfs() {
-        return bfs;
-    }
-
-    /**
-     * Méthode qui ajoute un ennemi à la liste d'ennemis du monde
-     * @param ennemi ennemi qui va être rajouté à la liste d'ennemis du monde
-     */
     public void addEnnemi(Ennemi ennemi) {
         this.listeEnnemis.add(ennemi);
     }
 
-    /**
-     * Méthode qui lance le déplacement de tous les ennemis du monde
-     */
+    public void addCoffre(Coffre coffre) {
+        this.coffres.add(coffre);
+    }
+    public List<Coffre> getCoffres() {
+        return coffres;
+    }
+    public Terrain getTerrain() {
+        return this.terrain;
+    }
+    public Joueur getJoueur() {
+        return this.joueur;
+    }
+    public BFS getBfs() {
+        return bfs;
+    }
+    public void setMap(ArrayList<Integer> map) {
+        this.terrain.setMap(map);
+    }
+
+
     public void deplacementEnnemi(){
         for (Ennemi ennemi : this.listeEnnemis) {
             ennemi.deplacement(this);
         }
-    }
-
-    public void setMap(ArrayList<Integer> map) {
-        this.terrain.setMap(map);
     }
 
     public int[] cooBloc(int x, int y, String direction){
@@ -93,29 +112,6 @@ public class Monde {
         return new int[]{coobloc, coovide};
     }
 
-    public ObservableList<Projectile> getListeProjectiles() {
-        return this.listeProjectiles;
-    }
-
-    public ObservableList<Collectible> getListeCollectibles() {
-        return listeCollectibles;
-    }
-    public ObservableList<Ennemi> getListeEnnemis() {
-        return this.listeEnnemis;
-    }
-
-    public void ajouterProjectile(Projectile p) {
-        this.listeProjectiles.add(p);
-    }
-
-    public void retirerProjectile(Projectile p) {
-        this.listeProjectiles.remove(p);
-    }
-
-    public void setJoueur(Joueur joueur) {
-        this.joueur = null;
-    }
-
     public void setEnnemisMorts(){
         listeEnnemis.removeIf(ennemi -> !ennemi.verifVivant());
     }
@@ -124,22 +120,10 @@ public class Monde {
         for (int i = 0; i < this.listeProjectiles.size(); i++) {
             this.listeProjectiles.get(i).seDeplace(this);
             if (listeProjectiles.get(i).aRetirer(terrain)) {
-                retirerProjectile(this.listeProjectiles.get(i));
+                removeProjectile(this.listeProjectiles.get(i));
                 i--;
             }
         }
-    }
-
-    public void ajouterCollectible(Collectible c) {
-        this.listeCollectibles.add(c);
-    }
-
-    public void addCoffre(Coffre coffre) {
-        this.coffres.add(coffre);
-    }
-
-    public List<Coffre> getCoffres() {
-        return coffres;
     }
 
     public Coffre coffreOuvert() {
@@ -149,6 +133,17 @@ public class Monde {
         }
 
         return null;
+    }
+
+    public void initCoffres(){
+        Coffre coffre = coffres.get(0);
+        Coffre coffre1 = coffres.get(1);
+        coffre.ajouterItem(new Charme("charme", 1));
+        coffre.ajouterItem(new Arc());
+        coffre.ajouterItem(new ArmureChevalier());
+        coffre1.ajouterItem(new Hache());
+        coffre1.ajouterItem(new Boomerang());
+        coffre1.ajouterItem(new ArmureFragile());
     }
 
     public void initEnnemis(){

@@ -15,14 +15,12 @@ public abstract class VueArme {
     private Joueur joueur;
     private Pane paneEntites;
     private Monde map;
-    private Pane mapPane;
     protected VueTerrain vueTerrain;
 
-    public VueArme (Joueur joueur, Pane paneEntites, Monde map, Pane mapPane, VueTerrain vueTerrain) {
+    public VueArme (Joueur joueur, Pane paneEntites, Monde map, VueTerrain vueTerrain) {
         this.joueur = joueur;
         this.paneEntites = paneEntites;
         this.map = map;
-        this.mapPane = mapPane;
         this.vueTerrain = vueTerrain;
     }
 
@@ -59,15 +57,6 @@ public abstract class VueArme {
             vueTerrain.detruitBloc(map.getJoueur().getX(), map.getJoueur().getY(), directionBloc);
         });
         pause.play();
-
-//        Rectangle hitboxTest = new Rectangle(joueur.getInv().getArmeActuelle().getHitBox().getLarge(), joueur.getInv().getArmeActuelle().getHitBox().getHaut(), Color.RED);
-//        hitboxTest.setTranslateX(x);
-//        hitboxTest.setTranslateY(y);
-//        paneEntites.getChildren().add(hitboxTest);
-//
-//        PauseTransition pauseHitbox = new PauseTransition(Duration.seconds(joueur.getInv().getArmeActuelle().getDelaiRecuperation() - 0.3));
-//        pauseHitbox.setOnFinished(event -> paneEntites.getChildren().remove(hitboxTest));
-//        pauseHitbox.play();
     }
 
     public ImageView switchImageCoup(int x, int y, KeyEvent keyEvent) {

@@ -19,26 +19,11 @@ public class VueInventaire extends VueInterface {
     private boolean afficheInventaire;
     private ClickHandlerInventaire clickHandler;
 
-
     public VueInventaire(Pane boxInv, Joueur joueur) {
            super(boxInv, joueur);
            this.clickHandler = new ClickHandlerInventaire(paneInterface, joueur);
            creerLabelInventaire();
     }
-
-    public void toggleAffichageInventaire(KeyEvent keyEvent) {
-        if (!this.afficheInventaire && keyEvent.getEventType() != KeyEvent.KEY_RELEASED) {
-            this.paneInterface.setVisible(true);
-            setAfficheInventaire(true);
-        } else if (keyEvent.getEventType() != KeyEvent.KEY_RELEASED) {
-            this.paneInterface.setVisible(false);
-            setAfficheInventaire(false);
-        }
-    }
-
-    public void setAfficheInventaire(boolean b) {
-            this.afficheInventaire = b;
-        }
 
     public void ajouterItemVue(Item i) {
         if (i.getPosSlotItems() != 0) {

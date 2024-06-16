@@ -7,8 +7,8 @@ import javafx.scene.layout.Pane;
 
 public class VueEpee extends VueArme {
 
-    public VueEpee(Joueur joueur, Pane paneEntites, Monde map, Pane mapPane, VueTerrain vueTerrain) {
-        super(joueur, paneEntites, map, mapPane, vueTerrain);
+    public VueEpee(Joueur joueur, Pane paneEntites, Monde map, VueTerrain vueTerrain) {
+        super(joueur, paneEntites, map, vueTerrain);
     }
 
 }

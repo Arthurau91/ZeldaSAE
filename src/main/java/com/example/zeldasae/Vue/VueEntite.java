@@ -29,6 +29,21 @@ public abstract class VueEntite {
         temps.addListener((obs, old, nouv) -> changeImageStatique(nouv.intValue()));
     }
 
+    public VueBarreDeVie getVueBarreDeVie() {
+        return vueBarreDeVie;
+    }
+    protected Entite getEntite() {
+        return entite;
+    }
+    public abstract Image getImageBas();
+    public abstract Image getImageHaut();
+    public abstract Image getImageDroite();
+    public abstract Image getImageGauche();
+    public abstract Image getImageStatiqueBas();
+    public abstract Image getImageStatiqueHaut();
+    public abstract Image getImageStatiqueDroite();
+    public abstract Image getImageStatiqueGauche();
+
     public void creerImageEntite() {
         imgEntite = new ImageView();
         Image image;
@@ -80,14 +95,6 @@ public abstract class VueEntite {
 
     }
 
-    public VueBarreDeVie getVueBarreDeVie() {
-        return vueBarreDeVie;
-    }
-
-    protected Entite getEntite() {
-        return entite;
-    }
-
     private void changeImageStatique(int nouv){
         if (!entite.isBouge() && nouv%10 == 0) {
             if ((!entite.getDeplacement().contains("up")) && olddirection.contains("up")) {
@@ -116,13 +123,4 @@ public abstract class VueEntite {
             }
         }
     }
-
-    public abstract Image getImageBas();
-    public abstract Image getImageHaut();
-    public abstract Image getImageDroite();
-    public abstract Image getImageGauche();
-    public abstract Image getImageStatiqueBas();
-    public abstract Image getImageStatiqueHaut();
-    public abstract Image getImageStatiqueDroite();
-    public abstract Image getImageStatiqueGauche();
 }

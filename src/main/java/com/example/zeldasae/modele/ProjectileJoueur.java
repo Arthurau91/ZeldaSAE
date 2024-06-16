@@ -15,7 +15,6 @@ public class ProjectileJoueur extends Projectile {
                 if (e.getHitBox().estDedansHitbox(super.getHitBox()) && !super.isObstacleTouche() && this.isRetireEnnemiTouche()) {
                     super.setObstacleTouche(true);
                     e.perdreVie(getDegats());
-//                    System.out.println("Pv de l'ennemi : " + e.getPv());
                 }
                 else if(e.getHitBox().estDedansHitbox(super.getHitBox()) && !super.isObstacleTouche()) {
                     map.getJoueur().getInv().getArmeActuelle().infligerDegats(e);

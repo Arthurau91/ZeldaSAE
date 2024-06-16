@@ -7,13 +7,23 @@ import javafx.scene.layout.Pane;
 
 public class VueSentinelle extends VueEntite{
 
-    public VueSentinelle(Sentinelle entite, Pane paneEntites, IntegerProperty temps) {
+    private VueTerrain vueTerrain;
+
+    public VueSentinelle(Sentinelle entite, Pane paneEntites, IntegerProperty temps, VueTerrain vueTerrain) {
         super(entite, paneEntites, temps);
         super.loadSprites(new Image("file:src/main/resources/com/example/zeldasae/assets/Sentinelle/Sentinelle.png", 90, 120, false, false), 30, 30);
         statusAnim = 0;
         this.vueBarreDeVie = new VueBarreDeVie(90, 10, paneEntites);
         bindBarreDeViePosition();
         super.creerImageEntite();
+        this.vueTerrain = vueTerrain;
+    }
+
+    @Override
+    public void supprimerImageEntite() {
+        super.supprimerImageEntite();
+        for (int i = 0; i < 5; i++)
+            vueTerrain.spawnFleche(getEntite().getX(), getEntite().getY());
     }
 
     @Override

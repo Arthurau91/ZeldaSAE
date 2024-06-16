@@ -24,7 +24,7 @@ public class Bombe extends Arme {
         pause.setOnFinished(event -> this.checkCoupTouche(map));
         pause.play();
 
-        map.getJoueur().setPeutDonnerCoupProperty(true);
+        map.getJoueur().setPeutDonnerCoup(true);
     }
 
     @Override

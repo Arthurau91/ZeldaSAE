@@ -20,10 +20,6 @@ public abstract class Item {
         return this.nom;
     }
 
-    public void setPosSlotItems(int posSlotItems) {
-        this.posSlotItems = posSlotItems;
-    }
-
     public abstract void utiliserItem(Joueur j);
 
 }

@@ -14,27 +14,25 @@ public class CreateurVueArme {
     private Joueur joueur;
     private Pane paneEntites;
     private Monde map;
-    private Pane mapPane;
     private VueTerrain vueTerrain;
 
-    public CreateurVueArme(Joueur joueur, Pane paneEntites, Monde map, Pane mapPane, VueTerrain vueTerrain) {
+    public CreateurVueArme(Joueur joueur, Pane paneEntites, Monde map, VueTerrain vueTerrain) {
         this.joueur = joueur;
         this.paneEntites = paneEntites;
         this.map = map;
-        this.mapPane = mapPane;
         this.vueTerrain = vueTerrain;
     }
 
     public VueArme creerVueArme() {
         Arme armeActuelle = this.joueur.getInv().getArmeActuelle();
         if(armeActuelle instanceof Epee) {
-            return new VueEpee(joueur, paneEntites, map, mapPane, vueTerrain);
+            return new VueEpee(joueur, paneEntites, map, vueTerrain);
         }
         else if(armeActuelle instanceof Hache) {
-            return new VueHache(joueur, paneEntites, map, mapPane, vueTerrain);
+            return new VueHache(joueur, paneEntites, map, vueTerrain);
         }
         else if(armeActuelle instanceof Bombe) {
-            return new VueBombe(joueur, paneEntites, map, mapPane, vueTerrain);
+            return new VueBombe(joueur, paneEntites, map, vueTerrain);
         }
         return null;
     }

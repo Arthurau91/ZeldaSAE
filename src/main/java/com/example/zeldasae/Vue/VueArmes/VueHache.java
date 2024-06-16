@@ -11,8 +11,8 @@ import javafx.scene.input.KeyEvent;
 
 public class VueHache extends VueArme {
 
-    public VueHache(Joueur joueur, Pane paneEntites, Monde map, Pane mapPane, VueTerrain vueTerrain) {
-        super(joueur, paneEntites, map, mapPane, vueTerrain);
+    public VueHache(Joueur joueur, Pane paneEntites, Monde map, VueTerrain vueTerrain) {
+        super(joueur, paneEntites, map, vueTerrain);
     }
 
     @Override

@@ -26,7 +26,7 @@ public class ObservateurEnnemis implements ListChangeListener<Ennemi> {
                 if (ennemi instanceof Boss)
                     vueEntite = new VueBoss((Boss) ennemi, paneEntites, temps);
                 else if (ennemi instanceof Sentinelle)
-                    vueEntite = new VueSentinelle((Sentinelle) ennemi, paneEntites, temps);
+                    vueEntite = new VueSentinelle((Sentinelle) ennemi, paneEntites, temps, vueTerrain);
                 else if (ennemi instanceof Skeleton)
                     vueEntite = new VueSkeleton((Skeleton) ennemi, paneEntites, temps);
                 else if (ennemi instanceof Kami)

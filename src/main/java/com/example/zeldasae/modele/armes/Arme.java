@@ -7,7 +7,6 @@ import com.example.zeldasae.modele.entities.Ennemi;
 import com.example.zeldasae.modele.entities.Joueur;
 import javafx.animation.PauseTransition;
 import javafx.beans.property.SimpleIntegerProperty;
-import javafx.collections.ObservableList;
 import javafx.scene.input.KeyEvent;
 import javafx.util.Duration;
 
@@ -17,7 +16,6 @@ public abstract class Arme extends Item {
     private HitBox hitBox;
     private double delaiRecuperation;
 
-    //POUR PLUS TARD : DONNER UNE HITBOX SPECIALE A LA CREATION D'UNE ARME AU LIEU DE METTRE int large, int haut, int x, int y
     public Arme(String nom, int degats, int posSlotItems, double delaiRecuperation, int large, int haut, int x, int y) {
         super(nom, posSlotItems);
         this.degats = degats;
@@ -72,8 +70,6 @@ public abstract class Arme extends Item {
        for (Ennemi e : map.getListeEnnemis()) {
            if (e.getHitBox().estDedansHitbox(this.hitBox)) {
                infligerDegats(e);
-               System.out.println("Pv de l'ennemi : " + e.getPv());
-               break;
            }
        }
     }
@@ -81,10 +77,10 @@ public abstract class Arme extends Item {
     public void attaquer(KeyEvent keyEvent, Monde map) {
         this.setPosMap(map.getJoueur().getX(), map.getJoueur().getY(), keyEvent);
         this.checkCoupTouche(map);
-        map.getJoueur().setPeutDonnerCoupProperty(false);
+        map.getJoueur().setPeutDonnerCoup(false);
 
         PauseTransition pause = new PauseTransition(Duration.seconds(map.getJoueur().getInv().getArmeActuelle().getDelaiRecuperation()));
-        pause.setOnFinished(event -> map.getJoueur().setPeutDonnerCoupProperty(true));
+        pause.setOnFinished(event -> map.getJoueur().setPeutDonnerCoup(true));
         pause.play();
     }
 

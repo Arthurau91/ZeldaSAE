@@ -10,7 +10,6 @@ public abstract class VueInterface {
     private Joueur joueur;
     protected boolean afficheInterface;
 
-
     public VueInterface(Pane pane, Joueur joueur) {
         this.paneInterface = pane;
         this.paneInterface.setStyle("-fx-background-color: black;");
@@ -35,9 +34,5 @@ public abstract class VueInterface {
 
     public Joueur getJoueur() {
         return joueur;
-    }
-
-    public Pane getPaneInterface() {
-        return paneInterface;
     }
 }

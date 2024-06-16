@@ -1,23 +1,26 @@
 package com.example.zeldasae.controller;
 
 import com.example.zeldasae.Vue.VueCoffre;
-import com.example.zeldasae.Vue.VueInventaire;
 import com.example.zeldasae.modele.Item;
 import javafx.collections.ListChangeListener;
 
-public class ObservateurItems implements ListChangeListener<Item> {
+public class ObservateurItemsCoffre implements ListChangeListener<Item> {
 
-    private VueInventaire vueInv;
+    private VueCoffre coffre;
 
-    public ObservateurItems(VueInventaire vueInv) {
-        this.vueInv = vueInv;
+    public ObservateurItemsCoffre(VueCoffre coffre) {
+
+        this.coffre = coffre;
     }
 
     @Override
     public void onChanged(Change<? extends Item> change) {
         while (change.next()) {
             for (Item i : change.getAddedSubList()) {
-                this.vueInv.ajouterItemVue(i);
+                this.coffre.ajouterItem(i);
+            }
+            for (Item i : change.getRemoved()) {
+                this.coffre.retirerItem(i);
             }
         }
 

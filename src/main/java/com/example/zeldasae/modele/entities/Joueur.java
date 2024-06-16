@@ -4,46 +4,38 @@ import com.example.zeldasae.modele.Coffre;
 import com.example.zeldasae.modele.Inventaire;
 import com.example.zeldasae.modele.Monde;
 import javafx.animation.PauseTransition;
-import javafx.beans.property.BooleanProperty;
-import javafx.beans.property.SimpleBooleanProperty;
 import javafx.scene.input.KeyEvent;
 import javafx.util.Duration;
 
 public class Joueur extends Entite {
 
     private Inventaire inv;
-    private BooleanProperty peutDonnerCoupProperty;
-    private BooleanProperty peutPrendreCoupProperty;
+    private boolean peutDonnerCoupProperty;
+    private boolean peutPrendreCoupProperty;
 
     public Joueur(int x, int y, int column, int rows) {
         super(x, y, "j1", 30, 30, column, rows, 10);
         this.inv = new Inventaire();
-        this.peutDonnerCoupProperty = new SimpleBooleanProperty(true);
-        this.peutPrendreCoupProperty = new SimpleBooleanProperty(true);
+        this.peutDonnerCoupProperty = true;
+        this.peutPrendreCoupProperty = true;
     }
 
     public Inventaire getInv() {
         return this.inv;
     }
 
-    public boolean getPeutDonnerCoupProperty() {
-        return this.peutDonnerCoupProperty.get();
+    public boolean PeutDonnerCoup() {
+        return this.peutDonnerCoupProperty;
     }
-    public void setPeutDonnerCoupProperty(boolean peutDonnerCoupProperty) {
-        this.peutDonnerCoupProperty.set(peutDonnerCoupProperty);
-    }
-    public BooleanProperty peutDonnerCoupProperty() {
-        return peutDonnerCoupProperty;
+    public void setPeutDonnerCoup(boolean peutDonnerCoupProperty) {
+        this.peutDonnerCoupProperty = peutDonnerCoupProperty;
     }
 
-    public boolean getPeutPrendreCoupProperty(){
-        return peutPrendreCoupProperty.getValue();
-    }
-    public void setPeutPrendreCoupProperty(boolean peutPrendreCoupProperty) {
-        this.peutPrendreCoupProperty.set(peutPrendreCoupProperty);
-    }
-    public BooleanProperty peutPrendreCoupPropertyProperty() {
+    public boolean PeutPrendreCoup(){
         return peutPrendreCoupProperty;
+    }
+    public void setPeutPrendreCoup(boolean peutPrendreCoupProperty) {
+        this.peutPrendreCoupProperty = peutPrendreCoupProperty;
     }
 
     @Override
@@ -51,18 +43,18 @@ public class Joueur extends Entite {
         int resistance = 0;
         if (getInv().getArmureActuelle() != null)
             resistance = getInv().getArmureActuelle().getResistance();
-        if (getPeutPrendreCoupProperty()) {
+        if (PeutPrendreCoup()) {
             super.perdreVie(degats - resistance);
-            setPeutPrendreCoupProperty(false);
+            setPeutPrendreCoup(false);
 
             PauseTransition pause = new PauseTransition(Duration.seconds(1));
-            pause.setOnFinished(event -> setPeutPrendreCoupProperty(true));
+            pause.setOnFinished(event -> setPeutPrendreCoup(true));
             pause.play();
         }
     }
 
     public void attaquer(KeyEvent keyEvent, Monde map) {
-        this.setPeutDonnerCoupProperty(false);
+        this.setPeutDonnerCoup(false);
         this.getInv().getArmeActuelle().attaquer(keyEvent, map);
     }
 

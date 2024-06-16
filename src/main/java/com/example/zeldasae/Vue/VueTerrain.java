@@ -1,8 +1,10 @@
 package com.example.zeldasae.Vue;
 
+import com.example.zeldasae.modele.collectibles.BombeCollectible;
 import com.example.zeldasae.modele.collectibles.Collectible;
 import com.example.zeldasae.modele.Monde;
 
+import com.example.zeldasae.modele.collectibles.Fleche;
 import com.example.zeldasae.modele.collectibles.Fruit;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -116,7 +118,7 @@ public class VueTerrain {
     private void changeBloc(int cooBloc) {
         if (this.map.getTerrain().isBuisson(cooBloc)) {
             Collectible fruit = new Fruit((cooBloc % 100) * 30, (cooBloc / 100) * 30, this.map.getJoueur());
-            this.map.ajouterCollectible(fruit);
+            this.map.addCollectible(fruit);
         }
         StackPane vide = new StackPane(new ImageView(tiles[m2.get(cooBloc)-1]));
         mapPane.getChildren().set(cooBloc, vide);
@@ -130,5 +132,15 @@ public class VueTerrain {
             if (this.map.getTerrain().destructible(coo+cases))
                 changeBloc(coo+cases);
         }
+    }
+
+    public void spawnBombe(int x, int y){
+        BombeCollectible bombeCollectible = new BombeCollectible(x, y);
+        map.addCollectible(bombeCollectible);
+    }
+
+    public void spawnFleche(int x, int y){
+        Fleche fleche = new Fleche(x, y);
+        map.addCollectible(fleche);
     }
 }

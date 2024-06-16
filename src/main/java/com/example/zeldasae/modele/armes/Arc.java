@@ -13,7 +13,7 @@ public class Arc extends Arme {
     }
 
     public Projectile creerProjectile(KeyEvent keyEvent, Monde map) {
-        Projectile fleche = new ProjectileJoueur(this.getDegats(), 15, 20, 10, keyEvent, "Fleche", true);
+        Projectile fleche = new ProjectileJoueur(this.getDegats(), 25, 20, 10, keyEvent, "Fleche", true);
         fleche.setPosMap(map.getJoueur().getHitBox().getX(), map.getJoueur().getHitBox().getY(), keyEvent.getCode().toString());
         return fleche;
     }
@@ -31,12 +31,12 @@ public class Arc extends Arme {
         map.getJoueur().getInv().getCollectible(new Fleche(0, 0)).retirer(1);
 
         Projectile p = creerProjectile(keyEvent, map);
-        map.ajouterProjectile(p);
+        map.addProjectile(p);
 
-        map.getJoueur().setPeutDonnerCoupProperty(false);
+        map.getJoueur().setPeutDonnerCoup(false);
 
         PauseTransition pause = new PauseTransition(Duration.seconds(map.getJoueur().getInv().getArmeActuelle().getDelaiRecuperation()));
-        pause.setOnFinished(event -> map.getJoueur().setPeutDonnerCoupProperty(true));
+        pause.setOnFinished(event -> map.getJoueur().setPeutDonnerCoup(true));
         pause.play();
     }
 

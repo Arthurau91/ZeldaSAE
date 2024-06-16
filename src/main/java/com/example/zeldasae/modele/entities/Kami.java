@@ -15,7 +15,7 @@ public class Kami extends Ennemi{
         int y = (this.getY() / 30) % (30 * this.getRows());
         int distance = this.getBfs().distanceMouvement(new int[]{x, y});
         if (distance < 30) {
-            if (distance == 2 || distance == 1) {
+            if (distance == 2) {
                 explose(m.getJoueur());
                 this.perdreVie(this.getPv());
                 return false;

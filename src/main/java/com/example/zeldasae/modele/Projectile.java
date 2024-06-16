@@ -40,31 +40,27 @@ public abstract class Projectile {
     public int getDegats() {
         return degats;
     }
-
     public HitBox getHitBox() {
         return this.hitBox;
     }
-
     public String getNom() {
         return this.nom;
     }
-
     public String getDirection() {
         return this.direction;
     }
-
     public void setDirection(String direction) {
         this.direction = direction;
     }
-
     public boolean isObstacleTouche() {
         return this.obstacleTouche;
     }
-
     public void setObstacleTouche(boolean obstacleTouche) {
         this.obstacleTouche = obstacleTouche;
     }
-
+    public boolean isRetireEnnemiTouche() {
+        return retireEnnemiTouche;
+    }
     public String getType() {
         return type;
     }
@@ -135,9 +131,5 @@ public abstract class Projectile {
 
     public boolean aRetirer(Terrain terrain) {
         return isObstacleTouche() || !dansMap(terrain);
-    }
-
-    public boolean isRetireEnnemiTouche() {
-        return retireEnnemiTouche;
     }
 }

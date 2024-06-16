@@ -30,7 +30,10 @@ public class VueKami extends VueEntite{
         getEntite().setY(getEntite().getY()-30);
 
         PauseTransition pause = new PauseTransition(Duration.seconds(1));
-        pause.setOnFinished(event -> super.supprimerImageEntite());
+        pause.setOnFinished(event -> {
+            super.supprimerImageEntite();
+            vueTerrain.spawnBombe(getEntite().getX()+30, getEntite().getY()+30);
+        });
         pause.play();
         vueTerrain.explosion(getEntite().getX(), getEntite().getY());
     }

@@ -1,15 +1,19 @@
 package com.example.zeldasae.controller;
 
-import com.example.zeldasae.Vue.*;
 import com.example.zeldasae.Vue.VueArmes.CreateurVueArme;
 import com.example.zeldasae.Vue.VueArmes.VueArme;
-import com.example.zeldasae.Vue.VueCollectible;
+import com.example.zeldasae.Vue.VueCoffre;
 import com.example.zeldasae.Vue.VueInventaire;
 import com.example.zeldasae.Vue.VueTerrain;
-import com.example.zeldasae.modele.*;
-
-import com.example.zeldasae.modele.armes.*;
-import com.example.zeldasae.modele.armures.*;
+import com.example.zeldasae.modele.Charme;
+import com.example.zeldasae.modele.Item;
+import com.example.zeldasae.modele.Monde;
+import com.example.zeldasae.modele.armes.Arc;
+import com.example.zeldasae.modele.armes.Boomerang;
+import com.example.zeldasae.modele.armes.Epee;
+import com.example.zeldasae.modele.armes.Hache;
+import com.example.zeldasae.modele.armures.ArmureChevalier;
+import com.example.zeldasae.modele.armures.ArmureFragile;
 import com.example.zeldasae.modele.collectibles.BombeCollectible;
 import com.example.zeldasae.modele.collectibles.Collectible;
 import com.example.zeldasae.modele.collectibles.Fleche;
@@ -42,14 +46,7 @@ public class KeyHandler implements EventHandler<KeyEvent> {
         this.vueCoffres = vueCoffres;
     }
 
-    //à retirer, sert uniquement pour les tests
-    private Epee itemTest = new Epee();
-    private Hache hacheTest = new Hache();
-    private Item itemTest3 = new ArmureFragile();
-    private Item itemTest4 = new ArmureChevalier();
-    private Arc arcTest = new Arc();
     Collectible fleche = new Fleche(0, 0);
-    Boomerang boomerang = new Boomerang();
     BombeCollectible bombeCollectible = new BombeCollectible(100, 100);
 
     @Override
@@ -91,8 +88,7 @@ public class KeyHandler implements EventHandler<KeyEvent> {
         if (pressedKeys.contains(F)) {
             for (int i = 0; i < this.vueCoffres.size(); i++) {
                 if (this.vueCoffres.get(i).getCoffre().isEstOuvert()) {
-                    this.vueCoffres.get(i).ajouterItem(itemTest);
-                    this.vueCoffres.get(i).ajouterItem(itemTest4);
+                    System.out.println(this.vueCoffres.get(i).getCoffre().getListeItem().size());
                 }
             }
         }
@@ -103,24 +99,14 @@ public class KeyHandler implements EventHandler<KeyEvent> {
         if (keyEvent.getEventType() != KeyEvent.KEY_RELEASED) {
             switch (keyEvent.getCode()) {
                 case X: // à retirer, sert uniquement pour les tests
-                    Collectible collectibleTest = new Fruit(50, 50, this.map.getJoueur());
-                    Charme charme = new Charme("charme", 1);
-                    this.map.getJoueur().getInv().ajouterItem(itemTest);
-                    this.map.getJoueur().getInv().ajouterItem(itemTest3);
-                    this.map.getJoueur().getInv().ajouterItem(itemTest4);
-                    this.map.getJoueur().getInv().ajouterItem(charme);
-                    this.map.getJoueur().getInv().ajouterItem(hacheTest);
-                    this.map.getJoueur().getInv().ajouterItem(arcTest);
-                    this.map.getJoueur().getInv().ajouterItem(boomerang);
-                    this.map.ajouterCollectible(collectibleTest);
-                    this.map.ajouterCollectible(fleche);
-                    this.map.ajouterCollectible(bombeCollectible);
+                    this.map.addCollectible(fleche);
+                    this.map.addCollectible(bombeCollectible);
                     break;
                 case A: // switch arme
                     this.map.getJoueur().getInv().echangerArmes();
                     break;
                 case LEFT, RIGHT, UP, DOWN: // tirer
-                    if (this.map.getJoueur().getPeutDonnerCoupProperty() && map.getJoueur().peutAttaquerArme(map)) {
+                    if (this.map.getJoueur().PeutDonnerCoup() && map.getJoueur().peutAttaquerArme(map)) {
                         this.map.getJoueur().attaquer(keyEvent, map);
                         VueArme vueArme = createurVueArme.creerVueArme();
                         if (vueArme != null)

@@ -10,7 +10,7 @@ import java.util.ArrayList;
 
 public class Boomerang extends Arme {
 
-    ArrayList<Ennemi> ennemisTouchesAller;
+    private ArrayList<Ennemi> ennemisTouchesAller;
 
     public Boomerang() {
         super("Boomerang", 2, 6, 2.5, 0,0,0,0);
@@ -26,9 +26,9 @@ public class Boomerang extends Arme {
     @Override
     public void attaquer(KeyEvent keyEvent, Monde map) {
         Projectile p = creerProjectile(keyEvent, map);
-        map.ajouterProjectile(p);
+        map.addProjectile(p);
 
-        map.getJoueur().setPeutDonnerCoupProperty(false);
+        map.getJoueur().setPeutDonnerCoup(false);
 
         PauseTransition pause1 = new PauseTransition(Duration.seconds(map.getJoueur().getInv().getArmeActuelle().getDelaiRecuperation()));
         pause1.setOnFinished(event -> supprimerBoomerang(map, p));
@@ -45,7 +45,7 @@ public class Boomerang extends Arme {
     }
 
     public void supprimerBoomerang(Monde map, Projectile p) {
-        map.getJoueur().setPeutDonnerCoupProperty(true);
+        map.getJoueur().setPeutDonnerCoup(true);
         p.setObstacleTouche(true);
         this.ennemisTouchesAller.clear();
     }
@@ -58,8 +58,8 @@ public class Boomerang extends Arme {
     }
 
     public boolean dansEnnemisTouchesAller(Ennemi e) {
-        for (int i = 0; i < this.ennemisTouchesAller.size(); i++) {
-            if(this.ennemisTouchesAller.get(i) == e) {
+        for (Ennemi ennemi : this.ennemisTouchesAller) {
+            if (ennemi == e) {
                 return true;
             }
         }

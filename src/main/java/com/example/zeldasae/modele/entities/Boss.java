@@ -35,7 +35,7 @@ public class Boss extends Ennemi {
         if(!switchDirection(m).equals("NULL")) {
             p.setDirection(switchDirection(m));
             p.setPosMap(this.getX(), this.getY(), switchDirection(m));
-            m.ajouterProjectile(p);
+            m.addProjectile(p);
             this.peutAttaquerDistance = false;
 
             PauseTransition pause = new PauseTransition(Duration.seconds(this.cooldownAttaqueDistance));
