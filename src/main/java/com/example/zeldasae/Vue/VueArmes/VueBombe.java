@@ -28,13 +28,17 @@ public class VueBombe extends VueArme {
     }
 
     public void afficherExplosion(int x, int y) {
-        Rectangle hitboxTest = new Rectangle(getJoueur().getInv().getArmeActuelle().getHitBox().getLarge(), getJoueur().getInv().getArmeActuelle().getHitBox().getHaut(), Color.RED);
-        hitboxTest.setTranslateX(x);
-        hitboxTest.setTranslateY(y);
-        getPaneEntites().getChildren().add(hitboxTest);
+        Image image = new Image("file:src/main/resources/com/example/zeldasae/assets/explosion.gif");
+        ImageView imageView = new ImageView(image);
+        imageView.setFitWidth(getJoueur().getInv().getArmeActuelle().getHitBox().getLarge());
+        imageView.setFitHeight(getJoueur().getInv().getArmeActuelle().getHitBox().getHaut());
+        imageView.setTranslateX(x);
+        imageView.setTranslateY(y);
+
+        getPaneEntites().getChildren().add(imageView);
 
         PauseTransition pauseHitbox = new PauseTransition(Duration.seconds(1));
-        pauseHitbox.setOnFinished(event -> getPaneEntites().getChildren().remove(hitboxTest));
+        pauseHitbox.setOnFinished(event -> getPaneEntites().getChildren().remove(imageView));
         pauseHitbox.play();
     }
 
