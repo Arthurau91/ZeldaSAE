@@ -172,5 +172,8 @@ public class Monde {
 
         Sentinelle sentinelle5 = new Sentinelle(2250, 2190, terrain.getColumns(),  terrain.getRows(), getBfs());
         addEnnemi(sentinelle5);
+
+        Kami kami = new Kami(100, 500, terrain.getColumns(),  terrain.getRows(), getBfs());
+        addEnnemi(kami);
     }
 }

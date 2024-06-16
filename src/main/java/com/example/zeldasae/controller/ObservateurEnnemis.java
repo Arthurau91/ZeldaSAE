@@ -1,13 +1,7 @@
 package com.example.zeldasae.controller;
 
-import com.example.zeldasae.Vue.VueBoss;
-import com.example.zeldasae.Vue.VueEntite;
-import com.example.zeldasae.Vue.VueSentinelle;
-import com.example.zeldasae.Vue.VueSkeleton;
-import com.example.zeldasae.modele.entities.Boss;
-import com.example.zeldasae.modele.entities.Ennemi;
-import com.example.zeldasae.modele.entities.Sentinelle;
-import com.example.zeldasae.modele.entities.Skeleton;
+import com.example.zeldasae.Vue.*;
+import com.example.zeldasae.modele.entities.*;
 import javafx.beans.property.IntegerProperty;
 import javafx.collections.ListChangeListener;
 import javafx.scene.layout.Pane;
@@ -33,6 +27,8 @@ public class ObservateurEnnemis implements ListChangeListener<Ennemi> {
                     vueEntite = new VueSentinelle((Sentinelle) ennemi, paneEntites, temps);
                 else if (ennemi instanceof Skeleton)
                     vueEntite = new VueSkeleton((Skeleton) ennemi, paneEntites, temps);
+                else if (ennemi instanceof Kami)
+                    vueEntite = new VueKami((Kami) ennemi, paneEntites, temps);
                 ennemi.pvProperty().addListener(new ObservateurVie(ennemi, vueEntite));
             }
         }

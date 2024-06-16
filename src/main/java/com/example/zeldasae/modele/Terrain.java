@@ -25,8 +25,8 @@ public class Terrain {
     public boolean poussable(int coo) {
         if (coo < map.size() && coo >= 0) {
             int[] casesPoussables = {1118};
-            for (int i = 0; i < casesPoussables.length; i++) {
-                if (this.map.get(coo) == casesPoussables[i])
+            for (int casePoussable : casesPoussables) {
+                if (this.map.get(coo) == casePoussable)
                     return true;
             }
         }
@@ -48,8 +48,8 @@ public class Terrain {
     public boolean vide(int coo){
         if (coo < map.size() && coo >=0) {
             int[] casesVides = {0, 1205, 686, 687, 631, 632, 688, 630, 683, 625, 245, 246, 247, 601, 604};
-            for (int i = 0; i < casesVides.length; i++) {
-                if (this.map.get(coo) == casesVides[i])
+            for (int caseVide : casesVides) {
+                if (this.map.get(coo) == caseVide)
                     return true;
             }
         }
@@ -58,9 +58,9 @@ public class Terrain {
 
     public boolean isBrouillard(int coo){
         if (coo < map.size() && coo >=0) {
-            int[] casesVides = {1205};
-            for (int i = 0; i < casesVides.length; i++) {
-                if (this.map.get(coo) == casesVides[i])
+            int[] casesBrouillard = {1205};
+            for (int caseBrouillard : casesBrouillard) {
+                if (this.map.get(coo) == caseBrouillard)
                     return true;
             }
         }
@@ -70,8 +70,8 @@ public class Terrain {
     public boolean destructible(int coo){
         if (coo < map.size() && coo >=0) {
             int[] casesDestructibles = {514, 1079};
-            for (int i = 0; i < casesDestructibles.length; i++) {
-                if (this.map.get(coo) == casesDestructibles[i])
+            for (int caseDestructible : casesDestructibles) {
+                if (this.map.get(coo) == caseDestructible)
                     return true;
             }
         }

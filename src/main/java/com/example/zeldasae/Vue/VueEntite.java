@@ -13,11 +13,12 @@ public abstract class VueEntite {
 
     private Entite entite;
     private Pane paneEntites;
-    private ImageView imgEntite;
+    protected ImageView imgEntite;
     protected Image[] sprites;
     private String olddirection;
     protected VueBarreDeVie vueBarreDeVie;
     private int tempsTransition;
+    protected int statusAnim;
 
     public VueEntite(Entite entite, Pane paneEntites, IntegerProperty temps) {
         this.tempsTransition = 0;
@@ -38,12 +39,12 @@ public abstract class VueEntite {
         imgEntite.setId(entite.getId());
         imgEntite.translateXProperty().bind(entite.xProperty());
         imgEntite.translateYProperty().bind(entite.yProperty());
+        imgEntite.setId(entite.getId());
 
         this.paneEntites.getChildren().add(imgEntite);
     }
 
     public void supprimerImageEntite() {
-        imgEntite.setId(entite.getId());
         this.paneEntites.getChildren().remove(this.paneEntites.lookup("#" + entite.getId()));
     }
 
@@ -83,7 +84,7 @@ public abstract class VueEntite {
         return vueBarreDeVie;
     }
 
-    public Entite getEntite() {
+    protected Entite getEntite() {
         return entite;
     }
 

@@ -7,8 +7,6 @@ import javafx.scene.layout.Pane;
 
 public class VueBoss extends VueEntite{
 
-    private int statusAnim;
-
     public VueBoss(Boss entite, Pane paneEntites, IntegerProperty temps) {
         super(entite, paneEntites, temps);
         super.loadSprites(new Image("file:src/main/resources/com/example/zeldasae/assets/Boss/Boss.png", 144, 256, false, false), 48, 64);

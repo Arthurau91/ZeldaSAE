@@ -6,8 +6,6 @@ import javafx.scene.image.Image;
 import javafx.scene.layout.Pane;
 
 public class VueJoueur extends VueEntite{
-
-    private int statusAnim;
     private int statusStatique;
 
     public VueJoueur(Joueur entite, Pane paneEntites, IntegerProperty temps) {

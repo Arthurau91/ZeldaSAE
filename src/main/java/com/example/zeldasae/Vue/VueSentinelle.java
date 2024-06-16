@@ -7,8 +7,6 @@ import javafx.scene.layout.Pane;
 
 public class VueSentinelle extends VueEntite{
 
-    private int statusAnim;
-
     public VueSentinelle(Sentinelle entite, Pane paneEntites, IntegerProperty temps) {
         super(entite, paneEntites, temps);
         super.loadSprites(new Image("file:src/main/resources/com/example/zeldasae/assets/Sentinelle/Sentinelle.png", 90, 120, false, false), 30, 30);

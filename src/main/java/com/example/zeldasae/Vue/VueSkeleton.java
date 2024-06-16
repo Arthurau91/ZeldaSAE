@@ -7,8 +7,6 @@ import javafx.scene.layout.Pane;
 
 public class VueSkeleton extends VueEntite{
 
-    private int statusAnim;
-
     public VueSkeleton(Skeleton entite, Pane paneEntites, IntegerProperty temps) {
         super(entite, paneEntites, temps);
         super.loadSprites(new Image("file:src/main/resources/com/example/zeldasae/assets/Skeleton/skeleton.png", 390, 630, false, false), 30, 30);
