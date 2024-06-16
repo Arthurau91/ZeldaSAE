@@ -7,8 +7,6 @@ import javafx.beans.property.SimpleIntegerProperty;
 import javafx.scene.input.KeyEvent;
 import javafx.util.Duration;
 
-import java.util.ArrayList;
-
 public abstract class Arme extends Item{
 
     private int degats;
@@ -66,8 +64,8 @@ public abstract class Arme extends Item{
         }
     }
 
-    public void checkCoupTouche(ArrayList<Ennemi> ennemis) {
-       for (Ennemi e : ennemis) {
+    public void checkCoupTouche(Monde map) {
+       for (Ennemi e : map.getListeEnnemis()) {
            if (e.getHitBox().estDedansHitbox(this.hitBox)) {
                infligerDegats(e);
                System.out.println("Pv de l'ennemi : " + e.getPv());
@@ -78,7 +76,7 @@ public abstract class Arme extends Item{
 
     public void attaquer(KeyEvent keyEvent, Monde map) {
         this.setPosMap(map.getJoueur().getX(), map.getJoueur().getY(), keyEvent);
-        this.checkCoupTouche(map.getListeEnnemis());
+        this.checkCoupTouche(map);
         map.getJoueur().setPeutDonnerCoupProperty(false);
 
         PauseTransition pause = new PauseTransition(Duration.seconds(map.getJoueur().getInv().getArmeActuelle().getDelaiRecuperation()));

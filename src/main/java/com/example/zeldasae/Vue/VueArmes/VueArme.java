@@ -1,7 +1,6 @@
 package com.example.zeldasae.Vue.VueArmes;
 
 import com.example.zeldasae.modele.Monde;
-import com.example.zeldasae.modele.Projectile;
 import com.example.zeldasae.modele.entities.Joueur;
 import javafx.animation.PauseTransition;
 import javafx.scene.image.Image;

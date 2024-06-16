@@ -3,7 +3,7 @@ package com.example.zeldasae.modele.armes;
 import com.example.zeldasae.modele.Arme;
 import com.example.zeldasae.modele.Monde;
 import com.example.zeldasae.modele.collectibles.BombeCollectible;
-import com.example.zeldasae.modele.collectibles.Fleche;
+import com.example.zeldasae.modele.entities.Ennemi;
 import javafx.animation.PauseTransition;
 import javafx.scene.input.KeyEvent;
 import javafx.util.Duration;
@@ -22,7 +22,7 @@ public class Bombe extends Arme {
         this.setPosMap(map.getJoueur().getX(), map.getJoueur().getY(), keyEvent);
 
         PauseTransition pause = new PauseTransition(Duration.seconds(delaiExplosion));
-        pause.setOnFinished(event -> this.checkCoupTouche(map.getListeEnnemis()));
+        pause.setOnFinished(event -> this.checkCoupTouche(map));
         pause.play();
 
         map.getJoueur().setPeutDonnerCoupProperty(true);
@@ -55,6 +55,20 @@ public class Bombe extends Arme {
                 this.getHitBox().setX(x-this.getHitBox().getLarge()/3);
                 this.getHitBox().setY(y);
                 break;
+        }
+    }
+
+    @Override
+    public void checkCoupTouche(Monde map) {
+        for (Ennemi e : map.getListeEnnemis()) {
+            if (e.getHitBox().estDedansHitbox(getHitBox())) {
+                infligerDegats(e);
+                System.out.println("Pv de l'ennemi : " + e.getPv());
+                break;
+            }
+        }
+        if (map.getJoueur().getHitBox().estDedansHitbox(getHitBox())) {
+            map.getJoueur().perdreVie(getDegats()-2);
         }
     }
 }

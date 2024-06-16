@@ -1,7 +1,6 @@
 package com.example.zeldasae.modele;
 
 import com.example.zeldasae.modele.collectibles.Collectible;
-import com.example.zeldasae.modele.collectibles.Fleche;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 

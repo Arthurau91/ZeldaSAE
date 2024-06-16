@@ -1,6 +1,5 @@
 package com.example.zeldasae.Vue.VueArmes;
 
-import com.example.zeldasae.Vue.VueArmes.VueArme;
 import com.example.zeldasae.modele.Arme;
 import com.example.zeldasae.modele.Monde;
 import com.example.zeldasae.modele.armes.Bombe;
@@ -10,8 +9,6 @@ import com.example.zeldasae.modele.entities.Joueur;
 import javafx.scene.layout.Pane;
 
 public class CreateurVueArme {
-
-//    this.vueArme = new VueArme(this.map.getJoueur(), this.paneEntites, map, this.mapPane);
 
     private Joueur joueur;
     private Pane paneEntites;
