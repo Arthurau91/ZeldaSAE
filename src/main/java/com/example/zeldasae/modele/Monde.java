@@ -1,5 +1,6 @@
 package com.example.zeldasae.modele;
 
+import com.example.zeldasae.modele.collectibles.Collectible;
 import com.example.zeldasae.modele.entities.Ennemi;
 import com.example.zeldasae.modele.entities.Entite;
 import com.example.zeldasae.modele.entities.Joueur;

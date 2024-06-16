@@ -24,22 +24,21 @@ public abstract class VueArme {
         this.mapPane = mapPane;
     }
 
+    public Joueur getJoueur() {
+        return joueur;
+    }
+
     public Pane getPaneEntites() {
         return paneEntites;
     }
 
     public void donnerCoup(int x, int y, KeyEvent keyEvent) {
         ImageView imageView = switchImageCoup(x, y, keyEvent);
-//        if(joueur.getInv().getArmeActuelle().getNom().equals("Hache")) {
-//            animationHache(x, y, imageView);
-//        }
-//        else {
-            paneEntites.getChildren().add(imageView);
+        paneEntites.getChildren().add(imageView);
 
-            PauseTransition pause = new PauseTransition(Duration.seconds(joueur.getInv().getArmeActuelle().getDelaiRecuperation() - 0.3));
-            pause.setOnFinished(event -> paneEntites.getChildren().remove(imageView));
-            pause.play();
-//        }
+        PauseTransition pause = new PauseTransition(Duration.seconds(joueur.getInv().getArmeActuelle().getDelaiRecuperation() - 0.3));
+        pause.setOnFinished(event -> paneEntites.getChildren().remove(imageView));
+        pause.play();
 
 //        Rectangle hitboxTest = new Rectangle(joueur.getInv().getArmeActuelle().getHitBox().getLarge(), joueur.getInv().getArmeActuelle().getHitBox().getHaut(), Color.RED);
 //        hitboxTest.setTranslateX(x);

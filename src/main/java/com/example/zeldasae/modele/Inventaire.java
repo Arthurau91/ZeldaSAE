@@ -1,5 +1,6 @@
 package com.example.zeldasae.modele;
 
+import com.example.zeldasae.modele.collectibles.Collectible;
 import com.example.zeldasae.modele.collectibles.Fleche;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -87,14 +88,13 @@ public class Inventaire {
         }
     }
 
-    public Fleche getFleche() {
-        for(Item i : getListeItems()) {
-            if (i instanceof Fleche) {
-                return (Fleche) i;
+    public Collectible getCollectible(Collectible c) {
+        for (Item i : getListeItems()) {
+            if (i.getClass() == c.getClass()) {
+                return (Collectible) i;
             }
         }
         return null;
     }
-
 
 }

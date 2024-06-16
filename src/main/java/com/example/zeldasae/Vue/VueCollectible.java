@@ -1,6 +1,6 @@
 package com.example.zeldasae.Vue;
 
-import com.example.zeldasae.modele.Collectible;
+import com.example.zeldasae.modele.collectibles.Collectible;
 import com.example.zeldasae.modele.Monde;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;

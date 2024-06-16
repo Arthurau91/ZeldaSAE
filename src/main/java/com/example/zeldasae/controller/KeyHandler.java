@@ -12,6 +12,8 @@ import com.example.zeldasae.modele.armes.Arc;
 import com.example.zeldasae.modele.armes.Boomerang;
 import com.example.zeldasae.modele.armes.Epee;
 import com.example.zeldasae.modele.armes.Hache;
+import com.example.zeldasae.modele.collectibles.BombeCollectible;
+import com.example.zeldasae.modele.collectibles.Collectible;
 import com.example.zeldasae.modele.collectibles.Fleche;
 import com.example.zeldasae.modele.collectibles.Fruit;
 import javafx.event.EventHandler;
@@ -50,8 +52,9 @@ public class KeyHandler implements EventHandler<KeyEvent> {
     private Item itemTest3 = new Armure(0,"Armure 3", 6);
     private Item itemTest4 = new Armure(1,"Armure 4", 19);
     private Arc arcTest = new Arc();
-    Collectible fleche = new Fleche(0, 30, 30, 30, 0, 0);
+    Collectible fleche = new Fleche(0, 0);
     Boomerang boomerang = new Boomerang();
+    BombeCollectible bombeCollectible = new BombeCollectible(100, 100);
 
     @Override
     public void handle(KeyEvent keyEvent) {
@@ -104,7 +107,7 @@ public class KeyHandler implements EventHandler<KeyEvent> {
         if (keyEvent.getEventType() != KeyEvent.KEY_RELEASED) {
             switch (keyEvent.getCode()) {
                 case X: // à retirer, sert uniquement pour les tests
-                    Collectible collectibleTest = new Fruit(0, 10, 30, 30, 50, 50, this.map.getJoueur());
+                    Collectible collectibleTest = new Fruit(50, 50, this.map.getJoueur());
                     Charme charme = new Charme("charme", 1);
                     this.map.getJoueur().getInv().ajouterItem(itemTest);
                     this.map.getJoueur().getInv().ajouterItem(itemTest3);
@@ -113,20 +116,20 @@ public class KeyHandler implements EventHandler<KeyEvent> {
                     this.map.getJoueur().getInv().ajouterItem(hacheTest);
                     this.map.ajouterCollectible(collectibleTest);
                     this.map.ajouterCollectible(fleche);
+                    this.map.ajouterCollectible(bombeCollectible);
                     break;
                 case A: // switch arme
                     this.map.getJoueur().getInv().echangerArmes();
-                    System.out.println("Arme : " + this.map.getJoueur().getInv().getArmeActuelle().getNom() + " Armure : " + this.map.getJoueur().getInv().getArmureActuelle().getNom());
                     break;
                 case P: //à retirer, sert uniquement pour les tests
-                    this.map.getJoueur().getInv().changerArme(boomerang);
+                    this.map.getJoueur().getInv().changerArme(arcTest);
                     break;
                 case LEFT, RIGHT, UP, DOWN: // tirer
-                    if (this.map.getJoueur().getPeutDonnerCoupProperty() && this.map.getJoueur().getInv().getArmeActuelle() != null) {
+                    if (this.map.getJoueur().getPeutDonnerCoupProperty() && map.getJoueur().peutAttaquerArme(map)) {
                         this.map.getJoueur().attaquer(keyEvent, map);
                         VueArme vueArme = createurVueArme.creerVueArme();
                         if (vueArme != null)
-                            vueArme.donnerCoup(this.map.getJoueur().getInv().getArmeActuelle().getX(), this.map.getJoueur().getInv().getArmeActuelle().getY(), keyEvent);
+                            vueArme.donnerCoup(this.map.getJoueur().getInv().getArmeActuelle().getHitBox().getX(), this.map.getJoueur().getInv().getArmeActuelle().getHitBox().getY(), keyEvent);
                         if (keyEvent.getCode() == UP || keyEvent.getCode() == DOWN)
                             this.map.getJoueur().getInv().getArmeActuelle().getHitBox().pivote();
                         vueTerrain.detruitBloc();

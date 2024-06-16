@@ -18,4 +18,6 @@ module com.example.zeldasae {
     opens com.example.zeldasae.modele.entities to javafx.fxml;
     exports com.example.zeldasae.Vue.VueArmes;
     opens com.example.zeldasae.Vue.VueArmes to javafx.fxml;
+    exports com.example.zeldasae.modele.collectibles;
+    opens com.example.zeldasae.modele.collectibles to javafx.fxml;
 }

@@ -1,6 +1,6 @@
 package com.example.zeldasae.Vue;
 
-import com.example.zeldasae.modele.Collectible;
+import com.example.zeldasae.modele.collectibles.Collectible;
 import com.example.zeldasae.modele.Monde;
 
 import com.example.zeldasae.modele.collectibles.Fruit;
@@ -115,7 +115,7 @@ public class VueTerrain {
 
     private void changeBloc(int cooBloc) {
         if (this.map.getTerrain().isBuisson(cooBloc)) {
-            Collectible fruit = new Fruit(0, 10, 30, 30, (cooBloc % 100) * 30, (cooBloc / 100) * 30, this.map.getJoueur());
+            Collectible fruit = new Fruit((cooBloc % 100) * 30, (cooBloc / 100) * 30, this.map.getJoueur());
             this.map.ajouterCollectible(fruit);
         }
         StackPane vide = new StackPane(new ImageView(tiles[m2.get(cooBloc)-1]));
