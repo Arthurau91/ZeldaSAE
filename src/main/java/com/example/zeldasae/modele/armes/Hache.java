@@ -1,6 +1,5 @@
 package com.example.zeldasae.modele.armes;
 
-import com.example.zeldasae.modele.Arme;
 import javafx.scene.input.KeyEvent;
 
 public class Hache extends Arme {

@@ -13,7 +13,7 @@ public class Boomerang extends Arme {
     ArrayList<Ennemi> ennemisTouchesAller;
 
     public Boomerang() {
-        super("Boomerang", 2, 8, 2.5, 0,0,0,0);
+        super("Boomerang", 2, 6, 2.5, 0,0,0,0);
         this.ennemisTouchesAller = new ArrayList<>();
     }
 

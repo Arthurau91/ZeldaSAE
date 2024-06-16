@@ -31,7 +31,7 @@ public class Boss extends Ennemi {
     }
 
     public void attaquerDistance(Monde m) {
-        ProjectileEnnemi p = new ProjectileEnnemi(2, 20, 30, 30);
+        ProjectileEnnemi p = new ProjectileEnnemi(2, 20, 30, 30, "ProjectileMagique");
         if(!switchDirection(m).equals("NULL")) {
             p.setDirection(switchDirection(m));
             p.setPosMap(this.getX(), this.getY(), switchDirection(m));

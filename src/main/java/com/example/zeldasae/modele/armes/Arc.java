@@ -9,7 +9,7 @@ import javafx.util.Duration;
 public class Arc extends Arme {
 
     public Arc() {
-        super("Arc", 2, 3, 0.8, 0, 0, 0, 0);
+        super("Arc", 2, 4, 0.8, 0, 0, 0, 0);
     }
 
     public Projectile creerProjectile(KeyEvent keyEvent, Monde map) {

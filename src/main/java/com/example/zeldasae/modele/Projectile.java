@@ -27,12 +27,13 @@ public abstract class Projectile {
         compteur++;
     }
 
-    public Projectile(int degats, int vitesse, int large, int haut) {
+    public Projectile(int degats, int vitesse, int large, int haut, String type) {
         this.nom = "Proj" + compteur;
         this.degats = degats;
         this.vitesse = vitesse;
         this.hitBox = new HitBox(large, haut, new SimpleIntegerProperty(0), new SimpleIntegerProperty(0));
         this.obstacleTouche = false;
+        this.type = type;
         compteur++;
     }
 
@@ -62,6 +63,10 @@ public abstract class Projectile {
 
     public void setObstacleTouche(boolean obstacleTouche) {
         this.obstacleTouche = obstacleTouche;
+    }
+
+    public String getType() {
+        return type;
     }
 
     public void setPosMap(int x, int y, String keyEvent) {

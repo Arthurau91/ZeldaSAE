@@ -146,6 +146,8 @@ public abstract class Entite {
     }
 
     public void perdreVie(int degats) {
+        if (degats <= 0)
+            degats = 1;
         setPv(this.getPv() - degats);
         if (this.getPv() <= 0) {
             setPv(0);

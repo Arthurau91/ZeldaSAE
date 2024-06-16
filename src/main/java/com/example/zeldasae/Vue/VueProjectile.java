@@ -34,16 +34,38 @@ public class VueProjectile {
 
     private static ImageView getImageViewProjectile(Projectile p) {
         ImageView image;
-        if (p.getHitBox().getLarge() > p.getHitBox().getHaut()) //TODO faire un switch pour les projectiles
-            image = new ImageView(new Image("file:src/main/resources/com/example/zeldasae/assets/projectileMagique.png", p.getHitBox().getLarge(), p.getHitBox().getHaut(), false, false));
-        else image = new ImageView(new Image("file:src/main/resources/com/example/zeldasae/assets/projectileMagique.png", p.getHitBox().getHaut(), p.getHitBox().getLarge(), false, false));
-
-        if (p.getDirection().equals("RIGHT"))
-            image.setRotate(180);
-        if (p.getDirection().equals("UP"))
-            image.setRotate(90);
-        if (p.getDirection().equals("DOWN"))
-            image.setRotate(270);
+        switch (p.getType()) {
+            case "Fleche":
+                image = new ImageView(new Image("file:src/main/resources/com/example/zeldasae/assets/Fleche.png"));
+                if (p.getDirection().equals("RIGHT"))
+                    image.setRotate(90);
+                if (p.getDirection().equals("LEFT"))
+                    image.setRotate(270);
+                if (p.getDirection().equals("DOWN"))
+                    image.setRotate(180);
+                image.setFitWidth(20);
+                image.setFitHeight(20);
+                break;
+            case "Boomerang":
+                image = new ImageView(new Image("file:src/main/resources/com/example/zeldasae/assets/Boomerang.png"));
+                image.setFitWidth(30);
+                image.setFitHeight(30);
+                break;
+            case "ProjectileMagique":
+                image = new ImageView(new Image("file:src/main/resources/com/example/zeldasae/assets/projectileMagique.png"));
+                image.setFitWidth(30);
+                image.setFitHeight(30);
+                if (p.getDirection().equals("RIGHT"))
+                    image.setRotate(180);
+                if (p.getDirection().equals("UP"))
+                    image.setRotate(90);
+                if (p.getDirection().equals("DOWN"))
+                    image.setRotate(270);
+                break;
+            default:
+                image = new ImageView();
+                break;
+        }
         image.setId(p.getNom());
         return image;
     }
