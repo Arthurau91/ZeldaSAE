@@ -134,4 +134,9 @@ public class BFS {
         List<Point> chemin = constructChemin(new Point(src[0], src[1]));
         return chemin.size();
     }
+
+
+    public Map<Point, Point> getParentMap() {
+        return parentMap;
+    }
 }
