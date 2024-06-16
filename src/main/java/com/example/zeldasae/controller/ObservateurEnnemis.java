@@ -1,6 +1,7 @@
 package com.example.zeldasae.controller;
 
 import com.example.zeldasae.Vue.*;
+import com.example.zeldasae.Vue.VuesEntites.*;
 import com.example.zeldasae.modele.entities.*;
 import javafx.beans.property.IntegerProperty;
 import javafx.collections.ListChangeListener;

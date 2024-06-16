@@ -23,7 +23,7 @@ public class VueCoffre extends VueInterface{
         this.coffre = coffre;
         this.vueInventaire = vueInventaire;
         this.paneCoffre = paneCoffre;
-        this.clickHandlerCoffre = new ClickHandlerCoffre(this.paneCoffre, this.coffre, vueInventaire);
+        this.clickHandlerCoffre = new ClickHandlerCoffre(this.coffre, vueInventaire);
         this.paneCoffre.toFront();
     }
 

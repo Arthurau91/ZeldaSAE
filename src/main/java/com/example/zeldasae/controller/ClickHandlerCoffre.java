@@ -5,16 +5,13 @@ import com.example.zeldasae.modele.Coffre;
 import javafx.event.EventHandler;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.Pane;
 
 public class ClickHandlerCoffre implements EventHandler<MouseEvent>{
 
-    private Pane boxInv;
     private Coffre coffre;
     private VueInventaire vueInventaire;
 
-    public ClickHandlerCoffre(Pane boxInv, Coffre coffre, VueInventaire vueInventaire) {
-        this.boxInv = boxInv;
+    public ClickHandlerCoffre(Coffre coffre, VueInventaire vueInventaire) {
         this.coffre = coffre;
         this.vueInventaire = vueInventaire;
     }

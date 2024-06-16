@@ -182,6 +182,4 @@ public class HitBox {
         int positionY = Math.abs(this.getY() - coffre.getY());
         return (positionX <= distance && positionY == 0) || (positionY <= distance && positionX == 0);
     }
-
-
 }

@@ -5,19 +5,7 @@ import com.example.zeldasae.Vue.VueArmes.VueArme;
 import com.example.zeldasae.Vue.VueCoffre;
 import com.example.zeldasae.Vue.VueInventaire;
 import com.example.zeldasae.Vue.VueTerrain;
-import com.example.zeldasae.modele.Charme;
-import com.example.zeldasae.modele.Item;
 import com.example.zeldasae.modele.Monde;
-import com.example.zeldasae.modele.armes.Arc;
-import com.example.zeldasae.modele.armes.Boomerang;
-import com.example.zeldasae.modele.armes.Epee;
-import com.example.zeldasae.modele.armes.Hache;
-import com.example.zeldasae.modele.armures.ArmureChevalier;
-import com.example.zeldasae.modele.armures.ArmureFragile;
-import com.example.zeldasae.modele.collectibles.BombeCollectible;
-import com.example.zeldasae.modele.collectibles.Collectible;
-import com.example.zeldasae.modele.collectibles.Fleche;
-import com.example.zeldasae.modele.collectibles.Fruit;
 import javafx.event.EventHandler;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
@@ -45,9 +33,6 @@ public class KeyHandler implements EventHandler<KeyEvent> {
         this.vueTerrain = vueTerrain;
         this.vueCoffres = vueCoffres;
     }
-
-    Collectible fleche = new Fleche(0, 0);
-    BombeCollectible bombeCollectible = new BombeCollectible(100, 100);
 
     @Override
     public void handle(KeyEvent keyEvent) {
@@ -85,27 +70,16 @@ public class KeyHandler implements EventHandler<KeyEvent> {
             map.getJoueur().addDirection("right");
         }
         this.map.getJoueur().setDeplacement(direction);
-        if (pressedKeys.contains(F)) {
-            for (int i = 0; i < this.vueCoffres.size(); i++) {
-                if (this.vueCoffres.get(i).getCoffre().isEstOuvert()) {
-                    System.out.println(this.vueCoffres.get(i).getCoffre().getListeItem().size());
-                }
-            }
-        }
 
         if (pressedKeys.contains(SHIFT))
             vueTerrain.deplaceBloc();
 
         if (keyEvent.getEventType() != KeyEvent.KEY_RELEASED) {
             switch (keyEvent.getCode()) {
-                case X: // à retirer, sert uniquement pour les tests
-                    this.map.addCollectible(fleche);
-                    this.map.addCollectible(bombeCollectible);
-                    break;
-                case A: // switch arme
+                case A:
                     this.map.getJoueur().getInv().echangerArmes();
                     break;
-                case LEFT, RIGHT, UP, DOWN: // tirer
+                case LEFT, RIGHT, UP, DOWN:
                     if (this.map.getJoueur().PeutDonnerCoup() && map.getJoueur().peutAttaquerArme(map)) {
                         this.map.getJoueur().attaquer(keyEvent, map);
                         VueArme vueArme = createurVueArme.creerVueArme();
@@ -115,11 +89,11 @@ public class KeyHandler implements EventHandler<KeyEvent> {
                             this.map.getJoueur().getInv().getArmeActuelle().getHitBox().pivote();
                     }
                     break;
-                case TAB: // inventaires
+                case TAB:
                     if (this.map.coffreOuvert() == null)
                         this.vueInv.toggleAffichageInterface(keyEvent);
                     break;
-                case E: // interagir
+                case E:
                     for (VueCoffre coffre : vueCoffres) {
                         if ((this.map.getJoueur().peutOuvrirUnCoffre(this.map, coffre.getCoffre(), 1)) || coffre.getCoffre().isEstOuvert()) {
                             coffre.toggleAffichageInterface(keyEvent);

@@ -1,11 +1,12 @@
-package com.example.zeldasae.Vue;
+package com.example.zeldasae.Vue.VuesEntites;
 
+import com.example.zeldasae.Vue.VueBarreDeVie;
 import com.example.zeldasae.modele.entities.Boss;
 import javafx.beans.property.IntegerProperty;
 import javafx.scene.image.Image;
 import javafx.scene.layout.Pane;
 
-public class VueBoss extends VueEntite{
+public class VueBoss extends VueEntite {
 
     public VueBoss(Boss entite, Pane paneEntites, IntegerProperty temps) {
         super(entite, paneEntites, temps);

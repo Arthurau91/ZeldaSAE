@@ -5,15 +5,12 @@ import com.example.zeldasae.modele.entities.Joueur;
 import javafx.event.EventHandler;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.Pane;
 
 public class ClickHandlerInventaire implements EventHandler<MouseEvent> {
 
-    private Pane boxInv;
     private Joueur j;
 
-    public ClickHandlerInventaire(Pane boxInv, Joueur j) {
-        this.boxInv = boxInv;
+    public ClickHandlerInventaire(Joueur j) {
         this.j = j;
     }
 

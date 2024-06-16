@@ -12,7 +12,6 @@ public abstract class Entite {
     private String id;
     private int width;
     private int height;
-    private IntegerProperty widthProperty;
     private int column;
     private int rows;
     private String deplacement;
@@ -31,7 +30,6 @@ public abstract class Entite {
         this.id = ""+n++;
         this.width = width;
         this.height = height;
-        this.widthProperty = new SimpleIntegerProperty(this.width);
         this.column = column;
         this.rows = rows;
         this.deplacement = "null";
@@ -97,7 +95,7 @@ public abstract class Entite {
         return id;
     }
     public int getWidth() {
-        return this.widthProperty.getValue();
+        return this.width;
     }
     public int getHeight() {
         return height;
@@ -156,10 +154,6 @@ public abstract class Entite {
 
     public boolean verifVivant() {
         return this.getPv() > 0;
-    }
-
-    private IntegerProperty widthProperty() {
-        return this.widthProperty;
     }
 
     /**

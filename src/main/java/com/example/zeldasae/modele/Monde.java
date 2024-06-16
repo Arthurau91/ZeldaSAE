@@ -7,7 +7,6 @@ import com.example.zeldasae.modele.armes.Hache;
 import com.example.zeldasae.modele.armures.ArmureChevalier;
 import com.example.zeldasae.modele.armures.ArmureFragile;
 import com.example.zeldasae.modele.collectibles.Collectible;
-import com.example.zeldasae.modele.collectibles.Fleche;
 import com.example.zeldasae.modele.entities.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -148,7 +147,7 @@ public class Monde {
     public void initCoffres(){
         Coffre coffre = coffres.get(0);
         Coffre coffre1 = coffres.get(1);
-        coffre.ajouterItem(new Charme("charme", 1));
+        coffre.ajouterItem(new Charme());
         coffre.ajouterItem(new Arc());
         coffre.ajouterItem(new ArmureChevalier());
         coffre1.ajouterItem(new Hache());

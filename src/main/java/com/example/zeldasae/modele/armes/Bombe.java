@@ -62,7 +62,6 @@ public class Bombe extends Arme {
         for (Ennemi e : map.getListeEnnemis()) {
             if (e.getHitBox().estDedansHitbox(getHitBox())) {
                 infligerDegats(e);
-                System.out.println("Pv de l'ennemi : " + e.getPv());
                 break;
             }
         }

@@ -1,14 +1,15 @@
-package com.example.zeldasae.Vue;
+package com.example.zeldasae.Vue.VuesEntites;
 
+import com.example.zeldasae.Vue.VueBarreDeVie;
+import com.example.zeldasae.Vue.VueTerrain;
 import com.example.zeldasae.modele.entities.Kami;
 import javafx.animation.PauseTransition;
 import javafx.beans.property.IntegerProperty;
 import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.util.Duration;
 
-public class VueKami extends VueEntite{
+public class VueKami extends VueEntite {
 
     private VueTerrain vueTerrain;
 

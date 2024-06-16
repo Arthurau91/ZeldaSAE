@@ -1,5 +1,6 @@
-package com.example.zeldasae.Vue;
+package com.example.zeldasae.Vue.VuesEntites;
 
+import com.example.zeldasae.Vue.VueBarreDeVie;
 import com.example.zeldasae.modele.entities.Entite;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.binding.Bindings;
@@ -50,7 +51,6 @@ public abstract class VueEntite {
         image = this.getImageDroite();
         imgEntite.setImage(image);
 
-        //mettre une directionProperty avec un listener
         imgEntite.setId(entite.getId());
         imgEntite.translateXProperty().bind(entite.xProperty());
         imgEntite.translateYProperty().bind(entite.yProperty());

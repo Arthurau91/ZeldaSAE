@@ -78,14 +78,12 @@ public class Inventaire {
                 if(c1.getType().equals(c.getType())) {
                     c1.ajouter(1);
                     trouve = true;
-                    System.out.println("ajout quantite");
                 }
             }
         }
         if (!trouve) {
             this.listeItems.add(c);
             c.ajouter(1);
-            System.out.println("ajout liste");
         }
     }
 

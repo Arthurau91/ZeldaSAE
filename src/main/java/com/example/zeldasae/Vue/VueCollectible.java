@@ -1,7 +1,6 @@
 package com.example.zeldasae.Vue;
 
 import com.example.zeldasae.modele.collectibles.Collectible;
-import com.example.zeldasae.modele.Monde;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
@@ -9,11 +8,9 @@ import javafx.scene.layout.Pane;
 public class VueCollectible {
 
     private Pane paneEntites;
-    private Monde map;
 
-    public VueCollectible(Pane mapPane, Monde map) {
+    public VueCollectible(Pane mapPane) {
         this.paneEntites = mapPane;
-        this.map = map;
     }
 
     public void creerCollectibleVue(Collectible c) {

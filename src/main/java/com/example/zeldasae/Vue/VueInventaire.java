@@ -1,13 +1,12 @@
 package com.example.zeldasae.Vue;
 
 import com.example.zeldasae.controller.ClickHandlerInventaire;
-import com.example.zeldasae.modele.collectibles.Collectible;
 import com.example.zeldasae.modele.Item;
+import com.example.zeldasae.modele.collectibles.Collectible;
 import com.example.zeldasae.modele.entities.Joueur;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
@@ -16,12 +15,11 @@ public class VueInventaire extends VueInterface {
 
     public final int nbItemLigne = 5;
     public final int nbItemColonne = 8;
-    private boolean afficheInventaire;
     private ClickHandlerInventaire clickHandler;
 
     public VueInventaire(Pane boxInv, Joueur joueur) {
            super(boxInv, joueur);
-           this.clickHandler = new ClickHandlerInventaire(paneInterface, joueur);
+           this.clickHandler = new ClickHandlerInventaire(joueur);
            creerLabelInventaire();
     }
 

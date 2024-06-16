@@ -2,14 +2,12 @@ package com.example.zeldasae.controller;
 
 import com.example.zeldasae.Algo.BFS;
 import com.example.zeldasae.Vue.VueArmes.CreateurVueArme;
-import com.example.zeldasae.Vue.VueProjectile;
-import com.example.zeldasae.Vue.VueInventaire;
-import com.example.zeldasae.Vue.VueTerrain;
-import com.example.zeldasae.modele.*;
 import com.example.zeldasae.Vue.*;
-import com.example.zeldasae.modele.armes.Epee;
-import com.example.zeldasae.modele.entities.*;
+import com.example.zeldasae.Vue.VuesEntites.VueJoueur;
+import com.example.zeldasae.modele.Coffre;
 import com.example.zeldasae.modele.Monde;
+import com.example.zeldasae.modele.armes.Epee;
+import com.example.zeldasae.modele.entities.Joueur;
 import javafx.animation.KeyFrame;
 import javafx.animation.PauseTransition;
 import javafx.animation.Timeline;
@@ -22,8 +20,7 @@ import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
-import javafx.scene.layout.Pane;
-import javafx.scene.layout.TilePane;
+import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.util.Duration;
@@ -51,6 +48,7 @@ public class Controller implements Initializable {
     private Timeline gameLoop;
     private Button resetButton;
     private Label labelMort;
+    private Label labelHelp;
     private CreateurVueArme createurVueArme;
     private VueProjectile vueProjectile;
     private VueCollectible vueCollectible;
@@ -60,12 +58,19 @@ public class Controller implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         labelMort = new Label("Vous êtes Mort !");
+        labelHelp = new Label("       Aides Touches :\n  Z,Q,S,D : Mouvements\nTAB : Ouvrir l'inventaire\n← ↑ → ↓ : Attaquer\n" +
+                "Clic Gauche(dans l'inventaire) : Equiper/Utiliser Item/Arme\n  A : Changer d'arme équipée(2 emplacements possibles)\n" +
+                "       SHIFT : Pousser une boite");
         labelMort.setTextFill(Color.RED);
         labelMort.setFont(new Font("Calibri", 36));
+        labelHelp.setTextFill(Color.WHITE);
+        labelHelp.setFont(new Font("Calibri", 24));
+        labelHelp.setBackground(new Background(new BackgroundFill(Color.BLACK, new CornerRadii(60), null)));
         labelMort.setTranslateX(480);
         labelMort.setTranslateY(250);
         resetButton = new Button();
         resetButton.setOnAction(actionEvent -> {
+            labelHelp.setVisible(false);
             resetButton.setDisable(true);
             resetButton.setVisible(false);
             fond.setVisible(false);
@@ -85,9 +90,12 @@ public class Controller implements Initializable {
         fond = new ImageView(new Image("file:src/main/resources/com/example/zeldasae/assets/fond.png", 1200, 1000, false, false));
         fenetre.getChildren().add(fond);
         fenetre.getChildren().add(labelMort);
+        fenetre.getChildren().add(labelHelp);
         resetButton.toFront();
         labelMort.toFront();
+        labelHelp.toFront();
         labelMort.setVisible(false);
+        labelHelp.setVisible(true);
     }
 
     private void lancementJeu(){
@@ -112,7 +120,7 @@ public class Controller implements Initializable {
 
         VueInventaire vueInv = new VueInventaire(this.boxInventaire, this.map.getJoueur());
         this.createurVueArme = new CreateurVueArme(joueur, this.paneEntites, map, vueTerrain);
-        this.vueCollectible = new VueCollectible(paneEntites, map);
+        this.vueCollectible = new VueCollectible(paneEntites);
         this.vueProjectile = new VueProjectile(paneEntites);
 
         joueur.getInv().getListeItems().addListener(new ObservateurItems(vueInv));
@@ -163,10 +171,13 @@ public class Controller implements Initializable {
         boxInventaire.getChildren().clear();
         boxInventaire.setTranslateX(0);
         boxInventaire.setTranslateY(0);
+        boxCoffre1.getChildren().clear();
+        boxCoffre2.getChildren().clear();
         this.map = null;
         resetButton.setDisable(true);
         resetButton.setVisible(false);
         fond.setVisible(false);
+        labelHelp.setVisible(false);
     }
 
     private void initAnimation() {
@@ -199,6 +210,7 @@ public class Controller implements Initializable {
                             boxCoffre2.setVisible(false);
                             fond.setVisible(true);
                             labelMort.setVisible(false);
+                            labelHelp.setVisible(true);
                         });
                         pause.play();
                         gameLoop.stop();

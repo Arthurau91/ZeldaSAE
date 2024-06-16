@@ -3,7 +3,6 @@ package com.example.zeldasae.modele;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
-
 public class Coffre {
 
     private ObservableList<Item> listeItem;

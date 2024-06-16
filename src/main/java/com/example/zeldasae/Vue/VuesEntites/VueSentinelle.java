@@ -1,11 +1,13 @@
-package com.example.zeldasae.Vue;
+package com.example.zeldasae.Vue.VuesEntites;
 
+import com.example.zeldasae.Vue.VueBarreDeVie;
+import com.example.zeldasae.Vue.VueTerrain;
 import com.example.zeldasae.modele.entities.Sentinelle;
 import javafx.beans.property.IntegerProperty;
 import javafx.scene.image.Image;
 import javafx.scene.layout.Pane;
 
-public class VueSentinelle extends VueEntite{
+public class VueSentinelle extends VueEntite {
 
     private VueTerrain vueTerrain;
 

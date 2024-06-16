@@ -1,6 +1,5 @@
 package com.example.zeldasae.controller;
 
-import com.example.zeldasae.Vue.VueCoffre;
 import com.example.zeldasae.Vue.VueInventaire;
 import com.example.zeldasae.modele.Item;
 import javafx.collections.ListChangeListener;

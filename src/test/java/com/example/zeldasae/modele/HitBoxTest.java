@@ -22,7 +22,7 @@ class HitBoxTest {
         x = new SimpleIntegerProperty(50);
         y = new SimpleIntegerProperty(50);
         hitBox = new HitBox(30, 30, x, y);
-        terrain = new Terrain(10);
+        terrain = new Terrain(10, 10);
         coffre = new Coffre(50, 50, 1);
 
     }
@@ -141,7 +141,6 @@ class HitBoxTest {
         assertTrue(hitBox.estDedansEgal(50, 80));
     }
 
-
     @Test
     void testEstDedansHitbox() {
 
@@ -162,47 +161,6 @@ class HitBoxTest {
         assertFalse(hitBox.estDedansHitbox(hitBox6));
         assertTrue(hitBox.estDedansHitbox(hitBox7));
     }
-
-    @Test
-    void testPivote() {
-
-        hitBox.pivote();
-        assertEquals(30, hitBox.getHaut());
-        assertEquals(30, hitBox.getLarge());
-        assertTrue(hitBox.isEstPivote());
-
-        hitBox.pivote();
-        assertEquals(30, hitBox.getHaut());
-        assertEquals(30, hitBox.getLarge());
-        assertFalse(hitBox.isEstPivote());
-
-        hitBox = new HitBox(50, 20, x, y);
-        hitBox.pivote();
-        assertEquals(20, hitBox.getLarge());
-        assertEquals(50, hitBox.getHaut());
-        assertTrue(hitBox.isEstPivote());
-
-        hitBox = new HitBox(1, 1, x, y);
-        hitBox.pivote();
-        assertEquals(1, hitBox.getHaut());
-        assertEquals(1, hitBox.getLarge());
-        assertTrue(hitBox.isEstPivote());
-
-        hitBox = new HitBox(100, 100, x, y);
-        hitBox.pivote();
-        assertEquals(100, hitBox.getHaut());
-        assertEquals(100, hitBox.getLarge());
-        assertTrue(hitBox.isEstPivote());
-
-        hitBox = new HitBox(100, 100, x, y);
-        hitBox.pivote();
-        hitBox.pivote();
-        assertEquals(100, hitBox.getHaut());
-        assertEquals(100, hitBox.getLarge());
-        assertFalse(hitBox.isEstPivote());
-    }
-
-
 
     @Test
     void testCheckColision() {

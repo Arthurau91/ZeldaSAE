@@ -1,11 +1,12 @@
-package com.example.zeldasae.Vue;
+package com.example.zeldasae.Vue.VuesEntites;
 
+import com.example.zeldasae.Vue.VueBarreDeVie;
 import com.example.zeldasae.modele.entities.Joueur;
 import javafx.beans.property.IntegerProperty;
 import javafx.scene.image.Image;
 import javafx.scene.layout.Pane;
 
-public class VueJoueur extends VueEntite{
+public class VueJoueur extends VueEntite {
     private int statusStatique;
 
     public VueJoueur(Joueur entite, Pane paneEntites, IntegerProperty temps) {

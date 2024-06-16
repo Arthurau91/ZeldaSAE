@@ -44,7 +44,7 @@ public class VueHache extends VueArme {
             getPaneEntites().getChildren().remove(imageView);
         else {
             getPaneEntites().getChildren().remove(imageView);
-            int[] coAnimation = etapesAnimationHache(imageView, x, y, largeur, hauteur, iTab);
+            int[] coAnimation = etapesAnimationHache(x, y, largeur, hauteur, iTab);
             imageView.setTranslateX(coAnimation[0]);
             imageView.setTranslateY(coAnimation[1]);
             imageView.setRotate(coAnimation[2]);
@@ -53,7 +53,7 @@ public class VueHache extends VueArme {
 
     }
 
-    public int[] etapesAnimationHache(ImageView imageView, int x, int y, int largeur, int hauteur, int i) {
+    public int[] etapesAnimationHache(int x, int y, int largeur, int hauteur, int i) {
         switch (i) {
             case 0:
                 return new int[] {x, y, -45};
