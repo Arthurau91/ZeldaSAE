@@ -1,5 +1,6 @@
 package com.example.zeldasae.Vue.VuesEntites;
 
+import com.example.zeldasae.Main;
 import com.example.zeldasae.Vue.VueBarreDeVie;
 import com.example.zeldasae.modele.entities.Joueur;
 import javafx.beans.property.IntegerProperty;
@@ -11,7 +12,7 @@ public class VueJoueur extends VueEntite {
 
     public VueJoueur(Joueur entite, Pane paneEntites, IntegerProperty temps) {
         super(entite, paneEntites, temps);
-        super.loadSprites(new Image("file:src/main/resources/com/example/zeldasae/assets/joueur/link.png", 300, 240, false, false), 30, 30);
+        super.loadSprites(new Image(Main.class.getResourceAsStream("assets/joueur/link.png"), 300, 240, false, false), 30, 30);
         statusAnim = 0;
         statusStatique = 0;
         this.vueBarreDeVie = new VueBarreDeVie(100, 20, paneEntites);

@@ -1,5 +1,6 @@
 package com.example.zeldasae.Vue.VueArmes;
 
+import com.example.zeldasae.Main;
 import com.example.zeldasae.Vue.VueTerrain;
 import com.example.zeldasae.modele.Monde;
 import com.example.zeldasae.modele.entities.Joueur;
@@ -60,7 +61,7 @@ public abstract class VueArme {
     }
 
     public ImageView switchImageCoup(int x, int y, KeyEvent keyEvent) {
-        Image img = new Image("file:src/main/resources/com/example/zeldasae/assets/" + joueur.getInv().getArmeActuelle().getNom() + "Attaque.png");
+        Image img = new Image(Main.class.getResourceAsStream("assets/" + joueur.getInv().getArmeActuelle().getNom() + "Attaque.png"));
         ImageView imageView = new ImageView(img);
         imageView.setFitWidth(joueur.getInv().getArmeActuelle().getHitBox().getLarge());
         imageView.setFitHeight(joueur.getInv().getArmeActuelle().getHitBox().getHaut());

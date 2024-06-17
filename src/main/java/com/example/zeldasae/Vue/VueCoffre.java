@@ -1,5 +1,6 @@
 package com.example.zeldasae.Vue;
 
+import com.example.zeldasae.Main;
 import com.example.zeldasae.controller.ClickHandlerCoffre;
 import com.example.zeldasae.modele.Coffre;
 import com.example.zeldasae.modele.Item;
@@ -71,7 +72,7 @@ public class VueCoffre extends VueInterface{
     }
 
     public Image switchImageItem(Item i) {
-        Image img = new Image("file:src/main/resources/com/example/zeldasae/assets/" + i.getNom() + ".png");
+        Image img = new Image(Main.class.getResourceAsStream("assets/" + i.getNom() + ".png"));
         return img;
     }
 }

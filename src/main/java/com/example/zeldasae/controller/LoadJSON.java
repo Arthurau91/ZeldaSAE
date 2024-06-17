@@ -1,12 +1,12 @@
 package com.example.zeldasae.controller;
 
+import com.example.zeldasae.Main;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 import java.util.ArrayList;
 
 public class LoadJSON {
@@ -25,8 +25,8 @@ public class LoadJSON {
         ArrayList<Integer> elementsMapColision = new ArrayList<>();
         JSONParser parser = new JSONParser();
 
-        try (FileReader reader = new FileReader(filename)) {
-            JSONObject jsonObject = (JSONObject) parser.parse(reader);
+        try (InputStream reader = Main.class.getResourceAsStream(filename)) {
+            JSONObject jsonObject = (JSONObject) parser.parse(new InputStreamReader(reader, "UTF-8"));
             JSONArray layersArray = (JSONArray) jsonObject.get("layers");
             JSONObject firstLayer = (JSONObject) layersArray.get(0);
             JSONObject secondlayer = (JSONObject) layersArray.get(1);

@@ -1,5 +1,6 @@
 package com.example.zeldasae.Vue.VuesEntites;
 
+import com.example.zeldasae.Main;
 import com.example.zeldasae.Vue.VueBarreDeVie;
 import com.example.zeldasae.Vue.VueTerrain;
 import com.example.zeldasae.modele.entities.Kami;
@@ -15,7 +16,7 @@ public class VueKami extends VueEntite {
 
     public VueKami(Kami entite, Pane paneEntites, IntegerProperty temps, VueTerrain vueTerrain) {
         super(entite, paneEntites, temps);
-        super.loadSprites(new Image("file:src/main/resources/com/example/zeldasae/assets/Kami/Kami.png", 240, 90, false, false), 30, 30);
+        super.loadSprites(new Image(Main.class.getResourceAsStream("assets/Kami/Kami.png"), 240, 90, false, false), 30, 30);
         statusAnim = 0;
         this.vueBarreDeVie = new VueBarreDeVie(90, 10, paneEntites);
         bindBarreDeViePosition();
@@ -25,7 +26,7 @@ public class VueKami extends VueEntite {
 
     @Override
     public void supprimerImageEntite() {
-        Image image = new Image("file:src/main/resources/com/example/zeldasae/assets/explosion.gif", 90, 90, false, false);
+        Image image = new Image(Main.class.getResourceAsStream("assets/explosion.gif"), 90, 90, false, false);
         imgEntite.setImage(image);
         getEntite().setX(getEntite().getX()-30);
         getEntite().setY(getEntite().getY()-30);

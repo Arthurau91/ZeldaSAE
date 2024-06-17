@@ -1,5 +1,6 @@
 package com.example.zeldasae.Vue;
 
+import com.example.zeldasae.Main;
 import com.example.zeldasae.controller.ClickHandlerInventaire;
 import com.example.zeldasae.modele.Item;
 import com.example.zeldasae.modele.collectibles.Collectible;
@@ -52,9 +53,9 @@ public class VueInventaire extends VueInterface {
 
     public Image switchImageItem(Item i) {
         if (i instanceof Collectible) {
-            return new Image("file:src/main/resources/com/example/zeldasae/assets/" + ((Collectible) i).getType() + ".png");
+            return new Image(Main.class.getResourceAsStream("assets/" + ((Collectible) i).getType() + ".png"));
         } else {
-            return new Image("file:src/main/resources/com/example/zeldasae/assets/" + i.getNom() + ".png");
+            return new Image(Main.class.getResourceAsStream("assets/" + i.getNom() + ".png"));
         }
     }
 

@@ -1,5 +1,6 @@
 package com.example.zeldasae.Vue.VuesEntites;
 
+import com.example.zeldasae.Main;
 import com.example.zeldasae.Vue.VueBarreDeVie;
 import com.example.zeldasae.Vue.VueTerrain;
 import com.example.zeldasae.modele.entities.Sentinelle;
@@ -13,7 +14,7 @@ public class VueSentinelle extends VueEntite {
 
     public VueSentinelle(Sentinelle entite, Pane paneEntites, IntegerProperty temps, VueTerrain vueTerrain) {
         super(entite, paneEntites, temps);
-        super.loadSprites(new Image("file:src/main/resources/com/example/zeldasae/assets/Sentinelle/Sentinelle.png", 90, 120, false, false), 30, 30);
+        super.loadSprites(new Image(Main.class.getResourceAsStream("assets/Sentinelle/Sentinelle.png"), 90, 120, false, false), 30, 30);
         statusAnim = 0;
         this.vueBarreDeVie = new VueBarreDeVie(90, 10, paneEntites);
         bindBarreDeViePosition();

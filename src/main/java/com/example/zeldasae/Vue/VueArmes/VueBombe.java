@@ -1,5 +1,6 @@
 package com.example.zeldasae.Vue.VueArmes;
 
+import com.example.zeldasae.Main;
 import com.example.zeldasae.Vue.VueTerrain;
 import com.example.zeldasae.modele.Monde;
 import com.example.zeldasae.modele.armes.Bombe;
@@ -30,7 +31,7 @@ public class VueBombe extends VueArme {
     }
 
     public void afficherExplosion(int x, int y) {
-        Image image = new Image("file:src/main/resources/com/example/zeldasae/assets/explosion.gif");
+        Image image = new Image(Main.class.getResourceAsStream("assets/explosion.gif"));
         ImageView imageView = new ImageView(image);
         imageView.setFitWidth(getJoueur().getInv().getArmeActuelle().getHitBox().getLarge());
         imageView.setFitHeight(getJoueur().getInv().getArmeActuelle().getHitBox().getHaut());
@@ -45,7 +46,7 @@ public class VueBombe extends VueArme {
     }
 
     public void afficherBombe(KeyEvent keyEvent) {
-        Image image = new Image("file:src/main/resources/com/example/zeldasae/assets/BombeAttaque.png");
+        Image image = new Image(Main.class.getResourceAsStream("assets/BombeAttaque.png"));
         ImageView imageView = new ImageView(image);
         int largeur = 30, hauteur = 30;
         imageView.setFitWidth(largeur);

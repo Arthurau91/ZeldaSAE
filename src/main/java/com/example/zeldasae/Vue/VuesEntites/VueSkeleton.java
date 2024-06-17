@@ -1,5 +1,6 @@
 package com.example.zeldasae.Vue.VuesEntites;
 
+import com.example.zeldasae.Main;
 import com.example.zeldasae.Vue.VueBarreDeVie;
 import com.example.zeldasae.modele.entities.Skeleton;
 import javafx.beans.property.IntegerProperty;
@@ -10,7 +11,7 @@ public class VueSkeleton extends VueEntite {
 
     public VueSkeleton(Skeleton entite, Pane paneEntites, IntegerProperty temps) {
         super(entite, paneEntites, temps);
-        super.loadSprites(new Image("file:src/main/resources/com/example/zeldasae/assets/Skeleton/skeleton.png", 390, 630, false, false), 30, 30);
+        super.loadSprites(new Image(Main.class.getResourceAsStream("assets/Skeleton/skeleton.png"), 390, 630, false, false), 30, 30);
         statusAnim = 0;
         this.vueBarreDeVie = new VueBarreDeVie(90, 10, paneEntites);
         bindBarreDeViePosition();

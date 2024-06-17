@@ -1,5 +1,6 @@
 package com.example.zeldasae.Vue.VuesEntites;
 
+import com.example.zeldasae.Main;
 import com.example.zeldasae.Vue.VueBarreDeVie;
 import com.example.zeldasae.modele.entities.Boss;
 import javafx.beans.property.IntegerProperty;
@@ -10,7 +11,7 @@ public class VueBoss extends VueEntite {
 
     public VueBoss(Boss entite, Pane paneEntites, IntegerProperty temps) {
         super(entite, paneEntites, temps);
-        super.loadSprites(new Image("file:src/main/resources/com/example/zeldasae/assets/Boss/Boss.png", 144, 256, false, false), 48, 64);
+        super.loadSprites(new Image(Main.class.getResourceAsStream("assets/Boss/Boss.png"), 144, 256, false, false), 48, 64);
         statusAnim = 0;
         super.creerImageEntite();
         this.vueBarreDeVie = new VueBarreDeVie(90, 10, paneEntites);

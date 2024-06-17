@@ -1,5 +1,6 @@
 package com.example.zeldasae.Vue;
 
+import com.example.zeldasae.Main;
 import com.example.zeldasae.modele.collectibles.Collectible;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -23,7 +24,7 @@ public class VueCollectible {
     }
 
     public ImageView switchImageCollectible(Collectible c) {
-        Image img = new Image("file:src/main/resources/com/example/zeldasae/assets/" + c.getType() + ".png");
+        Image img = new Image(Main.class.getResourceAsStream("assets/" + c.getType() + ".png"));
         ImageView imageView = new ImageView(img);
         imageView.setId(c.getNom());
         imageView.setTranslateX(c.getHitBox().getX());

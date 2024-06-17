@@ -1,5 +1,6 @@
 package com.example.zeldasae.Vue;
 
+import com.example.zeldasae.Main;
 import com.example.zeldasae.modele.collectibles.BombeCollectible;
 import com.example.zeldasae.modele.collectibles.Collectible;
 import com.example.zeldasae.modele.Monde;
@@ -29,8 +30,8 @@ public class VueTerrain {
         this.m2 = m2;
         map.setMap(m1);
 
-        Image tileset = new Image("file:src/main/resources/com/example/zeldasae/assets/tiles.png", 1680, 690, false, false);
-        Image fog = new Image("file:src/main/resources/com/example/zeldasae/assets/fog.png");
+        Image tileset = new Image(Main.class.getResourceAsStream("assets/tiles.png"), 1680, 690, false, false);
+        Image fog = new Image(Main.class.getResourceAsStream("assets/fog.png"));
 
         int tileWidth = 30;
         int tileHeight = 30;

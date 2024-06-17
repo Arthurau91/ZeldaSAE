@@ -1,6 +1,7 @@
 package com.example.zeldasae.controller;
 
 import com.example.zeldasae.Algo.BFS;
+import com.example.zeldasae.Main;
 import com.example.zeldasae.Vue.VueArmes.CreateurVueArme;
 import com.example.zeldasae.Vue.*;
 import com.example.zeldasae.Vue.VuesEntites.VueJoueur;
@@ -87,7 +88,7 @@ public class Controller implements Initializable {
         resetButton.setDisable(false);
         resetButton.setVisible(true);
         fenetre.getChildren().add(resetButton);
-        fond = new ImageView(new Image("file:src/main/resources/com/example/zeldasae/assets/fond.png", 1200, 1000, false, false));
+        fond = new ImageView(new Image(Main.class.getResourceAsStream("assets/fond.png"), 1200, 1000, false, false));
         fenetre.getChildren().add(fond);
         fenetre.getChildren().add(labelMort);
         fenetre.getChildren().add(labelHelp);
@@ -100,7 +101,7 @@ public class Controller implements Initializable {
 
     private void lancementJeu(){
         this.temps = new SimpleIntegerProperty(0);
-        LoadJSON loadJSON = new LoadJSON("src/main/resources/com/example/zeldasae/assets/map.json");
+        LoadJSON loadJSON = new LoadJSON("assets/map.json");
         this.mapPane.setPrefColumns(loadJSON.getPrefColumns());
         this.mapPane.setPrefRows(loadJSON.getPrefRows());
         this.mapPane.setPrefWidth(this.mapPane.getPrefTileWidth()*this.mapPane.getPrefColumns());
