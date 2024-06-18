@@ -53,7 +53,7 @@ public class VueProjectile {
                 image.setFitHeight(30);
                 break;
             case "ProjectileMagique":
-                image = new ImageView(new Image(Main.class.getResourceAsStream("assets/ProjectileMagique.png")));
+                image = new ImageView(new Image(Main.class.getResourceAsStream("assets/projectileMagique.png")));
                 image.setFitWidth(30);
                 image.setFitHeight(30);
                 if (p.getDirection().equals("RIGHT"))
